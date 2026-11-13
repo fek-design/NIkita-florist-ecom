@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lo-fi wireframes</title>
+<link rel="stylesheet" href="wf.css">
+</head>
+<body>
+<nav class="nav"><a href="index.html" aria-current="page">Overview</a><a href="a-dato-forst.html">A · Dato først</a><a href="b-butiksvinduet.html">B · Butiksvinduet</a><a href="c-anledninger.html">C · Anledninger</a><a href="d-back-office.html">D · Back office</a></nav>
+<header class="page-head">
+  <h1>Lo-fi wireframes: three directions</h1>
+  <p>Five key screens each (home, category, product, cart, checkout) at 390 px, mobile first (P1). Greyscale on purpose: these compare structure and flow, not looks. Screen copy is Danish placeholder text; prices, products and shop details are invented placeholders until the owner interview.</p>
+  <p>Draft 1, 2026-11-11. Process note: <code>docs/process/2026-11-11-lofi-wireframes.md</code>.</p>
+</header>
+
+<div class="section"><div class="cards3">
+  <a class="dir" href="a-dato-forst.html"><b>A · Dato først</b><span class="muted">Date and postcode before browsing. Lists show only what can arrive.</span><span>Best for: gift sender in a hurry.</span></a>
+  <a class="dir" href="b-butiksvinduet.html"><b>B · Butiksvinduet</b><span class="muted">Photo-led, like the shop's Instagram. Date check on the product page.</span><span>Best for: Instagram visitor, local regular.</span></a>
+  <a class="dir" href="c-anledninger.html"><b>C · Anledninger</b><span class="muted">Start from the occasion. Factual occasion pages, church delivery built in.</span><span>Best for: occasion buyer, SEO/GEO.</span></a>
+</div></div>
+
+<div class="section compare">
+<h2>How they differ</h2>
+<table>
+  <tr><th></th><th>A · Dato først</th><th>B · Butiksvinduet</th><th>C · Anledninger</th></tr>
+  <tr><td>First question</td><td>When and where?</td><td>Which bouquet?</td><td>What is the occasion?</td></tr>
+  <tr><td>Date chosen</td><td>Home, before browsing</td><td>Product page</td><td>Product page, with delivery target</td></tr>
+  <tr><td>Category layout</td><td>2-column grid, filtered by date</td><td>1 column, large photos</td><td>Occasion guide + grid + FAQ</td></tr>
+  <tr><td>Checkout</td><td>One page</td><td>Three steps</td><td>One page, fields adapt to target</td></tr>
+  <tr><td>Strongest principle</td><td>P2, P3</td><td>P6, P11</td><td>P10, P8</td></tr>
+  <tr><td>Main risk</td><td>Extra step before seeing flowers</td><td>Date constraint met late</td><td>Needs owner-written content per occasion</td></tr>
+  <tr><td>Owner content needed</td><td>Low</td><td>Low (but strong photos)</td><td>High</td></tr>
+</table>
+<p class="muted" style="margin-top:8px">The directions can be mixed: e.g. B's home with A's pinned date bar, or C's occasion pages as SEO landing pages inside A or B.</p>
+</div>
+
+<div class="section">
+<h2>The owner's side</h2>
+<div class="cards3">
+  <a class="dir" href="d-back-office.html"><b>D · Back office</b><span class="muted">Seven phone screens in the order of her day: log ind, ordrer i dag, ordre, produkter, ret produkt, buketter &amp; kapacitet, salg. The same for A, B and C.</span><span>For: the florist, between two bouquets.</span></a>
+  <div class="dir"><b>"Hjemmesiden tager telefonen for dig."</b><span class="muted">Her main sale today is a phone call: occasion + budget, she designs. A web order asks the same questions, is paid up front, and waits until her hands are free. The back office must take less time than the calls it replaces.</span></div>
+</div>
+<h3 class="h3" style="margin-top:14px">Questions for the owner about the back office</h3>
+<ul>
+  <li>Budget bouquets, a catalogue of fixed bouquets, or both? (Decides how much of screens 4–6 she maintains.)</li>
+  <li>Does she want a sale price (tilbudspris) per product? Discount codes are out of scope.</li>
+  <li>Does anyone else use the admin (staff, a courier)?</li>
+  <li>How should new orders reach her: email only, or also SMS/push?</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Needed before the next fidelity step</h2>
+<p class="muted">Lo-fi needs nothing from the brand guide. These are what the mid-fi wireframes and the owner review need.</p>
+<h3 class="h3" style="margin-top:10px">From the owner (content and rules)</h3>
+<ul>
+  <li>Product range: categories, rough count, sizes and price levels; which items are perishable</li>
+  <li>Occasions she actually sells for (and whether funeral work is a big part)</li>
+  <li>Delivery: area (postcodes), fee(s), cut-off time, delivery window, closed days, church/chapel delivery</li>
+  <li>Pickup: yes/no, hours</li>
+  <li>Add-ons sold (vases, cards, chocolate)?</li>
+  <li>Real shop details as approved: name, address, CVR, phone, email, opening hours</li>
+  <li>Does she want phone calls from customers?</li>
+</ul>
+<h3 class="h3" style="margin-top:10px">From the brand guide (change <code>establish-brand-identity</code>)</h3>
+<ul>
+  <li>Page ground: white or paper (decision 5)</li>
+  <li>Colour roles: which token for text, buttons, bands, footer; the allowed pairings with contrast</li>
+  <li>Heading and body typefaces, with the type scale (5–7 steps) for 390 px</li>
+  <li>Logo use on the site: which file of the existing logo, minimum size in the header, the phone line removed or hidden</li>
+  <li>Imagery direction: photo ratio (4:5 or 1:1), background, one consistent style</li>
+  <li>Spacing and radius scale, button style (filled ink, radius)</li>
+  <li>Voice: a few rules and sample lines in Danish (headings, buttons, errors)</li>
+</ul>
+</div>
+</body>
+</html>
