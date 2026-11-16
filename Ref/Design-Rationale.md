@@ -183,9 +183,9 @@ The national networks set customer expectations. Figures below come from third-p
 |---|---|---|
 | `brand-identity` | Structure for the brand system (P11) | Assumes a brand direction exists. We get that from the owner |
 | `design-taste-frontend` (taste-skill) | Anti-generic layout and copy rules, copy-lint, layout checker and finish gate (P1, P7, P9) | Its demo-site rules are overridden (CLAUDE.md 1–4) |
-| `redesign-screen`, `search` (Mobbin) | Evidence from real apps when reworking one screen, e.g. checkout (P2–P5) | Needs a paid Mobbin plan. A reference gives structure, never the look |
-| `plain-writing` (Mobbin) | Plain report language | Scoped to Mobbin skills by its own rules |
 | `brand-guidelines` | Format model for our future florist brand-guidelines skill | Contains Anthropic's brand. Never applied |
+
+The Mobbin skills (`redesign-screen`, `search`, `best-practices`, `plain-writing`) were removed on 2026-11-11: no paid plan. See [the skill curation note](../docs/process/2026-11-10-skill-curation.md).
 
 ---
 

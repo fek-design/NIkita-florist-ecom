@@ -80,6 +80,12 @@ AI writes most of the code and drafts. A human owns every decision and every mer
 
 Feature freeze is the end of week 4. Weeks 5 and 6 add no new features.
 
+**Skill checkups** (the gate process in [CLAUDE.md, Skill policy](../CLAUDE.md), at phase boundaries only):
+- 10 Nov: design phase, first checkup (change `prepare-design-workflow`)
+- 16 Nov: build (start of week 2)
+- 23 Nov: checkout and payment (start of week 3)
+- 7 Dec: hardening (start of week 5)
+
 ---
 
 ### Week 1: Discovery and foundation (10–15 Nov)
