@@ -1,0 +1,11 @@
+/* Placeholder until the brand tokens from change brand-identity land. */
+:root {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f7f4ef;
+  color: #2d2a26;
+}
