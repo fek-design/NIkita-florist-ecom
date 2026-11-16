@@ -40,14 +40,16 @@ Download the variable TTFs from the Google Fonts repository, subset them to Lati
 *Alternative rejected:* the Google Fonts CDN. It sends visitor IP addresses to a third party, which adds a GDPR question for no gain.
 
 ### 4. Palette comes from Felix and the owner
-Felix supplied the palette on 16 Nov 2026 in `ref/COLORS.png`. It is built on the owner's liking for paper as the background, and is used at roughly 60/30/10:
+Felix supplied the palette on 16 Nov 2026 in `ref/COLORS.png`. It is built on the owner's liking for paper as the background. Paper is the ground and sits outside the ratio. The colour placed on it is split roughly 60/30/10 between Linen, Sand and Ink (Felix, 16 Nov):
 
-| Token | Hex | Role | Share |
+| Token | Hex | Role | Share of colour on the ground |
 |---|---|---|---|
-| Paper | `#F7F4EF` | Page background | about 60% |
-| Linen | `#DCD4D1` | Secondary surfaces: cards, bands, footer | about 30% |
-| Sand | `#7A644F` | Accent: logo, buttons, links | about 10% |
-| Ink | `#2D2A26` | Text | text only |
+| Paper | `#F7F4EF` | Page background (the ground) | outside the ratio |
+| Linen | `#DCD4D1` | Main surfaces: cards, bands, panels | about 60% |
+| Sand | `#7A644F` | Secondary: logo, feature bands, footer, buttons | about 30% |
+| Ink | `#2D2A26` | Text and the strongest accents | about 10% |
+
+Because Sand now covers large surfaces, text on Sand is Paper (about 5.1:1). Linen on Sand (about 3.8:1) is for large text only.
 
 The sheet also shows four tint steps of each of Linen, Sand and Ink. They become tokens only where a component needs them.
 
