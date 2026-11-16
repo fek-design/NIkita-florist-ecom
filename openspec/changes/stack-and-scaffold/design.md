@@ -57,7 +57,7 @@ Feature branches merge into `DevEnv` through a pull request so the checks can ga
 - [The repository sits in a cloud-storage folder; installing thousands of dependency files there can be slow or trigger sync conflicts] → the first task moves the repository to a plain local folder, or confirms that the folder is excluded from sync.
 - [MobilePay is not available through Stripe for this merchant] → verified first, with Quickpay as the named fallback.
 - [Vercel and Neon are US companies with EU regions] → regions are pinned to the EU, the agreements are filed, and the choice is recorded for the GDPR data map in week 5.
-- [Live payment approval is slow] → the application is sent in this change, in parallel with the scaffold.
+- [Accounts are opened in Felix's name but the shop is the owner's] → each account is set up so it can be transferred, and the transfer steps go in the week 6 go-live guide.
 - [The scaffold tempts early feature work] → this change ends at an empty app with a health page.
 
 ## Migration Plan
@@ -66,4 +66,4 @@ Nothing is live, so there is nothing to migrate. Rollback is deleting the featur
 
 ## Open Questions
 
-- Which domain will the shop use? It is needed for the production deploy and the sending domain, but not for this change.
+- The shop's own domain is not needed within the project (interview, 16 Nov). Production deploys to the hosting provider's default domain until the owner goes live.

@@ -1,6 +1,8 @@
 ## Why
 
-Week 2 of the roadmap needs a running app: products browsable, a cart, and an admin the owner can use. There is no app yet, and none of the six stack decisions in `ref/Roadmap.md` is locked. Payment-provider approval also takes time and is needed in week 3, so the application has to go in now.
+Week 2 of the roadmap needs a running app: products browsable, a cart, and an admin the owner can use. There is no app yet, and none of the six stack decisions in `ref/Roadmap.md` is locked.
+
+The owner interview (16 Nov) settled that the shop will not go live within the project: the result is a finished package she takes into use later. Test-mode payment is enough, and no own domain is needed now ([interview notes](../../../docs/process/2026-11-16-owner-interview.md)).
 
 ## What Changes
 
@@ -15,7 +17,7 @@ Week 2 of the roadmap needs a running app: products browsable, a cart, and an ad
 - **Continuous integration** on every pull request into `DevEnv`: lint, type check, unit tests and build.
 - **Automatic deploys:** a preview URL for every feature branch, a staging deploy from `DevEnv`, and production from `main`.
 - **Database connection** proven end to end with one empty migration and a health page. The product and order tables are not part of this change.
-- **Open the accounts** (hosting, database, payment in test mode, email) and apply for the live payment account with the owner's CVR and bank details.
+- **Open the accounts** (hosting, database, payment in test mode, email) in a way the owner can take over later.
 
 Out of scope: the data model, any storefront or admin screen, the brand tokens (they come from `brand-identity`), and real payment or email code.
 

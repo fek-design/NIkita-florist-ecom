@@ -27,7 +27,7 @@
 
 ## 5. Accounts and records
 
-- [ ] 5.1 Felix and the owner apply for the live payment account with the CVR number and bank details; verify the application date is recorded
+- [ ] 5.1 Record for each account (hosting, database, payment, email) how ownership moves to the owner later; verify the steps are listed for the week 6 go-live guide
 - [ ] 5.2 Check the email provider's EU data handling and sending-domain setup, and open the account; verify the result is in the decision log
 - [ ] 5.3 Save or link the data processing agreement for hosting, database, payment and email in `docs/`; verify all four are listed
 - [ ] 5.4 Update `CLAUDE.md` with the run, test and build commands and the pull-request rule from design decision 9; verify the commands work as written
