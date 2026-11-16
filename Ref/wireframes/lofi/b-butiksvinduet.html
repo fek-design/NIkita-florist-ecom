@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lo-fi B: Butiksvinduet</title>
+<link rel="stylesheet" href="wf.css">
+</head>
+<body>
+<nav class="nav"><a href="index.html">Overview</a><a href="a-dato-forst.html">A · Dato først</a><a href="b-butiksvinduet.html" aria-current="page">B · Butiksvinduet</a><a href="c-anledninger.html">C · Anledninger</a><a href="d-back-office.html">D · Back office</a></nav>
+<header class="page-head">
+  <h1>B · Butiksvinduet (the shop window)</h1>
+  <p>Photos lead, as on the shop's Instagram today. The visitor browses freely, then picks the date and checks the postcode on the product page, before the cart. Checkout is three short steps.</p>
+  <p>Strong for visitors arriving from an Instagram post and for the local regular. Risk: the delivery constraint is met later, so a visitor can fall for a bouquet that cannot arrive in time. The product page has to catch that early.</p>
+  <div class="tags"><span class="tag">P6 photos are the product</span><span class="tag">P2 date on product page</span><span class="tag">P11 brand from the shop</span><span class="tag">P3</span><span class="tag">P5</span></div>
+</header>
+
+<main class="screens">
+
+<!-- HOME -->
+<section class="screen"><h2>1 · Forside</h2>
+<div class="phone">
+  <div class="bar"><span class="icon">☰</span><span class="logo">Logo (eksisterende)</span><span class="cart-ico">Kurv 0</span></div>
+  <div class="sticky"><span>Bestil inden kl. 12 · levering i dag i Holbæk</span></div>
+  <div class="img wide" style="border-left:0;border-right:0"><span>stort foto: ugens buket</span></div>
+  <div class="body">
+    <div class="h2">Ugens buket</div>
+    <div class="muted">Kort tekst fra Nikita om ugens blomster.</div>
+    <button class="btn primary">Se buketten · fra 449 kr.</button>
+    <div class="hr"></div>
+    <div class="h3">Alle buketter</div>
+    <div class="grid2">
+      <div class="card"><div class="img"><span>foto</span></div><b>Buket navn</b><span class="price">fra 349 kr.</span></div>
+      <div class="card"><div class="img"><span>foto</span></div><b>Buket navn</b><span class="price">fra 399 kr.</span></div>
+      <div class="card"><div class="img"><span>foto</span></div><b>Buket navn</b><span class="price">fra 449 kr.</span></div>
+      <div class="card"><div class="img"><span>foto</span></div><b>Plante navn</b><span class="price">fra 249 kr.</span></div>
+    </div>
+    <button class="btn">Se alle</button>
+    <div class="grid2"><div class="img sq"><span>butikken</span></div><div class="card"><b>Besøg butikken</b><span class="muted">[adresse], Holbæk<br>Åbent [tider]</span><a href="#">Følg os på Instagram</a></div></div>
+  </div>
+  <div class="foot"><span>Nikita Nielsen · Blomsterdekoratør</span><span>[adresse], 4300 Holbæk · CVR [nr.] · Tlf. [nr.]</span></div>
+</div>
+<div class="notes">
+  <div class="note">Hero is the owner's photo, not a stand-in at launch (P6, CLAUDE.md rule 4). No carousel, no autoplay (P7).</div>
+  <div class="note">Cut-off shown site-wide in a thin bar, so the date constraint is never hidden (P2).</div>
+  <div class="note">Shop photo and opening hours carry local trust (P8).</div>
+</div>
+</section>
+
+<!-- CATEGORY -->
+<section class="screen"><h2>2 · Kategori</h2>
+<div class="phone">
+  <div class="bar"><span class="icon">←</span><span class="logo">Logo</span><span class="cart-ico">Kurv 0</span></div>
+  <div class="body">
+    <div class="h2">Buketter</div>
+    <div class="chips"><span class="chip on">Alle</span><span class="chip">Under 400 kr.</span><span class="chip">Kan leveres i dag</span></div>
+    <div class="card"><div class="img wide"><span>stort foto</span></div><div class="row"><b>Buket navn</b><span class="price">fra 349 kr.</span></div><span class="muted">Kan leveres i dag</span></div>
+    <div class="card"><div class="img wide"><span>stort foto</span></div><div class="row"><b>Buket navn</b><span class="price">fra 449 kr.</span></div><span class="muted">Kan leveres fra i morgen</span></div>
+    <div class="card"><div class="img wide"><span>stort foto</span></div><div class="row"><b>Buket navn</b><span class="price">fra 599 kr.</span></div><span class="badge">Udsolgt i dag</span></div>
+  </div>
+</div>
+<div class="notes">
+  <div class="note">One column, large photos: the look of the flowers sells (P6). Costs more scrolling than A's grid.</div>
+  <div class="note">Earliest delivery day under every card, so the date is visible before the product page (P2).</div>
+</div>
+</section>
+
+<!-- PRODUCT -->
+<section class="screen"><h2>3 · Produkt</h2>
+<div class="phone">
+  <div class="bar"><span class="icon">←</span><span class="logo">Logo</span><span class="cart-ico">Kurv 0</span></div>
+  <div class="img" style="border-left:0;border-right:0"><span>fuld bredde foto, swipe</span></div>
+  <div class="body">
+    <div class="dots"><i></i><i></i><i></i></div>
+    <div class="row"><span class="h2">Buket navn</span><span class="price">fra 349 kr.</span></div>
+    <div class="muted">Sæsonens blomster i varme toner. Mellem er ca. 40 cm høj.</div>
+    <div class="seg"><span>Lille 349</span><span class="on">Mellem 449</span><span>Stor 599</span></div>
+    <div class="h3">Hvornår skal den frem?</div>
+    <div class="cal">
+      <span class="dow">ma</span><span class="dow">ti</span><span class="dow">on</span><span class="dow">to</span><span class="dow">fr</span><span class="dow">lø</span><span class="dow">sø</span>
+      <span class="off">10</span><span class="off">11</span><span>12</span><span>13</span><span class="on">14</span><span>15</span><span class="off">16</span>
+      <span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span class="off">23</span>
+    </div>
+    <div class="muted">Søndag lukket. Overstregede dage kan ikke leveres.</div>
+    <div class="grid2"><div class="field"><label>Postnummer</label><div class="input">4300</div></div><div class="field"><label>&nbsp;</label><button class="btn">Tjek levering</button></div></div>
+    <div class="box"><b>✓ Vi leverer til 4300 fre. 14. nov. · 59 kr.</b><span class="muted">Eller afhent gratis i butikken.</span></div>
+    <div class="field"><label>Kort med besked (gratis)</label><div class="input area">Skriv en hilsen …</div></div>
+    <button class="btn primary">Læg i kurv</button>
+  </div>
+</div>
+<div class="notes">
+  <div class="note">Date and postcode check live on the product page, before the cart (P2, P3). Closed days crossed out with a reason in text (P9).</div>
+  <div class="note">Out-of-area result offers pickup instead of an error (P3).</div>
+</div>
+</section>
+
+<!-- CART -->
+<section class="screen"><h2>4 · Kurv</h2>
+<div class="phone">
+  <div class="bar"><span class="icon">←</span><span class="logo">Logo</span><span class="cart-ico">Kurv 1</span></div>
+  <div class="body">
+    <div class="h2">Din kurv</div>
+    <div class="box">
+      <div style="display:grid;grid-template-columns:72px 1fr;gap:10px">
+        <div class="img sq"><span>foto</span></div>
+        <div class="card"><b>Buket navn · mellem</b><span class="muted">Fre. 14. nov. · levering til 4300</span><span class="muted">Kort: "Tillykke …"</span><span class="price">449 kr.</span></div>
+      </div>
+    </div>
+    <div class="h3">Gør gaven komplet</div>
+    <div class="grid2">
+      <div class="card"><div class="img sq"><span>vase</span></div><b>Vase</b><span class="price">149 kr.</span><span class="muted">14 dages fortrydelsesret</span></div>
+      <div class="card"><div class="img sq"><span>chokolade</span></div><b>Chokolade</b><span class="price">79 kr.</span></div>
+    </div>
+    <div class="row"><span>Varer</span><span>449 kr.</span></div>
+    <div class="row"><span>Levering</span><span>59 kr.</span></div>
+    <div class="row total"><span>I alt inkl. moms</span><span>508 kr.</span></div>
+    <button class="btn primary">Gå til betaling</button>
+  </div>
+</div>
+<div class="notes">
+  <div class="note">Add-ons are optional and quiet; only if the owner sells them. Non-perishables keep the 14-day right (P12).</div>
+</div>
+</section>
+
+<!-- CHECKOUT -->
+<section class="screen"><h2>5 · Betaling (3 trin)</h2>
+<div class="phone">
+  <div class="bar"><span class="icon">←</span><span class="logo">Logo</span><span class="muted">Sikker betaling</span></div>
+  <div class="body">
+    <div class="step"><span class="on">1 Levering</span><span>2 Dine oplysninger</span><span>3 Betal</span></div>
+    <div class="seg"><span class="on">Levering</span><span>Afhent i butikken</span></div>
+    <div class="box"><div class="row"><span>Fre. 14. nov. · kl. 9–16</span><a href="#">Ændr</a></div></div>
+    <div class="field"><label>Modtagers navn</label><div class="input"></div></div>
+    <div class="field"><label>Adresse</label><div class="input"></div></div>
+    <div class="grid2"><div class="field"><label>Postnr.</label><div class="input">4300</div></div><div class="field"><label>By</label><div class="input">Holbæk</div></div></div>
+    <div class="field"><label>Modtagers telefon (til buddet)</label><div class="input"></div></div>
+    <div class="field"><label>Besked til buddet (valgfri)</label><div class="input">Fx "stil ved bagdøren"</div></div>
+    <div class="row total"><span>I alt inkl. moms</span><span>508 kr.</span></div>
+    <button class="btn primary">Fortsæt</button>
+    <div class="muted">Trin 3: MobilePay eller kort · fortrydelsesret-tekst · Betal 508 kr.</div>
+  </div>
+</div>
+<div class="notes">
+  <div class="note">Steps keep each screen short on a small phone (P1). Total stays visible on every step (P3).</div>
+  <div class="note">Compare with A's single page in testing: fewer screens vs shorter screens.</div>
+</div>
+</section>
+
+</main>
+</body>
+</html>
