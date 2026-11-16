@@ -12,10 +12,28 @@ API-driven full-stack webshop for a local Danish florist that today sells only t
 - `DevEnv` is the integration branch. Never commit work directly to it.
 - **One branch per piece of work.** Before starting a feature, fix or OpenSpec change, create a branch off the latest `DevEnv`, named after the work: `feature/<slug>`, `fix/<slug>`, `docs/<slug>` (for example `feature/brand-identity`, `feature/cart`). For an OpenSpec change, use the change name as the slug.
 - **Push the branch on its first commit** (`git push -u origin <branch>`), then commit and push after every finished task and before every session ends. Unpushed work does not count as saved.
-- **Merge into `DevEnv` only when the work is finished and working**: tests and checks pass, and it has been verified in the running app where that applies. Merge with `--no-ff`, push `DevEnv`, then delete the feature branch locally and on the remote.
+- **Merge into `DevEnv` only when the work is finished and working**: tests and checks pass, and it has been verified in the running app where that applies. Merge through a pull request into `DevEnv` once CI is green, then delete the feature branch locally and on the remote. Docs-only branches with no app code may still be merged locally with `--no-ff`.
 - At the start of a session, run `git status` and `git fetch`, and say so if anything is uncommitted, unpushed or behind the remote.
 - Never use `git reset --hard`, force-push or delete an unmerged branch without Felix's explicit go-ahead.
 - `main` receives release merges only, each from `DevEnv` and tagged (`v0.1`, `v0.2`, …). Never commit to `main` directly.
+
+## App
+
+Next.js 16 (App Router, TypeScript) in the repository root. This Next.js version differs from older training data: read the guide in `node_modules/next/dist/docs/` before using an API (see `AGENTS.md`). Stack decisions and the reason for every dependency: [docs/decisions.md](docs/decisions.md).
+
+First run: `npm ci`, `cp .env.example .env.local`, `docker compose up -d` (local Postgres), `npm run db:migrate`.
+
+| Command | Does |
+|---|---|
+| `npm run dev` | Dev server on http://localhost:3000/ |
+| `npm run lint` / `npm run format` | ESLint / Prettier (write) |
+| `npm run typecheck` | Generates route types, then `tsc` |
+| `npm test` | Vitest unit tests (`src/**/*.test.ts`) |
+| `npm run test:e2e` | Playwright on a phone viewport (`e2e/`) |
+| `npm run build` | Production build (needs no secrets) |
+| `npm run db:generate` / `npm run db:migrate` | Create / apply SQL migrations in `drizzle/` |
+
+CI (`.github/workflows/ci.yml`) runs lint, format check, typecheck, unit tests and build on every push and pull request. Money is always whole øre (`src/lib/money.ts`). New environment variables go in both `src/env.ts` and `.env.example`.
 
 ## Process log (required)
 

@@ -1,5 +1,7 @@
 ## Context
 
+Process note: [docs/process/2026-11-16-stack-and-scaffold.md](../../../docs/process/2026-11-16-stack-and-scaffold.md). Decision log: [docs/decisions.md](../../../docs/decisions.md).
+
 See proposal.md for motivation. The repository holds documents, wireframes and OpenSpec changes only. The machine has Node 22 and npm 10; no pnpm. `ref/Roadmap.md` lists recommended choices, each with a check to make before committing. `CLAUDE.md` override 2 requires a dynamic app with server routes, not a static export. Felix must be able to explain every line at the exam (roadmap rule 3), which favours a small, conventional stack.
 
 ## Goals / Non-Goals
