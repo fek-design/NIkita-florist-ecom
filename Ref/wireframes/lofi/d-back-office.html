@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lo-fi D: Back office</title>
+<link rel="stylesheet" href="wf.css">
+</head>
+<body>
+<nav class="nav"><a href="index.html">Overview</a><a href="a-dato-forst.html">A · Dato først</a><a href="b-butiksvinduet.html">B · Butiksvinduet</a><a href="c-anledninger.html">C · Anledninger</a><a href="d-back-office.html" aria-current="page">D · Back office</a></nav>
+<header class="page-head">
+  <h1>D · Back office (the owner's side)</h1>
+  <p>What the florist sees, on her phone, between two bouquets. The same for all three storefront directions. The screens follow her day: orders first, then product upkeep, then settings and sales.</p>
+  <p><b>Works for both product models.</b> Fixed bouquets live in screens 4–5. "Buket efter budget" (her phone sale: occasion + budget, she designs) lives in screen 6. The notes say what drops out if the storefront ends up with only one of them.</p>
+  <p>The test for every screen: does it take less of her time than the phone call it replaces? Time costs are in the notes.</p>
+  <div class="tags"><span class="tag">P1 mobile</span><span class="tag">P2 date first</span><span class="tag">P4 minimal data</span><span class="tag">P9 sold out in words</span><span class="tag">Roadmap wk 2 + 4 admin</span></div>
+</header>
+
+<main class="screens">
+
+<!-- 1 LOGIN -->
+<section class="screen"><h2>1 · Log ind</h2>
+<div class="phone">
+  <div class="bar"><span class="logo">Logo · Admin</span><span class="muted">Kun for butikken</span></div>
+  <div class="body">
+    <div class="h2">Log ind</div>
+    <div class="field"><label>E-mail</label><div class="input">nikita@[domæne].dk</div></div>
+    <div class="field"><label>Adgangskode</label><div class="input">••••••••</div></div>
+    <button class="btn primary">Fortsæt</button>
+    <div class="hr"></div>
+    <div class="h3">Trin 2 af 2: bekræft det er dig</div>
+    <div class="box">
+      <div class="muted">Brug Face ID / fingeraftryk (passkey) — eller indtast koden fra din app</div>
+      <div class="grid3"><div class="input" style="text-align:center">4</div><div class="input" style="text-align:center">7</div><div class="input" style="text-align:center">·</div></div>
+    </div>
+    <button class="btn primary">Log ind</button>
+    <div class="tog-row"><span>Husk denne telefon i 30 dage</span><span class="tog on"></span></div>
+  </div>
+</div>
+<div class="notes">
+  <div class="note">Second factor before any shop data (spec: protected sign-in; roadmap wk 5 OWASP). Passkey = one touch on her own phone.</div>
+  <div class="note">No link to admin from the storefront. Not signed in → this screen, nothing else.</div>
+  <div class="note">Time: ~5 s with passkey, once a month if "husk telefon" is on. <i>Opinion</i>: 30 days, to be agreed with her.</div>
+</div>
+</section>
+
+<!-- 2 ORDERS TODAY -->
+<section class="screen"><h2>2 · Ordrer (i dag)</h2>
+<div class="phone">
+  <div class="bar"><span class="logo">Logo · Admin</span><span class="cart-ico">3 nye</span></div>
+  <div class="body">
+    <div class="h2">God morgen, Nikita</div>
+    <div class="chips"><span class="chip on">I dag · 5</span><span class="chip">I morgen · 3</span><span class="chip">Senere · 7</span></div>
+    <div class="day">I dag · tor. 13. nov.</div>
+    <div class="list">
+      <div class="li"><span class="time">9–12</span><span><b>Buket efter budget · 450 kr.</b><span class="muted">Levering · 4300 · Fødselsdag</span></span><span class="badge">Ny</span></div>
+      <div class="li"><span class="time">9–12</span><span><b>Buket navn · mellem</b><span class="muted">Levering · 4300</span></span><span class="badge">I gang</span></div>
+      <div class="li"><span class="time">11</span><span><b>Bårebuket · 600 kr.</b><span class="muted">Kirke · Sct. Nikolai</span></span><span class="badge">Klar</span></div>
+      <div class="li"><span class="time">14–16</span><span><b>Buket efter budget · 300 kr.</b><span class="muted">Afhentning i butikken</span></span><span class="badge">Ny</span></div>
+      <div class="li"><span class="time">14–16</span><span><b>Buket navn · lille</b><span class="muted">Levering · 4390</span></span><span class="badge">Ny</span></div>
+    </div>
+    <div class="day">I morgen · fre. 14. nov.</div>
+    <div class="list">
+      <div class="li"><span class="time">9–12</span><span><b>Buket efter budget · 600 kr.</b><span class="muted">Levering · 4300</span></span><span class="badge">Ny</span></div>
+    </div>
+    <div class="muted">Kapacitet i dag: 5 af 8 · I morgen: 3 af 8</div>
+  </div>
+  <div class="tabbar"><span class="on">Ordrer</span><span>Produkter</span><span>Butik</span><span>Salg</span></div>
+</div>
+<div class="notes">
+  <div class="note">Sorted by delivery date and window, not order time (spec: orders sorted by delivery date; P2). Today first, then tomorrow.</div>
+  <div class="note">Each row: window, delivery/pickup/church, product or budget tier, status. Capacity line shows how full the day is.</div>
+  <div class="note">Bottom tab bar: the 4 places she uses daily, in thumb reach (P1, design decision 6).</div>
+  <div class="note">Time: one look in the morning replaces the calls and DMs she keeps in her head today.</div>
+</div>
+</section>
+
+<!-- 3 ORDER DETAIL -->
+<section class="screen"><h2>3 · Ordre</h2>
+<div class="phone">
+  <div class="bar"><span class="icon">←</span><span class="logo">Ordre #1042</span><span class="muted">Betalt</span></div>
+  <div class="body">
+    <div class="seg"><span>Ny</span><span class="on">I gang</span><span>Klar / ude</span><span>Leveret</span></div>
+    <div class="box">
+      <div class="h3">Buket efter budget · 450 kr.</div>
+      <div class="muted">Anledning: Fødselsdag · Farver: varme, gerne orange · "Hun elsker ranunkler"</div>
+    </div>
+    <div class="box">
+      <div class="h3">Kortet</div>
+      <div>"Tillykke med de 60, mor! Kærlig hilsen Anne og Jens"</div>
+    </div>
+    <div class="box">
+      <div class="row"><span><b>Levering</b> tor. 13. nov. · 9–12</span></div>
+      <div class="muted">Modtager: [navn] · [adresse], 4300 Holbæk · Tlf. [nr.]</div>
+      <div class="muted">Bestilt af: [navn] · [e-mail] · [tlf.]</div>
+    </div>
+    <div class="row"><span>Buket</span><span>450 kr.</span></div>
+    <div class="row"><span>Levering</span><span>59 kr.</span></div>
+    <div class="row total"><span>Betalt (MobilePay)</span><span>509 kr.</span></div>
+    <div class="grid2"><button class="btn">Print seddel</button><button class="btn">Ring til kunden</button></div>
+  </div>
+  <div class="tabbar"><span class="on">Ordrer</span><span>Produkter</span><span>Butik</span><span>Salg</span></div>
+</div>
+<div class="notes">
+  <div class="note">Status is one tap on the segmented bar (spec: order handling). The customer gets an email on "Klar / ude" — to agree with her.</div>
+  <div class="note">Card message shown in full and on the slip: recipient, address, date, window, card (spec: printing a slip; roadmap wk 4).</div>
+  <div class="note">Only the data needed to make and deliver it (P4). Budget orders show the wishes she would have asked for on the phone.</div>
+  <div class="note">Time: read + 1 tap. Refunds go through the payment provider's dashboard (roadmap cut list).</div>
+</div>
+</section>
+
+<!-- 4 PRODUCTS -->
+<section class="screen"><h2>4 · Produkter</h2>
+<div class="phone">
+  <div class="bar"><span class="logo">Logo · Admin</span><span class="cart-ico">+ Ny</span></div>
+  <div class="body">
+    <div class="chips"><span class="chip on">Alle · 14</span><span class="chip">Buketter</span><span class="chip">Bisættelse</span><span class="chip">Jul</span><span class="chip">+ Kategori</span></div>
+    <div class="muted" style="display:flex;justify-content:space-between"><span>Produkt</span><span>Udsolgt · Vis</span></div>
+    <div class="list">
+      <div class="li"><div class="img"><span>foto</span></div><span><b>Buket navn</b><span class="muted">fra 349 kr. · Buketter</span></span><span style="display:flex;gap:6px"><span class="tog"></span><span class="tog on"></span></span></div>
+      <div class="li"><div class="img"><span>foto</span></div><span><b>Buket navn</b><span class="muted">fra 449 kr. · Buketter</span></span><span style="display:flex;gap:6px"><span class="tog on"></span><span class="tog on"></span></span></div>
+      <div class="li"><div class="img"><span>foto</span></div><span><b>Bårebuket</b><span class="muted">fra 500 kr. · Bisættelse</span></span><span style="display:flex;gap:6px"><span class="tog"></span><span class="tog on"></span></span></div>
+      <div class="li"><div class="img"><span>foto</span></div><span><b>Juledekoration</b><span class="muted">299 kr. · Jul · skjult</span></span><span style="display:flex;gap:6px"><span class="tog"></span><span class="tog"></span></span></div>
+    </div>
+    <div class="muted">Træk i en kategori for at ændre rækkefølgen · Hold på en kategori for at omdøbe eller skjule</div>
+  </div>
+  <div class="tabbar"><span>Ordrer</span><span class="on">Produkter</span><span>Butik</span><span>Salg</span></div>
+</div>
+<div class="notes">
+  <div class="note">Sold out and hidden are one-tap toggles in the list, no need to open the product (spec: quick upkeep). The shop then says "Udsolgt" in words (P9).</div>
+  <div class="note">Categories: add, rename, reorder, hide from the chip row (spec: categories managed in place). E.g. "Jul" hidden until December.</div>
+  <div class="note">Budget-only storefront: this list shrinks to a few inspiration photos. Catalogue-only: this is her main upkeep screen.</div>
+  <div class="note">Time: 1 tap to mark sold out.</div>
+</div>
+</section>
+
+<!-- 5 EDIT PRODUCT -->
+<section class="screen"><h2>5 · Ny / ret produkt</h2>
+<div class="phone">
+  <div class="bar"><span class="icon">←</span><span class="logo">Nyt produkt</span><span class="cart-ico">Gem</span></div>
+  <div class="body">
+    <div class="grid3"><div class="img sq"><span>+ Tag foto</span></div><div class="img sq"><span>+ Foto</span></div><div class="img sq"><span>+ Foto</span></div></div>
+    <div class="muted">Første foto er hovedfoto. Gerne: i hånden + detalje (P6).</div>
+    <div class="field"><label>Navn *</label><div class="input">Vinterbuket</div></div>
+    <div class="field"><label>Pris inkl. moms *</label><div class="input">449 kr.</div></div>
+    <div class="field"><label>Kategori *</label><div class="chips"><span class="chip on">Buketter</span><span class="chip">Bisættelse</span><span class="chip">Jul</span><span class="chip">+ Ny kategori</span></div></div>
+    <div class="acc"><span>Størrelser (valgfri) · lille / mellem / stor</span><span>+</span></div>
+    <div class="acc"><span>Beskrivelse (valgfri)</span><span>+</span></div>
+    <div class="acc"><span>Tilbudspris (valgfri) <span class="badge">?</span></span><span>+</span></div>
+    <div class="tog-row"><span><b>Vis i butikken</b></span><span class="tog on"></span></div>
+    <button class="btn primary">Udgiv</button>
+  </div>
+  <div class="tabbar"><span>Ordrer</span><span class="on">Produkter</span><span>Butik</span><span>Salg</span></div>
+</div>
+<div class="notes">
+  <div class="note">Only photo, name, price and category are required; everything else is folded away (spec: new product in under a minute).</div>
+  <div class="note">"+ Ny kategori" creates a category without leaving the form (spec: categories managed in place).</div>
+  <div class="note">Tilbudspris is a question for the owner, not a decision. Discount codes stay out of scope (roadmap).</div>
+  <div class="note">Photo straight from the phone camera; the app resizes it (P7 speed). Time: &lt; 1 min.</div>
+</div>
+</section>
+
+<!-- 6 BUDGET + CAPACITY -->
+<section class="screen"><h2>6 · Butik: buketter &amp; kapacitet</h2>
+<div class="phone">
+  <div class="bar"><span class="logo">Logo · Admin</span><span class="cart-ico">Gem</span></div>
+  <div class="body">
+    <div class="h3">Buket efter budget</div>
+    <div class="list">
+      <div class="li"><span class="time">300</span><span><b>Lille hilsen</b><span class="muted">En lille buket i sæsonens blomster</span></span><span class="muted">Ret</span></div>
+      <div class="li"><span class="time">450</span><span><b>Klassisk</b><span class="muted">Den vi laver flest af</span></span><span class="muted">Ret</span></div>
+      <div class="li"><span class="time">600</span><span><b>Stor og frodig</b><span class="muted">Til den store dag</span></span><span class="muted">Ret</span></div>
+    </div>
+    <div class="tog-row"><span>Kunden må skrive eget beløb</span><span class="tog on"></span></div>
+    <div class="field"><label>Mindste beløb</label><div class="input">250 kr.</div></div>
+    <div class="hr"></div>
+    <div class="h3">Dage og kapacitet</div>
+    <div class="grid2">
+      <div class="field"><label>Ordrer pr. dag</label><div class="input">8</div></div>
+      <div class="field"><label>Bestil senest</label><div class="input">kl. 12.00</div></div>
+    </div>
+    <div class="muted">Lukkede dage (tryk for at lukke/åbne)</div>
+    <div class="cal">
+      <span class="dow">ma</span><span class="dow">ti</span><span class="dow">on</span><span class="dow">to</span><span class="dow">fr</span><span class="dow">lø</span><span class="dow">sø</span>
+      <span>10</span><span>11</span><span>12</span><span class="on">13</span><span>14</span><span>15</span><span class="off">16</span>
+      <span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span class="off">23</span>
+      <span>24</span><span>25</span><span class="off">26</span><span>27</span><span>28</span><span>29</span><span class="off">30</span>
+    </div>
+  </div>
+  <div class="tabbar"><span>Ordrer</span><span>Produkter</span><span class="on">Butik</span><span>Salg</span></div>
+</div>
+<div class="notes">
+  <div class="note">Her phone sale as a setting: tiers with price + one line, optional free amount with a minimum (spec: budget tiers). Values are placeholders.</div>
+  <div class="note">When a day reaches "ordrer pr. dag", the shop stops offering it. Closed days can't be chosen (spec: full day, closed day; P2).</div>
+  <div class="note">Catalogue-only storefront: the budget block drops out, capacity stays. Budget-only: this is nearly all the upkeep there is.</div>
+  <div class="note">Time: set once, then a tap per closed day (holidays, sick days).</div>
+</div>
+</section>
+
+<!-- 7 SALES -->
+<section class="screen"><h2>7 · Salg</h2>
+<div class="phone">
+  <div class="bar"><span class="logo">Logo · Admin</span><span class="muted">inkl. moms</span></div>
+  <div class="body">
+    <div class="stats">
+      <div class="stat"><span class="muted">I dag</span><b>5</b><span>2.140 kr.</span></div>
+      <div class="stat"><span class="muted">Denne uge</span><b>23</b><span>9.870 kr.</span><span class="muted">sidste uge: 18</span></div>
+      <div class="stat"><span class="muted">November</span><b>61</b><span>26.300 kr.</span><span class="muted">første måned</span></div>
+    </div>
+    <div class="h3">Mest solgt denne uge</div>
+    <div class="bars">
+      <div><span>Budget · 450</span><i style="width:100%"></i><span>9</span></div>
+      <div><span>Budget · 300</span><i style="width:66%"></i><span>6</span></div>
+      <div><span>Buket navn</span><i style="width:44%"></i><span>4</span></div>
+      <div><span>Bårebuket</span><i style="width:22%"></i><span>2</span></div>
+    </div>
+    <div class="h3">Levering eller afhentning</div>
+    <div class="row"><span>Levering</span><span>15</span></div>
+    <div class="row"><span>Afhentning</span><span>8</span></div>
+    <div class="muted">Kun et overblik. Bogføring sker i dit regnskabsprogram.</div>
+  </div>
+  <div class="tabbar"><span>Ordrer</span><span>Produkter</span><span>Butik</span><span class="on">Salg</span></div>
+</div>
+<div class="notes">
+  <div class="note">Orders + revenue for today, week, month, each against the previous period (spec: sales overview). Top sellers show which tiers work.</div>
+  <div class="note">"Salg" read as overview, not discounts. Whether she also wants sale prices is an open question (screen 5).</div>
+  <div class="note">Not bookkeeping: no VAT reports, no exports in v1. <i>Opinion</i>: this screen is what shows her the shop works.</div>
+  <div class="note">Time: a glance, whenever she's curious.</div>
+</div>
+</section>
+
+</main>
+</body>
+</html>
