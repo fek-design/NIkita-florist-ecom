@@ -2,11 +2,11 @@
 
 ## 1. Kit additions
 
-- [x] 1.1 Add the missing patterns to `Ref/wireframes/lofi/wf.css` (toggle, dense list row, stat tile, bottom tab bar), greyscale and in the kit's existing style. Verify that A, B and C still render unchanged, using headless-Chrome screenshots before and after.
+- [x] 1.1 Add the missing patterns to `ref/wireframes/lofi/wf.css` (toggle, dense list row, stat tile, bottom tab bar), greyscale and in the kit's existing style. Verify that A, B and C still render unchanged, using headless-Chrome screenshots before and after.
 
 ## 2. Back-office page
 
-- [x] 2.1 Create `Ref/wireframes/lofi/d-back-office.html` with the page head (purpose, tags P1/P4/P9/P2, "works for both product models") and screens 1-3: Log ind with a second factor, Ordrer i dag sorted by delivery date, and Ordre detail with status in one tap and Print seddel. Verify that each spec scenario for sign-in and orders can be pointed to in a frame or its note.
+- [x] 2.1 Create `ref/wireframes/lofi/d-back-office.html` with the page head (purpose, tags P1/P4/P9/P2, "works for both product models") and screens 1-3: Log ind with a second factor, Ordrer i dag sorted by delivery date, and Ordre detail with status in one tap and Print seddel. Verify that each spec scenario for sign-in and orders can be pointed to in a frame or its note.
 - [x] 2.2 Add screens 4-5: the product list with sold-out and hidden toggles, and Ret produkt (photo, name, price, category with inline "ny kategori", sizes, optional tilbudspris marked as a question). Verify against the "Quick product upkeep" and "Categories managed in place" scenarios.
 - [x] 2.3 Add screens 6-7: Buketter & kapacitet (budget tiers, free amount and its minimum, orders per day, cut-off, closed days calendar), and Salg (today/week/month stat tiles against the previous period, top sellers). Annotate what drops out in a budget-only or catalogue-only model. Verify against the "Budget tiers" and "Sales overview" scenarios.
 - [x] 2.4 Annotate every frame with the principle it rests on and its time cost for her ("1 tryk", "< 1 min"). Verify that no frame lacks a note.

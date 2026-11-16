@@ -1,7 +1,7 @@
 # Lo-fi wireframes: back office (2026-11-12)
 
 OpenSpec change: [wireframe-back-office](../../openspec/changes/wireframe-back-office/design.md)
-File: [Ref/wireframes/lofi/d-back-office.html](../../Ref/wireframes/lofi/d-back-office.html), linked as tab D from the overview.
+File: [ref/wireframes/lofi/d-back-office.html](../../ref/wireframes/lofi/d-back-office.html), linked as tab D from the overview.
 
 ## Goal
 
@@ -11,8 +11,8 @@ Sketch the owner's side of the shop next to the three storefront directions, so 
 
 - Felix's finding (11 Nov): her main sale is a phone call where the customer gives an occasion and a budget, and she designs the bouquet. She says she is too busy to get a shop running.
 - Felix asked for "a backend POS where you can easily update prices and categories, photos and sales".
-- [Roadmap](../../Ref/Roadmap.md): custom minimal admin (week 2: products, images, sold out; week 4: orders by delivery date, slip, capacity per date; week 5: strong admin auth). Discount codes out of scope.
-- [Design-Rationale](../../Ref/Design-Rationale.md): P1 mobile, P2 date first, P4 minimal data, P6 photos, P7 speed, P9 sold out in words.
+- [Roadmap](../../ref/Roadmap.md): custom minimal admin (week 2: products, images, sold out; week 4: orders by delivery date, slip, capacity per date; week 5: strong admin auth). Discount codes out of scope.
+- [Design-Rationale](../../ref/Design-Rationale.md): P1 mobile, P2 date first, P4 minimal data, P6 photos, P7 speed, P9 sold out in words.
 - The existing lo-fi kit and [storefront note](2026-11-11-lofi-wireframes.md).
 
 ## Options considered
