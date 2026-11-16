@@ -2,7 +2,7 @@
 
 OpenSpec change: none yet. Felix asked to start sketching straight away. Once a direction is picked for mid-fi, the work gets its own change (`/opsx:propose`), and this note gets linked from its design.md.
 
-Files: [Ref/wireframes/lofi/](../../Ref/wireframes/lofi/index.html)
+Files: [ref/wireframes/lofi/](../../ref/wireframes/lofi/index.html)
 
 ## Goal
 
@@ -10,9 +10,9 @@ Sketch the five key screens from the roadmap's week 1 (home, category, product, 
 
 ## Inputs
 
-- [Ref/Design-Rationale.md](../../Ref/Design-Rationale.md): principles P1–P12, the three personas (hypotheses, grade C)
-- [Ref/Roadmap.md](../../Ref/Roadmap.md): the five key screens, the scope (guest checkout, delivery or pickup, card message, cut-off)
-- Competitor boards in `Ref/competitor/` (Interflora, Bloomit, Kaj Larsen), context only
+- [ref/Design-Rationale.md](../../ref/Design-Rationale.md): principles P1–P12, the three personas (hypotheses, grade C)
+- [ref/Roadmap.md](../../ref/Roadmap.md): the five key screens, the scope (guest checkout, delivery or pickup, card message, cut-off)
+- Competitor boards in `ref/competitor/` (Interflora, Bloomit, Kaj Larsen), context only
 - Felix's request: three different websites, lo-fi
 
 Not used: any brand colour, type or logo artwork. The logo overhaul is on hold (see [skill curation](2026-11-10-skill-curation.md)). Lo-fi uses a "logo (existing)" placeholder.

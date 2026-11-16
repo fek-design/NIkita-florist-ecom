@@ -10,7 +10,7 @@
 
 - [x] 2.1 Add a "Skill policy" section to CLAUDE.md: a standing rule, with the four gates (gap, evidence, security, trial) run only at checkups (phase boundaries, a new kind of task, a retire-by trigger), plus the no-blindness and no-forced-use rules; verify the checkup triggers and each gate's reject condition are stated
 - [x] 2.2 Start `docs/process/2026-11-10-skill-curation.md` with the gap table from design.md; verify it links this change
-- [x] 2.3 Add the next checkup dates to `Ref/Roadmap.md` (start of weeks 2, 3 and 5); verify they appear in the weekly plan
+- [x] 2.3 Add the next checkup dates to `ref/Roadmap.md` (start of weeks 2, 3 and 5); verify they appear in the weekly plan
 
 ## 3. Research
 

@@ -8,7 +8,7 @@ The roadmap already plans a "custom minimal admin" (products, images, sold out, 
 
 ## What Changes
 
-- Add a fourth page to the lo-fi wireframe set in `Ref/wireframes/lofi/`: **D · Back office**. It uses the same kit (`wf.css`), phone frames at 390 px and annotations that cite the principles.
+- Add a fourth page to the lo-fi wireframe set in `ref/wireframes/lofi/`: **D · Back office**. It uses the same kit (`wf.css`), phone frames at 390 px and annotations that cite the principles.
 - Sketch the back-office screens on a phone:
   - login;
   - today's orders;
@@ -33,7 +33,7 @@ None. No specs exist yet.
 
 ## Impact
 
-- `Ref/wireframes/lofi/`: a new `d-back-office.html`. The nav changes in `index.html`, `a-dato-forst.html`, `b-butiksvinduet.html` and `c-anledninger.html`, and `index.html` gains a back-office section. Small additions to `wf.css` only if a pattern is missing (toggle, list row, stat tile).
+- `ref/wireframes/lofi/`: a new `d-back-office.html`. The nav changes in `index.html`, `a-dato-forst.html`, `b-butiksvinduet.html` and `c-anledninger.html`, and `index.html` gains a back-office section. Small additions to `wf.css` only if a pattern is missing (toggle, list row, stat tile).
 - `docs/process/`: a new note. The storefront note `2026-11-11-lofi-wireframes.md` gets a link to it.
 - Roadmap: no change in scope yet. Two items for the owner interview are flagged: the budget-tier model, and what "sales" means to her.
 - No dependency on `establish-brand-identity`, because lo-fi stays greyscale.

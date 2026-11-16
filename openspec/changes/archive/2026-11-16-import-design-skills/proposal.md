@@ -2,7 +2,7 @@
 
 ## Why
 
-Weeks 1–2 of the roadmap ([Ref/Roadmap.md](../../../Ref/Roadmap.md)) cover brand, wireframes and the design system. The build is AI-driven, so the AI sessions need the same design instructions every time. Without them, each session falls back on generic defaults, and that is the "slop" the roadmap rules out. Four public skill sets cover brand identity, brand guidelines, anti-generic frontend work and reference-based redesign. Importing them now, pinned and reviewed, gives every later session the same toolkit.
+Weeks 1–2 of the roadmap ([ref/Roadmap.md](../../../ref/Roadmap.md)) cover brand, wireframes and the design system. The build is AI-driven, so the AI sessions need the same design instructions every time. Without them, each session falls back on generic defaults, and that is the "slop" the roadmap rules out. Four public skill sets cover brand identity, brand guidelines, anti-generic frontend work and reference-based redesign. Importing them now, pinned and reviewed, gives every later session the same toolkit.
 
 ## What Changes
 
