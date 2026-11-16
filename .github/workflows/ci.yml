@@ -3,8 +3,9 @@ name: CI
 on:
   pull_request:
     branches: [DevEnv, main]
+  # Every push gets feedback early; pull requests are what gate merges.
   push:
-    branches: [DevEnv, main]
+    branches: ["**"]
 
 concurrency:
   group: ci-${{ github.ref }}
