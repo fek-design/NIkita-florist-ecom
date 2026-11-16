@@ -7,7 +7,7 @@
 ## 2. Scaffold
 
 - [x] 2.1 Create the Next.js app (App Router, TypeScript) in the repository root; verify `npm run dev` serves a page at `http://localhost:3000/`
-- [ ] 2.2 Add ESLint and Prettier with scripts `lint` and `format`; verify both pass on the fresh scaffold
+- [x] 2.2 Add ESLint and Prettier with scripts `lint` and `format`; verify both pass on the fresh scaffold
 - [ ] 2.3 Add Vitest with one sample test and Playwright with one smoke test that loads the home page; verify `npm test` and `npm run test:e2e` pass
 - [ ] 2.4 Add start-up validation of environment variables and a checked-in `.env.example`; verify the app stops and names the variable when one is missing
 - [ ] 2.5 Record each dependency and its reason in `docs/decisions.md`; verify no package is unlisted

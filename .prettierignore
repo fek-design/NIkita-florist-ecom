@@ -1,0 +1,9 @@
+.claude/
+openspec/
+ref/
+docs/
+.next/
+node_modules/
+package-lock.json
+CLAUDE.md
+AGENTS.md
