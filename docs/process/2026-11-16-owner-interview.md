@@ -38,16 +38,64 @@ Bisættelse       300     400      550     (base +50)
 Bare fordi       200     300      450     (base -50)
 ```
 
+## Follow-up answers (Felix, 16 Nov)
+
+| Topic | Answer | Status |
+|---|---|---|
+| Delivery zone | 4300 Holbæk and surroundings ("omegn"), up to about 20–30 minutes' drive | Draft postcode list below, for the owner to confirm |
+| Occasions | The example occasions are fine for now; the exact list is settled later | Placeholder |
+| Cut-off, closed days, capacity | Use ordinary expected values for now | Placeholder defaults below, all changeable in the admin |
+| Free amount | On hold | Owner question |
+| Large orders (weddings, events) | Felix expects most people prefer the phone for these | Owner question |
+| Pickup in the shop | **Yes, offered** | Decided. Opening hours still needed |
+| Tier presentation | Felix leans towards both an example photo and a size in words per tier | To confirm with the owner (P6) |
+
+### Draft delivery zone
+
+Postcodes within roughly 20–30 minutes' drive of Holbæk, from general knowledge of the area. **Drive times are not measured.** The owner confirms or trims the list, and it stays editable in the admin.
+
+| Postcode | Town |
+|---|---|
+| 4300 | Holbæk |
+| 4390 | Vipperød |
+| 4340 | Tølløse |
+| 4350 | Ugerløse |
+| 4360 | Kirke Eskilstrup |
+| 4370 | Store Merløse |
+| 4420 | Regstrup |
+| 4440 | Mørkøv |
+| 4450 | Jyderup |
+| 4460 | Snertinge |
+| 4520 | Svinninge |
+| 4532 | Gislinge |
+| 4540 | Fårevejle |
+| 4550 | Asnæs |
+| 4560 | Vig |
+
+Outside the list, checkout offers pickup instead (P3).
+
+### Placeholder defaults
+
+Ordinary values for a small florist, to build and test against. They are *opinion*, not the owner's numbers, and each is a setting in the admin.
+
+| Setting | Default |
+|---|---|
+| Same-day cut-off | Order before 12:00 for delivery the same day |
+| Delivery days | Monday–Saturday |
+| Closed days | Sundays and public holidays |
+| Daily capacity | 15 orders per day (deliveries and pickups together) |
+| Pickup | During opening hours, from the next working day or same day before cut-off |
+
 ## Open questions for the owner
 
-1. **Delivery zone as postcodes.** Which postcodes count as "the town area"? Checkout needs a fixed list to check against (P3).
-2. **Which occasions**, and the price adjustment for each.
-3. **Cut-off time** for same-day and next-day orders, and **closed days**.
-4. **Daily capacity:** how many orders a day she can make, if she wants a limit.
-5. **Free amount:** may a customer type their own amount above the top tier, or only pick a tier? (Back-office spec: "whether a free amount is allowed and its minimum".)
-6. **Pickup in the shop:** offered alongside delivery, and with which opening hours?
-7. **What a tier means to the customer:** one example photo per tier, a size in words ("ca. 40 cm"), or both (P6)?
+1. **Delivery zone:** confirm or trim the draft postcode list.
+2. **Opening hours** for pickup.
+3. **Cut-off, closed days and daily capacity:** replace the placeholder defaults with her own numbers.
+4. **Occasions:** the final list and the price adjustment for each.
+5. **Free amount:** may a customer type their own amount above the top tier?
+6. **Large orders:** should weddings and events be ordered online at all, or only by phone, with a "ring til mig" link?
+7. **Tier presentation:** one example photo and a size in words per tier, as Felix suggests?
 
 ## How this was checked
 
-Answers are as relayed by Felix on 16 Nov 2026. Nothing here is confirmed in writing by the owner yet. Open questions 1–3 block the checkout change in week 3.
+Answers are as relayed by Felix on 16 Nov 2026. Nothing here is confirmed in writing by the owner yet. Placeholders let the build go ahead; open questions 1–3 must be answered before the checkout change in week 3 is finished.
