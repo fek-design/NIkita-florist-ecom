@@ -16,10 +16,10 @@ These are not stated in the synopsis. Each one changes the plan if it is wrong.
 | # | Assumption | If wrong |
 |---|---|---|
 | 1 | Hand-in is around 20 Dec 2026 | Shift week 6 |
-| 2 | The florist is a real business that will actually go live | If demo only, drop production payment and domain work in week 6 |
+| 2 | The florist is a real business that will actually go live | **Answered 16 Nov: not live within the project.** Deliver a finished package she can take into use later. Production payment and domain work are dropped from week 6; a go-live guide is added ([interview notes](../docs/process/2026-11-16-owner-interview.md)) |
 | 3 | A written report or exam presentation is part of the deliverable | If not, the documentation track shrinks to handover docs |
-| 4 | Delivery is local (own delivery + pickup in store), not national shipping | National shipping adds a carrier integration |
-| 5 | Catalog is small (roughly 20–60 products) | A large catalog needs search and filtering earlier |
+| 4 | Delivery is local (own delivery + pickup in store), not national shipping | **Confirmed 16 Nov:** town area, flat 80 kr. Postcode list still to come |
+| 5 | Catalog is small (roughly 20–60 products) | **Confirmed 16 Nov:** one product per occasion, each in budget tiers (about 250/350/500 kr., ±50 per occasion) |
 
 ## Scope
 
