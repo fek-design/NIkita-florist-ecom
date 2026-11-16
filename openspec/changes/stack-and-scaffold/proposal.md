@@ -1,30 +1,29 @@
 ## Why
 
-Week 2 of the roadmap needs a running app: products browsable, a cart, and an admin the owner can use. There is no app yet, and none of the six stack decisions in `ref/Roadmap.md` is locked.
+Week 2 of the roadmap needs a running app: products browsable, a cart, and an admin the owner can use. The case describes an API-driven full-stack solution with a separate backend side that ties payment and email together (`ref/Case Synopsis - Felix.md`).
 
-The owner interview (16 Nov) settled that the shop will not go live within the project: the result is a finished package she takes into use later. Test-mode payment is enough, and no own domain is needed now ([interview notes](../../../docs/process/2026-11-16-owner-interview.md)).
+Two inputs shape the stack:
+- The owner interview (16 Nov): the shop will not go live within the project. The result is a finished package she takes into use later. Test-mode payment is enough, and no own domain is needed now ([interview notes](../../../docs/process/2026-11-16-owner-interview.md)).
+- Felix's decisions (16 Nov): run everything on one EU server instead of managed US platforms; split the code into a separate backend service and a frontend; send email over SMTP and receive it over IMAP.
 
 ## What Changes
 
-- **Lock the stack** and record each decision (what, why, what was rejected) in a new decision log, `docs/decisions.md`:
-  - Framework: Next.js (App Router) with TypeScript
-  - Database: PostgreSQL in an EU region, with Drizzle as the typed query layer
-  - Hosting: a managed platform with an EU function region and a preview deploy per branch
-  - Payment: Stripe hosted Checkout, on the condition that MobilePay works in test mode
-  - Email: a transactional email API with EU data handling
-  - Admin: a minimal admin inside the same app
-- **Scaffold the app** in the repository root: lint, format, unit-test runner, end-to-end test runner, and environment handling with a checked-in example file.
-- **Continuous integration** on every pull request into `DevEnv`: lint, type check, unit tests and build.
-- **Automatic deploys:** a preview URL for every feature branch, a staging deploy from `DevEnv`, and production from `main`.
-- **Database connection** proven end to end with one empty migration and a health page. The product and order tables are not part of this change.
-- **Open the accounts** (hosting, database, payment in test mode, email) in a way the owner can take over later.
+- **Two apps in one repository**, as npm workspaces:
+  - `frontend/`: the Next.js storefront and admin screens. It never touches the database; it calls the backend API.
+  - `backend/`: a standalone API service (Node.js, TypeScript, Fastify) that owns the database, business rules, payment and email.
+- **Self-hosted on one EU server** (Hetzner, Germany or Finland), with Docker Compose running the frontend, the backend, PostgreSQL and a reverse proxy that handles HTTPS.
+- **Automatic deploys:** `DevEnv` deploys to a staging address, `main` to production, both on the same server. Branches no longer get their own preview address; the owner reviews staging.
+- **Nightly database backups** off the server, with one restore tested.
+- **Lock the stack** and record each decision in `docs/decisions.md`.
+- **Checks on every push and pull request:** lint, format, type check, unit tests and build, for both apps.
+- **The work already done moves:** the scaffold, environment check, Drizzle setup and health check built earlier on this branch are kept and moved into the two apps.
 
-Out of scope: the data model, any storefront or admin screen, the brand tokens (they come from `brand-identity`), and real payment or email code.
+Out of scope: the data model, any storefront or admin screen, the brand tokens, payment and email code. Sending email over SMTP with an outbox, and receiving email over IMAP (bounce tracking, customer replies, orders sent by email), are separate changes in weeks 3–4.
 
 ## Capabilities
 
 ### New Capabilities
-- `project-foundation`: how the app is built, checked and deployed: automated checks before merge, a deploy per branch, EU data location, and secrets kept out of the repository.
+- `project-foundation`: how the webshop is split, built, checked, deployed and backed up: a backend API that alone owns the data, automated checks before merge, deploys to an EU server, secrets kept out of the repository, and restorable backups.
 
 ### Modified Capabilities
 
@@ -32,9 +31,11 @@ None.
 
 ## Impact
 
-- New app source, configuration and lockfile in the repository root; a `.github/workflows/` folder for CI.
-- New runtime dependencies: Next.js, React, Drizzle and a Postgres driver. New dev dependencies: TypeScript, ESLint, Prettier, Vitest and Playwright. Each is recorded with a reason (roadmap rule 8).
-- New external accounts: hosting, database, Stripe (test mode) and email. Each is a data processor, so each needs a data processing agreement on file for week 5.
-- `ref/Roadmap.md` says the app deploys from `main`. That stays true for production; `DevEnv` gets the staging deploy.
-- `CLAUDE.md` gains the commands to run, test and build the app.
+- The Next.js app moves from the repository root into `frontend/`. A new `backend/` workspace holds the API, the database code and the migrations.
+- New runtime dependency for the backend: Fastify. Drizzle and the Postgres driver move to the backend. Each package is recorded with a reason (roadmap rule 8).
+- New infrastructure: one rented server, a Docker Compose file per environment, a reverse proxy, and off-server backup storage. Felix maintains the server until hand-over: operating-system updates, firewall, backups.
+- Accounts: Hetzner (server and backup storage), Stripe in test mode, and the mailbox used for SMTP and IMAP. Each is a data processor and needs a data processing agreement on file for week 5.
+- No vendor email service: email deliverability depends on the sending mailbox's domain records (SPF, DKIM, DMARC).
+- `ref/Roadmap.md` recommended managed hosting with a preview per change. That is replaced by staging on the own server.
+- `CLAUDE.md` commands change to workspace commands.
 - Work happens on branch `feature/stack-and-scaffold`.
