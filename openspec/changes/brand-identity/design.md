@@ -1,8 +1,8 @@
 ## Context
 
-See proposal.md for motivation. Current state: `DevEnv` holds greyscale lo-fi wireframes (`Ref/wireframes/lofi/`) and no brand files. There is no app scaffold yet, so brand files live under `Ref/brand/` for now. Felix has a new logo set in Ancizar Serif, without the phone number. The files are not in the repo yet.
+See proposal.md for motivation. Current state: `DevEnv` holds greyscale lo-fi wireframes (`ref/wireframes/lofi/`) and no brand files. There is no app scaffold yet, so brand files live under `ref/brand/` for now. Felix has a new logo set in Ancizar Serif, without the phone number. The files are not in the repo yet.
 
-Constraints from `Ref/Design-Rationale.md`: at most two font families, self-hosted and subset (P7); AA contrast checked when the palette is chosen (P9); the brand comes from the shop, not a template (P11). From CLAUDE.md: the palette and type are chosen, not dealt (override 3); the Anthropic brand skill is a format reference only (override 5); each piece of work gets a process note.
+Constraints from `ref/Design-Rationale.md`: at most two font families, self-hosted and subset (P7); AA contrast checked when the palette is chosen (P9); the brand comes from the shop, not a template (P11). From CLAUDE.md: the palette and type are chosen, not dealt (override 3); the Anthropic brand skill is a format reference only (override 5); each piece of work gets a process note.
 
 ## Goals / Non-Goals
 
@@ -40,17 +40,32 @@ Download the variable TTFs from the Google Fonts repository, subset them to Lati
 *Alternative rejected:* the Google Fonts CDN. It sends visitor IP addresses to a third party, which adds a GDPR question for no gain.
 
 ### 4. Palette comes from Felix and the owner
-Felix supplies the starting hex values (from the new logo and the shop's material). AI may propose tints for grounds and the functional colours (error, success, focus), each labelled as a proposal and logged with a reason. taste-skill's random deal is not used here.
+Felix supplied the palette on 16 Nov 2026 in `ref/COLORS.png`. It is built on the owner's liking for paper as the background, and is used at roughly 60/30/10:
+
+| Token | Hex | Role | Share |
+|---|---|---|---|
+| Paper | `#F7F4EF` | Page background | about 60% |
+| Linen | `#DCD4D1` | Secondary surfaces: cards, bands, footer | about 30% |
+| Sand | `#7A644F` | Accent: logo, buttons, links | about 10% |
+| Ink | `#2D2A26` | Text | text only |
+
+The sheet also shows four tint steps of each of Linen, Sand and Ink. They become tokens only where a component needs them.
+
+First hand-calculated contrast ratios, to be replaced by the script's table (decision 6): Ink on Paper about 13:1 and Ink on Linen about 9.8:1 (both pass for body text); Sand on Paper about 5.1:1 (passes for body text, with little margin); Sand on Linen about 3.8:1 (large text and interface parts only); Sand on Ink about 2.6:1 (forbidden).
+
+The logo file `ref/brand/Logo.svg` also contains a light tan, `#E2BE92`, in the leaf. It is not in the palette, and its contrast on Paper is about 1.6:1, so it is treated as decorative logo detail only unless Felix adds it to the palette.
+
+AI may propose the functional colours (error, success, focus), each labelled as a proposal and logged with a reason. taste-skill's random deal is not used here.
 
 ### 5. Tokens in plain CSS custom properties
-`Ref/brand/tokens.css` holds colour roles, font families, a type scale of 5–7 steps, and weights. Plain CSS works in the brand board today and in any framework later, so the unlocked framework decision does not block this change.
+`ref/brand/tokens.css` holds colour roles, font families, a type scale of 5–7 steps, and weights. Plain CSS works in the brand board today and in any framework later, so the unlocked framework decision does not block this change.
 *Alternative rejected:* a Tailwind theme file. The framework is not locked yet.
 
 ### 6. Contrast table from a script
 A small script reads the token values, computes the WCAG contrast of each text and background pairing, and writes the allowed and forbidden table. The table is regenerated whenever a colour changes, so it cannot drift from the tokens.
 
 ### 7. Brand board as a static page
-`Ref/brand/brand-board.html` imports `tokens.css` and shows the logo variants, palette, pairing table, type specimen with Danish copy, a sample button and a product card. It is the page the owner signs off on, opened from a file or a simple local server.
+`ref/brand/brand-board.html` imports `tokens.css` and shows the logo variants, palette, pairing table, type specimen with Danish copy, a sample button and a product card. It is the page the owner signs off on, opened from a file or a simple local server.
 
 ### 8. Skill last
 `.claude/skills/florist-brand/SKILL.md` is written from the finished brand guide, in the format of `brand-guidelines`. Then `brand-guidelines` is removed and CLAUDE.md override 5 and `PROVENANCE.md` are updated.

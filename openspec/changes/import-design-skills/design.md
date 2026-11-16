@@ -49,7 +49,7 @@ Its description triggers on any "brand colors or style guidelines" request, and 
 taste-skill says never to edit its kit files, and edits would be lost on the next update. `CLAUDE.md` is loaded in every session, so it takes precedence in practice:
 - *taste-skill rule 9* bans register/VAT numbers, real phone formats and full addresses. A Danish webshop must show its CVR number and contact details, and local SEO needs a consistent name, address and phone number. **Override:** use real, owner-approved business details.
 - *taste-skill static export* builds Next.js briefs with `output: 'export'`. Our solution needs server routes for checkout, webhooks and admin. **Override:** keep dynamic rendering, and run the gate against the dev server URL.
-- *taste-skill random "deal"* picks palette and type pairing by random draw. Our design choices must have a stated reason (see `Ref/Design-Rationale.md`). **Override:** dealt output can serve as a starting option, but the chosen palette and type come from the brand work and are recorded with a reason.
+- *taste-skill random "deal"* picks palette and type pairing by random draw. Our design choices must have a stated reason (see `ref/Design-Rationale.md`). **Override:** dealt output can serve as a starting option, but the chosen palette and type come from the brand work and are recorded with a reason.
 - *taste-skill stand-in photographs* are allowed when the client has none. The roadmap rule is real content only. **Override:** stand-ins appear only on preview builds, and every one is replaced by the owner's photos before launch.
 
 **6. Register Mobbin in a project `.mcp.json` and treat it as optional.**

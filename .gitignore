@@ -1,3 +1,6 @@
 # taste-skill run state, check screenshots and Chrome profiles
 .taste-skill/
 shots/
+
+# macOS
+.DS_Store

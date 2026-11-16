@@ -4,7 +4,7 @@ Process note: [docs/process/2026-11-12-back-office-wireframes.md](../../../docs/
 
 ## Context
 
-- The lo-fi set in `Ref/wireframes/lofi/` has an overview page and three storefront directions (A, B, C). They share `wf.css` (phone frame, controls, annotation notes) and a nav bar that is copied into each page. See [2026-11-11-lofi-wireframes.md](../../../docs/process/2026-11-11-lofi-wireframes.md).
+- The lo-fi set in `ref/wireframes/lofi/` has an overview page and three storefront directions (A, B, C). They share `wf.css` (phone frame, controls, annotation notes) and a nav bar that is copied into each page. See [2026-11-11-lofi-wireframes.md](../../../docs/process/2026-11-11-lofi-wireframes.md).
 - The roadmap plans a custom minimal admin inside the same app: products, images, sold out, orders sorted by delivery date, an order slip, capacity per date, and strong admin auth. Discount codes are out of scope.
 - Felix's finding (11 Nov): her main sale is a phone call with an occasion and a budget, and she designs the bouquet. It isn't settled yet whether the storefront is a budget flow, a catalogue or a mix. Requirements: see `specs/back-office/spec.md`.
 

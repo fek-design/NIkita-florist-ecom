@@ -121,7 +121,7 @@ Felix looked at both rounds and liked neither outcome. He did not pick A2 or B. 
 
 ## Decisions
 
-Each decision cites a principle in [Ref/Design-Rationale.md](../../Ref/Design-Rationale.md) or is labelled *opinion*.
+Each decision cites a principle in [ref/Design-Rationale.md](../../ref/Design-Rationale.md) or is labelled *opinion*.
 
 ### Decision table (task 5.3, 2026-11-11)
 
