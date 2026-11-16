@@ -1,0 +1,16 @@
+# Local development database. Start with `docker compose up -d`.
+# Matches the local example in .env.example.
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: florist
+      POSTGRES_PASSWORD: florist
+      POSTGRES_DB: florist
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - florist-db:/var/lib/postgresql/data
+
+volumes:
+  florist-db:

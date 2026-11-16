@@ -12,10 +12,14 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
+    "drizzle-orm": "^0.45.4",
     "next": "16.4.6",
+    "postgres": "^3.4.9",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
@@ -24,6 +28,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.11",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
     "eslint-config-prettier": "^10.1.8",

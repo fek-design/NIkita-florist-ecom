@@ -15,8 +15,8 @@
 ## 3. Database
 
 - [ ] 3.1 Create the Postgres project in an EU region and record the region and date; verify the connection string is only in environment configuration
-- [ ] 3.2 Add Drizzle with one empty initial migration and scripts to generate and run migrations; verify the migration runs against the database
-- [ ] 3.3 Add the health check that reports database reachability without connection details; verify both the success and the failure response
+- [x] 3.2 Add Drizzle with one empty initial migration and scripts to generate and run migrations; verify the migration runs against the database
+- [x] 3.3 Add the health check that reports database reachability without connection details; verify both the success and the failure response
 
 ## 4. CI and deploys
 
