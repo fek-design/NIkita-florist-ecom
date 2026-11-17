@@ -3,7 +3,9 @@ import { assertEnv, missingEnv } from "./env.js";
 
 describe("environment check", () => {
   it("passes when every variable is set", () => {
-    expect(() => assertEnv({ DATABASE_URL: "postgres://x" })).not.toThrow();
+    expect(() =>
+      assertEnv({ DATABASE_URL: "postgres://x", JOB_SECRET: "y" }),
+    ).not.toThrow();
   });
 
   it("names the missing variable", () => {
@@ -11,6 +13,8 @@ describe("environment check", () => {
   });
 
   it("treats a blank value as missing", () => {
-    expect(missingEnv({ DATABASE_URL: "  " })).toEqual(["DATABASE_URL"]);
+    expect(missingEnv({ DATABASE_URL: "  ", JOB_SECRET: "y" })).toEqual([
+      "DATABASE_URL",
+    ]);
   });
 });

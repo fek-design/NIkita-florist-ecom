@@ -22,7 +22,7 @@ Stored only in each service's settings, never in the repository. Every one must 
 |---|---|---|---|
 | `DATABASE_URL` | Vercel backend project (per environment), `.env.local` locally | Her Neon project's connection string | planned |
 | Backup encryption key (`age`) | Public key as a GitHub secret; private key with Felix offline | A new key pair she keeps | planned |
-| Job trigger secret | Vercel backend project and GitHub secret | A new random secret | planned |
+| `JOB_SECRET` (job trigger secret) | Vercel backend project and GitHub secret; `backend/.env.local` locally | A new random secret (`openssl rand -hex 32`) | planned |
 
 ## Personal details in the shop
 

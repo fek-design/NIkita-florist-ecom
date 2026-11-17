@@ -3,7 +3,7 @@
  * `.env.example`, so a missing value is caught at start-up instead of
  * failing in the middle of a customer's checkout.
  */
-const required = ["DATABASE_URL"] as const;
+const required = ["DATABASE_URL", "JOB_SECRET"] as const;
 
 export type RequiredVar = (typeof required)[number];
 

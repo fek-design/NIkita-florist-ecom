@@ -2,11 +2,14 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { sql } from "drizzle-orm";
 import { getDb } from "./db/index.js";
 import { checkHealth } from "./lib/health.js";
+import { isAuthorisedJobCall } from "./lib/job-auth.js";
 
 export type AppOptions = {
   logger?: boolean;
   /** Replaced in tests; by default runs `select 1` against the database. */
   pingDatabase?: () => Promise<unknown>;
+  /** Replaced in tests; by default read from JOB_SECRET. */
+  jobSecret?: string;
 };
 
 /**
@@ -29,6 +32,28 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
       .header("Cache-Control", "no-store")
       .send(result.body);
   });
+
+  // Scheduled work, triggered by GitHub Actions (Vercel Hobby cron runs only
+  // once a day). Only callers holding JOB_SECRET may start a job.
+  const jobs: Record<string, () => Promise<unknown>> = {
+    ping: async () => ({ ok: true }),
+  };
+
+  app.post<{ Params: { name: string } }>(
+    "/jobs/:name",
+    async (request, reply) => {
+      const secret = options.jobSecret ?? process.env.JOB_SECRET ?? "";
+      if (!isAuthorisedJobCall(request.headers.authorization, secret)) {
+        return reply.code(401).send({ error: "unauthorised" });
+      }
+      const job = jobs[request.params.name];
+      if (!job) {
+        return reply.code(404).send({ error: "unknown job" });
+      }
+      const result = await job();
+      return { job: request.params.name, result };
+    },
+  );
 
   return app;
 }
