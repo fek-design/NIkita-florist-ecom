@@ -72,7 +72,32 @@ Supporting points: nothing to download for body text (P7), and forms and buttons
 
 This changes the spec: only Ancizar Serif is self-hosted now. Ancizar Sans and Instrument Sans stay in the repository only so the specimen still shows what was compared.
 
+## Colour tokens and contrast (17 Nov)
+
+- `ref/brand/tokens.css` holds the palette unchanged, role tokens (background, surface, text, accent, link, border), the fonts and a six-step type scale (14, 16, 20, 24, 32, 40 px).
+- `ref/brand/scripts/contrast.mjs` reads the tokens and writes [ref/brand/contrast.md](../../ref/brand/contrast.md), so the table can never drift from the values.
+- Results that shape the design:
+  - Ink on Paper (13.0:1) and Ink on Linen (9.8:1) are fine for any text.
+  - Sand on Paper (5.1:1) is fine for text and links.
+  - Sand on Linen (3.8:1) is for large text and borders only, so links on Linen cards are Ink.
+  - On Sand bands, text is Paper (5.1:1). Ink on Sand (2.6:1) is forbidden.
+
+### Functional colours: proposals, pending Felix
+
+| Token | Hex | On Paper | On Linen |
+|---|---|---|---|
+| Error | `#9B2C24` | 6.9:1 | 5.2:1 |
+| Success | `#36602F` | 6.7:1 | 5.0:1 |
+
+Deep, slightly brown-leaning red and green, so they sit with the palette instead of looking like default warning colours (*opinion*).
+
+The task asked for colours that pass 3:1 on every ground. That is impossible for one colour on both Paper (very light) and Sand (dark). So these pass 4.5:1 on Paper and Linen, where forms live, and are listed as forbidden on Sand and Ink: no error or success message is ever placed there.
+
+The focus ring is two-tone (Ink ring, Paper halo) and passes on all four grounds. Colour is never the only signal: errors and success also carry text or an icon (P9).
+
 ## Open questions
+
+- Accept or change the proposed error and success colours?
 
 - Is `#E2BE92` part of the palette or logo-only?
 - Simplified leaf for 16–64 px (favicon, header on a phone): Felix to supply.

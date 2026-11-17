@@ -13,9 +13,9 @@
 
 ## 3. Colour and tokens
 
-- [ ] 3.1 Write `ref/brand/tokens.css` with colour roles, font families, a 5–7 step type scale and weights; verify Felix's hex values appear unchanged
-- [ ] 3.2 Write the contrast script and generate the allowed and forbidden pairing table; verify every allowed pairing meets 4.5:1 or 3:1 as the spec requires
-- [ ] 3.3 Propose functional colours (error, success, focus) that pass 3:1 on every ground; verify with the script and log them as proposals for Felix to accept
+- [x] 3.1 Write `ref/brand/tokens.css` with colour roles, font families, a 5–7 step type scale and weights; verify Felix's hex values appear unchanged — *17 Nov: Paper, Linen, Sand and Ink match `ref/COLORS.png`; six-step scale 14–40 px*
+- [x] 3.2 Write the contrast script and generate the allowed and forbidden pairing table; verify every allowed pairing meets 4.5:1 or 3:1 as the spec requires — *17 Nov: `ref/brand/scripts/contrast.mjs` writes `ref/brand/contrast.md`; 20 pairings, 8 forbidden*
+- [x] 3.3 Propose functional colours (error, success, focus) that pass 3:1 on every ground; verify with the script and log them as proposals for Felix to accept — *17 Nov: no single colour can pass 3:1 on both Paper and Sand, so error `#9B2C24` and success `#36602F` pass 4.5:1 on Paper and Linen (where forms live) and are forbidden on Sand and Ink; focus is a two-tone ring that passes on all four. Proposals, pending Felix*
 
 ## 4. Logo files
 
