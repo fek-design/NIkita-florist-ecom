@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { assertEnv, missingEnv } from "./env";
+import { assertEnv, missingEnv } from "./env.js";
 
 describe("environment check", () => {
   it("passes when every variable is set", () => {
