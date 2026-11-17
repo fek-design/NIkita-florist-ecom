@@ -32,7 +32,7 @@
 - [ ] 4.2 Felix creates the two Vercel projects (Hobby) from the repository, root directories `frontend/` and `backend/`, function region Frankfurt; set environment variables in Vercel only; record region and date
 - [ ] 4.3 Assign `DevEnv` to the staging domains and `main` to production; verify a pushed branch gets preview addresses for both apps and the preview frontend talks to a non-production backend
 - [ ] 4.4 Run the migration against the staging and production databases; verify the backend health check reports success on preview, staging and production
-- [ ] 4.5 Felix protects `DevEnv` and `main` on GitHub (pull request and passing checks required), sets `DevEnv` as default branch and deletes the old `dev` branch; verify a direct push is rejected — *17 Nov: `DevEnv` is the default and `dev` is deleted (confirmed via GitHub). Branch protection still to do*
+- [x] 4.5 Felix protects `DevEnv` and `main` on GitHub (pull request and passing checks required), sets `DevEnv` as default branch and deletes the old `dev` branch; verify a direct push is rejected — *17 Nov: `DevEnv` is the default and `dev` is deleted (confirmed via GitHub). Branch protection set by Felix the same day; the GitHub API reports both `DevEnv` and `main` as protected*
 
 ## 5. Scheduling and backups
 
