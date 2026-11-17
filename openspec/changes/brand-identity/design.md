@@ -1,5 +1,7 @@
 ## Context
 
+Process note: [docs/process/2026-11-16-brand-identity.md](../../../docs/process/2026-11-16-brand-identity.md).
+
 See proposal.md for motivation. Current state: `DevEnv` holds greyscale lo-fi wireframes (`ref/wireframes/lofi/`) and no brand files. There is no app scaffold yet, so brand files live under `ref/brand/` for now. Felix has a new logo set in Ancizar Serif, without the phone number. The files are not in the repo yet.
 
 Constraints from `ref/Design-Rationale.md`: at most two font families, self-hosted and subset (P7); AA contrast checked when the palette is chosen (P9); the brand comes from the shop, not a template (P11). From CLAUDE.md: the palette and type are chosen, not dealt (override 3); the Anthropic brand skill is a format reference only (override 5); each piece of work gets a process note.

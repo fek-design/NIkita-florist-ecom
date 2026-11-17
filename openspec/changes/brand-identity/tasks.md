@@ -1,14 +1,14 @@
 ## 1. Inputs and process note
 
-- [ ] 1.1 Create `docs/process/2026-11-16-brand-identity.md` with the goal, inputs, and the reason the earlier plan was dropped; verify it links this change and `ref/Design-Rationale.md`
+- [x] 1.1 Create `docs/process/2026-11-16-brand-identity.md` with the goal, inputs, and the reason the earlier plan was dropped; verify it links this change and `ref/Design-Rationale.md`
 - [x] 1.2 Felix adds the logo file (SVG) at `ref/brand/Logo.svg`; verify it contains no phone number and no embedded bitmap — *added 16 Nov: outlined paths only, no `<image>` or `<text>` element*
-- [ ] 1.3 Felix supplies the starting palette hex values (`ref/COLORS.png`, added 16 Nov) with a note on where each comes from; verify each is recorded in the process note
+- [x] 1.3 Felix supplies the starting palette hex values (`ref/COLORS.png`, added 16 Nov) with a note on where each comes from; verify each is recorded in the process note
 
 ## 2. Typography
 
-- [ ] 2.1 Download Ancizar Serif and Ancizar Sans variable fonts and their OFL licence files into `ref/brand/fonts/source/`; verify the licence text is present for both
-- [ ] 2.2 Subset to Latin plus Danish letters and convert to WOFF2 in `ref/brand/fonts/`; verify the total size is under 100 KB and æ ø å Æ Ø Å are in each file
-- [ ] 2.3 Build a specimen page with Danish sample copy (heading, product name, price, button, body at 16 px) showing Ancizar Sans beside the two alternatives from design decision 2; verify it renders at 390 px with fonts loaded from local paths only
+- [x] 2.1 Download Ancizar Serif and Ancizar Sans variable fonts and their OFL licence files into `ref/brand/fonts/source/`; verify the licence text is present for both
+- [x] 2.2 Subset to Latin plus Danish letters and convert to WOFF2 in `ref/brand/fonts/`; verify the total size is under 100 KB and æ ø å Æ Ø Å are in each file
+- [x] 2.3 Build a specimen page with Danish sample copy (heading, product name, price, button, body at 16 px) showing Ancizar Sans beside the two alternatives from design decision 2; verify it renders at 390 px with fonts loaded from local paths only
 - [ ] 2.4 Felix picks the body typeface on the specimen; verify the choice and reason are in the process note
 
 ## 3. Colour and tokens
