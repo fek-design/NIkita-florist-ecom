@@ -1,5 +1,6 @@
-# Local development database. Start with `docker compose up -d`.
-# Matches the local example in .env.example.
+# Local development services. Start with `docker compose up -d`.
+# The apps themselves run with `npm run dev` (frontend) and
+# `npm run dev -w backend`, not in containers.
 services:
   db:
     image: postgres:17-alpine
@@ -11,6 +12,14 @@ services:
       - "127.0.0.1:5432:5432"
     volumes:
       - florist-db:/var/lib/postgresql/data
+
+  # Catches every email the backend sends, so nothing reaches real inboxes.
+  # SMTP on localhost:1025, web inbox on http://localhost:8025/
+  mail:
+    image: axllent/mailpit:v1.27
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8025:8025"
 
 volumes:
   florist-db:
