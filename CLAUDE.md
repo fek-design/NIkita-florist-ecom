@@ -61,7 +61,7 @@ The design skills in `.claude/skills/` are third-party, so they are never edited
 2. **Dynamic app, not static export** (overrides taste-skill step 0). Checkout, payment webhooks and admin need server routes. Run taste-skill's checks and gate against the dev server URL (`--start http://localhost:3000/`).
 3. **Chosen, not dealt** (overrides taste-skill step 4). The random palette and type "deal" can produce options. The final palette, type and layout come from the brand work and are recorded with a reason in `ref/Design-Rationale.md`.
 4. **Owner's photos only at launch** (narrows taste-skill's stand-in photographs). Stand-ins may appear on preview builds. List each one, and replace every one with the owner's own photos before launch.
-5. **Not Anthropic's brand.** `brand-guidelines` contains Anthropic's colours and fonts. Use it only as a format reference for writing the florist's own brand guidelines skill.
+5. **The shop's own brand.** Style everything with the `florist-brand` skill and `ref/brand/` (tokens, guide, contrast table). Anthropic's `brand-guidelines` skill, which held Anthropic's colours and fonts, was removed on 17 Nov 2026.
 6. **Danish first.** Customer-facing copy is in Danish. Code, commits and internal docs are in English.
 
 ## Skill policy

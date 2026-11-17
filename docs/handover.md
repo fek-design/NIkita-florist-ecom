@@ -24,6 +24,13 @@ Stored only in each service's settings, never in the repository. Every one must 
 | Backup encryption key (`age`) | Public key as a GitHub secret; private key with Felix offline | A new key pair she keeps | planned |
 | `JOB_SECRET` (job trigger secret) | Vercel backend project and GitHub secret; `backend/.env.local` locally | A new random secret (`openssl rand -hex 32`) | planned |
 
+## Brand assets
+
+| Asset | Owner now | What to do at hand-over | Status |
+|---|---|---|---|
+| Logo artwork (`ref/brand/Logo.svg` and its exports) | Felix, made for the shop | Confirm in writing that the shop may use and change it freely | in use |
+| Fonts (Ancizar Serif, Inter) | Open licence (SIL OFL 1.1) | Nothing: the licence travels with the files | in use |
+
 ## Personal details in the shop
 
 Details that must show the shop's real information, not Felix's or placeholders (CLAUDE.md override 1).

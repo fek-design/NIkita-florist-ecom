@@ -1,0 +1,81 @@
+/*
+ * Nikita Nielsen: brand tokens. The single source for colour and type.
+ * The brand board reads these; the frontend will import them.
+ * Change a value here, then run `node ref/brand/scripts/contrast.mjs`
+ * to regenerate the pairing table in ref/brand/contrast.md.
+ */
+
+@font-face {
+  font-family: "Ancizar Serif";
+  src: url("fonts/ancizar-serif.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Ancizar Serif";
+  src: url("fonts/ancizar-serif-italic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Palette, from Felix (ref/COLORS.png, 16 Nov 2026). Do not change
+     without Felix: these are the brand. */
+  --paper: #f7f4ef; /* the ground: page background, outside the ratio */
+  --linen: #dcd4d1; /* about 60% of colour on the ground: cards, bands, panels */
+  --sand: #7a644f; /* about 30%: logo, feature bands, footer, buttons */
+  --ink: #2d2a26; /* about 10%: text and the strongest accents */
+
+  /* Functional colours. Proposed by Claude, accepted by Felix "for now"
+     on 17 Nov 2026. Both pass 4.5:1 on Paper and Linen. Never the only
+     signal: errors and success also carry text or an icon (P9). */
+  --error: #9b2c24;
+  --success: #36602f;
+
+  /* Roles: components use these, not the palette names. */
+  --color-bg: var(--paper);
+  --color-surface: var(--linen);
+  --color-text: var(--ink);
+  --color-heading: var(--ink);
+  --color-accent: var(--sand); /* buttons, links on Paper, feature bands */
+  --color-on-accent: var(--paper); /* text on Sand */
+  --color-link: var(--sand); /* on Paper only; on Linen use Ink (see contrast.md) */
+  --color-border: var(--sand);
+  --color-error: var(--error);
+  --color-success: var(--success);
+
+  /* Focus: a two-tone ring that stands out on every ground. Ink ring
+     inside, Paper halo outside. Use: box-shadow: var(--focus-ring); */
+  --focus-ring: 0 0 0 2px var(--ink), 0 0 0 4px var(--paper);
+
+  /* Type. Headings and logo: Ancizar Serif. Body and interface: Inter,
+     self-hosted so every visitor sees the same face (Felix, 17 Nov 2026:
+     familiar like a system font, Jakob's law, but not left to whatever
+     font a device or user has set). */
+  --font-heading: "Ancizar Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* Scale: 16 px base, about 1.25 ratio, phone first. */
+  --text-sm: 0.875rem; /* 14 px: small print, meta */
+  --text-base: 1rem; /* 16 px: body, inputs, buttons */
+  --text-lg: 1.25rem; /* 20 px: product names, lead text */
+  --text-xl: 1.5rem; /* 24 px: section headings (counts as large text) */
+  --text-2xl: 2rem; /* 32 px: page headings */
+  --text-3xl: 2.5rem; /* 40 px: front-page heading */
+
+  --weight-regular: 400;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --leading-tight: 1.15; /* headings */
+  --leading-body: 1.55; /* body text */
+}
