@@ -1,7 +1,7 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import { env } from "@/env";
-import * as schema from "./schema";
+import { env } from "../env.js";
+import * as schema from "./schema.js";
 
 function createDb() {
   // Kept small because serverless functions run many instances side by side.
@@ -12,8 +12,8 @@ function createDb() {
 let instance: ReturnType<typeof createDb> | undefined;
 
 /**
- * One connection pool per server instance, created on first use. Creating it
- * lazily keeps `next build` from needing a database connection string.
+ * One connection pool per server instance, created on first use, so that
+ * importing this module never needs a database connection string.
  */
 export function getDb() {
   instance ??= createDb();

@@ -1,8 +1,11 @@
-import { loadEnvConfig } from "@next/env";
 import { defineConfig } from "drizzle-kit";
 
-// Read .env.local the same way Next.js does (@next/env ships with next).
-loadEnvConfig(process.cwd());
+// Read backend/.env.local when it exists (Node's built-in loader).
+try {
+  process.loadEnvFile(".env.local");
+} catch {
+  // No local file: rely on the environment, as in CI and on Vercel.
+}
 
 export default defineConfig({
   dialect: "postgresql",

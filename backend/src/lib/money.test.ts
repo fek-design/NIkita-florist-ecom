@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatKroner } from "./money";
+import { formatKroner } from "./money.js";
 
 describe("formatKroner", () => {
   it("formats whole kroner without decimals", () => {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { checkHealth } from "./health";
+import { checkHealth } from "./health.js";
 
 describe("checkHealth", () => {
   it("reports success when the database answers", async () => {

@@ -20,8 +20,8 @@
 
 - [x] 3.1 Convert the root to npm workspaces and move the Next.js app into `frontend/`; verify lint, format, type check, unit tests, the Playwright smoke test and build all pass from the root
 - [x] 3.2 Create `backend/` with Fastify and TypeScript, runnable as a local Node server and deployable to Vercel, with its own environment check and `.env.example`; verify it starts locally and exits naming a missing variable
-- [ ] 3.3 Move Drizzle, the migration, the `formatKroner` helper and the health check into `backend/`, and remove all database code and variables from `frontend/`; verify the migration runs, the health check returns 200 and 503 as before, and a search of `frontend/` finds no database client or connection string
-- [ ] 3.4 Add backend unit tests using Fastify request injection; verify `npm test` runs both workspaces' tests
+- [x] 3.3 Move Drizzle, the migration, the `formatKroner` helper and the health check into `backend/`, and remove all database code and variables from `frontend/`; verify the migration runs, the health check returns 200 and 503 as before, and a search of `frontend/` finds no database client or connection string
+- [x] 3.4 Add backend unit tests using Fastify request injection; verify `npm test` runs both workspaces' tests
 - [ ] 3.5 Connect the frontend to the backend: server-side through `BACKEND_URL`, browser-side through a `/api/*` rewrite; verify locally that a frontend page shows the backend's health status
 - [ ] 3.6 Add the protected job endpoint `POST /jobs/ping` with a shared secret; verify a call with the secret succeeds and a call without it is rejected
 - [ ] 3.7 Extend the local `compose.yaml` with Mailpit, and update CI to run every check for both workspaces; verify a failing backend test turns CI red
