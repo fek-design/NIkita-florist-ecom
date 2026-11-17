@@ -56,6 +56,6 @@ None yet.
 - Which direction, or which mix, goes to mid-fi? The overview page suggests mixes (for example B's home with A's pinned date bar).
 - Owner facts the wireframes guess at (listed on the overview page): range and prices, occasions, delivery area/fee/cut-off/window, pickup, add-ons, shop details, whether she wants calls.
 - C asks for the deceased's name for church delivery. Is that needed at all? (GDPR data minimisation, P4)
-- Brand inputs needed for mid-fi are listed on the overview page and fed into `establish-brand-identity`.
+- Brand inputs needed for mid-fi are listed on the overview page and fed into `establish-brand-identity` (replaced on 16 Nov by `brand-identity`).
 
 Follow-up: the back office (tab D) is sketched in [2026-11-12-back-office-wireframes.md](2026-11-12-back-office-wireframes.md).

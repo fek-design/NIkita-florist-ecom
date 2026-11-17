@@ -1,6 +1,6 @@
 # Design Rationale
 
-**Status:** v0.1, desk research only, 10 Nov 2026. To be updated after the owner interview (week 1) and the usability test (week 5).
+**Status:** v0.2, 17 Nov 2026: desk research plus the brand decisions (section 4). To be updated after the owner interview notes are folded in and after the usability test (week 5).
 **Related:** [Roadmap.md](Roadmap.md) · [Case Synopsis - Felix.md](Case%20Synopsis%20-%20Felix.md)
 
 ## What this document is for
@@ -183,9 +183,28 @@ The national networks set customer expectations. Figures below come from third-p
 |---|---|---|
 | `brand-identity` | Structure for the brand system (P11) | Assumes a brand direction exists. We get that from the owner |
 | `design-taste-frontend` (taste-skill) | Anti-generic layout and copy rules, copy-lint, layout checker and finish gate (P1, P7, P9) | Its demo-site rules are overridden (CLAUDE.md 1–4) |
-| `brand-guidelines` | Format model for our future florist brand-guidelines skill | Contains Anthropic's brand. Never applied |
+| `florist-brand` | Applies the shop's own brand (made in this project, 17 Nov 2026) | Its values live in `ref/brand/`; the skill only points to them |
 
-The Mobbin skills (`redesign-screen`, `search`, `best-practices`, `plain-writing`) were removed on 2026-11-11: no paid plan. See [the skill curation note](../docs/process/2026-11-10-skill-curation.md).
+The Mobbin skills (`redesign-screen`, `search`, `best-practices`, `plain-writing`) were removed on 2026-11-11: no paid plan. Anthropic's `brand-guidelines`, kept only as a format model, was removed on 2026-11-17 once `florist-brand` existed. See [the skill curation note](../docs/process/2026-11-10-skill-curation.md).
+
+### Brand decisions (17 Nov 2026)
+
+The full brand is in [brand/brand-guide.md](brand/brand-guide.md); how each choice was reached, including changes of mind, is in [the brand process note](../docs/process/2026-11-16-brand-identity.md). Each decision cites a principle or is marked *opinion*.
+
+| # | Decision | Rests on | Rejected |
+|---|---|---|---|
+| B1 | Logo designed by Felix from the shop's identity (Ancizar Serif name, ginkgo leaf, circle, one colour). AI only crops frames and swaps palette colours | P11; roadmap rule 6 (no AI-made assets) | AI-drawn or AI-simplified logo artwork |
+| B2 | Two logo lockups: full circle where there is room, half moon in the navbar (Felix, after Interflora's adaptive logo) | P1 (fits a phone navbar) | One lockup everywhere (unreadable in a navbar) |
+| B3 | No simplified leaf; the favicon is the leaf cropped from the logo, faint at 16–32 px | *opinion* (Felix: one more drawing would be one style too many) | A separate small mark |
+| B4 | Minimum widths 120 px (full) and 110 px (half moon); clear space = cap height of the name | P9 (legibility), measured on renders | Sizes chosen by eye |
+| B5 | Palette from the owner: Paper ground, Linen/Sand/Ink at about 60/30/10, kept quiet so the flowers carry the colour | P6, P11; owner's taste | A brighter "florist" palette (competes with the photos; *opinion*) |
+| B6 | Every colour pairing computed and graded; links on Linen are Ink, text on Sand is Paper, cards get a Sand border | P9 | Pairings judged by eye |
+| B7 | Error `#9B2C24` and success `#36602F`, only on Paper and Linen, never colour alone; two-tone focus ring | P9 | One functional colour for all grounds (impossible at 3:1) |
+| B8 | Headings in Ancizar Serif, matching the logo | P11 | A second display face |
+| B9 | Body text in Inter, self-hosted | Jakob's law (familiar reading text); P7 (76.9 KB for all fonts); control over how every device shows it (Felix) | Ancizar Sans (unfamiliar as reading text), the system font (left to device and user settings), Instrument Sans |
+| B10 | Fonts self-hosted and subset; no Google Fonts requests | P7; GDPR (no visitor IP sent to a third party) | Google Fonts CDN |
+| B11 | Only the owner's photos at launch, 4:5, one look across the range, size stated in words | P6, P8 | Stock or AI images |
+| B12 | Danish voice: du-form, plain facts, calm on sympathy pages, nothing invented | P8, P10 | Marketing superlatives |
 
 ---
 

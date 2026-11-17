@@ -34,4 +34,4 @@
 ## Workflow follow-up
 
 - Archive this change after Felix has reviewed the decision table
-- Then start `/opsx:apply establish-brand-identity`
+- Then start `/opsx:apply brand-identity` (replaced `establish-brand-identity` on 16 Nov)

@@ -38,4 +38,4 @@ None.
 - `CLAUDE.md`: new "Branches" and "Skill policy" sections
 - `.claude/skills/`: skills may be added or removed, and `PROVENANCE.md` is updated
 - `docs/process/2026-11-10-skill-curation.md`: the curation record
-- `establish-brand-identity` starts only after this change's curation pass, so it can use the adopted skills
+- `brand-identity` (first planned as `establish-brand-identity`) starts only after this change's curation pass, so it can use the adopted skills
