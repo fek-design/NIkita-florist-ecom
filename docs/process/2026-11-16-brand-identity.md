@@ -1,6 +1,6 @@
 # Brand identity
 
-**Started:** 16 Nov 2026 · **Change:** [`brand-identity`](../../openspec/changes/brand-identity/) · **Branch:** `feature/brand-identity`
+**Started:** 16 Nov 2026 · **Finished:** 17 Nov 2026 · **Change:** [`brand-identity`](../../openspec/changes/archive/2026-11-17-brand-identity/) · **Branch:** `feature/brand-identity`
 **Related:** [Design rationale](../../ref/Design-Rationale.md) (P7, P9, P11) · [Owner interview](2026-11-16-owner-interview.md)
 
 ## Goal
@@ -156,8 +156,11 @@ Finding: in a 64 px navbar the half-moon logo is 76 px wide and the name's capit
 - The `brand-identity` skill's retire condition is now met (the florist skill and guide exist). Removing it is Felix's call at the next checkup.
 - Correction: the first guide draft stated that all logo rights sit with the shop. That is not established, so it now says the artwork is Felix's, made for the shop, with rights to be confirmed in writing at hand-over. A matching row goes into `docs/handover.md` once this branch and `feature/stack-and-scaffold` meet in `DevEnv`.
 
+## Sign-off (17 Nov)
+
+- **Owner:** approved the brand board on 17 Nov 2026, relayed by Felix. No changes were reported.
+- **Skill:** Felix retired the `brand-identity` framework skill the same day; its job is done (`PROVENANCE.md`).
+
 ## Open questions
 
-- Owner sign-off on the brand board (task 6.2).
-- Retire the `brand-identity` skill now that its job is done?
-
+None left for this change. The logo-rights row in `docs/handover.md` is added when this branch and `feature/stack-and-scaffold` meet in `DevEnv`.

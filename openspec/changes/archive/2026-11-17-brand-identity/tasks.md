@@ -33,5 +33,5 @@
 ## 6. Sign-off and merge
 
 - [x] 6.1 Add a "Brand decisions" section to `ref/Design-Rationale.md`, each decision citing P1–P12 or marked *opinion*; verify the links resolve
-- [ ] 6.2 Owner reviews the brand board; verify the approval, date and requested changes are in the process note
-- [ ] 6.3 Run `openspec validate brand-identity`, finish the process note, and merge `feature/brand-identity` into `DevEnv`; verify `DevEnv` is pushed and the feature branch is deleted
+- [x] 6.2 Owner reviews the brand board; verify the approval, date and requested changes are in the process note — *17 Nov: approved, relayed by Felix; no changes reported*
+- [x] 6.3 Run `openspec validate brand-identity`, finish the process note, and merge `feature/brand-identity` into `DevEnv`; verify `DevEnv` is pushed and the feature branch is deleted — *17 Nov: valid; merged by Felix as PR #1 (merged past the required CI check, which cannot run on a branch without the workflow file). The last commit missed the push and follows in `docs/brand-followup`*
