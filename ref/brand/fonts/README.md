@@ -6,10 +6,10 @@ Self-hosted, subset WOFF2 files. Built from the variable fonts in `source/` (dow
 |---|---|---|---|
 | `ancizar-serif.woff2` | Ancizar Serif, weight 400–700 | Logo and headings | 25.0 KB |
 | `ancizar-serif-italic.woff2` | Ancizar Serif Italic, weight 400–700 | Headings, if italic is used | 25.6 KB |
-| `ancizar-sans.woff2` | Ancizar Sans, weight 400–700 | Body and interface (pending Felix's choice, task 2.4) | 22.6 KB |
+| `ancizar-sans.woff2` | Ancizar Sans, weight 400–700 | Comparison on the specimen only. Not shipped (body text uses the system font, decided 17 Nov) | 22.6 KB |
 | `instrument-sans.woff2` | Instrument Sans, weight 400–700 | Comparison on the specimen only. Not shipped | 29.2 KB |
 
-Shipped total (both Ancizar uprights and the serif italic): 73.2 KB, under the 100 KB budget.
+Shipped: Ancizar Serif upright and italic, 50.6 KB in total, under the 100 KB budget. Body text uses the visitor's system font and downloads nothing.
 
 ## How they were made
 

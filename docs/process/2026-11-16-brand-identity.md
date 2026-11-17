@@ -62,7 +62,15 @@ Fixes while building it:
 
 Repository slip (17 Nov): the first commit of this work used `git add -A`. This branch's `.gitignore` predates the frontend/backend split, so the other branch's leftover `node_modules`, build output and local env files were committed too. Nothing was pushed. The commit was rebuilt with only the 17 brand files, and from now on files are staged by name.
 
-**Waiting on:** Felix's choice of body typeface on the specimen (task 2.4).
+### Decision: system font for body text (17 Nov)
+
+Felix chose option D, the device's own system font, over the recommended Ancizar Sans.
+
+His reasoning: Ancizar Sans fits the theme but adds little to it, and by Jakob's law people spend most of their time on other sites and apps, so body text in the face they read every day is easier. That matters most for body text.
+
+Supporting points: nothing to download for body text (P7), and forms and buttons match the phone's own interface (P1). The cost is that body text looks slightly different on iPhone, Android and Windows, so the brand board must be checked on both phone platforms.
+
+This changes the spec: only Ancizar Serif is self-hosted now. Ancizar Sans and Instrument Sans stay in the repository only so the specimen still shows what was compared.
 
 ## Open questions
 
