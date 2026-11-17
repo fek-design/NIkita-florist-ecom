@@ -127,3 +127,10 @@ Roadmap rule 8: each package needs a reason.
 | `drizzle-kit` | dev | Generates and runs migrations |
 
 Audit on 2026-11-17: `npm audit --omit=dev` reports 0 vulnerabilities. CI fails on any high or critical finding in production dependencies.
+
+### CI actions
+
+| Action | Version | Reason |
+|---|---|---|
+| `actions/checkout` | v5 | Runs on Node 24. v4 ran on Node 20, which GitHub deprecated (warning on PR #3, 17 Nov 2026) |
+| `actions/setup-node` | v5 | Same. v7 exists (Oct 2026) but v5 is the version whose behaviour with our inputs is known; revisit at the hardening checkup in week 5 |
