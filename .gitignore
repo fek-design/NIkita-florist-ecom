@@ -2,5 +2,32 @@
 .taste-skill/
 shots/
 
-# macOS
+# dependencies
+node_modules/
+
+# testing
+coverage/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# builds
+.next/
+out/
+build/
+dist/
+next-env.d.ts
+*.tsbuildinfo
+
+# env files: only the examples are committed
+.env*
+!.env.example
+
+# vercel
+.vercel
+
+# misc
 .DS_Store
+*.pem
+npm-debug.log*

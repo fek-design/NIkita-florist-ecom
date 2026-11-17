@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [DevEnv, main]
+  # Every push gets feedback early; pull requests are what gate merges.
+  push:
+    branches: ["**"]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Lint, types, tests, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # Fails on known high or critical vulnerabilities in production dependencies.
+      - run: npm audit --omit=dev --audit-level=high
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build

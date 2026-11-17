@@ -11,11 +11,38 @@ API-driven full-stack webshop for a local Danish florist that today sells only t
 
 - `DevEnv` is the integration branch. Never commit work directly to it.
 - **One branch per piece of work.** Before starting a feature, fix or OpenSpec change, create a branch off the latest `DevEnv`, named after the work: `feature/<slug>`, `fix/<slug>`, `docs/<slug>` (for example `feature/brand-identity`, `feature/cart`). For an OpenSpec change, use the change name as the slug.
-- **Push the branch on its first commit** (`git push -u origin <branch>`), then commit and push after every finished task and before every session ends. Unpushed work does not count as saved.
-- **Merge into `DevEnv` only when the work is finished and working**: tests and checks pass, and it has been verified in the running app where that applies. Merge with `--no-ff`, push `DevEnv`, then delete the feature branch locally and on the remote.
+- **Felix pushes; Claude does not.** Claude commits locally after every finished task, and never runs `git push`, opens pull requests or merges into `DevEnv`. When there is something worth pushing (a finished task group, before a session ends, or when CI results are needed), Claude says so plainly, naming the branch and the commits waiting. Unpushed work does not count as saved, so Claude reminds Felix rather than letting commits pile up.
+- **Merge into `DevEnv` only when the work is finished and working**: tests and checks pass, and it has been verified in the running app where that applies. Felix merges through a pull request into `DevEnv` once CI is green, then deletes the feature branch locally and on the remote.
+- **Hand-over:** everything is built under Felix's name. Whenever an account, key, secret or personal detail is added, add a row to [docs/handover.md](docs/handover.md) in the same commit.
 - At the start of a session, run `git status` and `git fetch`, and say so if anything is uncommitted, unpushed or behind the remote.
 - Never use `git reset --hard`, force-push or delete an unmerged branch without Felix's explicit go-ahead.
 - `main` receives release merges only, each from `DevEnv` and tagged (`v0.1`, `v0.2`, …). Never commit to `main` directly.
+
+## App
+
+Two npm workspaces. The frontend never touches the database; everything goes through the backend API. Stack decisions and the reason for every dependency: [docs/decisions.md](docs/decisions.md).
+
+- `frontend/`: Next.js 16 (App Router, TypeScript). This Next.js version differs from older training data: read the guide in `node_modules/next/dist/docs/` before using an API (see `frontend/AGENTS.md`). Server code calls the backend through `src/lib/backend.ts`; browser code calls `/api/*`, which is rewritten to the backend.
+- `backend/`: Fastify API (TypeScript, ES modules, so relative imports end in `.js`). Owns the database (Drizzle, migrations in `backend/drizzle/`), business rules, payment and email. Routes are built in `src/build-app.ts` and tested with `app.inject()`.
+
+First run:
+```
+npm ci
+cp frontend/.env.example frontend/.env.local
+cp backend/.env.example backend/.env.local     # then fill in JOB_SECRET (openssl rand -hex 32)
+docker compose up -d                           # Postgres on :5432, Mailpit on :1025 / http://localhost:8025/
+npm run db:migrate -w backend
+```
+
+| Command (from the root) | Does |
+|---|---|
+| `npm run dev` / `npm run dev -w backend` | Frontend on http://localhost:3000/ / backend on http://localhost:4000/ |
+| `npm run lint` / `npm run typecheck` / `npm test` / `npm run build` | Runs in both workspaces |
+| `npm run format` / `npm run format:check` | Prettier for the whole repository |
+| `npm run test:e2e` | Playwright on a phone viewport; starts both apps itself |
+| `npm run db:generate -w backend` / `npm run db:migrate -w backend` | Create / apply SQL migrations |
+
+CI (`.github/workflows/ci.yml`) runs the dependency audit, lint, format check, typecheck, unit tests and build on every push and pull request. Money is always whole øre (`backend/src/lib/money.ts`). A new environment variable goes in that app's `src/env.ts` and `.env.example`, and gets a row in [docs/handover.md](docs/handover.md).
 
 ## Process log (required)
 
