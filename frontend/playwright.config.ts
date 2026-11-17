@@ -12,9 +12,16 @@ export default defineConfig({
   },
   // Phone first (Design-Rationale P1).
   projects: [{ name: "mobile", use: { ...devices["Pixel 7"] } }],
-  webServer: {
-    command: `npm run dev -- --port ${port}`,
-    url: `http://localhost:${port}`,
-    reuseExistingServer: !process.env.CI,
-  },
+  webServer: [
+    {
+      command: "npm run dev --workspace backend",
+      url: "http://localhost:4000/",
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: `npm run dev -- --port ${port}`,
+      url: `http://localhost:${port}`,
+      reuseExistingServer: !process.env.CI,
+    },
+  ],
 });
