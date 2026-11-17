@@ -15,8 +15,8 @@ The logo artwork SHALL be designed and supplied by Felix. AI-generated logo artw
 - **WHEN** the logo or its small mark is rendered at 16, 32 and 64 px on every ground colour
 - **THEN** it is recognisable at each size, or the brand guide states the minimum size below which the small mark is used instead
 
-### Requirement: Brand serif for headings, system font for body
-The logo and headings SHALL use Ancizar Serif, served from the shop's own domain under a licence that permits commercial self-hosting. Body and interface text SHALL use the visitor's system font stack, so it reads like the text people meet every day on their device and needs no download. Every typeface in use MUST render the Danish letters æ, ø and å.
+### Requirement: Two self-hosted typefaces
+The logo and headings SHALL use Ancizar Serif. Body and interface text SHALL use Inter, a familiar sans that reads like everyday interface text but looks the same on every device. Both SHALL be served from the shop's own domain under a licence that permits commercial self-hosting, and MUST render the Danish letters æ, ø and å.
 
 #### Scenario: Body typeface confirmed on a specimen
 - **WHEN** Felix reviews Danish sample copy (heading, product name, price, button, body at 16 px) at a 390 px viewport
@@ -24,11 +24,11 @@ The logo and headings SHALL use Ancizar Serif, served from the shop's own domain
 
 #### Scenario: Danish letters render
 - **WHEN** text containing æ, ø, å, Æ, Ø and Å is shown in headings and in body text, in every weight used
-- **THEN** each letter renders in the intended typeface: headings from Ancizar Serif, body from the system font, with no missing-glyph boxes
+- **THEN** each letter renders from the brand fonts (headings from Ancizar Serif, body from Inter), not from a fallback font
 
 #### Scenario: No third-party font requests
 - **WHEN** the brand board is loaded with the network panel open
-- **THEN** the only font files requested are the brand serif files from a local path, and none come from an external font service
+- **THEN** every font file is loaded from a local path and none from an external font service
 
 ### Requirement: Colours have roles and checked pairings
 Every brand colour SHALL have a named role. The brand guide SHALL list which text and background pairings are allowed and which are forbidden. Every allowed pairing MUST meet WCAG 2.1 AA: at least 4.5:1 for body text, and at least 3:1 for large text and interface parts.

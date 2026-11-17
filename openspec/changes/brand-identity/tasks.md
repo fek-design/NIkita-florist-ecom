@@ -9,7 +9,7 @@
 - [x] 2.1 Download Ancizar Serif and Ancizar Sans variable fonts and their OFL licence files into `ref/brand/fonts/source/`; verify the licence text is present for both
 - [x] 2.2 Subset to Latin plus Danish letters and convert to WOFF2 in `ref/brand/fonts/`; verify the total size is under 100 KB and æ ø å Æ Ø Å are in each file
 - [x] 2.3 Build a specimen page with Danish sample copy (heading, product name, price, button, body at 16 px) showing Ancizar Sans beside the two alternatives from design decision 2; verify it renders at 390 px with fonts loaded from local paths only
-- [x] 2.4 Felix picks the body typeface on the specimen; verify the choice and reason are in the process note — *17 Nov: the system font stack (option D). Reason recorded in design.md decision 2 and the process note*
+- [x] 2.4 Felix picks the body typeface on the specimen; verify the choice and reason are in the process note — *17 Nov: first the system font, then Inter the same day (a system font can be replaced by the device or user). Reasons in design.md decision 2 and the process note*
 
 ## 3. Colour and tokens
 

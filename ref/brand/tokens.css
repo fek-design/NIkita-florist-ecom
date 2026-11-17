@@ -19,6 +19,13 @@
   font-style: italic;
   font-display: swap;
 }
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   /* Palette, from Felix (ref/COLORS.png, 16 Nov 2026). Do not change
@@ -50,10 +57,12 @@
      inside, Paper halo outside. Use: box-shadow: var(--focus-ring); */
   --focus-ring: 0 0 0 2px var(--ink), 0 0 0 4px var(--paper);
 
-  /* Type. Headings and logo: Ancizar Serif. Body and interface: the
-     visitor's system font (Felix, 17 Nov 2026; Jakob's law, P7). */
+  /* Type. Headings and logo: Ancizar Serif. Body and interface: Inter,
+     self-hosted so every visitor sees the same face (Felix, 17 Nov 2026:
+     familiar like a system font, Jakob's law, but not left to whatever
+     font a device or user has set). */
   --font-heading: "Ancizar Serif", Georgia, "Times New Roman", serif;
-  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 
   /* Scale: 16 px base, about 1.25 ratio, phone first. */
   --text-sm: 0.875rem; /* 14 px: small print, meta */

@@ -36,6 +36,18 @@ Not in the palette: the logo's leaf also uses a light tan, `#E2BE92`. Treated as
 
 The SVG contains outlined paths only: no `<image>`, no `<text>`, no phone number. It is 1.2 MB because the leaf is about 1,900 small stroked shapes, each exported with a mask. Felix will flatten the strokes in Figma (Outline stroke, then Flatten) and make a simplified leaf for small sizes.
 
+## Final logo and responsive variants (17 Nov)
+
+Felix replaced the logo with his final version: one colour only (`#7A644F`, Sand), 800 KB instead of 1.26 MB. The light tan `#E2BE92` is gone from the leaf, which settles that open question: it is not part of the brand.
+
+`ref/brand/Logo.svg` is the source. `ref/brand/scripts/crop-logo.mjs` crops it by measuring the drawing in a headless browser and changing only the frame (viewBox, width, height). No path is touched, so the artwork stays Felix's.
+
+Responsive logo, Felix's idea, inspired by how Interflora adapts its logo to the space:
+- **Full lockup** (`logo/logo.svg`): circle, leaf, name, divider. For large places: hero, footer, emails.
+- **Half moon** (`logo/logo-half.svg`): the frame stops just above where the lower half of the circle starts, leaving the top arc, the leaf and the name. For the navbar.
+
+A first version of the half moon cut below the divider. That left two short stubs of the lower circle under the name, so the cut was moved up to where the lower arc begins. At 48 px tall in a phone navbar the name is readable; the leaf turns into a light texture. The variant is a proposal: Felix approves it or draws his own in Figma. Preview: `ref/brand/logo/preview.png`.
+
 ## Typography
 
 ### Body typeface recommendation: Ancizar Sans
@@ -70,7 +82,13 @@ His reasoning: Ancizar Sans fits the theme but adds little to it, and by Jakob's
 
 Supporting points: nothing to download for body text (P7), and forms and buttons match the phone's own interface (P1). The cost is that body text looks slightly different on iPhone, Android and Windows, so the brand board must be checked on both phone platforms.
 
-This changes the spec: only Ancizar Serif is self-hosted now. Ancizar Sans and Instrument Sans stay in the repository only so the specimen still shows what was compared.
+This changed the spec: only Ancizar Serif would be self-hosted.
+
+### Change of mind: Inter for body text (17 Nov, same day)
+
+Felix then moved from the system font to Inter. His concern: a system font is not fixed. Some phones ship their own system font, and some users pick one, so the site would show in a face nobody chose and look amateurish. Inter keeps the familiar, interface-like reading he wanted (it is close to San Francisco and Roboto) and looks the same everywhere, so what the owner approves is what customers see.
+
+Cost: 26.3 KB after subsetting, 76.9 KB for all shipped fonts, still under the 100 KB budget (P7). The spec is back to two self-hosted typefaces: Ancizar Serif and Inter. Inter was added to the specimen as column E. Ancizar Sans and Instrument Sans stay in the repository only so the specimen still shows what was compared.
 
 ## Colour tokens and contrast (17 Nov)
 
@@ -99,5 +117,4 @@ The focus ring is two-tone (Ink ring, Paper halo) and passes on all four grounds
 
 - Accept or change the proposed error and success colours?
 
-- Is `#E2BE92` part of the palette or logo-only?
 - Simplified leaf for 16–64 px (favicon, header on a phone): Felix to supply.

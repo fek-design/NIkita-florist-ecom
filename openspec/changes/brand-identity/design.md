@@ -22,25 +22,28 @@ Constraints from `ref/Design-Rationale.md`: at most two font families, self-host
 AI checks the delivered SVG (text converted to outlines, no embedded bitmap, no hidden layers), optimises it, and exports colour variants and a favicon set. It changes no shape.
 *Alternative rejected:* AI draws the mark, as in the earlier plan. Felix does not need it, and it leaves authorship and licence unclear.
 
-### 2. Body typeface: the system font stack
-**Decided by Felix on 17 Nov 2026, after reviewing the specimen** (`ref/brand/specimen.html`, four candidates at 390 px).
+### 2. Body typeface: Inter
+**Decided by Felix on 17 Nov 2026**, after reviewing the specimen (`ref/brand/specimen.html`).
 
-Body and interface text use each device's own font: San Francisco on iPhone and Mac, Roboto on Android, Segoe UI on Windows. The brand voice comes from Ancizar Serif in the logo and headings, the palette and the photos; body text is there to be read.
+How the choice moved, for the record:
+1. 16 Nov, recommendation: Ancizar Sans, the serif's own companion.
+2. 17 Nov, Felix: the system font. Ancizar Sans fits the theme but adds little, and by Jakob's law body text should be what people read every day.
+3. 17 Nov, Felix: Inter instead. The system font is not fixed: some phones and some users set their own system font, and the design would then show in a face nobody chose, which looks amateurish.
 
-- **Why (Felix):** Ancizar Sans fits the theme but adds little to it, and by Jakob's law users spend most of their time on other sites and apps, so body text in the face they read every day is the more comfortable choice. That matters most for long text and forms.
-- **Speed (P7):** no download for body text at all; only the serif is fetched.
-- **Forms (P1, P9):** inputs, buttons and labels match the phone's own interface, which helps in checkout.
-- **Trade-off:** the body looks slightly different per device, so the brand board is checked on iOS and Android, not only on a Mac.
-
-The stack, in order: `system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`.
+Inter keeps the familiar, interface-like reading text of a system font and makes it the same on every device.
+- **Familiarity (Jakob's law):** Inter is one of the most widely used interface faces and close in style to San Francisco and Roboto.
+- **Control:** the brand board looks the same on iPhone, Android and Windows, so what the owner approves is what customers see.
+- **Licence:** SIL Open Font License (Rasmus Andersson, Google Fonts repository), so self-hosting and subsetting are allowed.
+- **Cost (P7):** 26.3 KB after subsetting (weights 400–700, optical size fixed at the text setting).
 
 *Rejected:*
-- *Ancizar Sans* (the earlier recommendation): matches the serif, but unfamiliar as reading text and one more download.
+- *System font:* zero download, but the face is left to the device and the user.
+- *Ancizar Sans:* matches the serif but is unfamiliar as reading text.
 - *Ancizar Serif for body as well:* a serif at 14–16 px in forms and buttons on a phone reads less cleanly than a sans (P1).
-- *Instrument Sans:* familiar-looking but still a download, with no link to the heading face.
+- *Instrument Sans:* familiar-looking but less common than Inter.
 
 ### 3. Font delivery
-Only Ancizar Serif is shipped. Download the variable TTFs from the Google Fonts repository, subset them to Latin plus the Danish letters and common punctuation, and convert to WOFF2: upright, plus the italic if headings use it. Budget: under 100 KB for all font files together. Use `font-display: swap` with a metric-matched fallback stack to limit layout shift (P7).
+Ancizar Serif and Inter are shipped. Download the variable TTFs from the Google Fonts repository, subset them to Latin plus the Danish letters and common punctuation, and convert to WOFF2: Inter upright, Ancizar Serif upright plus the italic if headings use it. Budget: under 100 KB for all font files together. Use `font-display: swap` with a metric-matched fallback stack to limit layout shift (P7).
 *Alternative rejected:* the Google Fonts CDN. It sends visitor IP addresses to a third party, which adds a GDPR question for no gain.
 
 ### 4. Palette comes from Felix and the owner
