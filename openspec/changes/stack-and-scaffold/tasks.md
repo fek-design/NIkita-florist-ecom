@@ -46,7 +46,7 @@
 ## 6. Records and hand-over
 
 - [ ] 6.0 Keep `docs/handover.md` complete: one row per account, secret and personal detail created in this change; verify every account and variable in group 4 and 5 has a row
-- [ ] 6.1 Write `docs/runbook.md`: accounts, deploys, rollback, backup and restore, scheduled jobs, free-plan limits with the dates they were read, and what the owner must change to go live (paid plans or another host, moving each account to her); verify each step names the screen or command it uses
+- [ ] 6.1 Write `docs/runbook.md` (include: a start-up crash on Vercel shows as a generic 500, so first check every variable in `.env.example` is set for that environment): accounts, deploys, rollback, backup and restore, scheduled jobs, free-plan limits with the dates they were read, and what the owner must change to go live (paid plans or another host, moving each account to her); verify each step names the screen or command it uses
 - [ ] 6.2 Save or link the data processing agreements for Vercel, Neon, Stripe and GitHub in `docs/`, marking the third-country transfers; verify all four are listed
 - [x] 6.3 Update `CLAUDE.md` with the workspace commands and the local stack; verify the commands work as written
 - [ ] 6.4 Update the process note with the architecture changes of 16–17 Nov and every check result; verify it links this change

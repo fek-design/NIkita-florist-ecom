@@ -68,3 +68,14 @@ Recorded as they happened.
 ## Open questions
 
 - Felix has no GitHub CLI installed, so pull requests are opened in the browser for now.
+
+## Hosting: first deploy to Vercel (17 Nov)
+
+Recorded as it happened, on branch `feature/hosting`.
+
+1. **Vercel could not import the backend folder.** Vercel imports from the default branch (`DevEnv`), which did not have `backend/` yet. The code part of this change was merged first (PR #3); hosting continues on `feature/hosting`.
+2. **"No entrypoint found which imports fastify".** Vercel only accepts an entry file that imports `fastify` itself. `server.ts` now creates the Fastify instance; the routes moved into `registerRoutes()`, which the tests also use.
+3. **The production address returned DEPLOYMENT_NOT_FOUND.** Not a bug: the production build of `DevEnv` had failed on point 2, and the working build was the `feature/hosting` preview, which has its own address.
+4. **The preview crashed with INTERNAL_FUNCTION_INVOCATION_FAILED and no app output.** First suspicion was the top-level `await app.listen()`, which differs from Vercel's example; it was changed to match the example and a "Backend starting" log line was added. The real cause, found by Felix: `JOB_SECRET` was not set for the Preview environment, so the start-up check stopped the backend on purpose. The listen change is kept because it matches Vercel's documented pattern, but it did not fix anything.
+   - Lesson for the runbook: a missing variable shows on Vercel as a generic 500, not as our message naming the variable. When a deployment crashes at start-up, check that every variable in `backend/.env.example` is set for that environment first.
+5. **Neon's pooler and prepared statements.** The Neon integration's `DATABASE_URL` goes through pgbouncer, so the Postgres driver now runs with prepared statements turned off. Migrations use `DATABASE_URL_UNPOOLED`.
