@@ -2,63 +2,92 @@
 
 Each significant choice: what, why, what was rejected. Format from [Design-Rationale section 5](../ref/Design-Rationale.md). Design and brand decisions also cite a principle (P1–P12) or are labelled *opinion*.
 
-Status: **locked** means decided and in use. **Conditional** means decided, pending the check named in the entry.
+Status: **locked** means decided and in use. **Conditional** means decided, pending the check named in the entry. **Superseded** means replaced; the entry stays so the change of mind is visible.
 
 ---
 
 ## Stack
 
-### D-001 Framework: Next.js (App Router) with TypeScript
-Date: 2026-11-16 · Change: `stack-and-scaffold` · Principles: P7, P10 · Status: locked
-Decision: Next.js 16.4.6 with the App Router and TypeScript, in the repository root.
-Why: Server rendering gives SEO and speed by default. Route handlers cover checkout, payment webhooks and the admin in one codebase, so there is one deployment to run and explain.
-Rejected: Astro (strong for content, weaker for cart, checkout and admin); a separate API server (two deployments); Shopify or WooCommerce (not an API-driven custom build, which the case requires); Next.js 15.5.4 (known vulnerabilities in production dependencies at scaffold time).
+### D-001 Frontend: Next.js (App Router) with TypeScript
+Date: 2026-11-16, updated 2026-11-17 · Change: `stack-and-scaffold` · Principles: P7, P10 · Status: locked
+Decision: Next.js 16.4.6 with the App Router and TypeScript, in `frontend/`. It renders the storefront and admin screens and holds no database access (D-010).
+Why: Server rendering gives SEO and speed by default.
+Rejected: Astro (strong for content, weaker for cart, checkout and admin); a client-only single-page app (worse SEO and first load); Shopify or WooCommerce (not an API-driven custom build, which the case requires); Next.js 15.5.4 (known vulnerabilities in production dependencies at scaffold time).
+History: on 16 Nov the plan was one Next.js app in the repository root handling everything. Replaced on 16 Nov by the frontend/backend split (D-009).
 
-### D-002 Database: PostgreSQL with Drizzle
-Date: 2026-11-16 · Change: `stack-and-scaffold` · Status: locked (local); hosting provider conditional
-Decision: PostgreSQL, queried through Drizzle ORM with the `postgres` driver. Migrations are plain SQL files in `drizzle/`. Locally, Postgres 17 runs in Docker (`compose.yaml`).
-Why: Orders, order lines and products are relational. Drizzle stays close to SQL, so each query can be read and explained.
-Rejected: Prisma (heavier generated client, harder to explain line by line); a document database (poor fit for orders and totals).
-Pending: hosted database in an EU region. Neon is the first candidate, Supabase the fallback. Region and data processing agreement to be recorded (task 3.1, 5.3).
+### D-002 Database: PostgreSQL with Drizzle, hosted on Neon (Frankfurt)
+Date: 2026-11-16, updated 2026-11-17 · Change: `stack-and-scaffold` · Status: locked (local); conditional on account creation (Neon)
+Decision: PostgreSQL 17, queried through Drizzle ORM with the `postgres` driver, in `backend/`. Migrations are plain SQL files in `backend/drizzle/`. Hosted on Neon's free plan in Frankfurt; locally in Docker (`compose.yaml`).
+Why: Orders, order lines and products are relational. Drizzle stays close to SQL, so each query can be read and explained. Neon's free plan costs nothing, upgrades in place, and gives each preview deploy its own database branch.
+Rejected: Prisma (heavier generated client); a document database (poor fit for orders and totals); Postgres on an own server (D-013); Supabase (more bundled features than needed).
+Limits read 2026-11-17 (Neon docs): 1 GB storage per project, 6-hour restore window on the free plan. The short restore window is why D-012 exists.
 
-### D-003 Hosting: Vercel with EU function region
-Date: 2026-11-16 · Change: `stack-and-scaffold` · Status: conditional
-Decision: Vercel, function region pinned to Frankfurt. `main` deploys to production, `DevEnv` to a fixed staging URL, every branch to a preview URL.
-Why: Builds Next.js with no configuration and gives a preview per branch, which makes owner review fast.
-Rejected: self-managed VPS (patching and deploy scripts cost time); Netlify (workable, less direct support for current Next.js features).
-Pending: where logs and build data are stored, and the data processing agreement (task 4.2, 5.3).
+### D-003 Hosting: Vercel Hobby, two projects, functions in Frankfurt
+Date: 2026-11-16, updated 2026-11-17 · Change: `stack-and-scaffold` · Status: conditional on account creation
+Decision: The frontend and the backend deploy as two Vercel projects from the same repository, with function region Frankfurt (`fra1`). Every branch gets a preview, `DevEnv` is staging, `main` is production.
+Why: Zero cost for a school project, preview per branch for owner review, and an in-place upgrade path when the owner goes live.
+Rejected: own EU server (D-013); Simply.com webhotel (D-013); Render's free web service (sleeps when idle, slow first request in a demo); Netlify (less direct support for current Next.js features).
+Note: Hobby is for non-commercial use. At go-live the owner moves to a paid plan or another host ([hand-over sheet](handover.md)).
 
 ### D-004 Payment: Stripe hosted Checkout
-Date: 2026-11-16 · Change: `stack-and-scaffold` · Principles: P5 · Status: conditional
+Date: 2026-11-16, updated 2026-11-17 · Change: `stack-and-scaffold` · Principles: P5 · Status: locked
 Decision: Stripe hosted Checkout in test mode. No card data touches our server.
 Why: Minimal PCI scope, and test mode is available at once.
 Rejected: Quickpay (separate acquirer agreement, more paperwork); our own card fields (raises PCI scope).
-Condition: MobilePay must be offered to a Danish customer paying in DKK in test mode (task 1.3). If not, switch to Quickpay or Frisbii before any payment code is written. No live account is needed: the shop does not go live within the project ([interview](process/2026-11-16-owner-interview.md)).
+Check: 2026-11-17, MobilePay is offered in Stripe test mode for EUR, DKK, NOK and SEK (Felix). No live account is needed: the shop does not go live within the project ([interview](process/2026-11-16-owner-interview.md)).
 
-### D-005 Email: Resend, Postmark as fallback
-Date: 2026-11-16 · Change: `stack-and-scaffold` · Status: conditional
-Decision: A transactional email API. Resend first, Postmark as fallback.
-Why: Delivery logs and retries beat a raw SMTP relay, so a lost confirmation can be traced.
-Pending: EU data handling and sending-domain setup (task 5.2). No email code is written yet.
+### D-005 Email API service — superseded
+Date: 2026-11-16 · Status: superseded by D-011 on 2026-11-16
+Decision was: a transactional email API (Resend, Postmark as fallback).
+Why it changed: Felix chose SMTP and IMAP, so the shop's own mailbox sends and receives, and the weak points of plain SMTP are handled in our own code (D-011).
 
-### D-006 Admin inside the same app
+### D-006 Admin inside the same frontend
 Date: 2026-11-16 · Change: `stack-and-scaffold` · Principles: P1 · Status: locked
-Decision: A minimal admin built into the webshop, one account (the owner).
+Decision: A minimal admin built into the frontend, using the same backend API, with one account (the owner).
 Why: Small catalogue, seven simple screens (`openspec/specs/back-office/`), and only the owner uses it. A separate CMS would be a second system for her to learn.
 Rejected: a headless CMS (extra service, extra login, extra cost).
 
 ### D-007 Money stored as whole øre
 Date: 2026-11-16 · Change: `stack-and-scaffold` · Status: locked
-Decision: All amounts are integers in øre (250 kr. = 25000) and formatted with `formatKroner`.
+Decision: All amounts are integers in øre (250 kr. = 25000) and formatted with `formatKroner` (`backend/src/lib/money.ts`).
 Why: Integer arithmetic never rounds wrong, which matters once prices, delivery fee and totals are added up on the server.
 Rejected: decimal numbers in JavaScript (floating-point rounding errors).
 
-### D-008 Missing configuration stops the server
+### D-008 Missing configuration stops the app
 Date: 2026-11-16 · Change: `stack-and-scaffold` · Status: locked
-Decision: Required environment variables are listed in `src/env.ts` and checked when the server starts. If one is missing, the server logs its name and exits.
+Decision: Each app lists its required environment variables in its own `src/env.ts` and checks them at start-up. If one is missing, the app logs its name and exits.
 Why: A missing key should fail loudly at start-up, not halfway through a customer's checkout.
-Rejected: checking at first use only (fails late, in front of a customer); a schema library such as Zod for one variable (a dependency without a need yet).
-Note: the database client is created on first use, so `next build` and CI need no database secret.
+Rejected: checking at first use only (fails late, in front of a customer); a schema library such as Zod for a handful of variables (a dependency without a need yet).
+Note: the database client is created on first use, so builds and CI need no secrets.
+
+### D-009 Backend: separate Fastify service
+Date: 2026-11-16 · Change: `stack-and-scaffold` · Status: locked
+Decision: A standalone API service in `backend/`, built with Fastify and TypeScript (ES modules). It owns the database, business rules, payment and email. Locally it runs as a Node server; on Vercel it deploys as a function.
+Why: Felix's choice: the case describes an API-driven solution with a backend side that ties payment and email together. Fastify validates request and response bodies against schemas, which is where server-side price and input validation will live, and its `inject()` lets routes be tested without starting a server.
+Rejected: server routes inside Next.js (no clear frontend/backend split); Express (no built-in validation, older async handling); NestJS (heavy structure for a small API, harder to explain line by line).
+
+### D-010 Repository layout: npm workspaces, frontend without database access
+Date: 2026-11-16 · Change: `stack-and-scaffold` · Status: locked
+Decision: One repository with two npm workspaces, `frontend/` and `backend/`. Only the backend holds database credentials. Server-side frontend code calls the backend through `BACKEND_URL`; browser code calls the frontend's own `/api/*`, which Next.js rewrites to the backend.
+Why: One pull request per change across both apps, and customer data sits behind one API with one set of rules. The rewrite keeps the browser on a single address, so no cross-origin setup is needed.
+Rejected: backend nested inside the Next.js root (overlapping `package.json` trees); two repositories (one change would need two pull requests).
+
+### D-011 Email: SMTP out, IMAP in, through a mailbox
+Date: 2026-11-16, updated 2026-11-17 · Change: email change (weeks 3–4) · Status: conditional (mailbox provider not chosen)
+Decision: The backend sends over authenticated SMTP and reads over IMAP. Plain SMTP's weak points are covered in our own code: an outbox table logs every message, a scheduled job sends at a steady rate and retries, and IMAP reads bounce messages back. IMAP is also used later for customer replies and orders sent by email. Locally, Mailpit catches all mail.
+Why: Felix's choice; the case names email "via SMTP/API". Running it ourselves is good exam material and keeps mail in a mailbox the shop controls.
+Rejected: a vendor email API (D-005); running our own mail server (new servers usually cannot send on port 25, and self-run servers rarely reach inboxes); Simply.com mail (Felix: Simply was considered for hosting only).
+
+### D-012 Scheduled work and backups through GitHub Actions
+Date: 2026-11-17 · Change: `stack-and-scaffold` · Status: conditional on account setup
+Decision: A GitHub Actions schedule calls `POST /jobs/<name>` on the backend about every 15 minutes, authorised by `JOB_SECRET` as a bearer token. A nightly workflow dumps the production database, encrypts it with `age` using Felix's public key, and keeps it as an artifact for 14 days.
+Why: Vercel Hobby runs cron jobs at most once a day with up to an hour of drift (Vercel docs, read 2026-11-17), which is too slow for email retries. Neon's free plan keeps only 6 hours of restore history. Encrypting before upload means GitHub never holds readable customer data.
+Rejected: Vercel Pro cron (costs money); an external cron service (another account); relying on Neon's restore window alone; unencrypted backup artifacts.
+
+### D-013 Rejected hosting: own EU server and Simply.com webhotel
+Date: 2026-11-16 to 2026-11-17 · Status: rejected
+Considered: one Hetzner server in Germany or Finland running everything in Docker Compose behind Caddy (Felix's first choice on 16 Nov: everything in the EU, fully explainable). Then Felix's existing Simply.com subscription.
+Why rejected: the Hetzner server costs money, which Felix does not want to spend on a school project (17 Nov). Simply.com's webhotel serves static sites only, so it cannot run the frontend or the backend (checked by Felix, 17 Nov). Kept here because the own-server design is still the natural target if the owner later wants to leave Vercel.
 
 ---
 
@@ -66,18 +95,35 @@ Note: the database client is created on first use, so `next build` and CI need n
 
 Roadmap rule 8: each package needs a reason.
 
+### Root (`package.json`)
+
+| Package | Kind | Reason |
+|---|---|---|
+| `prettier` | dev | One formatting style for the whole repository |
+
+### Frontend (`frontend/package.json`)
+
 | Package | Kind | Reason |
 |---|---|---|
 | `next` | runtime | The framework (D-001) |
 | `react`, `react-dom` | runtime | Required by Next.js |
-| `drizzle-orm` | runtime | Typed SQL queries (D-002) |
-| `postgres` | runtime | Postgres driver used by Drizzle (D-002) |
 | `typescript`, `@types/node`, `@types/react`, `@types/react-dom` | dev | Type checking |
 | `eslint`, `eslint-config-next` | dev | Lint rules for Next.js and React |
-| `prettier`, `eslint-config-prettier` | dev | One formatting style; turns off lint rules that clash with it |
-| `vitest`, `vite-tsconfig-paths` | dev | Unit tests (price and delivery rules later); resolves the `@/` import alias in tests |
+| `eslint-config-prettier` | dev | Turns off lint rules that clash with Prettier |
+| `vitest`, `vite-tsconfig-paths` | dev | Unit tests; resolves the `@/` import alias in tests |
 | `@playwright/test` | dev | End-to-end tests on a phone viewport, including the checkout test in week 3 |
-| `drizzle-kit` | dev | Generates and runs migrations |
-| `@next/env` | (ships with `next`) | Imported in `drizzle.config.ts` so migrations read `.env.local` like the app does. Not installed separately |
 
-Audit on 2026-11-16: `npm audit --omit=dev` reports 0 vulnerabilities. 8 moderate findings are in lint tooling only (`minimatch` via `typescript-eslint`, pulled in by `eslint-config-next`), with no fix that keeps `eslint-config-next` at 16.4.6.
+### Backend (`backend/package.json`)
+
+| Package | Kind | Reason |
+|---|---|---|
+| `fastify` | runtime | The API framework (D-009) |
+| `drizzle-orm` | runtime | Typed SQL queries (D-002) |
+| `postgres` | runtime | Postgres driver used by Drizzle (D-002) |
+| `typescript`, `@types/node` | dev | Type checking and the production build |
+| `tsx` | dev | Runs the TypeScript server directly in development, restarting on change |
+| `eslint`, `typescript-eslint`, `eslint-config-prettier` | dev | Lint rules for TypeScript |
+| `vitest` | dev | Unit tests, including route tests with `app.inject()` |
+| `drizzle-kit` | dev | Generates and runs migrations |
+
+Audit on 2026-11-17: `npm audit --omit=dev` reports 0 vulnerabilities. CI fails on any high or critical finding in production dependencies.
