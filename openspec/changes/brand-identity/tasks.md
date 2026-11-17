@@ -21,17 +21,17 @@
 
 - [x] 4.1 Check and optimise Felix's SVGs without changing any shape (outlined text, no hidden layers); verify a before and after render match — *17 Nov: no hidden elements, images, live text, scripts or outside links. Rounding coordinates saved only 12% and changed edge shading on 1% of pixels, so it was dropped; the SVG stays the untouched master and the site uses small PNG exports instead (task 4.2)*
 - [x] 4.2 Export colour, ink and white variants and a favicon set (SVG, 32 px, 180 px, 512 px) into `ref/brand/logo/`; verify each renders at 16, 32 and 64 px on every ground — *17 Nov: Sand, Ink and Paper variants of both lockups; PNG exports at 1–3x for the navbar and footer; favicon cropped from the leaf at 32, 180 and 512 px on a Paper square. No favicon SVG: it would carry the whole 800 KB drawing. Checked on all four grounds; the leaf favicon is faint at 16–32 px, which Felix accepted (no simplified leaf)*
-- [ ] 4.3 Record the minimum size and clear space from the final artwork; verify both are stated with a diagram in the guide
+- [x] 4.3 Record the minimum size and clear space from the final artwork; verify both are stated with a diagram in the guide — *17 Nov: clear space = cap height of the name (9% of width); minimum 120 px (full) and 110 px (half moon); `logo/clear-space.png` in guide section 1*
 
 ## 5. Board, guide and skill
 
 - [x] 5.1 Build `ref/brand/brand-board.html` from the tokens (logo variants, palette, pairing table, type specimen, sample button and product card); verify that changing one token changes the board and that it lays out at 390 px and desktop width — *17 Nov: no overflow at 390 and 1280 px; only Ancizar Serif and Inter load, from local files; changing `--sand` in a copy of `tokens.css` changed the swatch and button; live pairing table matches `contrast.md` (20 pairings, 8 forbidden)*
-- [ ] 5.2 Write `ref/brand/brand-guide.md` (logo use, colour roles and pairings, typography, imagery direction, Danish voice, licence table); verify every spec requirement maps to a section and no licence is marked unknown
-- [ ] 5.3 Create `.claude/skills/florist-brand/SKILL.md` from the guide; verify it appears in the session's skill list
-- [ ] 5.4 Remove `.claude/skills/brand-guidelines/`, update CLAUDE.md override 5 and `PROVENANCE.md`, and point leftover `establish-brand-identity` mentions at this change; verify a search for the old name returns nothing outside archived notes
+- [x] 5.2 Write `ref/brand/brand-guide.md` (logo use, colour roles and pairings, typography, imagery direction, Danish voice, licence table); verify every spec requirement maps to a section and no licence is marked unknown — *17 Nov: logo (1), colours and pairings (2), two self-hosted typefaces (3), tokens (header and 2), licences (8); owner approval is task 6.2*
+- [x] 5.3 Create `.claude/skills/florist-brand/SKILL.md` from the guide; verify it appears in the session's skill list — *17 Nov: listed as `florist-brand`*
+- [x] 5.4 Remove `.claude/skills/brand-guidelines/`, update CLAUDE.md override 5 and `PROVENANCE.md`, and point leftover `establish-brand-identity` mentions at this change; verify a search for the old name returns nothing outside archived notes — *17 Nov: remaining mentions are in an archived change or describe history with the new name beside them*
 
 ## 6. Sign-off and merge
 
-- [ ] 6.1 Add a "Brand decisions" section to `ref/Design-Rationale.md`, each decision citing P1–P12 or marked *opinion*; verify the links resolve
+- [x] 6.1 Add a "Brand decisions" section to `ref/Design-Rationale.md`, each decision citing P1–P12 or marked *opinion*; verify the links resolve
 - [ ] 6.2 Owner reviews the brand board; verify the approval, date and requested changes are in the process note
 - [ ] 6.3 Run `openspec validate brand-identity`, finish the process note, and merge `feature/brand-identity` into `DevEnv`; verify `DevEnv` is pushed and the feature branch is deleted

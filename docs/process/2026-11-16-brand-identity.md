@@ -148,6 +148,16 @@ Checked in a headless browser:
 
 Finding: in a 64 px navbar the half-moon logo is 76 px wide and the name's capitals are about 7 px tall, too small to read. The board now shows a 72 px navbar with the logo 110 px wide, where the name reads clearly. That sets a minimum: the half moon is not used below 110 px wide.
 
+## Guide, skill and records (17 Nov)
+
+- [ref/brand/brand-guide.md](../../ref/brand/brand-guide.md): logo, colour, type, components, imagery, Danish voice, known limitations, licences.
+- `.claude/skills/florist-brand/`: a short skill that points AI sessions to `ref/brand/` rather than copying values, so it cannot drift. Anthropic's `brand-guidelines` was removed, and CLAUDE.md override 5 and `PROVENANCE.md` updated.
+- `ref/Design-Rationale.md` has a "Brand decisions" table (B1–B12), each citing a principle or marked *opinion*.
+- The `brand-identity` skill's retire condition is now met (the florist skill and guide exist). Removing it is Felix's call at the next checkup.
+- Correction: the first guide draft stated that all logo rights sit with the shop. That is not established, so it now says the artwork is Felix's, made for the shop, with rights to be confirmed in writing at hand-over. A matching row goes into `docs/handover.md` once this branch and `feature/stack-and-scaffold` meet in `DevEnv`.
+
 ## Open questions
 
+- Owner sign-off on the brand board (task 6.2).
+- Retire the `brand-identity` skill now that its job is done?
 

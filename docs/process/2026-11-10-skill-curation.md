@@ -131,7 +131,7 @@ Each decision cites a principle in [ref/Design-Rationale.md](../../ref/Design-Ra
 | `neonwatty/logo-designer-skill` | Vector asset drawing | Not adopted | Security clean with conditions; replaced by Felix's switch before its trial was judged. *Opinion* |
 | Anthropic `frontend-design` | UI design quality | Not adopted | Felix kept `design-taste-frontend` without running the head-to-head (task 4.4). Two skills for one job would collide (design.md, decision 5). *Opinion* (Felix's call), recorded as an untested choice |
 | `design-taste-frontend` | UI design quality | Kept | Felix's call; its overrides already live in CLAUDE.md. Retire-by condition in PROVENANCE.md |
-| `brand-identity` | Brand system structure | Kept (re-audit only) | Still has a job in `establish-brand-identity` (P11) |
+| `brand-identity` | Brand system structure | Kept (re-audit only) | Still has a job in `establish-brand-identity` (P11), later replaced by `brand-identity` |
 | `brand-guidelines` | Format reference | Kept until `florist-brand` exists | Unchanged from the import |
 | Mobbin (`best-practices`, `search`, `redesign-screen`, `plain-writing`) + MCP | Screen references | Retired, removed 2026-11-11 | No paid Mobbin plan. *Opinion* (Felix's call) |
 | `design:accessibility-review` (plugin) | Accessibility checks | Kept (re-audit only) | Plugin, not in `.claude/skills/`; no new candidate |

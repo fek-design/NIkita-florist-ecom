@@ -23,7 +23,7 @@
 
 **Non-Goals:**
 - Curating skills for later phases (payment, SEO, security). Those get their own pass when their week starts
-- Writing custom skills. The florist brand skill comes from `establish-brand-identity`
+- Writing custom skills. The florist brand skill comes from `brand-identity` (first planned as `establish-brand-identity`)
 
 ## Decisions
 
