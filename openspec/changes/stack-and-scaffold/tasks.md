@@ -33,7 +33,7 @@
 - [x] 4.1 Felix creates the Neon project (free plan, Frankfurt) with the Vercel integration; record region and date in the decision log — *17 Nov: `nikita-florist`, Frankfurt, connected to the backend project only*
 - [ ] 4.2 Felix creates the two Vercel projects (Hobby) from the repository, root directories `frontend/` and `backend/`, function region Frankfurt; set environment variables in Vercel only; record region and date
 - [ ] 4.3 Assign `DevEnv` to the staging domains and `main` to production; verify a pushed branch gets preview addresses for both apps and the preview frontend talks to a non-production backend
-- [ ] 4.4 Run the migration against the staging and production databases; verify the backend health check reports success on preview, staging and production
+- [ ] 4.4 Run the migration against the staging and production databases; verify the backend health check reports success on preview, staging and production — *17 Nov: migration applied to Neon's main branch (Felix; drizzle-kit printed no success line against Neon, confirmed in the Neon console: `drizzle.__drizzle_migrations` has 1 row). `/health` on the `feature/hosting` preview returns ok. Staging and production pending*
 - [x] 4.5 Felix protects `DevEnv` and `main` on GitHub (pull request and passing checks required), sets `DevEnv` as default branch and deletes the old `dev` branch; verify a direct push is rejected — *17 Nov: `DevEnv` is the default and `dev` is deleted (confirmed via GitHub). Branch protection set by Felix the same day; the GitHub API reports both `DevEnv` and `main` as protected*
 
 ## 5. Scheduling and backups
