@@ -46,7 +46,7 @@ Responsive logo, Felix's idea, inspired by how Interflora adapts its logo to the
 - **Full lockup** (`logo/logo.svg`): circle, leaf, name, divider. For large places: hero, footer, emails.
 - **Half moon** (`logo/logo-half.svg`): the frame stops just above where the lower half of the circle starts, leaving the top arc, the leaf and the name. For the navbar.
 
-A first version of the half moon cut below the divider. That left two short stubs of the lower circle under the name, so the cut was moved up to where the lower arc begins. At 48 px tall in a phone navbar the name is readable; the leaf turns into a light texture. The variant is a proposal: Felix approves it or draws his own in Figma. Preview: `ref/brand/logo/preview.png`.
+A first version of the half moon cut below the divider. That left two short stubs of the lower circle under the name, so the cut was moved up to where the lower arc begins. At 48 px tall in a phone navbar the name is readable; the leaf turns into a light texture. Felix accepted the half-moon crop on 17 Nov. Preview: `ref/brand/logo/preview.png`.
 
 ## Typography
 
@@ -100,7 +100,7 @@ Cost: 26.3 KB after subsetting, 76.9 KB for all shipped fonts, still under the 1
   - Sand on Linen (3.8:1) is for large text and borders only, so links on Linen cards are Ink.
   - On Sand bands, text is Paper (5.1:1). Ink on Sand (2.6:1) is forbidden.
 
-### Functional colours: proposals, pending Felix
+### Functional colours: accepted for now (Felix, 17 Nov)
 
 | Token | Hex | On Paper | On Linen |
 |---|---|---|---|
@@ -115,6 +115,5 @@ The focus ring is two-tone (Ink ring, Paper halo) and passes on all four grounds
 
 ## Open questions
 
-- Accept or change the proposed error and success colours?
 
 - Simplified leaf for 16–64 px (favicon, header on a phone): Felix to supply.

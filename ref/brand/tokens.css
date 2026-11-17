@@ -35,9 +35,9 @@
   --sand: #7a644f; /* about 30%: logo, feature bands, footer, buttons */
   --ink: #2d2a26; /* about 10%: text and the strongest accents */
 
-  /* Functional colours. PROPOSED by Claude on 17 Nov 2026, pending
-     Felix's acceptance. Both pass 4.5:1 on Paper and Linen. Never the
-     only signal: errors and success also carry text or an icon (P9). */
+  /* Functional colours. Proposed by Claude, accepted by Felix "for now"
+     on 17 Nov 2026. Both pass 4.5:1 on Paper and Linen. Never the only
+     signal: errors and success also carry text or an icon (P9). */
   --error: #9b2c24;
   --success: #36602f;
 
