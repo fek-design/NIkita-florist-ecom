@@ -51,19 +51,21 @@ Postgres runs as a container on the server with no published port; only the back
 - Server hardening: SSH keys only, firewall open for ports 22, 80 and 443 only, automatic security updates.
 *Rejected:* Coolify or a similar self-hosted platform (another system to learn and hand over); Vercel and Neon (Felix's choice); one preview per branch (needs per-branch databases and routing; staging covers owner review).
 
-### 6. Email: an existing mailbox over SMTP and IMAP
-The backend sends through the shop's mailbox over SMTP (port 587 or 465) and reads it over IMAP. No mail server runs on our machine: Hetzner blocks outbound port 25 on new servers, and a self-run mail server rarely reaches inboxes.
+### 6. Email: a Simply.com mailbox over SMTP and IMAP
+Felix already has a Simply.com subscription (17 Nov). The backend sends through a Simply mailbox over authenticated SMTP and reads it over IMAP. Simply states that its servers are in data centres in Denmark, which keeps mail data in the EU. Hostnames, ports and sending limits are taken from Simply's own setup page when the email change starts. No mail server runs on our machine: Hetzner blocks outbound port 25 on new servers, and a self-run mail server rarely reaches inboxes.
 The weak points of plain SMTP are covered in the email change: an outbox table logs every message and its status, a worker sends at a steady rate and retries, and IMAP reads bounce messages back. Customer replies and orders sent by email are later changes that also use IMAP.
 Locally, Mailpit catches all mail so nothing reaches real inboxes during development.
 
-### 7. Payment: Stripe hosted Checkout, conditional on MobilePay
-Unchanged. Stripe asks for a business website before payment methods can be set up; the shop's Instagram profile can be given. If MobilePay is not offered for DKK, switch to Quickpay or Frisbii before any payment code is written.
+### 7. Payment: Stripe hosted Checkout
+Confirmed 17 Nov: MobilePay is offered in Stripe test mode for DKK (also EUR, NOK and SEK). Quickpay and Frisbii are no longer needed as fallbacks.
 
 ### 8. Backups
 A nightly job on the server runs `pg_dump` for production and copies the file to a Hetzner Storage Box (EU), keeping 14 days. One restore into an empty database is tested before the change is merged.
 
 ### 9. Checks per workspace
 Each workspace has its own `lint`, `typecheck`, `test` and `build` scripts; the root scripts run them for both. CI runs the root scripts and also builds the two Docker images, so a broken Dockerfile fails before deploy.
+
+CI also runs `npm audit --omit=dev --audit-level=high`, so a known high or critical vulnerability in a production dependency fails the build. Added 17 Nov after the PHP2Shell remote-code-execution flaws (CVE-2026-109618, CVE-2026-109619): the webshop has no PHP, but the same kind of flaw in a Node.js dependency must be caught before deploy. The server's Docker base images are rebuilt on every deploy so operating-system fixes arrive too.
 
 ### 10. Branch flow with pull requests
 Unchanged: feature branches merge into `DevEnv` through a pull request once CI is green.
@@ -83,5 +85,6 @@ Nothing is live. The move happens on this branch: restructure first, re-run ever
 
 ## Open Questions
 
-- Which mailbox sends and receives: the shop's existing email address, or a new one? Needed for the email change, not for this one.
+- Which Simply mailbox address sends and receives (an existing one or a new one such as `ordre@…`)? Needed for the email change, not for this one.
+- Whether Simply also hosts anything else (domain, webhotel). The webshop itself does not run on a PHP webhotel: it needs Node.js and Docker.
 - A cheap domain would replace the `sslip.io` addresses and allow proper email records. Not needed now.

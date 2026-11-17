@@ -2,7 +2,7 @@
 
 - [x] 1.1 Move the repository to a plain local folder, or confirm with Felix that its current folder is not cloud-synced; verify `git status` is clean and the remote is unchanged afterwards
 - [x] 1.2 Create `docs/decisions.md` in the format from `ref/Design-Rationale.md` section 5, with entries for framework, database, hosting, payment, email and admin; verify each has "decision", "why" and "rejected"
-- [ ] 1.3 Verify in Stripe test mode that MobilePay is offered to a Danish customer paying in DKK (give the shop's Instagram profile as the business website if asked); record the result with a date, and switch decision 7 to Quickpay if it fails
+- [x] 1.3 Verify in Stripe test mode that MobilePay is offered to a Danish customer paying in DKK (give the shop's Instagram profile as the business website if asked); record the result with a date, and switch decision 7 to Quickpay if it fails — *17 Nov: MobilePay is offered in test mode for EUR, DKK, NOK and SEK (Felix). Stripe kept*
 - [ ] 1.4 Update `docs/decisions.md` for the 16 Nov changes (frontend, backend, own server, email over SMTP and IMAP), keeping the replaced entries marked as superseded; verify every decision in design.md has an entry
 
 ## 2. First scaffold (managed-hosting plan, kept and moved in group 3)

@@ -11,8 +11,8 @@ API-driven full-stack webshop for a local Danish florist that today sells only t
 
 - `DevEnv` is the integration branch. Never commit work directly to it.
 - **One branch per piece of work.** Before starting a feature, fix or OpenSpec change, create a branch off the latest `DevEnv`, named after the work: `feature/<slug>`, `fix/<slug>`, `docs/<slug>` (for example `feature/brand-identity`, `feature/cart`). For an OpenSpec change, use the change name as the slug.
-- **Push the branch on its first commit** (`git push -u origin <branch>`), then commit and push after every finished task and before every session ends. Unpushed work does not count as saved.
-- **Merge into `DevEnv` only when the work is finished and working**: tests and checks pass, and it has been verified in the running app where that applies. Merge through a pull request into `DevEnv` once CI is green, then delete the feature branch locally and on the remote. Docs-only branches with no app code may still be merged locally with `--no-ff`.
+- **Felix pushes; Claude does not.** Claude commits locally after every finished task, and never runs `git push`, opens pull requests or merges into `DevEnv`. When there is something worth pushing (a finished task group, before a session ends, or when CI results are needed), Claude says so plainly, naming the branch and the commits waiting. Unpushed work does not count as saved, so Claude reminds Felix rather than letting commits pile up.
+- **Merge into `DevEnv` only when the work is finished and working**: tests and checks pass, and it has been verified in the running app where that applies. Felix merges through a pull request into `DevEnv` once CI is green, then deletes the feature branch locally and on the remote.
 - At the start of a session, run `git status` and `git fetch`, and say so if anything is uncommitted, unpushed or behind the remote.
 - Never use `git reset --hard`, force-push or delete an unmerged branch without Felix's explicit go-ahead.
 - `main` receives release merges only, each from `DevEnv` and tagged (`v0.1`, `v0.2`, …). Never commit to `main` directly.
