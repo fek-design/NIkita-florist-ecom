@@ -20,21 +20,29 @@ API-driven full-stack webshop for a local Danish florist that today sells only t
 
 ## App
 
-Next.js 16 (App Router, TypeScript) in the repository root. This Next.js version differs from older training data: read the guide in `node_modules/next/dist/docs/` before using an API (see `AGENTS.md`). Stack decisions and the reason for every dependency: [docs/decisions.md](docs/decisions.md).
+Two npm workspaces. The frontend never touches the database; everything goes through the backend API. Stack decisions and the reason for every dependency: [docs/decisions.md](docs/decisions.md).
 
-First run: `npm ci`, `cp .env.example .env.local`, `docker compose up -d` (local Postgres), `npm run db:migrate`.
+- `frontend/`: Next.js 16 (App Router, TypeScript). This Next.js version differs from older training data: read the guide in `node_modules/next/dist/docs/` before using an API (see `frontend/AGENTS.md`). Server code calls the backend through `src/lib/backend.ts`; browser code calls `/api/*`, which is rewritten to the backend.
+- `backend/`: Fastify API (TypeScript, ES modules, so relative imports end in `.js`). Owns the database (Drizzle, migrations in `backend/drizzle/`), business rules, payment and email. Routes are built in `src/build-app.ts` and tested with `app.inject()`.
 
-| Command | Does |
+First run:
+```
+npm ci
+cp frontend/.env.example frontend/.env.local
+cp backend/.env.example backend/.env.local     # then fill in JOB_SECRET (openssl rand -hex 32)
+docker compose up -d                           # Postgres on :5432, Mailpit on :1025 / http://localhost:8025/
+npm run db:migrate -w backend
+```
+
+| Command (from the root) | Does |
 |---|---|
-| `npm run dev` | Dev server on http://localhost:3000/ |
-| `npm run lint` / `npm run format` | ESLint / Prettier (write) |
-| `npm run typecheck` | Generates route types, then `tsc` |
-| `npm test` | Vitest unit tests (`src/**/*.test.ts`) |
-| `npm run test:e2e` | Playwright on a phone viewport (`e2e/`) |
-| `npm run build` | Production build (needs no secrets) |
-| `npm run db:generate` / `npm run db:migrate` | Create / apply SQL migrations in `drizzle/` |
+| `npm run dev` / `npm run dev -w backend` | Frontend on http://localhost:3000/ / backend on http://localhost:4000/ |
+| `npm run lint` / `npm run typecheck` / `npm test` / `npm run build` | Runs in both workspaces |
+| `npm run format` / `npm run format:check` | Prettier for the whole repository |
+| `npm run test:e2e` | Playwright on a phone viewport; starts both apps itself |
+| `npm run db:generate -w backend` / `npm run db:migrate -w backend` | Create / apply SQL migrations |
 
-CI (`.github/workflows/ci.yml`) runs lint, format check, typecheck, unit tests and build on every push and pull request. Money is always whole øre (`src/lib/money.ts`). New environment variables go in both `src/env.ts` and `.env.example`.
+CI (`.github/workflows/ci.yml`) runs the dependency audit, lint, format check, typecheck, unit tests and build on every push and pull request. Money is always whole øre (`backend/src/lib/money.ts`). A new environment variable goes in that app's `src/env.ts` and `.env.example`, and gets a row in [docs/handover.md](docs/handover.md).
 
 ## Process log (required)
 

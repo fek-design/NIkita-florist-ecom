@@ -24,7 +24,7 @@
 - [x] 3.4 Add backend unit tests using Fastify request injection; verify `npm test` runs both workspaces' tests
 - [x] 3.5 Connect the frontend to the backend: server-side through `BACKEND_URL`, browser-side through a `/api/*` rewrite; verify locally that a frontend page shows the backend's health status
 - [x] 3.6 Add the protected job endpoint `POST /jobs/ping` with a shared secret; verify a call with the secret succeeds and a call without it is rejected
-- [ ] 3.7 Extend the local `compose.yaml` with Mailpit, and update CI to run every check for both workspaces; verify a failing backend test turns CI red
+- [x] 3.7 Extend the local `compose.yaml` with Mailpit, and update CI to run every check for both workspaces; verify a failing backend test turns CI red — *17 Nov: all CI steps pass in a fresh clone; a failing backend test makes the root `npm test` exit 1, which fails the CI step. Confirm on the next pushed CI run*
 
 ## 4. Hosting
 
@@ -46,7 +46,7 @@
 - [ ] 6.0 Keep `docs/handover.md` complete: one row per account, secret and personal detail created in this change; verify every account and variable in group 4 and 5 has a row
 - [ ] 6.1 Write `docs/runbook.md`: accounts, deploys, rollback, backup and restore, scheduled jobs, free-plan limits with the dates they were read, and what the owner must change to go live (paid plans or another host, moving each account to her); verify each step names the screen or command it uses
 - [ ] 6.2 Save or link the data processing agreements for Vercel, Neon, Stripe and GitHub in `docs/`, marking the third-country transfers; verify all four are listed
-- [ ] 6.3 Update `CLAUDE.md` with the workspace commands and the local stack; verify the commands work as written
+- [x] 6.3 Update `CLAUDE.md` with the workspace commands and the local stack; verify the commands work as written
 - [ ] 6.4 Update the process note with the architecture changes of 16–17 Nov and every check result; verify it links this change
 
 ## 7. Merge
