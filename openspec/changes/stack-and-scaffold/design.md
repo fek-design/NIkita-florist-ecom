@@ -2,89 +2,89 @@
 
 Process note: [docs/process/2026-11-16-stack-and-scaffold.md](../../../docs/process/2026-11-16-stack-and-scaffold.md). Decision log: [docs/decisions.md](../../../docs/decisions.md).
 
-See proposal.md for motivation. Current state on this branch: a Next.js 16 app in the repository root with lint, tests, CI, an environment check, Drizzle with an empty migration, and a database health check, all verified on 16 Nov. That work was planned for managed hosting (Vercel and Neon). On 16 Nov Felix chose an own EU server, a separate backend service, and SMTP plus IMAP for email. This design replaces the managed plan; the verified code is moved, not thrown away.
+See proposal.md for motivation. Current state on this branch: a Next.js 16 app in the repository root with lint, tests, CI, a dependency audit, an environment check, Drizzle with an empty migration, and a database health check, all verified on 16 Nov.
 
-Constraints: one developer, six weeks, feature freeze end of week 4; Felix must be able to explain every part at the exam (roadmap rule 3); the owner inherits the system later, so it must be documented to run without Felix.
+How the plan got here, for the record:
+1. 16 Nov, first plan: one Next.js app on Vercel with Neon.
+2. 16 Nov, Felix: separate backend service, own EU server (Hetzner), SMTP and IMAP.
+3. 17 Nov, Felix: no paid hosting, because this is a school project. Simply.com's webhotel was checked and serves static sites only. Chosen: free managed tiers. The separate backend and SMTP/IMAP stay.
+
+Constraints: one developer, six weeks, feature freeze end of week 4; Felix must be able to explain every part at the exam (roadmap rule 3); zero hosting cost; the owner inherits the system later.
 
 ## Goals / Non-Goals
 
 **Goals:**
-- A frontend and a backend that build, are checked automatically, and run together locally with one command.
-- The same containers running on an EU server, with staging and production deployed from `DevEnv` and `main`.
-- A setup simple enough to hand over: one server, one Compose file per environment, written runbook.
+- A frontend and a backend that build, are checked automatically, deploy themselves, and run together locally.
+- Zero running cost during the project.
+- A hand-over path: the runbook says what the owner must change (plans, accounts) when she goes live.
 
 **Non-Goals:**
 - Any table, screen or business rule.
 - Sending or receiving email, and payment code. They get their own changes.
-- Running a mail server. Mail goes through an existing mailbox (decision 6).
 
 ## Decisions
 
 ### 1. Repository layout: npm workspaces
 ```
 /                  root package.json (workspaces, shared lint and format)
-/frontend          Next.js storefront + admin screens
-/backend           Fastify API, Drizzle, migrations
-/deploy            Compose files, reverse proxy config, backup script
+/frontend          Next.js storefront + admin screens       -> Vercel project 1
+/backend           Fastify API, Drizzle, migrations          -> Vercel project 2
+/compose.yaml      local Postgres + Mailpit for development
 ```
-Felix asked for a `backend` folder in the root. Moving the Next.js app into `frontend/` gives the matching half, so neither app sits inside the other's folder.
-*Rejected:* backend nested inside the Next.js root (two `package.json` trees overlapping, confusing builds); two separate repositories (one change would need two pull requests).
+Felix asked for a `backend` folder in the root. Moving the Next.js app into `frontend/` gives the matching half.
+*Rejected:* backend nested inside the Next.js root (overlapping `package.json` trees); two repositories (one change would need two pull requests).
 
-### 2. Backend: Fastify with TypeScript
-Fastify validates request and response bodies against schemas, which is where server-side price and input validation will live (roadmap week 3). It has built-in request injection for tests, so routes are tested without starting a server.
-*Rejected:* Express (no built-in validation, older async handling); Hono (smaller ecosystem for Node-hosted plugins); NestJS (heavy structure for a small API, harder to explain line by line).
+### 2. Backend: Fastify with TypeScript, deployed as Vercel Functions
+Fastify validates request and response bodies against schemas, which is where server-side price and input validation will live (roadmap week 3), and has built-in request injection for tests. Vercel deploys a Fastify app with zero configuration as Vercel Functions, so the backend is its own project with its own address. The same app also runs as an ordinary Node server locally.
+*Rejected:* Express (no built-in validation); NestJS (heavy for a small API); Render's free web service (sleeps when idle, slow first request in a demo).
 
-### 3. Frontend: Next.js stays, without database access
-Next.js keeps server rendering for SEO and speed (P7, P10). Its server components call the backend API over the internal Docker network; the browser calls the backend through the same domain under `/api`, so no cross-origin setup is needed.
-*Rejected:* a client-only single-page app (worse SEO and first load, P7, P10).
+### 3. Frontend: Next.js without database access
+Server rendering for SEO and speed (P7, P10). Server components call the backend over HTTPS using `BACKEND_URL`. Browser calls go to the frontend's own `/api/*`, which Next.js rewrites to the backend, so no cross-origin setup is needed and the backend address stays configurable per environment.
 
-### 4. Database: PostgreSQL 17 in Docker, reachable only by the backend
-Postgres runs as a container on the server with no published port; only the backend container can reach it on the internal network. Drizzle and the migrations move to `backend/`.
-*Rejected:* a managed database (Felix's choice: no US platform, everything on one EU server).
+### 4. Database: Neon PostgreSQL, free plan, Frankfurt
+Postgres 17 on Neon in AWS Frankfurt. Only the backend project holds the connection string. Connections require TLS. Neon creates a database branch per preview deploy through its Vercel integration, so previews never touch staging or production data.
+Free plan limits to keep in mind: 1 GB storage per project and a 6-hour restore window (Neon docs, read 17 Nov). The storage is ample for this shop; the short restore window is why decision 7 exists.
+Locally, Postgres runs in Docker (`compose.yaml`), as today.
+*Rejected:* Supabase (more bundled features than needed); a database on Simply (webhotel cannot run the backend next to it).
 
-### 5. Hosting: one Hetzner server with Docker Compose and Caddy
-- One small cloud server in a German or Finnish Hetzner data centre.
-- Caddy as the reverse proxy: it gets and renews HTTPS certificates by itself.
-- Staging and production run side by side as two Compose projects with their own databases.
-- Until the shop has a domain, the addresses use a wildcard IP service (for example `staging.<server-ip>.sslip.io`), which works with automatic HTTPS.
-- Deploys: a GitHub Actions job builds the two images, pushes them to the GitHub container registry, then connects to the server over SSH and restarts the matching Compose project. If the new containers fail their health check, the previous images are started again.
-- Server hardening: SSH keys only, firewall open for ports 22, 80 and 443 only, automatic security updates.
-*Rejected:* Coolify or a similar self-hosted platform (another system to learn and hand over); Vercel and Neon (Felix's choice); one preview per branch (needs per-branch databases and routing; staging covers owner review).
+### 5. Hosting: Vercel Hobby, two projects, functions in Frankfurt
+Both projects deploy from GitHub: every branch gets a preview, `DevEnv` is assigned the staging domain, `main` is production. The function region is set to Frankfurt (`fra1`) so personal data is processed in the EU.
+The Hobby plan is for non-commercial use. That fits the school project. At go-live the owner moves to Vercel Pro or to another host; the runbook covers both.
+*Rejected:* own server (costs money; Felix's call); Oracle Always Free VM (card required, idle reclaim risk); Simply webhotel (static sites only).
 
-### 6. Email: a Simply.com mailbox over SMTP and IMAP
-Felix already has a Simply.com subscription (17 Nov). The backend sends through a Simply mailbox over authenticated SMTP and reads it over IMAP. Simply states that its servers are in data centres in Denmark, which keeps mail data in the EU. Hostnames, ports and sending limits are taken from Simply's own setup page when the email change starts. No mail server runs on our machine: Hetzner blocks outbound port 25 on new servers, and a self-run mail server rarely reaches inboxes.
-The weak points of plain SMTP are covered in the email change: an outbox table logs every message and its status, a worker sends at a steady rate and retries, and IMAP reads bounce messages back. Customer replies and orders sent by email are later changes that also use IMAP.
-Locally, Mailpit catches all mail so nothing reaches real inboxes during development.
+### 6. Scheduled work: GitHub Actions calling the backend
+Vercel Hobby runs cron jobs at most once a day, with up to an hour of drift (Vercel docs, read 17 Nov). Email retries and inbox reading need about every 15 minutes. A scheduled GitHub Actions workflow calls `POST /jobs/<name>` on the backend with a shared secret in a header. This change adds the mechanism with one harmless job (`ping`); the email changes add real jobs.
+GitHub schedules can be delayed under load, which is acceptable for retries and inbox reading.
+*Rejected:* Vercel Pro cron (costs money); an external cron service (one more account).
 
-### 7. Payment: Stripe hosted Checkout
-Confirmed 17 Nov: MobilePay is offered in Stripe test mode for DKK (also EUR, NOK and SEK). Quickpay and Frisbii are no longer needed as fallbacks.
+### 7. Backups: nightly encrypted dump via GitHub Actions
+A scheduled workflow runs `pg_dump` against production, encrypts the file with `age` using Felix's public key, and stores it as a workflow artifact kept for 14 days. Only the encrypted file leaves the job, so GitHub (a US company) never holds readable customer data. One restore into a fresh Neon branch is tested before merge.
+*Rejected:* relying on Neon's 6-hour restore window alone; unencrypted artifacts.
 
-### 8. Backups
-A nightly job on the server runs `pg_dump` for production and copies the file to a Hetzner Storage Box (EU), keeping 14 days. One restore into an empty database is tested before the change is merged.
+### 8. Email: SMTP and IMAP, mailbox to be chosen
+Unchanged in principle: the backend sends over authenticated SMTP and reads over IMAP, with an outbox, retries and bounce reading added in the email change. Simply.com is not used. Which mailbox provider is chosen in that change. Locally, Mailpit catches all mail.
 
-### 9. Checks per workspace
-Each workspace has its own `lint`, `typecheck`, `test` and `build` scripts; the root scripts run them for both. CI runs the root scripts and also builds the two Docker images, so a broken Dockerfile fails before deploy.
+### 9. Payment: Stripe hosted Checkout
+Confirmed 17 Nov: MobilePay is offered in Stripe test mode for DKK.
 
-CI also runs `npm audit --omit=dev --audit-level=high`, so a known high or critical vulnerability in a production dependency fails the build. Added 17 Nov after the PHP2Shell remote-code-execution flaws (CVE-2026-109618, CVE-2026-109619): the webshop has no PHP, but the same kind of flaw in a Node.js dependency must be caught before deploy. The server's Docker base images are rebuilt on every deploy so operating-system fixes arrive too.
+### 10. Checks per workspace
+Each workspace has `lint`, `typecheck`, `test` and `build`; the root scripts run both. CI runs them plus `npm audit --omit=dev --audit-level=high` (added 17 Nov after the PHP2Shell flaws: the webshop has no PHP, but a similar flaw in a Node dependency must fail the build).
 
-### 10. Branch flow with pull requests
-Unchanged: feature branches merge into `DevEnv` through a pull request once CI is green.
+### 11. Branch flow
+Felix pushes and opens pull requests; Claude commits only. Feature branches merge into `DevEnv` through a pull request once CI is green.
 
 ## Risks / Trade-offs
 
-- [Felix becomes the server administrator: updates, disk space, certificates, uptime] → automatic security updates, Caddy renews certificates, an uptime check in week 6, and a written runbook for hand-over.
-- [One server is a single point of failure] → nightly off-server backups and a tested restore; acceptable for a demo package and a small shop.
-- [Running two Compose projects on one small server may run out of memory] → start with 4 GB RAM; staging can be stopped when not reviewed.
-- [No preview per branch] → the owner reviews staging; Felix reviews branches locally with `docker compose up`.
-- [Mail from an ordinary mailbox may hit sending limits or spam filters] → outbox with steady rate and retries; check the mailbox's SPF, DKIM and DMARC before week 4.
+- [Free plans can change their limits] → limits are recorded with the date they were read; the runbook names the paid plan or alternative for each service.
+- [US companies (Vercel, Neon, GitHub) with EU regions] → EU regions pinned, data processing agreements filed, recorded as third-country transfers in the week 5 data map; backups are encrypted before reaching GitHub.
+- [Neon's free compute pauses when idle, so the first request after a pause is slower] → acceptable for a demo; noted for the owner's go-live plan.
+- [Function time limits on Vercel Hobby] → backend jobs are kept short and resumable (the outbox design handles partial runs).
 - [Moving the app into `frontend/` breaks the verified setup] → each check is re-run after the move and recorded in the process note.
 
 ## Migration Plan
 
-Nothing is live. The move happens on this branch: restructure first, re-run every check, then add the backend. Rollback is reverting the branch commits; the server can be deleted and recreated from the Compose files.
+Nothing is live. Restructure on this branch, re-run every check, add the backend, then connect the hosting. Rollback is reverting the branch commits and deleting the Vercel and Neon projects.
 
 ## Open Questions
 
-- Which Simply mailbox address sends and receives (an existing one or a new one such as `ordre@…`)? Needed for the email change, not for this one.
-- Whether Simply also hosts anything else (domain, webhotel). The webshop itself does not run on a PHP webhotel: it needs Node.js and Docker.
-- A cheap domain would replace the `sslip.io` addresses and allow proper email records. Not needed now.
+- Which mailbox provider for SMTP and IMAP. Needed for the email change, not this one.

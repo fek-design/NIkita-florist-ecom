@@ -1,48 +1,52 @@
 ## Purpose
 
-Defines how the webshop is split, built, checked, deployed and backed up, so that every change is verified automatically and customer data stays in a backend that only it can reach, on a server in the EU.
+Defines how the webshop is split, built, checked, deployed and backed up, so that every change is verified automatically, customer data sits behind a backend that alone can reach it, and that data is stored and processed in EU regions.
 
 ## ADDED Requirements
 
 ### Requirement: The backend alone owns the data
-The webshop SHALL consist of a frontend and a separate backend service. Only the backend SHALL connect to the database. The frontend SHALL read and change data only through the backend's HTTP API. The database MUST NOT be reachable from the internet.
+The webshop SHALL consist of a frontend and a separate backend service. Only the backend SHALL hold database credentials and connect to the database. The frontend SHALL read and change data only through the backend's HTTP API. Database connections MUST use TLS.
 
 #### Scenario: Frontend has no database access
-- **WHEN** the frontend's configuration and code are inspected
+- **WHEN** the frontend's configuration, environment variables and code are inspected
 - **THEN** they contain no database connection string and no database client
 
-#### Scenario: Database closed to the internet
-- **WHEN** a connection to the database port is attempted from outside the server
+#### Scenario: Unencrypted connection refused
+- **WHEN** a client tries to connect to the hosted database without TLS
 - **THEN** the connection is refused
 
 ### Requirement: Checks gate every merge
-Every pull request into `DevEnv` or `main` SHALL run lint, format check, type check, unit tests and a production build for both the frontend and the backend. A pull request with a failing check MUST NOT be mergeable.
+Every pull request into `DevEnv` or `main` SHALL run lint, format check, type check, unit tests, a production build and a dependency audit for both the frontend and the backend. A pull request with a failing check MUST NOT be mergeable.
 
 #### Scenario: Failing test blocks the merge
 - **WHEN** a pull request contains a failing unit test in either app
 - **THEN** the check run is reported as failed and the merge is blocked
 
+#### Scenario: Vulnerable dependency blocks the merge
+- **WHEN** a production dependency has a known high or critical vulnerability
+- **THEN** the check run is reported as failed
+
 #### Scenario: Passing checks allow the merge
 - **WHEN** all checks pass on a pull request
 - **THEN** the pull request is shown as ready to merge
 
-### Requirement: Staging and production deploy automatically
-A merge into `DevEnv` SHALL deploy to a staging address, and a merge into `main` to the production address, without manual steps. Both SHALL be served over HTTPS.
+### Requirement: Every branch deploys automatically
+Every pushed branch SHALL get its own preview address for both apps. A merge into `DevEnv` SHALL deploy to staging, and a merge into `main` to production. All addresses SHALL use HTTPS, and a preview frontend SHALL talk to a backend of the same branch or of staging, never production.
+
+#### Scenario: Feature branch pushed
+- **WHEN** a commit is pushed to a feature branch
+- **THEN** preview addresses for the frontend and the backend are available within a few minutes without manual steps
 
 #### Scenario: Merge into DevEnv
 - **WHEN** a pull request is merged into `DevEnv`
-- **THEN** the staging address shows the merged result within a few minutes
+- **THEN** the staging address shows the merged result
 
-#### Scenario: Failed deploy keeps the old version
-- **WHEN** a deploy fails to build or start
-- **THEN** the previously running version keeps serving and the failure is reported in the deploy run
+### Requirement: Data is stored and processed in the EU
+The database SHALL be hosted in an EU region, and the server functions that handle personal data SHALL run in an EU region. Providers outside the EU SHALL be recorded as third-country transfers with their data processing agreements.
 
-### Requirement: Everything runs in the EU
-The server running the frontend, the backend and the database, and the backup storage, SHALL be located in the EU.
-
-#### Scenario: Location recorded
-- **WHEN** the server and the backup storage are created
-- **THEN** their locations are EU data centres and are recorded with a date in the decision log
+#### Scenario: Regions recorded
+- **WHEN** the hosting and database projects are created
+- **THEN** their regions are EU regions and are recorded with a date in the decision log
 
 ### Requirement: Secrets stay out of the repository
 Secrets SHALL be supplied through environment configuration only. Each app SHALL have a checked-in example environment file listing every required variable without real values. Each app MUST stop at start-up with a message naming any missing required variable.
@@ -66,20 +70,31 @@ The backend SHALL expose a health check that reports whether it can reach the da
 - **WHEN** the database cannot be reached
 - **THEN** the health check reports failure with an error status and no connection string or credentials in the response
 
+### Requirement: Scheduled work runs reliably
+Work that must run on a schedule SHALL be triggered at least every 15 minutes through an endpoint that only an authorised caller can start.
+
+#### Scenario: Authorised trigger
+- **WHEN** the scheduler calls the endpoint with the shared secret
+- **THEN** the work runs and the call is reported as successful
+
+#### Scenario: Unauthorised trigger
+- **WHEN** anyone calls the endpoint without the secret
+- **THEN** the call is rejected and no work runs
+
 ### Requirement: Backups can be restored
-The production database SHALL be backed up at least daily to storage outside the server, and a restore SHALL have been tested.
+The production database SHALL be backed up at least daily, encrypted before it leaves the backup job, kept for 14 days, and a restore SHALL have been tested.
 
 #### Scenario: Nightly backup
 - **WHEN** a day has passed
-- **THEN** a new backup exists in the off-server storage
+- **THEN** a new encrypted backup exists, and older backups beyond 14 days are gone
 
 #### Scenario: Restore tested
-- **WHEN** a backup is restored into an empty database
-- **THEN** the restored database passes the backend health check and contains the backed-up data
+- **WHEN** a backup is decrypted and restored into an empty database
+- **THEN** the backend health check passes against it and the backed-up data is present
 
 ### Requirement: Stack decisions are recorded
 Each stack decision SHALL be recorded in the decision log with what was chosen, why, and what was rejected.
 
 #### Scenario: Decision log complete
 - **WHEN** the change is merged
-- **THEN** the decision log has an entry for frontend, backend, database, hosting, payment, email and admin
+- **THEN** the decision log has an entry for frontend, backend, database, hosting, scheduling, backups, payment, email and admin
