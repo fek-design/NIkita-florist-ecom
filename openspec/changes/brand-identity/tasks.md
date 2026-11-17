@@ -25,7 +25,7 @@
 
 ## 5. Board, guide and skill
 
-- [ ] 5.1 Build `ref/brand/brand-board.html` from the tokens (logo variants, palette, pairing table, type specimen, sample button and product card); verify that changing one token changes the board and that it lays out at 390 px and desktop width
+- [x] 5.1 Build `ref/brand/brand-board.html` from the tokens (logo variants, palette, pairing table, type specimen, sample button and product card); verify that changing one token changes the board and that it lays out at 390 px and desktop width — *17 Nov: no overflow at 390 and 1280 px; only Ancizar Serif and Inter load, from local files; changing `--sand` in a copy of `tokens.css` changed the swatch and button; live pairing table matches `contrast.md` (20 pairings, 8 forbidden)*
 - [ ] 5.2 Write `ref/brand/brand-guide.md` (logo use, colour roles and pairings, typography, imagery direction, Danish voice, licence table); verify every spec requirement maps to a section and no licence is marked unknown
 - [ ] 5.3 Create `.claude/skills/florist-brand/SKILL.md` from the guide; verify it appears in the session's skill list
 - [ ] 5.4 Remove `.claude/skills/brand-guidelines/`, update CLAUDE.md override 5 and `PROVENANCE.md`, and point leftover `establish-brand-identity` mentions at this change; verify a search for the old name returns nothing outside archived notes

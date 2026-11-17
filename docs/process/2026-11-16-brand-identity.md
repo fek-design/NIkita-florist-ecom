@@ -113,6 +113,21 @@ The task asked for colours that pass 3:1 on every ground. That is impossible for
 
 The focus ring is two-tone (Ink ring, Paper halo) and passes on all four grounds. Colour is never the only signal: errors and success also carry text or an icon (P9).
 
+## Brand board (17 Nov)
+
+[ref/brand/brand-board.html](../../ref/brand/brand-board.html) is the page the owner signs off on. Open it through a local web server (`cd ref/brand && python3 -m http.server`), because browsers block the logo masks when a page is opened straight from disk.
+
+- Everything is read from `tokens.css`. The swatches and the pairing table are calculated in the page from the current token values.
+- The logo is recoloured with a CSS mask (Sand, Paper on Sand, Ink on Linen), so the artwork file itself is never edited.
+- Sections: logo and a phone navbar, palette with the 60/30/10 bar, live pairing table, type scale and Danish text, buttons with the focus ring, a postcode field in its success and error states, an occasion card with the three tiers, a Linen panel, a Sand band and a Sand footer.
+
+Checked in a headless browser:
+- No sideways scrolling at 390 px or 1280 px.
+- Only Ancizar Serif and Inter load, both from local files, with no outside requests.
+- A copy with `--sand` changed showed the new colour in the swatch and the button with no other edit.
+
+Finding: in a 64 px navbar the half-moon logo is 76 px wide and the name's capitals are about 7 px tall, too small to read. The board now shows a 72 px navbar with the logo 110 px wide, where the name reads clearly. That sets a minimum: the half moon is not used below 110 px wide.
+
 ## Open questions
 
 

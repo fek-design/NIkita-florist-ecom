@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nikita Nielsen: brand board</title>
+<!-- Every colour, font and size on this page comes from tokens.css.
+     Change a token there and this page follows. -->
+<link rel="stylesheet" href="tokens.css">
+<style>
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
+  }
+  h1, h2, h3 { font-family: var(--font-heading); color: var(--color-heading); line-height: var(--leading-tight); font-weight: var(--weight-semibold); margin: 0; }
+  h1 { font-size: var(--text-2xl); }
+  h2 { font-size: var(--text-xl); margin-bottom: 16px; }
+  h3 { font-size: var(--text-lg); }
+  p { margin: 0 0 12px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  section { padding: 40px 0; border-top: 1px solid var(--color-surface); }
+  .meta { font-size: var(--text-sm); }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+  /* Logo, recoloured with a CSS mask so the artwork file is never edited. */
+  .logo { display: block; background: var(--logo-colour, var(--sand)); -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat; }
+  .logo-full { --logo: url("logo/logo.svg"); aspect-ratio: 868.3 / 756.75; }
+  .logo-half { --logo: url("logo/logo-half.svg"); aspect-ratio: 868.3 / 446.6; }
+  .tile { padding: 24px; border-radius: 4px; display: grid; place-items: center; min-height: 220px; }
+  .tile .logo { width: min(100%, 220px); }
+  .tile p { margin: 12px 0 0; font-size: var(--text-sm); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 16px; background: var(--paper); border: 1px solid var(--linen); }
+  .nav .logo { height: 44px; }
+  .nav span { font-size: var(--text-sm); font-weight: var(--weight-semibold); }
+
+  /* Palette */
+  .ratio { display: flex; height: 56px; border-radius: 4px; overflow: hidden; border: 1px solid var(--linen); }
+  .ratio div { display: flex; align-items: center; padding: 0 12px; font-size: var(--text-sm); font-weight: var(--weight-semibold); }
+  .swatch { border-radius: 4px; overflow: hidden; border: 1px solid var(--linen); }
+  .swatch .chip { height: 88px; }
+  .swatch div:last-child { padding: 10px 12px; background: var(--paper); font-size: var(--text-sm); }
+  .swatch b { display: block; font-size: var(--text-base); }
+
+  /* Pairing table, computed live from the tokens below */
+  table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+  th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--linen); vertical-align: middle; }
+  td.sample { width: 120px; }
+  td.sample span { display: inline-block; padding: 4px 10px; border-radius: 4px; font-weight: var(--weight-semibold); }
+  .verdict-ok { color: var(--success); font-weight: var(--weight-semibold); }
+  .verdict-large { color: var(--ink); font-weight: var(--weight-semibold); }
+  .verdict-no { color: var(--error); font-weight: var(--weight-semibold); }
+  .table-scroll { overflow-x: auto; }
+
+  /* Type */
+  .scale > div { display: grid; grid-template-columns: 72px 1fr; gap: 12px; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--linen); }
+  .scale code { font-size: var(--text-sm); }
+  .body-sample { max-width: 60ch; }
+  .letters { font-size: var(--text-lg); }
+
+  /* Components */
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border-radius: 4px; border: 2px solid var(--color-accent); font: inherit; font-weight: var(--weight-semibold); cursor: pointer; }
+  .btn-primary { background: var(--color-accent); color: var(--color-on-accent); }
+  .btn-secondary { background: transparent; color: var(--ink); }
+  .btn:focus-visible, input:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+  .btn.show-focus { box-shadow: var(--focus-ring); }
+  .btn-block { width: 100%; }
+  .stack > * + * { margin-top: 12px; }
+  label { display: block; font-weight: var(--weight-semibold); margin-bottom: 4px; }
+  input { width: 100%; min-height: 48px; padding: 0 12px; font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--sand); border-radius: 4px; }
+  input[aria-invalid="true"] { border: 2px solid var(--error); }
+  .field-error { color: var(--error); font-size: var(--text-sm); margin-top: 4px; }
+  .field-ok { color: var(--success); font-size: var(--text-sm); margin-top: 4px; }
+
+  .card { background: var(--paper); border: 1px solid var(--sand); border-radius: 4px; overflow: hidden; }
+  .card .photo { aspect-ratio: 4 / 5; background: var(--linen); display: grid; place-items: center; font-size: var(--text-sm); color: var(--ink); }
+  .card .body { padding: 16px; }
+  .card h3 { margin-bottom: 4px; }
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
+  .tiers button { min-height: 56px; border: 1px solid var(--sand); background: var(--paper); border-radius: 4px; font: inherit; color: var(--ink); line-height: 1.2; }
+  .tiers button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .tiers small { display: block; font-size: var(--text-sm); }
+  .price { font-variant-numeric: tabular-nums; font-weight: var(--weight-semibold); }
+
+  .band { background: var(--sand); color: var(--paper); padding: 32px 16px; border-radius: 4px; }
+  .band h2 { color: var(--paper); }
+  .band a { color: var(--paper); }
+  .panel { background: var(--linen); padding: 24px 16px; border-radius: 4px; }
+  .panel a { color: var(--ink); }
+  a { color: var(--color-link); text-underline-offset: 3px; }
+
+  footer { background: var(--sand); color: var(--paper); padding: 32px 0 40px; margin-top: 40px; }
+  footer .logo { --logo-colour: var(--paper); width: 160px; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<header class="wrap" style="padding-top: 24px; padding-bottom: 24px">
+  <h1>Brand board</h1>
+  <p class="meta">Nikita Nielsen, blomster i Holbæk og omegn. Alt på siden læses fra <code>tokens.css</code>. Status: udkast til ejerens godkendelse, 17. nov. 2026.</p>
+</header>
+
+<main class="wrap">
+
+  <section aria-labelledby="logo-h">
+    <h2 id="logo-h">Logo</h2>
+    <div class="grid">
+      <div class="tile" style="background: var(--paper); border: 1px solid var(--linen)">
+        <span class="logo logo-full" role="img" aria-label="Nikita Nielsen logo"></span>
+        <p>Fuldt logo på Paper. Forside, footer, e-mails.</p>
+      </div>
+      <div class="tile" style="background: var(--sand); color: var(--paper)">
+        <span class="logo logo-full" style="--logo-colour: var(--paper)" role="img" aria-label="Nikita Nielsen logo i lys udgave"></span>
+        <p>Lys udgave på Sand.</p>
+      </div>
+      <div class="tile" style="background: var(--linen)">
+        <span class="logo logo-half" style="--logo-colour: var(--ink)" role="img" aria-label="Nikita Nielsen halvmåne-logo"></span>
+        <p>Halvmåne i Ink på Linen. Navigation.</p>
+      </div>
+    </div>
+    <p class="meta" style="margin-top: 16px">Navigation på en telefon (390 px), 72 px høj, logo 110 px bredt. Mindre end det, og navnet bliver svært at læse.</p>
+    <div class="nav" style="max-width: 390px">
+      <span>Menu</span>
+      <span class="logo logo-half" style="width: 110px" role="img" aria-label="Nikita Nielsen"></span>
+      <span>Kurv (0)</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="colour-h">
+    <h2 id="colour-h">Farver</h2>
+    <p>Paper er bunden. Farven ovenpå fordeles cirka 60/30/10 mellem Linen, Sand og Ink.</p>
+    <div class="ratio" aria-hidden="true" style="margin-bottom: 16px">
+      <div style="flex: 60; background: var(--linen); color: var(--ink)">Linen 60</div>
+      <div style="flex: 30; background: var(--sand); color: var(--paper)">Sand 30</div>
+      <div style="flex: 10; background: var(--ink); color: var(--paper)">10</div>
+    </div>
+    <div class="grid" id="swatches"></div>
+  </section>
+
+  <section aria-labelledby="pair-h">
+    <h2 id="pair-h">Kombinationer</h2>
+    <p>Beregnet direkte fra farverne ovenfor (WCAG 2.1 AA). Brødtekst kræver 4,5:1, stor tekst og knapkanter 3:1.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Eksempel</th><th>Tekst på bund</th><th>Kontrast</th><th>Brug</th></tr></thead>
+        <tbody id="pairs"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="type-h">
+    <h2 id="type-h">Skrift</h2>
+    <div class="grid">
+      <div>
+        <p class="meta"><b>Overskrifter og logo:</b> Ancizar Serif</p>
+        <div class="scale">
+          <div><code>3xl</code><span style="font-family: var(--font-heading); font-size: var(--text-3xl); line-height: var(--leading-tight)">Mors dag</span></div>
+          <div><code>2xl</code><span style="font-family: var(--font-heading); font-size: var(--text-2xl); line-height: var(--leading-tight)">Fødselsdag</span></div>
+          <div><code>xl</code><span style="font-family: var(--font-heading); font-size: var(--text-xl)">Bisættelse</span></div>
+          <div><code>lg</code><span style="font-family: var(--font-heading); font-size: var(--text-lg)">Bare fordi</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="meta"><b>Brødtekst og knapper:</b> Inter</p>
+        <p class="body-sample">Vælg en anledning, en størrelse og en dato. Levering i Holbæk og omegn koster 80 kr. Du kan også hente buketten i butikken.</p>
+        <p class="meta">Lille tekst (14 px): bestil inden kl. 12 for levering samme dag.</p>
+        <p class="letters">Æ Ø Å æ ø å · 1.250,50 kr. · 250 · 350 · 500</p>
+        <p><span style="font-weight: var(--weight-regular)">Normal 400</span> · <span style="font-weight: var(--weight-semibold)">600</span> · <span style="font-weight: var(--weight-bold)">Fed 700</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="comp-h">
+    <h2 id="comp-h">Komponenter</h2>
+    <div class="grid">
+      <div class="stack">
+        <h3>Knapper</h3>
+        <button class="btn btn-primary btn-block" type="button">Læg i kurv</button>
+        <button class="btn btn-secondary btn-block" type="button">Se flere buketter</button>
+        <button class="btn btn-primary btn-block show-focus" type="button">Fokus (tastatur)</button>
+      </div>
+      <div class="stack">
+        <h3>Formular</h3>
+        <div>
+          <label for="pc">Postnummer</label>
+          <input id="pc" inputmode="numeric" value="4300" aria-describedby="pc-ok">
+          <p class="field-ok" id="pc-ok">✓ Vi leverer til 4300 Holbæk</p>
+        </div>
+        <div>
+          <label for="pc2">Postnummer</label>
+          <input id="pc2" inputmode="numeric" value="8000" aria-invalid="true" aria-describedby="pc2-err">
+          <p class="field-error" id="pc2-err">! Vi leverer ikke til 8000. Vælg afhentning i butikken i stedet.</p>
+        </div>
+      </div>
+      <article class="card">
+        <div class="photo">Ejerens foto (4:5)</div>
+        <div class="body">
+          <h3>Fødselsdag</h3>
+          <p class="meta">Vælg størrelse</p>
+          <div class="tiers">
+            <button type="button" aria-pressed="false">Lille<small class="price">250 kr.</small></button>
+            <button type="button" aria-pressed="true">Mellem<small class="price">350 kr.</small></button>
+            <button type="button" aria-pressed="false">Stor<small class="price">500 kr.</small></button>
+          </div>
+          <button class="btn btn-primary btn-block" type="button">Læg i kurv · 350 kr.</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="surf-h">
+    <h2 id="surf-h">Flader</h2>
+    <div class="grid">
+      <div class="panel">
+        <h3>Linen-panel</h3>
+        <p>Brødtekst i Ink. Links er Ink på Linen, ikke Sand: <a href="#">Se leveringsområde</a>.</p>
+      </div>
+      <div class="band">
+        <h2>Sand-bånd</h2>
+        <p>Tekst er altid Paper på Sand. <a href="#">Bestil til Mors dag</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="logo logo-full" role="img" aria-label="Nikita Nielsen"></span>
+    <p>Footer i Sand med logo og tekst i Paper. Butikkens rigtige navn, adresse, CVR og telefon kommer her (CLAUDE.md, regel 1).</p>
+  </div>
+</footer>
+
+<script>
+  // Reads the colour tokens from tokens.css and builds the swatches and the
+  // pairing table, so both always match the current token values.
+  const root = getComputedStyle(document.documentElement);
+  const colours = [
+    ["paper", "Paper", "Bund"],
+    ["linen", "Linen", "Flader, ca. 60%"],
+    ["sand", "Sand", "Logo, knapper, bånd, ca. 30%"],
+    ["ink", "Ink", "Tekst, ca. 10%"],
+    ["error", "Fejl", "Kun på Paper og Linen"],
+    ["success", "Succes", "Kun på Paper og Linen"],
+  ].map(([token, name, role]) => ({ token, name, role, hex: root.getPropertyValue("--" + token).trim().toUpperCase() }));
+
+  const swatches = document.getElementById("swatches");
+  for (const c of colours) {
+    swatches.insertAdjacentHTML("beforeend",
+      `<div class="swatch"><div class="chip" style="background: var(--${c.token})"></div><div><b>${c.name}</b>${c.hex} · ${c.role}</div></div>`);
+  }
+
+  function luminance(hex) {
+    const v = [1, 3, 5].map((i) => {
+      const c = parseInt(hex.slice(i, i + 2), 16) / 255;
+      return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
+  }
+  function ratio(a, b) {
+    const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+    return (hi + 0.05) / (lo + 0.05);
+  }
+
+  const grounds = colours.filter((c) => ["paper", "linen", "sand", "ink"].includes(c.token));
+  const rows = [];
+  for (const g of grounds) for (const t of colours) {
+    if (t.token === g.token) continue;
+    const r = ratio(t.hex, g.hex);
+    const [cls, label] = r >= 4.5 ? ["verdict-ok", "✓ Al tekst"] : r >= 3 ? ["verdict-large", "Kun stor tekst og kanter"] : ["verdict-no", "✕ Forbudt"];
+    rows.push(`<tr><td class="sample"><span style="background: var(--${g.token}); color: var(--${t.token}); border: 1px solid var(--linen)">Aa</span></td><td>${t.name} på ${g.name}</td><td>${r.toFixed(2).replace(".", ",")}:1</td><td class="${cls}">${label}</td></tr>`);
+  }
+  document.getElementById("pairs").innerHTML = rows.join("");
+</script>
+</body>
+</html>
