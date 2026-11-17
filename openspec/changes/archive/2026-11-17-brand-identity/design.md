@@ -1,6 +1,6 @@
 ## Context
 
-Process note: [docs/process/2026-11-16-brand-identity.md](../../../docs/process/2026-11-16-brand-identity.md).
+Process note: [docs/process/2026-11-16-brand-identity.md](../../../../docs/process/2026-11-16-brand-identity.md).
 
 See proposal.md for motivation. Current state: `DevEnv` holds greyscale lo-fi wireframes (`ref/wireframes/lofi/`) and no brand files. There is no app scaffold yet, so brand files live under `ref/brand/` for now. Felix has a new logo set in Ancizar Serif, without the phone number. The files are not in the repo yet.
 

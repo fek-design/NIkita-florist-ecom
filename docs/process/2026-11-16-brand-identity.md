@@ -1,6 +1,6 @@
 # Brand identity
 
-**Started:** 16 Nov 2026 · **Finished:** 17 Nov 2026 · **Change:** [`brand-identity`](../../openspec/changes/brand-identity/) · **Branch:** `feature/brand-identity`
+**Started:** 16 Nov 2026 · **Finished:** 17 Nov 2026 · **Change:** [`brand-identity`](../../openspec/changes/archive/2026-11-17-brand-identity/) · **Branch:** `feature/brand-identity`
 **Related:** [Design rationale](../../ref/Design-Rationale.md) (P7, P9, P11) · [Owner interview](2026-11-16-owner-interview.md)
 
 ## Goal
