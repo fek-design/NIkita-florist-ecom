@@ -60,6 +60,8 @@ Fixes while building it:
 - A sample sentence claimed the shop ties bouquets on the delivery day. That is not something the owner has said, so it was replaced with neutral text (roadmap rule 6).
 - The small labels were first set in Sand on Linen, about 3.8:1, below the 4.5:1 needed for small text (P9). Changed to Ink.
 
+Repository slip (17 Nov): the first commit of this work used `git add -A`. This branch's `.gitignore` predates the frontend/backend split, so the other branch's leftover `node_modules`, build output and local env files were committed too. Nothing was pushed. The commit was rebuilt with only the 17 brand files, and from now on files are staged by name.
+
 **Waiting on:** Felix's choice of body typeface on the specimen (task 2.4).
 
 ## Open questions
