@@ -33,5 +33,5 @@
 ## 6. Sign-off and merge
 
 - [x] 6.1 Add a "Brand decisions" section to `ref/Design-Rationale.md`, each decision citing P1–P12 or marked *opinion*; verify the links resolve
-- [ ] 6.2 Owner reviews the brand board; verify the approval, date and requested changes are in the process note
+- [x] 6.2 Owner reviews the brand board; verify the approval, date and requested changes are in the process note — *17 Nov: approved, relayed by Felix; no changes reported*
 - [ ] 6.3 Run `openspec validate brand-identity`, finish the process note, and merge `feature/brand-identity` into `DevEnv`; verify `DevEnv` is pushed and the feature branch is deleted

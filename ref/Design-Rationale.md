@@ -149,7 +149,7 @@ A plausible risk: social media traffic opens in Instagram's in-app browser, whic
 
 ### P11. A brand from the shop, not from a template
 
-**Evidence:** none in the statistical sense. This is a quality stance from the roadmap ("no slop"). The `brand-identity` skill gives the framework, and `design-taste-frontend` gives the anti-generic rules.
+**Evidence:** none in the statistical sense. This is a quality stance from the roadmap ("no slop"). The `brand-identity` skill gave the framework (retired 17 Nov 2026 once the brand was done), and `design-taste-frontend` gives the anti-generic rules.
 **So we:**
 - build the identity from the shop's real material: its name, the shopfront, the owner's style, the flowers it actually sells;
 - follow the five parts of `brand-identity`: logo system, colour, type, imagery, motion. Each must work at 16 px, in one colour, and at AA contrast;
@@ -181,11 +181,10 @@ The national networks set customer expectations. Figures below come from third-p
 
 | Skill | Used for | Limits |
 |---|---|---|
-| `brand-identity` | Structure for the brand system (P11) | Assumes a brand direction exists. We get that from the owner |
 | `design-taste-frontend` (taste-skill) | Anti-generic layout and copy rules, copy-lint, layout checker and finish gate (P1, P7, P9) | Its demo-site rules are overridden (CLAUDE.md 1–4) |
 | `florist-brand` | Applies the shop's own brand (made in this project, 17 Nov 2026) | Its values live in `ref/brand/`; the skill only points to them |
 
-The Mobbin skills (`redesign-screen`, `search`, `best-practices`, `plain-writing`) were removed on 2026-11-11: no paid plan. Anthropic's `brand-guidelines`, kept only as a format model, was removed on 2026-11-17 once `florist-brand` existed. See [the skill curation note](../docs/process/2026-11-10-skill-curation.md).
+The Mobbin skills (`redesign-screen`, `search`, `best-practices`, `plain-writing`) were removed on 2026-11-11: no paid plan. Anthropic's `brand-guidelines`, kept only as a format model, and the `brand-identity` framework skill were both removed on 2026-11-17 once `florist-brand` and the brand guide existed. See [the skill curation note](../docs/process/2026-11-10-skill-curation.md).
 
 ### Brand decisions (17 Nov 2026)
 
