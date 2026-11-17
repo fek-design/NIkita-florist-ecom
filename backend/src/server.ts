@@ -16,9 +16,11 @@ try {
 const app = registerRoutes(Fastify({ logger: true }));
 const port = Number(process.env.PORT ?? 4000);
 
-try {
-  await app.listen({ port, host: "0.0.0.0" });
-} catch (error) {
+// Not awaited, as in Vercel's Fastify example: on Vercel, listen() is handled
+// by the platform, and waiting on it at the top of the module can stop the
+// function from ever finishing its start-up.
+app.log.info("Backend starting");
+app.listen({ port, host: "0.0.0.0" }).catch((error) => {
   app.log.error(error);
   process.exit(1);
-}
+});
