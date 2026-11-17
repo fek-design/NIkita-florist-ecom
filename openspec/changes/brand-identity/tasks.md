@@ -19,8 +19,8 @@
 
 ## 4. Logo files
 
-- [ ] 4.1 Check and optimise Felix's SVGs without changing any shape (outlined text, no hidden layers); verify a before and after render match
-- [ ] 4.2 Export colour, ink and white variants and a favicon set (SVG, 32 px, 180 px, 512 px) into `ref/brand/logo/`; verify each renders at 16, 32 and 64 px on every ground
+- [x] 4.1 Check and optimise Felix's SVGs without changing any shape (outlined text, no hidden layers); verify a before and after render match — *17 Nov: no hidden elements, images, live text, scripts or outside links. Rounding coordinates saved only 12% and changed edge shading on 1% of pixels, so it was dropped; the SVG stays the untouched master and the site uses small PNG exports instead (task 4.2)*
+- [x] 4.2 Export colour, ink and white variants and a favicon set (SVG, 32 px, 180 px, 512 px) into `ref/brand/logo/`; verify each renders at 16, 32 and 64 px on every ground — *17 Nov: Sand, Ink and Paper variants of both lockups; PNG exports at 1–3x for the navbar and footer; favicon cropped from the leaf at 32, 180 and 512 px on a Paper square. No favicon SVG: it would carry the whole 800 KB drawing. Checked on all four grounds; the leaf favicon is faint at 16–32 px, which Felix accepted (no simplified leaf)*
 - [ ] 4.3 Record the minimum size and clear space from the final artwork; verify both are stated with a diagram in the guide
 
 ## 5. Board, guide and skill

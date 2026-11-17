@@ -48,6 +48,26 @@ Responsive logo, Felix's idea, inspired by how Interflora adapts its logo to the
 
 A first version of the half moon cut below the divider. That left two short stubs of the lower circle under the name, so the cut was moved up to where the lower arc begins. At 48 px tall in a phone navbar the name is readable; the leaf turns into a light texture. Felix accepted the half-moon crop on 17 Nov. Preview: `ref/brand/logo/preview.png`.
 
+## Logo files for the web (17 Nov)
+
+Felix decided against a simplified leaf: one more drawing would be one style too many. Acknowledged for the report: the logo was given, not designed in this project, and it is weak at small sizes. Had the brief been to make a new logo, a mark designed for 16 px would have been worth considering.
+
+What was made, all by `ref/brand/scripts/export-logo.mjs` (colour swaps and frame crops only):
+- **Colour variants:** full lockup and half moon in Sand, Ink and Paper.
+- **Web rasters:** PNG at 1x, 2x and 3x for the two places the site uses the logo: the half moon in the navbar (110 px wide, 11.9 KB at 2x) and the full lockup in the footer (160 px wide). The SVG master is 800 KB, too heavy for a header on every page (P7).
+- **Favicon:** the leaf cropped from the logo, on a Paper square at 32, 180 and 512 px, so it shows on light and dark browser tabs.
+
+Dead end: rounding the SVG's coordinates to shrink it saved only 12% (800 to 700 KB) and changed edge shading on 1% of pixels, by up to 74 of 255 levels. Not worth it; dropped. The weight is the drawing itself, about 1,500 hatching lines in the leaf.
+
+Checked on all four grounds at 16, 32 and 64 px:
+- The half moon reads from about 32 px high.
+- The full lockup needs about 64 px high before the name reads.
+- The leaf favicon is faint at 16–32 px because its lines are so fine.
+
+Rules taken from this (diagram: `ref/brand/logo/clear-space.png`):
+- **Clear space:** at least X on every side, where X is the height of the letters in NIKITA NIELSEN (77.7 units, 9% of the logo's width).
+- **Minimum size on screen:** full lockup 120 px wide, half moon 110 px wide. The leaf alone is only used as favicon and app icon.
+
 ## Typography
 
 ### Body typeface recommendation: Ancizar Sans
@@ -131,4 +151,3 @@ Finding: in a 64 px navbar the half-moon logo is 76 px wide and the name's capit
 ## Open questions
 
 
-- Simplified leaf for 16–64 px (favicon, header on a phone): Felix to supply.
