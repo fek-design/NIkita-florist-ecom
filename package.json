@@ -1,40 +1,21 @@
 {
   "name": "florist-ecom",
-  "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "typecheck": "next typegen && tsc --noEmit",
+    "dev": "npm run dev --workspace frontend",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:e2e": "npm run test:e2e --workspace frontend",
+    "build": "npm run build --workspaces --if-present",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:e2e": "playwright test",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
-  },
-  "dependencies": {
-    "drizzle-orm": "^0.45.4",
-    "next": "16.4.6",
-    "postgres": "^3.4.9",
-    "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
-    "@playwright/test": "^1.65.1",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "drizzle-kit": "^0.31.11",
-    "eslint": "^9",
-    "eslint-config-next": "16.4.6",
-    "eslint-config-prettier": "^10.1.8",
-    "prettier": "^3.10.1",
-    "typescript": "^5",
-    "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.7"
+    "prettier": "^3.10.1"
   }
 }

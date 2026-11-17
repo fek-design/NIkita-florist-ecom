@@ -2,7 +2,7 @@
 openspec/
 ref/
 docs/
-.next/
+**/.next/
 node_modules/
 package-lock.json
 CLAUDE.md

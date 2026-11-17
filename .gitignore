@@ -3,23 +3,24 @@
 shots/
 
 # dependencies
-/node_modules
+node_modules/
 
 # testing
-/coverage
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
+coverage/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
 
-# next.js
-/.next/
-/out/
-/build
+# builds
+.next/
+out/
+build/
+dist/
 next-env.d.ts
 *.tsbuildinfo
 
-# env files: only the example is committed
+# env files: only the examples are committed
 .env*
 !.env.example
 

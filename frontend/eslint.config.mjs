@@ -14,11 +14,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Docs, references and vendored skills are not app code.
-    ".claude/**",
-    "openspec/**",
-    "ref/**",
-    "docs/**",
   ]),
 ]);
 

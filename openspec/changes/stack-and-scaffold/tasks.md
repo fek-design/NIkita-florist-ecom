@@ -18,7 +18,7 @@
 
 ## 3. Split into frontend and backend
 
-- [ ] 3.1 Convert the root to npm workspaces and move the Next.js app into `frontend/`; verify lint, format, type check, unit tests, the Playwright smoke test and build all pass from the root
+- [x] 3.1 Convert the root to npm workspaces and move the Next.js app into `frontend/`; verify lint, format, type check, unit tests, the Playwright smoke test and build all pass from the root
 - [ ] 3.2 Create `backend/` with Fastify and TypeScript, runnable as a local Node server and deployable to Vercel, with its own environment check and `.env.example`; verify it starts locally and exits naming a missing variable
 - [ ] 3.3 Move Drizzle, the migration, the `formatKroner` helper and the health check into `backend/`, and remove all database code and variables from `frontend/`; verify the migration runs, the health check returns 200 and 503 as before, and a search of `frontend/` finds no database client or connection string
 - [ ] 3.4 Add backend unit tests using Fastify request injection; verify `npm test` runs both workspaces' tests
