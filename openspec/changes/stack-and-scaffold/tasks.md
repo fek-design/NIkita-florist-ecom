@@ -30,7 +30,7 @@
 
 *Order change, 17 Nov: the code in groups 1–3 is merged into `DevEnv` before this group, because Vercel imports a project from the repository's default branch (`DevEnv`), which must already contain `frontend/` and `backend/`. The remaining groups continue on a new branch, `feature/hosting`; this change is archived when they are done.*
 
-- [ ] 4.1 Felix creates the Neon project (free plan, Frankfurt) with the Vercel integration; record region and date in the decision log
+- [x] 4.1 Felix creates the Neon project (free plan, Frankfurt) with the Vercel integration; record region and date in the decision log — *17 Nov: `nikita-florist`, Frankfurt, connected to the backend project only*
 - [ ] 4.2 Felix creates the two Vercel projects (Hobby) from the repository, root directories `frontend/` and `backend/`, function region Frankfurt; set environment variables in Vercel only; record region and date
 - [ ] 4.3 Assign `DevEnv` to the staging domains and `main` to production; verify a pushed branch gets preview addresses for both apps and the preview frontend talks to a non-production backend
 - [ ] 4.4 Run the migration against the staging and production databases; verify the backend health check reports success on preview, staging and production

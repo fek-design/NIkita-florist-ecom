@@ -21,6 +21,7 @@ Decision: PostgreSQL 17, queried through Drizzle ORM with the `postgres` driver,
 Why: Orders, order lines and products are relational. Drizzle stays close to SQL, so each query can be read and explained. Neon's free plan costs nothing, upgrades in place, and gives each preview deploy its own database branch.
 Rejected: Prisma (heavier generated client); a document database (poor fit for orders and totals); Postgres on an own server (D-013); Supabase (more bundled features than needed).
 Limits read 2026-11-17 (Neon docs): 1 GB storage per project, 6-hour restore window on the free plan. The short restore window is why D-012 exists.
+Created 2026-11-17: project `nikita-florist` in Frankfurt (AWS eu-central-1), through Vercel's Neon integration, connected to the backend project only. The app uses the pooled `DATABASE_URL` with prepared statements turned off; migrations use `DATABASE_URL_UNPOOLED`.
 
 ### D-003 Hosting: Vercel Hobby, two projects, functions in Frankfurt
 Date: 2026-11-16, updated 2026-11-17 · Change: `stack-and-scaffold` · Status: conditional on account creation
