@@ -5,7 +5,7 @@
 
 ## 2. Schema and migration
 
-- [ ] 2.1 Write the Drizzle schema for occasions, occasion_tiers, occasion_photos, delivery_postcodes, closed_dates and shop_settings with the constraints from design decision 1; verify `npm run typecheck` passes
+- [x] 2.1 Write the Drizzle schema for occasions, occasion_tiers, occasion_photos, delivery_postcodes, closed_dates and shop_settings with the constraints from design decision 1; verify `npm run typecheck` passes — *19 Nov: plus snake_case column names, set in the Drizzle config and both connections*
 - [ ] 2.2 Generate the migration and add the rising-price trigger and the single-row check for shop_settings in SQL; verify it applies to a fresh local database and to `florist_test`
 - [ ] 2.3 Write integration tests for the database rules (one row per tier, price above zero, rising prices refused, a second settings row refused); verify they pass
 

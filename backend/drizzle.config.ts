@@ -9,6 +9,8 @@ try {
 
 export default defineConfig({
   dialect: "postgresql",
+  // Code uses camelCase; the database uses snake_case (sort_order).
+  casing: "snake_case",
   schema: "./src/db/schema.ts",
   out: "./drizzle",
   dbCredentials: { url: process.env.DATABASE_URL ?? "" },

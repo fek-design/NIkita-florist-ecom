@@ -28,5 +28,8 @@ export function connectTestDatabase() {
     prepare: false,
     onnotice: () => {},
   });
-  return { client, db: drizzle(client, { schema }) };
+  return {
+    client,
+    db: drizzle(client, { schema, casing: "snake_case" }),
+  };
 }
