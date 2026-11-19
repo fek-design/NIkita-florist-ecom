@@ -1,7 +1,7 @@
 ## 1. Setup
 
 - [x] 1.1 Start `docs/process/2026-11-19-catalog-data-model.md` with goal, inputs and the option A decision; verify it links this change
-- [ ] 1.2 Add a test database setup: create `florist_test` in the local Docker Postgres and migrate it before integration tests; verify an empty test passes against it
+- [x] 1.2 Add a test database setup: create `florist_test` in the local Docker Postgres and migrate it before integration tests; verify an empty test passes against it — *19 Nov: recreated and migrated once per run; refuses any database not ending in `_test`*
 
 ## 2. Schema and migration
 
