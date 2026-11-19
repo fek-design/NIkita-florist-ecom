@@ -1,11 +1,11 @@
 ## 1. Setup
 
-- [ ] 1.1 Start `docs/process/2026-11-19-storefront.md` with goal, inputs and the defaults to confirm; verify it links this change
+- [x] 1.1 Start `docs/process/2026-11-19-storefront.md` with goal, inputs and the defaults to confirm; verify it links this change — *19 Nov: defaults recorded as confirmed*
 - [ ] 1.2 Bring the brand into `frontend/`: copy `tokens.css`, the font files (via `next/font/local`), the web logo PNGs and the favicons; add the token drift test; verify the drift test fails when one token differs and passes when they match
 
 ## D. Design rounds (Felix chooses)
 
-- [ ] D.1 Create `docs/design-decisions.md` (format of Design-Rationale section 5) and `docs/design/storefront/`; verify the format matches the rationale's example
+- [x] D.1 Create `docs/design-decisions.md` (format of Design-Rationale section 5) and `docs/design/storefront/`; verify the format matches the rationale's example — *19 Nov: numbered DD-01 and up; three earlier choices listed under "To confirm"*
 - [ ] D.2 Build the front page variant board in `ref/design/storefront/` (what comes first, cards one or two columns, place of the delivery facts) with reasoning and evidence per variant; verify each variant renders at 390 px with real tokens, fonts and seeded data
 - [ ] D.3 Build the occasion page variant board (order of photo, tiers and delivery; day buttons or calendar; delivery/pickup as two choices or a switch); verify as D.2
 - [ ] D.4 Build the cart variant board (delivery summary above or below; total bar fixed or at the end); verify as D.2
