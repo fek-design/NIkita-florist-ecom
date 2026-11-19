@@ -1,6 +1,6 @@
 ## Context
 
-Process note: [docs/process/2026-11-16-stack-and-scaffold.md](../../../docs/process/2026-11-16-stack-and-scaffold.md). Decision log: [docs/decisions.md](../../../docs/decisions.md).
+Process note: [docs/process/2026-11-16-stack-and-scaffold.md](../../../../docs/process/2026-11-16-stack-and-scaffold.md). Decision log: [docs/decisions.md](../../../../docs/decisions.md).
 
 See proposal.md for motivation. Current state on this branch: a Next.js 16 app in the repository root with lint, tests, CI, a dependency audit, an environment check, Drizzle with an empty migration, and a database health check, all verified on 16 Nov.
 

@@ -1,6 +1,6 @@
 # Stack and scaffold
 
-**Date:** 16 Nov 2026 · **Change:** [`stack-and-scaffold`](../../openspec/changes/stack-and-scaffold/) · **Branch:** `feature/stack-and-scaffold`
+**Date:** 16 Nov 2026 · **Change:** [`stack-and-scaffold`](../../openspec/changes/archive/2026-11-19-stack-and-scaffold/) · **Branch:** `feature/stack-and-scaffold`
 **Related:** [Decision log](../decisions.md) · [Roadmap](../../ref/Roadmap.md) · [Owner interview](2026-11-16-owner-interview.md)
 
 ## Goal
@@ -80,3 +80,16 @@ Recorded as it happened, on branch `feature/hosting`.
    - Lesson for the runbook: a missing variable shows on Vercel as a generic 500, not as our message naming the variable. When a deployment crashes at start-up, check that every variable in `backend/.env.example` is set for that environment first.
 5. **Neon's pooler and prepared statements.** The Neon integration's `DATABASE_URL` goes through pgbouncer, so the Postgres driver now runs with prepared statements turned off. Migrations use `DATABASE_URL_UNPOOLED`.
 6. **First migration against Neon (17 Nov).** Run by Felix from his Mac with `DATABASE_URL_UNPOOLED`. Against Neon, `drizzle-kit migrate` printed no success line, unlike locally; Neon's console showed `drizzle.__drizzle_migrations` with 1 row, so it worked. The `feature/hosting` preview's `/health` returned `{"status":"ok","database":"reachable"}`: the backend on Vercel reaches the database in Frankfurt.
+7. **Staging and the frontend (18–19 Nov).** Vercel's login wall was switched off on the backend project only: the backend has no pages, `/health` reveals nothing and `/jobs` needs `JOB_SECRET`. A custom staging domain was dropped: Vercel gives every preview branch its own address, so staging is `nikita-florist-ecom-git-devenv-fekdesign.vercel.app`. Production was moved to `main` on both projects. Felix asked why the repository is imported a second time for the frontend: one Vercel project builds one folder, so each app gets its own project, which also keeps the database credentials in the backend only.
+8. **End to end (19 Nov), checked from outside:** staging backend `/health` ok; the frontend at `nikita-florist-frontend.vercel.app` serves the Danish home page, its `/status` shows "Alt kører", and `/api/health` reaches the backend through the rewrite. That frontend address was built from `DevEnv` at import, before production moved to `main`; it stays on that build until the first release.
+9. **Re-scope (19 Nov, Felix):** to close the foundation and start the catalog in week 2, the scheduled-job workflow (week 4), backups and restore test (week 5), runbook (week 6) and data processing agreements (week 5) moved out of this change into the roadmap.
+
+10. **Spec scenarios checked at close (19 Nov):**
+    - *No secret committed:* the full git history (all branches) was searched for connection strings with passwords, Stripe and webhook keys, Neon passwords, private keys, `age` keys, GitHub and Vercel tokens, and `JOB_SECRET` values. The only matches are the local Docker password (`florist`) and fake passwords in tests.
+    - *Vulnerable dependency fails CI:* in a scratch folder with `lodash@4.17.4`, `npm audit --omit=dev --audit-level=high` reported a critical finding and exited with code 1, which fails the CI step.
+    - *Unencrypted connection refused:* tested by Felix on 19 Nov with a Node script that connects to Neon's direct address with TLS turned off. Neon refused it ("Refused without TLS"). The same script against the local Docker database, which has no TLS, was accepted, which shows the test can tell the two apart.
+
+## Status at close (19 Nov)
+
+Built and verified: two workspaces, CI with audit, local stack, backend on Vercel reaching Neon in Frankfurt, frontend on Vercel reaching the backend. Production on `main` is verified at the first release (v0.1).
+
