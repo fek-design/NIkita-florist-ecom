@@ -25,6 +25,23 @@ Stored only in each service's settings, never in the repository. Every one must 
 | Backup encryption key (`age`) | Public key as a GitHub secret; private key with Felix offline | A new key pair she keeps | planned |
 | `JOB_SECRET` (job trigger secret) | Vercel backend project and GitHub secret; `backend/.env.local` locally | A new random secret (`openssl rand -hex 32`) | in use in Vercel (17 Nov); GitHub secret to come |
 
+## Platform ties
+
+Two ways to go live: keep Vercel and Neon and move them to her accounts (the normal path), or move to another host. The code is standard Node.js, Next.js and Postgres, configured only by environment variables, so both work. These are the only places that know about Vercel or Neon (checked 19 Nov 2026):
+
+| Piece | What it does | If staying on Vercel and Neon | If moving to another host |
+|---|---|---|---|
+| `frontend/vercel.json`, `backend/vercel.json` | Functions in Frankfurt; backend build command | Nothing | Ignored by other hosts; delete or keep |
+| `backend/src/db/deploy.ts` (`npm run build:vercel`) | Migrates on every deploy; seeds previews only. Reads `VERCEL` and `VERCEL_ENV` | Nothing | Does nothing off Vercel. Run `npm run db:migrate -w backend` as the new host's release step instead |
+| `backend/src/server.ts` | Starts the API; on Vercel the platform handles `listen()` | Nothing | Runs as an ordinary Node server: `npm run build -w backend` then `npm run start -w backend`, port from `PORT` |
+| `DATABASE_URL`, `DATABASE_URL_UNPOOLED` | Set by the Neon integration in the backend project | Created again when the Neon project moves to her | Any Postgres 17 connection string; `UNPOOLED` is optional (falls back to `DATABASE_URL`) |
+| `prepare: false` in `backend/src/db/index.ts` | Needed behind Neon's connection pooler | Nothing | Harmless elsewhere; can stay |
+| `BACKEND_URL` in the frontend project | Points at the backend address, today the `…-fekdesign.vercel.app` staging address | Change to the backend address in her team | Change to the new backend address; rebuild the frontend |
+| `Cache-Control: s-maxage` on catalogue routes | Lets Vercel's edge cache public answers for 60 s | Nothing | Other CDNs read the same header; without a CDN it does nothing |
+| GitHub Actions | CI, later the scheduled jobs and backups | Repository transferred with its workflows; secrets re-entered | Same |
+
+Not done yet, planned for week 6: a rehearsal of the transfer (moving one project to a second Vercel account and pointing the frontend at it) and the step-by-step runbook.
+
 ## Brand assets
 
 | Asset | Owner now | What to do at hand-over | Status |
