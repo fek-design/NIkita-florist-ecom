@@ -11,8 +11,8 @@
 
 ## 3. Seed
 
-- [ ] 3.1 Write `db:seed` with the occasions, tiers, postcodes and settings from design decision 3, all marked as placeholders; verify the row counts after one run
-- [ ] 3.2 Run the seed twice and change one row to non-placeholder before the second run; verify nothing is duplicated and the confirmed row is unchanged
+- [x] 3.1 Write `db:seed` with the occasions, tiers, postcodes and settings from design decision 3, all marked as placeholders; verify the row counts after one run — *19 Nov: 5 occasions, 15 tiers, 15 postcodes, 1 settings row, all placeholders (test and local database). Size texts are "Lille/Mellem/Stor buket" and opening hours are empty rather than invented*
+- [x] 3.2 Run the seed twice and change one row to non-placeholder before the second run; verify nothing is duplicated and the confirmed row is unchanged — *19 Nov: covered by `seed.test.ts`; also run twice on the local database*
 
 ## 4. Read routes
 
