@@ -23,7 +23,9 @@ Out of scope: orders and checkout (week 3), the date picker and its availability
 
 ### Modified Capabilities
 
-None in this change. A conflict is recorded for later: the `back-office` spec (written 12 Nov, before the interview) describes separate products with any number of sizes, and categories managed by the owner. With occasions as the products, categories disappear and every occasion has exactly three tiers. The admin change will update `back-office` with a MODIFIED delta; this change does not touch it.
+- `project-foundation`: every backend deploy now migrates its own database, and preview and staging deploys add the placeholder catalogue (added 19 Nov, Felix chose option A after the branch preview had no tables).
+
+Also noted: A conflict is recorded for later: the `back-office` spec (written 12 Nov, before the interview) describes separate products with any number of sizes, and categories managed by the owner. With occasions as the products, categories disappear and every occasion has exactly three tiers. The admin change will update `back-office` with a MODIFIED delta; this change does not touch `back-office`.
 
 ## Impact
 

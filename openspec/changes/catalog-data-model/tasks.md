@@ -27,6 +27,8 @@
 - [x] 5.2 Record the new tables and routes in `docs/decisions.md` (decision entry and dependency check) and the run commands in `CLAUDE.md`; verify the commands work as written — *19 Nov: D-014; no new packages; migrate and seed run from the root as written*
 - [x] 5.3 Finish the process note with the checks and their results; verify it lists every spec scenario — *19 Nov: all 13 scenarios in the check table*
 
+- [ ] 5.4 Migrate on every backend deploy and seed previews (design decision 5): `src/db/deploy.ts`, the build command in `backend/vercel.json`, migrations through `DATABASE_URL_UNPOOLED`; verify locally that it migrates and seeds as a preview, migrates only as production, and does nothing outside Vercel; then verify the branch preview's `/occasions` returns the five occasions after the push — *19 Nov, local part done: outside Vercel it does nothing; as a preview on an emptied database it migrated and seeded 5 occasions; as production it migrated and seeded nothing. Preview check after the push*
+
 ## 6. Staging and merge
 
 - [ ] 6.1 Felix runs the migration and the seed on staging (Neon); verify `GET /occasions` on the staging backend returns the five placeholder occasions

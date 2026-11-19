@@ -88,6 +88,15 @@ The catalogue rules (three tiers, rising prices, hidden and incomplete occasions
 
 Each test file migrates a clean schema before it runs. The existing unit tests stay as they are. *Rejected:* PGlite, Postgres compiled to WebAssembly (another dependency, and not the same engine version as Neon).
 
+### 5. Every backend deploy migrates its own database (added 19 Nov, Felix: option A)
+Neon's Vercel integration gives preview builds their own copy of the database, and nothing migrated those copies: this branch's preview answered 500 because its copy had no tables. Now the backend's Vercel build runs `src/db/deploy.ts` before compiling:
+- It applies pending migrations with Drizzle's built-in migrator, using `DATABASE_URL_UNPOOLED` (schema changes need a direct connection, not the pooler), and prints what it did.
+- On preview and staging builds (`VERCEL_ENV=preview`) it also runs the seed, so previews have data. Production builds never seed: if the owner deletes an occasion, a deploy must not bring it back.
+- Outside Vercel (CI, local builds) it does nothing, so a build never touches a database by accident.
+The build command is set in `backend/vercel.json`.
+*Rejected:* migrating by hand per database (option B: previews break on every schema change); a separate migration job in GitHub Actions (needs the database secrets in GitHub as well).
+Risk: a faulty migration reaches production when `main` deploys. Every migration first passes CI against a real Postgres and runs on previews and staging before any release.
+
 ## Risks / Trade-offs
 
 - [Placeholder content reaches a public page unnoticed] → the placeholder mark travels through the API; the storefront change shows it on previews, and launch checks for remaining placeholders.
