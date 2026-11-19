@@ -7,7 +7,7 @@
 
 - [x] 2.1 Write the Drizzle schema for occasions, occasion_tiers, occasion_photos, delivery_postcodes, closed_dates and shop_settings with the constraints from design decision 1; verify `npm run typecheck` passes — *19 Nov: plus snake_case column names, set in the Drizzle config and both connections*
 - [x] 2.2 Generate the migration and add the rising-price trigger and the single-row check for shop_settings in SQL; verify it applies to a fresh local database and to `florist_test` — *19 Nov: trigger in `0002_tier_price_order.sql`, deferred to commit time; the single-row rule is a plain check in the schema (`shop_settings_single_row`), which needs no hand-written SQL*
-- [ ] 2.3 Write integration tests for the database rules (one row per tier, price above zero, rising prices refused, a second settings row refused); verify they pass
+- [x] 2.3 Write integration tests for the database rules (one row per tier, price above zero, rising prices refused, a second settings row refused); verify they pass — *19 Nov: 9 tests, also covering raising all prices in one transaction, cascade delete, slug format, weekday range and postcode format*
 
 ## 3. Seed
 

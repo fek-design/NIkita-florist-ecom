@@ -33,23 +33,19 @@ const settings = {
 describe("occasion tiers", () => {
   it("allows one row per tier per occasion", async () => {
     const id = await newOccasion();
-    await db
-      .insert(occasionTiers)
-      .values({
+    await db.insert(occasionTiers).values({
+      occasionId: id,
+      tier: "lille",
+      priceOere: 25000,
+      sizeText: "ca. 30 cm",
+    });
+    const code = await pgErrorCode(
+      db.insert(occasionTiers).values({
         occasionId: id,
         tier: "lille",
-        priceOere: 25000,
+        priceOere: 26000,
         sizeText: "ca. 30 cm",
-      });
-    const code = await pgErrorCode(
-      db
-        .insert(occasionTiers)
-        .values({
-          occasionId: id,
-          tier: "lille",
-          priceOere: 26000,
-          sizeText: "ca. 30 cm",
-        }),
+      }),
     );
     expect(code).toBe(PG.uniqueViolation);
   });
@@ -57,37 +53,31 @@ describe("occasion tiers", () => {
   it("refuses a price of zero", async () => {
     const id = await newOccasion();
     const code = await pgErrorCode(
-      db
-        .insert(occasionTiers)
-        .values({
-          occasionId: id,
-          tier: "lille",
-          priceOere: 0,
-          sizeText: "ca. 30 cm",
-        }),
+      db.insert(occasionTiers).values({
+        occasionId: id,
+        tier: "lille",
+        priceOere: 0,
+        sizeText: "ca. 30 cm",
+      }),
     );
     expect(code).toBe(PG.checkViolation);
   });
 
   it("refuses prices that do not rise from lille to stor", async () => {
     const id = await newOccasion();
-    await db
-      .insert(occasionTiers)
-      .values({
-        occasionId: id,
-        tier: "lille",
-        priceOere: 30000,
-        sizeText: "ca. 30 cm",
-      });
+    await db.insert(occasionTiers).values({
+      occasionId: id,
+      tier: "lille",
+      priceOere: 30000,
+      sizeText: "ca. 30 cm",
+    });
     const code = await pgErrorCode(
-      db
-        .insert(occasionTiers)
-        .values({
-          occasionId: id,
-          tier: "mellem",
-          priceOere: 30000,
-          sizeText: "ca. 40 cm",
-        }),
+      db.insert(occasionTiers).values({
+        occasionId: id,
+        tier: "mellem",
+        priceOere: 30000,
+        sizeText: "ca. 40 cm",
+      }),
     );
     expect(code).toBe(PG.checkViolation);
   });
@@ -135,14 +125,12 @@ describe("occasion tiers", () => {
 
   it("removes tiers with their occasion", async () => {
     const id = await newOccasion();
-    await db
-      .insert(occasionTiers)
-      .values({
-        occasionId: id,
-        tier: "lille",
-        priceOere: 25000,
-        sizeText: "ca. 30 cm",
-      });
+    await db.insert(occasionTiers).values({
+      occasionId: id,
+      tier: "lille",
+      priceOere: 25000,
+      sizeText: "ca. 30 cm",
+    });
     await db.delete(occasions).where(eq(occasions.id, id));
     expect(await db.select().from(occasionTiers)).toHaveLength(0);
   });
