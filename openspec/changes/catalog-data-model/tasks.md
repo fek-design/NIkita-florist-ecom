@@ -19,7 +19,7 @@
 - [ ] 4.1 Write the catalogue queries taking the database as an argument; verify with integration tests for visible, hidden, sold-out and incomplete occasions
 - [ ] 4.2 Add `GET /occasions` and `GET /occasions/:slug` with response schemas; verify list order, lowest price, photo order, 404 for hidden, incomplete and unknown slugs
 - [ ] 4.3 Add `GET /delivery` with a response schema that has no capacity field; verify the response and that closed dates before today are left out
-- [ ] 4.4 Add `GET /delivery/postcodes/:postcode`; verify 4300 (in zone, 8000 øre), 8000 (pickup offered) and `43a0` (400)
+- [ ] 4.4 Add `GET /delivery/postcodes/:postcode`; verify 4300 (in zone, 8000 øre, pickup offered), 8000 (not in zone, pickup offered) and `43a0` (400)
 
 ## 5. CI and records
 

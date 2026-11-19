@@ -49,11 +49,11 @@ The API SHALL publish the delivery rules customers need: the delivery fee, the s
 - **THEN** it receives the fee in øre, the cut-off as a time of day in Danish time, the delivery weekdays, upcoming closed dates, pickup on or off, and opening hours, and no capacity figure
 
 ### Requirement: Postcode check before checkout
-The API SHALL answer whether the shop delivers to a given Danish postcode, and at what fee, so customers learn it before checkout (P3). A postcode outside the zone SHALL be answered with pickup as the alternative when pickup is offered.
+The API SHALL answer whether the shop delivers to a given Danish postcode, and at what fee, so customers learn it before checkout (P3). Pickup in the shop is a choice of its own, not only a fallback: every answer SHALL also say whether pickup is offered, inside the zone as well as outside it (Felix, 19 Nov: "we deliver to Holbæk omegn for 80 kr. and we also do pickup in the shop").
 
 #### Scenario: Inside the zone
 - **WHEN** a customer checks 4300
-- **THEN** the answer is: delivery possible, town Holbæk, fee 8000 øre
+- **THEN** the answer is: delivery possible, town Holbæk, fee 8000 øre, and pickup offered
 
 #### Scenario: Outside the zone
 - **WHEN** a customer checks 8000

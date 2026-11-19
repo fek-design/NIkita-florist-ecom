@@ -60,7 +60,7 @@ daily_capacity, pickup_enabled, opening_hours (json), is_placeholder, updated_at
 | `GET /occasions` | Visible, complete occasions in sort order: slug, name, intro, lowest price, main photo or null, sold out, placeholder |
 | `GET /occasions/:slug` | One visible, complete occasion with description, three tiers and photos (main first); 404 otherwise |
 | `GET /delivery` | Fee, cut-off, delivery weekdays, closed dates from today, pickup, opening hours, placeholder |
-| `GET /delivery/postcodes/:postcode` | `{ inZone, town, feeOere }`, or `{ inZone: false, pickupOffered }`; 400 if not four digits |
+| `GET /delivery/postcodes/:postcode` | `{ postcode, inZone, town, feeOere, pickupOffered }`: town and fee are null outside the zone; pickup is reported in every answer, because it is a choice of its own (Felix, 19 Nov); 400 if not four digits |
 
 Every route declares its response with a Fastify JSON schema, so extra fields (such as the capacity) can never leak, and the shape is documented in one place. *Rejected:* a schema library such as TypeBox or Zod for four routes (another dependency; plain JSON schema is enough and is what Fastify uses underneath).
 
