@@ -193,6 +193,7 @@ The highest-risk week. Start with payment integration on day one.
 - Domain, DNS and HTTPS. Redirects and links from the shop's social profiles
 - Monitoring: error tracking, uptime check, alert on failed webhooks and failed emails
 - Soft launch to existing social media followers
+- Rehearse the transfer once: move a project to a second Vercel account and a Neon project to a second organisation, point the frontend at it, and fix whatever the rehearsal finds (`docs/handover.md`, section "Platform ties")
 - Handover: short owner manual (add a product, handle an order, refund), credentials transferred to the owner's own accounts using `docs/handover.md`, technical README and `docs/runbook.md` (accounts, deploys, rollback, backup and restore; note that a start-up crash on Vercel shows as a generic 500, so check the environment variables first)
 - Report and presentation finalised from the decision log and recorded results
 - Final two days are buffer. No changes to production other than fixes

@@ -7,3 +7,5 @@ node_modules/
 package-lock.json
 CLAUDE.md
 AGENTS.md
+# Written by drizzle-kit on every migration
+**/drizzle/meta/

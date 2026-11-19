@@ -12,7 +12,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx --env-file-if-exists=.env.local src/db/seed-cli.ts",
+    "build:vercel": "tsx src/db/deploy.ts && npm run build"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.4",

@@ -90,6 +90,13 @@ Date: 2026-11-16 to 2026-11-17 · Status: rejected
 Considered: one Hetzner server in Germany or Finland running everything in Docker Compose behind Caddy (Felix's first choice on 16 Nov: everything in the EU, fully explainable). Then Felix's existing Simply.com subscription.
 Why rejected: the Hetzner server costs money, which Felix does not want to spend on a school project (17 Nov). Simply.com's webhotel serves static sites only, so it cannot run the frontend or the backend (checked by Felix, 17 Nov). Kept here because the own-server design is still the natural target if the owner later wants to leave Vercel.
 
+### D-014 Catalogue data model: occasions in three tiers with their own prices
+Date: 2026-11-19 · Change: `catalog-data-model` · Principles: P2, P3, P6, P10 · Status: locked
+Decision: Each occasion is one product with exactly three tiers (Lille, Mellem, Stor), each tier a row with its own price in øre and a size in words. Shop settings are one typed row; delivery postcodes and closed dates are tables. The database enforces one row per tier, prices above zero, prices rising from Lille to Stor (a commit-time constraint trigger), and a single settings row. Four read-only routes serve the storefront, each with a response schema so internal values such as the daily capacity cannot leak.
+Why: The owner interview made occasions the products. Felix chose explicit prices per occasion (option A) so the owner edits exactly the prices customers see. Rules in the database hold even if code elsewhere has a bug.
+Rejected: shared base prices plus an occasion offset (option B); categories (occasions replace them); a key-value settings table (loses types and checks); a trigger forcing exactly three tiers (makes creating an occasion awkward; the API treats incomplete occasions as not offered instead); PGlite for tests (not the same Postgres as Neon).
+Note: no new packages. Tests run against a real Postgres: `florist_test` locally, a `postgres:17` service in CI.
+
 ---
 
 ## Dependencies

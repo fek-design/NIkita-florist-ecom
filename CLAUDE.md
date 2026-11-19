@@ -32,6 +32,7 @@ cp frontend/.env.example frontend/.env.local
 cp backend/.env.example backend/.env.local     # then fill in JOB_SECRET (openssl rand -hex 32)
 docker compose up -d                           # Postgres on :5432, Mailpit on :1025 / http://localhost:8025/
 npm run db:migrate -w backend
+npm run db:seed -w backend                     # placeholder catalogue; safe to run again
 ```
 
 | Command (from the root) | Does |
@@ -41,8 +42,9 @@ npm run db:migrate -w backend
 | `npm run format` / `npm run format:check` | Prettier for the whole repository |
 | `npm run test:e2e` | Playwright on a phone viewport; starts both apps itself |
 | `npm run db:generate -w backend` / `npm run db:migrate -w backend` | Create / apply SQL migrations |
+| `npm run db:seed -w backend` | Insert the placeholder catalogue (never overwrites or duplicates) |
 
-CI (`.github/workflows/ci.yml`) runs the dependency audit, lint, format check, typecheck, unit tests and build on every push and pull request. Money is always whole øre (`backend/src/lib/money.ts`). A new environment variable goes in that app's `src/env.ts` and `.env.example`, and gets a row in [docs/handover.md](docs/handover.md).
+CI (`.github/workflows/ci.yml`) runs the dependency audit, lint, format check, typecheck, unit and integration tests, and build on every push and pull request. Backend integration tests use a real Postgres: they recreate `florist_test` in the Docker container on every run (CI uses a Postgres service), so `docker compose up -d` must be running before `npm test`. The catalogue's rules and routes are described in `openspec/specs/catalog/` once the change is archived. Money is always whole øre (`backend/src/lib/money.ts`). A new environment variable goes in that app's `src/env.ts` and `.env.example`, and gets a row in [docs/handover.md](docs/handover.md).
 
 ## Process log (required)
 

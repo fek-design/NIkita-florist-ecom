@@ -12,7 +12,7 @@ function createDb() {
     connect_timeout: 5,
     prepare: false,
   });
-  return drizzle(client, { schema });
+  return drizzle(client, { schema, casing: "snake_case" });
 }
 
 let instance: ReturnType<typeof createDb> | undefined;
