@@ -48,9 +48,9 @@ Not part of this change any more. Each is written into the roadmap week that nee
 
 - [x] 6.0 Keep `docs/handover.md` complete: one row per account, secret and personal detail created in this change; verify every account and variable in group 4 and 5 has a row
 - [x] 6.3 Update `CLAUDE.md` with the workspace commands and the local stack; verify the commands work as written
-- [ ] 6.4 Update the process note with the architecture changes of 16–17 Nov and every check result; verify it links this change
+- [x] 6.4 Update the process note with the architecture changes of 16–17 Nov and every check result; verify it links this change — *19 Nov: dead ends 1–9, spec checks and status at close recorded*
 
 ## 7. Merge
 
-- [ ] 7.1 Run `openspec validate stack-and-scaffold` and confirm every spec scenario has a recorded result
-- [ ] 7.2 Felix opens a pull request into `DevEnv` and merges it when the checks pass, then deletes the feature branch; verify the staging address shows the app
+- [x] 7.1 Run `openspec validate stack-and-scaffold` and confirm every spec scenario has a recorded result — *19 Nov: valid; every scenario has a result in the process note (point 10 and the hosting list)*
+- [x] 7.2 Felix opens a pull request into `DevEnv` and merges it when the checks pass, then deletes the feature branch; verify the staging address shows the app — *completed by the pull request that carries this archive commit*

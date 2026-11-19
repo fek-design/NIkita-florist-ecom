@@ -3,7 +3,7 @@
 Week 2 of the roadmap needs a running app: products browsable, a cart, and an admin the owner can use. The case describes an API-driven full-stack solution with a separate backend side that ties payment and email together (`ref/Case Synopsis - Felix.md`).
 
 Inputs that shape the stack:
-- The owner interview (16 Nov): the shop will not go live within the project. The result is a finished package she takes into use later. Test-mode payment is enough, and no own domain is needed now ([interview notes](../../../docs/process/2026-11-16-owner-interview.md)).
+- The owner interview (16 Nov): the shop will not go live within the project. The result is a finished package she takes into use later. Test-mode payment is enough, and no own domain is needed now ([interview notes](../../../../docs/process/2026-11-16-owner-interview.md)).
 - Felix's decisions (16–17 Nov): split the code into a separate backend service and a frontend; send email over SMTP and receive it over IMAP; host at no cost, because this is a school project. Simply.com's webhotel serves static sites only, and a rented server costs money, so the free tiers of managed platforms are used, in EU regions.
 
 ## What Changes
