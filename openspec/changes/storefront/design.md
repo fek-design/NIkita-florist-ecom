@@ -80,12 +80,22 @@ Prices are formatted in Danish: "350 kr.", "1.250,50 kr.", with tabular numbers.
 - **Playwright on a phone viewport:** front page → occasion → tier → delivery to 4300 → date → card message → add → cart → reload → still there; plus a keyboard-only pass and a check that no request goes to another address for fonts. They run locally against the seeded database. Running them in CI needs a browser download per run; that is considered at the week 5 hardening checkup.
 - **Lighthouse baseline** on the public preview address, mobile, recorded with date and scores in the process note (roadmap week 2 exit criterion). How it is run (local Chrome, or PageSpeed Insights on a public address) is decided when the pages exist.
 
+### 11. Design process: variants, Felix chooses (Felix, 19 Nov)
+The education is design-oriented, so the layout choices must be Felix's and argued (CLAUDE.md, "Design decisions are Felix's").
+- **Design rounds before building.** The key choices on each screen are built as 2–3 variants on a static board in `ref/design/storefront/`, using the real tokens, fonts and seeded data at 390 px. Each variant comes with its reasoning, the principle or evidence behind it, and its risk. Felix chooses and states why.
+- **Key choices to put to Felix:**
+  - *Front page:* what comes first (occasions straight away, or a short promise and delivery facts above them); occasion cards as one column of wide cards or a two-column grid; where the delivery facts sit.
+  - *Occasion page:* the order of photo, tiers and "Hvornår og hvor?" on a phone; the date choice as a row of day buttons or a month calendar; delivery/pickup as two large choices or a switch.
+  - *Cart:* delivery summary above or below the bouquets; a total bar fixed at the bottom of the screen or at the end of the page.
+- **Records:** every choice goes into `docs/design-decisions.md` (format of Design-Rationale section 5). Each built screen gets an annotated screenshot with numbered markers, and the rejected variants are kept as images, in `docs/design/storefront/`.
+- Details that follow directly from the brand guide (button height, colours on grounds, focus ring) are built without variants and cite the guide.
+
 ## Risks / Trade-offs
 
 - [The owner wants different delivery rules (several recipients, ceremony details)] → defaults 2 and 3 are named for review; the versioned cart format can change.
 - [Placeholder text and "Foto kommer" make the shop look unfinished on previews] → intended: it is unfinished until the owner's content arrives, and the labels make that visible.
 - [Cart prices go stale] → refreshed when the cart opens; the server decides at checkout.
-- [Week 2 time is short] → tasks are ordered so the front page and occasion page come first; the cart follows; findability and the baseline close the change.
+- [Week 2 time is short, and design rounds add a step] → each round is one board with a few variants per screen, decided in one sitting; building a chosen variant is faster than redesigning a built page later.
 
 ## Open Questions
 

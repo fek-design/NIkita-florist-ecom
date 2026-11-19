@@ -55,6 +55,15 @@ Whenever something is designed or developed, at any stage from sketch to MVP, wr
 - Link the related OpenSpec change, and link the note from the change's design.md
 - Record dead ends and changes of mind honestly. Don't rewrite them afterwards to look planned
 
+## Design decisions are Felix's (required)
+
+This is a design-oriented education: the project is judged on why every screen looks and works the way it does, and Felix must be able to argue each choice.
+
+- **Variants, Felix chooses.** For every key design choice on a screen (content order, placement, layout, visual treatment), Claude builds 2–3 real variants at phone size (390 px) with the reasoning and evidence for each. Felix picks and states why. Claude never settles a key design choice alone.
+- **Decision log.** Each choice gets an entry in [docs/design-decisions.md](docs/design-decisions.md) in the format of `ref/Design-Rationale.md` section 5: what, why, principle (P1–P12) or *opinion*, evidence grade, rejected variants, and how it will be tested.
+- **Shown, not only told.** Each finished screen gets an annotated screenshot (numbered markers, each saying why that element is there, in that place, looking that way), and the rejected variants are kept as images beside it, under `docs/design/`.
+- Small details that follow directly from the brand guide or an already logged decision do not need variants; say which rule they follow.
+
 ## Skill overrides
 
 The design skills in `.claude/skills/` are third-party, so they are never edited (provenance: `.claude/skills/PROVENANCE.md`). Where a skill conflicts with this project, these rules win:

@@ -3,6 +3,14 @@
 - [ ] 1.1 Start `docs/process/2026-11-19-storefront.md` with goal, inputs and the defaults to confirm; verify it links this change
 - [ ] 1.2 Bring the brand into `frontend/`: copy `tokens.css`, the font files (via `next/font/local`), the web logo PNGs and the favicons; add the token drift test; verify the drift test fails when one token differs and passes when they match
 
+## D. Design rounds (Felix chooses)
+
+- [ ] D.1 Create `docs/design-decisions.md` (format of Design-Rationale section 5) and `docs/design/storefront/`; verify the format matches the rationale's example
+- [ ] D.2 Build the front page variant board in `ref/design/storefront/` (what comes first, cards one or two columns, place of the delivery facts) with reasoning and evidence per variant; verify each variant renders at 390 px with real tokens, fonts and seeded data
+- [ ] D.3 Build the occasion page variant board (order of photo, tiers and delivery; day buttons or calendar; delivery/pickup as two choices or a switch); verify as D.2
+- [ ] D.4 Build the cart variant board (delivery summary above or below; total bar fixed or at the end); verify as D.2
+- [ ] D.5 Felix chooses for each board and states why; verify each choice is logged in `docs/design-decisions.md` with the rejected variants saved as images
+
 ## 2. Backend: available dates
 
 - [ ] 2.1 Write the available-dates function (Danish time, weekdays, closed dates, cut-off, 60 days) with unit tests on a fixed clock; verify the four spec scenarios
@@ -29,4 +37,5 @@
 - [ ] 6.1 Add page metadata, `sitemap.ts`, `robots.ts` and the occasion `Product` JSON-LD, with `SITE_URL` in env, example and hand-over sheet; verify the sitemap lists the front page and five occasions only
 - [ ] 6.2 Write the Playwright phone tests (full path with reload, keyboard-only path, no third-party font requests); verify they pass locally against the seeded database
 - [ ] 6.3 Push for a preview, check the pages there, and record a mobile Lighthouse baseline with date and scores in the process note
+- [ ] 6.3b Make an annotated screenshot of each finished screen (numbered markers, each with the reason and the decision it comes from) in `docs/design/storefront/`; verify every marker points to a logged decision or a brand-guide rule
 - [ ] 6.4 Finish the process note (decisions, slips, a check per spec scenario), update `CLAUDE.md` if commands changed, validate and archive the change, and hand over for the pull request
