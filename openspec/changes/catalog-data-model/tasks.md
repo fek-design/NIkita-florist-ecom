@@ -16,7 +16,7 @@
 
 ## 4. Read routes
 
-- [ ] 4.1 Write the catalogue queries taking the database as an argument; verify with integration tests for visible, hidden, sold-out and incomplete occasions
+- [x] 4.1 Write the catalogue queries taking the database as an argument; verify with integration tests for visible, hidden, sold-out and incomplete occasions — *19 Nov: 11 tests, plus photo order, closed dates and both postcode cases; "today" is computed in Danish time (`lib/danish-time.ts`, tested across midnight and summer time)*
 - [ ] 4.2 Add `GET /occasions` and `GET /occasions/:slug` with response schemas; verify list order, lowest price, photo order, 404 for hidden, incomplete and unknown slugs
 - [ ] 4.3 Add `GET /delivery` with a response schema that has no capacity field; verify the response and that closed dates before today are left out
 - [ ] 4.4 Add `GET /delivery/postcodes/:postcode`; verify 4300 (in zone, 8000 øre, pickup offered), 8000 (not in zone, pickup offered) and `43a0` (400)
