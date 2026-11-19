@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Front page: design variants</title>
+<link rel="stylesheet" href="../../brand/tokens.css">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #ece8e3; color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+  .board { padding: 32px; }
+  .board > h1 { font-family: var(--font-heading); font-size: 32px; margin: 0 0 4px; }
+  .board > p { max-width: 90ch; margin: 0 0 8px; }
+  section.choice { margin-top: 40px; }
+  section.choice > h2 { font-family: var(--font-heading); font-size: 24px; margin: 0 0 4px; }
+  section.choice > p { max-width: 90ch; margin: 0 0 16px; }
+  .row { display: flex; gap: 28px; align-items: flex-start; }
+  .variant { width: 390px; flex: none; }
+  .variant > h3 { font-size: 16px; margin: 0 0 8px; }
+  .why { background: #fff; border-radius: 6px; padding: 12px 14px; margin-top: 12px; font-size: 13.5px; }
+  .why b { display: block; margin-top: 6px; }
+  .why b:first-child { margin-top: 0; }
+
+  /* Phone frame: 390 px wide, first screen (844 px) marked with a line. */
+  .phone { width: 390px; background: var(--paper); border-radius: 18px; overflow: hidden; box-shadow: 0 1px 0 rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.08); position: relative; font-size: 16px; }
+  .fold { position: absolute; left: 0; right: 0; top: 660px; border-top: 2px dashed var(--error); }
+  .fold::after { content: "Synligt i Safari / Instagram (ca. 660 px)"; position: absolute; right: 8px; top: 2px; font-size: 11px; color: var(--error); background: var(--paper); padding: 0 4px; }
+
+  /* Shared site parts */
+  .nav { height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--linen); }
+  .nav img { width: 110px; height: auto; display: block; }
+  .nav span { font-size: 14px; font-weight: 600; min-width: 64px; }
+  .nav span:last-child { text-align: right; }
+  .content { padding: 20px 16px 24px; }
+  h4.page { font-family: var(--font-heading); font-weight: 600; font-size: var(--text-2xl); line-height: var(--leading-tight); margin: 4px 0 8px; }
+  .lead { margin: 0 0 16px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; border: 1px solid var(--ink); border-radius: 3px; padding: 1px 5px; }
+  .photo { background: var(--linen); display: grid; place-items: center; color: var(--ink); font-size: 13px; }
+  .price { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .facts { display: grid; gap: 8px; margin: 0 0 20px; padding: 0; list-style: none; }
+  .facts li { background: var(--linen); border-radius: 4px; padding: 10px 12px; font-size: 15px; }
+  .strip { background: var(--sand); color: var(--paper); font-size: 13px; font-weight: 600; text-align: center; padding: 8px 12px; }
+  .factblock { background: var(--linen); border-radius: 4px; padding: 16px; margin-top: 24px; }
+  .factblock h5 { font-family: var(--font-heading); font-size: var(--text-lg); margin: 0 0 8px; font-weight: 600; }
+  .factblock p { margin: 0 0 6px; }
+
+  /* Card styles */
+  .list { display: grid; gap: 12px; }
+  .card { background: var(--paper); border: 1px solid var(--sand); border-radius: 4px; overflow: hidden; color: inherit; text-decoration: none; }
+  .card .name { font-family: var(--font-heading); font-size: var(--text-lg); font-weight: 600; line-height: 1.2; margin: 0; }
+  .card .intro { font-size: 14px; margin: 2px 0 6px; }
+  .wide { display: grid; grid-template-columns: 112px 1fr; min-height: 112px; }
+  .wide .photo { height: 100%; }
+  .wide .body { padding: 10px 12px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tall .photo { aspect-ratio: 4 / 5; }
+  .tall .body { padding: 8px 10px 10px; }
+  .tall .name { font-size: 17px; }
+  .big .photo { aspect-ratio: 4 / 3; }
+  .big .body { padding: 12px 14px 14px; }
+  .hero { aspect-ratio: 4 / 5; background: var(--linen); position: relative; display: flex; align-items: flex-end; }
+  .hero .over { padding: 20px 16px; }
+  .hero .over h4 { margin: 0 0 6px; }
+</style>
+</head>
+<body>
+<div class="board">
+  <h1>Forside: varianter</h1>
+  <p>Three separate choices for the front page, each shown at 390 px with the real brand, fonts and the five seeded occasions. Only the part being compared changes; the rest stays neutral. The dashed red line marks roughly what is visible before scrolling: about 660 px of a 390 × 844 phone once Safari's or Instagram's toolbars are shown (approximate, grade C). The counts in the texts below are measured from these frames.</p>
+  <p>For each choice: pick one (or a mix), and say why. The reasoning, evidence and risk under each variant are Claude's input, not the decision.</p>
+
+  <!-- ===================== A ===================== -->
+  <section class="choice" id="A">
+    <h2>A · What comes first</h2>
+    <p>The visitor usually arrives from an Instagram post on a phone, often for a specific occasion. What should the first screen do: start the choice, reassure about delivery, or set a mood?</p>
+    <div class="row">
+
+      <div class="variant">
+        <h3>A1 · Occasions straight away</h3>
+        <div class="phone" data-variant="A1">
+          <div class="nav"><span>Menu</span><img src="../../brand/logo/web/logo-half-sand-110w@2x.png" alt="Nikita Nielsen"><span>Kurv (0)</span></div>
+          <div class="content">
+            <h4 class="page">Hvad skal blomsterne sige?</h4>
+            <p class="lead">Vælg anledning, størrelse og dag.</p>
+            <div class="list" data-cards></div>
+          </div>
+          <div class="fold"></div>
+        </div>
+        <div class="why">
+          <b>Why</b>Occasion is the first choice in concept C, which the owner picked. The question in the heading starts the task at once. Measured: 3 of 5 occasions fully visible before scrolling.
+          <b>Evidence</b>P1 (phone, one column, the main action reachable); wireframe C. Grade C: our inference from the concept.
+          <b>Risk</b>Delivery facts (fee, area, cut-off) sit below the occasions, so a visitor who first wonders "do they deliver to me?" has to scroll (P3).
+        </div>
+      </div>
+
+      <div class="variant">
+        <h3>A2 · Promise and facts first</h3>
+        <div class="phone" data-variant="A2">
+          <div class="nav"><span>Menu</span><img src="../../brand/logo/web/logo-half-sand-110w@2x.png" alt="Nikita Nielsen"><span>Kurv (0)</span></div>
+          <div class="content">
+            <h4 class="page">Blomster til enhver anledning</h4>
+            <ul class="facts">
+              <li><b>Levering i Holbæk og omegn</b> · 80 kr. <span class="tag">Eksempel</span></li>
+              <li><b>Bestil inden kl. 12</b> for levering samme dag</li>
+              <li><b>Afhent i butikken</b> uden gebyr</li>
+            </ul>
+            <div class="list" data-cards></div>
+          </div>
+          <div class="fold"></div>
+        </div>
+        <div class="why">
+          <b>Why</b>Answers the three questions that decide whether to go on (does it reach the recipient, by when, what does it cost) before the choice starts.
+          <b>Evidence</b>P3: surprise costs are the most-cited reason to abandon (B). P2: show the cut-off plainly. P10: concrete facts are what search and AI quote.
+          <b>Risk</b>The facts push the occasions down. Measured: all three facts and 2 of 5 occasions visible before scrolling. Visitors who arrive knowing the occasion scroll a little more.
+        </div>
+      </div>
+
+      <div class="variant">
+        <h3>A3 · Large photo first</h3>
+        <div class="phone" data-variant="A3">
+          <div class="nav"><span>Menu</span><img src="../../brand/logo/web/logo-half-sand-110w@2x.png" alt="Nikita Nielsen"><span>Kurv (0)</span></div>
+          <div class="hero"><div class="photo" style="position:absolute;inset:0">Ejerens foto (stort)</div>
+            <div class="over" style="position:relative;background:linear-gradient(transparent,rgba(247,244,239,.95) 40%);width:100%">
+              <h4 class="page">Blomster til enhver anledning</h4>
+              <p class="lead" style="margin:0">Se buketterne nedenfor.</p>
+            </div>
+          </div>
+          <div class="content"><div class="list" data-cards></div></div>
+          <div class="fold"></div>
+        </div>
+        <div class="why">
+          <b>Why</b>The common florist pattern: a mood photo sells the feeling and shows the owner's style (P11, P6).
+          <b>Evidence</b>P6: photos are what people look at first (B, product pages). Grade C for the front page: large banners above content are often scrolled past without being read (practitioner reports).
+          <b>Risk</b>Measured: no occasion is fully visible before scrolling (the first starts at 580 px), and no fact either. It depends entirely on the owner's photo, which does not exist yet; with a placeholder it looks empty.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== B ===================== -->
+  <section class="choice" id="B">
+    <h2>B · How the occasion cards look</h2>
+    <p>The cards are the front page's main content. How much space goes to the photo, and how many fit on a screen?</p>
+    <div class="row">
+
+      <div class="variant">
+        <h3>B1 · One column, wide cards</h3>
+        <div class="phone"><div class="nav"><span>Menu</span><img src="../../brand/logo/web/logo-half-sand-110w@2x.png" alt="Nikita Nielsen"><span>Kurv (0)</span></div>
+          <div class="content"><h4 class="page">Hvad skal blomsterne sige?</h4><div class="list" data-cards="wide"></div></div><div class="fold"></div></div>
+        <div class="why">
+          <b>Why</b>Name, intro and price are read in one line of sight; the small square photo identifies the occasion without dominating. Measured: 3 of 5 fully visible before scrolling.
+          <b>Evidence</b>P1 (single column, large tap area per card). Grade C.
+          <b>Risk</b>The photo is small (112 px): weakest for P6, where the bouquet is what sells.
+        </div>
+      </div>
+
+      <div class="variant">
+        <h3>B2 · Two-column grid</h3>
+        <div class="phone"><div class="nav"><span>Menu</span><img src="../../brand/logo/web/logo-half-sand-110w@2x.png" alt="Nikita Nielsen"><span>Kurv (0)</span></div>
+          <div class="content"><h4 class="page">Hvad skal blomsterne sige?</h4><div class="grid2" data-cards="tall"></div></div><div class="fold"></div></div>
+        <div class="why">
+          <b>Why</b>The classic shop grid: photos side by side, easy to compare. Measured: 2 cards fully and 2 partly visible before scrolling.
+          <b>Evidence</b>Common in e-commerce on phones (grade C). P6: photos stay fairly large (4:5).
+          <b>Risk</b>Narrow cards (about 171 px): long names wrap and the intro does not fit, so it is left out. Five occasions leave one empty cell.
+        </div>
+      </div>
+
+      <div class="variant">
+        <h3>B3 · One column, large photo</h3>
+        <div class="phone"><div class="nav"><span>Menu</span><img src="../../brand/logo/web/logo-half-sand-110w@2x.png" alt="Nikita Nielsen"><span>Kurv (0)</span></div>
+          <div class="content"><h4 class="page">Hvad skal blomsterne sige?</h4><div class="list" data-cards="big"></div></div><div class="fold"></div></div>
+        <div class="why">
+          <b>Why</b>Each occasion gets a full-width photo: the strongest showing of the bouquets, like an Instagram feed, which is where the visitors come from.
+          <b>Evidence</b>P6 (photos are the product, B); P1 (single column). Familiar from Instagram (grade C).
+          <b>Risk</b>Measured: 1 of 5 fully visible before scrolling, so comparing means scrolling. Until the owner's photos exist, the page is mostly placeholder.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== C ===================== -->
+  <section class="choice" id="C">
+    <h2>C · Where the delivery facts sit</h2>
+    <p>Fee, area, cut-off and pickup must be easy to find (P3). Only relevant if A1 or A3 is chosen; A2 already puts them at the top.</p>
+    <div class="row">
+
+      <div class="variant">
+        <h3>C1 · Thin strip under the navbar, on every page</h3>
+        <div class="phone"><div class="nav"><span>Menu</span><img src="../../brand/logo/web/logo-half-sand-110w@2x.png" alt="Nikita Nielsen"><span>Kurv (0)</span></div>
+          <div class="strip">Levering i Holbæk og omegn 80 kr. · Bestil inden kl. 12</div>
+          <div class="content"><h4 class="page">Hvad skal blomsterne sige?</h4><div class="list" data-cards></div></div><div class="fold"></div></div>
+        <div class="why">
+          <b>Why</b>The two facts that cause most hesitation are always visible, on every page, at the cost of one line.
+          <b>Evidence</b>P3 (fee early), P2 (cut-off plainly). Grade B for the principle, C for the strip as a pattern.
+          <b>Risk</b>Strips at the top are easy to overlook as decoration ("banner blindness", grade C). Pickup does not fit.
+        </div>
+      </div>
+
+      <div class="variant">
+        <h3>C2 · A facts block after the occasions</h3>
+        <div class="phone"><div class="nav"><span>Menu</span><img src="../../brand/logo/web/logo-half-sand-110w@2x.png" alt="Nikita Nielsen"><span>Kurv (0)</span></div>
+          <div class="content"><h4 class="page">Hvad skal blomsterne sige?</h4><div class="list" data-cards></div>
+            <div class="factblock"><h5>Levering og afhentning</h5>
+              <p><b>Levering</b> i Holbæk og omegn: 80 kr. <span class="tag">Eksempel</span></p>
+              <p><b>Samme dag</b> ved bestilling inden kl. 12.</p>
+              <p><b>Afhentning</b> i butikken uden gebyr.</p>
+              <p><a href="#" style="color:var(--ink)">Tjek dit postnummer</a></p>
+            </div></div><div class="fold"></div></div>
+        <div class="why">
+          <b>Why</b>Room for all four facts in full sentences, plus a link to check a postcode. The occasions keep the top.
+          <b>Evidence</b>P10 (full factual sentences are what search and AI quote); P3 is still met on the occasion page, where the fee shows with the postcode.
+          <b>Risk</b>Measured: the block starts at 844 px, below everything visible before scrolling. A visitor who wonders about delivery before choosing has to scroll past all five occasions to find it.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="choice" id="confirm">
+    <h2>Also to confirm on this board</h2>
+    <p>Two choices made earlier without variants, visible in every frame above: the navbar at 72 px with the half-moon logo 110 px wide (below that the name is hard to read), and cards on Paper with a 1 px Sand border (Linen on Paper is only 1.33:1, so a Linen card would barely show).</p>
+  </section>
+</div>
+
+<script>
+  // The five seeded occasions (placeholder data from the catalogue).
+  const occasions = [
+    ["Fødselsdag", "Buketter til fødselsdagen i tre størrelser.", 250],
+    ["Bisættelse", "Blomster til bisættelse og begravelse i tre størrelser.", 300],
+    ["Bare fordi", "En buket uden særlig anledning, i tre størrelser.", 200],
+    ["Kærlighed", "Buketter til en, du holder af, i tre størrelser.", 250],
+    ["Tak", "En buket som tak, i tre størrelser.", 250],
+  ];
+  const tag = '<span class="tag">Eksempel</span>';
+  function card(style, [name, intro, price]) {
+    if (style === "tall") return `<a class="card tall" href="#"><div class="photo">Foto kommer</div><div class="body"><p class="name">${name}</p><p class="price" style="margin:2px 0 4px">Fra ${price} kr.</p>${tag}</div></a>`;
+    if (style === "big") return `<a class="card big" href="#"><div class="photo">Foto kommer</div><div class="body"><p class="name">${name}</p><p class="intro">${intro}</p><p class="price" style="margin:0">Fra ${price} kr. ${tag}</p></div></a>`;
+    return `<a class="card wide" href="#"><div class="photo">Foto kommer</div><div class="body"><p class="name">${name}</p><p class="intro">${intro}</p><p class="price" style="margin:0">Fra ${price} kr. ${tag}</p></div></a>`;
+  }
+  for (const el of document.querySelectorAll("[data-cards]")) {
+    const style = el.dataset.cards || "wide";
+    const limit = Number(el.dataset.limit || occasions.length);
+    el.innerHTML = occasions.slice(0, limit).map((o) => card(style, o)).join("");
+  }
+</script>
+</body>
+</html>

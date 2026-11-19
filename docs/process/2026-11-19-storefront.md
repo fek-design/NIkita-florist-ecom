@@ -21,4 +21,5 @@ Felix's education is design-oriented, so every key layout choice is his (CLAUDE.
 
 ## Work log
 
-*(filled in as tasks are done)*
+- **Front page board (19 Nov).** Three choices, eight frames, real brand and seeded data at 390 px: A, what comes first (occasions, facts, large photo); B, card style (wide row, two-column grid, large photo); C, where delivery facts sit (strip, block after the occasions).
+  - *Slip, caught before showing Felix:* the first texts guessed how many occasions were visible ("about two", "four") and drew the screen edge at 844 px, the full phone height. In Safari or Instagram, the toolbars leave roughly 660 px visible (approximate, grade C). The line was moved and every count rewritten from measurements of the frames. One variant (C2) had also shown only three occasions, which made its fact block look visible; with all five it starts at 844 px, below the visible area.
