@@ -1,6 +1,6 @@
 ## Why
 
-The week 2 storefront and the week 3 checkout both need real data behind them: which occasions exist, what each tier costs, where the shop delivers and on which days. Today the database is empty and the backend has only `/health`. The owner interview (16 Nov) fixed the shape: concept C, where each occasion is one product sold in three budget tiers ([interview notes](../../../docs/process/2026-11-16-owner-interview.md)).
+The week 2 storefront and the week 3 checkout both need real data behind them: which occasions exist, what each tier costs, where the shop delivers and on which days. Today the database is empty and the backend has only `/health`. The owner interview (16 Nov) fixed the shape: concept C, where each occasion is one product sold in three budget tiers ([interview notes](../../../../docs/process/2026-11-16-owner-interview.md)).
 
 ## What Changes
 

@@ -1,6 +1,6 @@
 # Catalogue data model
 
-**Started:** 19 Nov 2026 · **Change:** [`catalog-data-model`](../../openspec/changes/catalog-data-model/) · **Branch:** `feature/data-model`
+**Started:** 19 Nov 2026 · **Change:** [`catalog-data-model`](../../openspec/changes/archive/2026-11-19-catalog-data-model/) · **Branch:** `feature/data-model`
 **Related:** [Owner interview](2026-11-16-owner-interview.md) · [Decision log](../decisions.md) · [Design rationale](../../ref/Design-Rationale.md) (P2, P3, P6, P10, P12)
 
 ## Goal
@@ -18,7 +18,7 @@ Give the storefront (week 2) and the checkout (week 3) one source for occasions,
 
 ## Decisions
 
-See the change's [design.md](../../openspec/changes/catalog-data-model/design.md): tiers as rows with their own price, the database enforcing the rules it can (one row per tier, prices above zero, rising prices, one settings row), JSON response schemas on every route so nothing extra leaks, and tests against a real Postgres.
+See the change's [design.md](../../openspec/changes/archive/2026-11-19-catalog-data-model/design.md): tiers as rows with their own price, the database enforcing the rules it can (one row per tier, prices above zero, rising prices, one settings row), JSON response schemas on every route so nothing extra leaks, and tests against a real Postgres.
 
 ## Work log (19 Nov)
 
@@ -39,6 +39,9 @@ See the change's [design.md](../../openspec/changes/catalog-data-model/design.md
 6. **The preview's database had no tables.** Neon's integration gives preview builds their own database copy; this branch's copy was made before the migration ran on the main database. Staging, which uses the main database, is healthy. How previews get migrated is an open question for Felix.
 7. **CI with Postgres:** green on the first run with the service container (`Initialize containers` to `Stop containers`).
 
+8. **Deploy-time migration (option A, Felix).** After the preview without tables, every backend deploy now migrates its own database and seeds previews and staging, never production (design decision 5). Tested locally as outside Vercel, preview and production, then live: the next push's backend preview migrated its own database copy and answered with the five occasions.
+9. **Transfer question (Felix).** Asked whether the Vercel work can be handed over easily. Answer: the code depends on Vercel and Neon in eight small places, now listed in `docs/handover.md` under "Platform ties"; a rehearsed transfer is planned for week 6.
+
 ## How it was checked
 
 | Spec scenario | Check | Result |
@@ -56,5 +59,7 @@ See the change's [design.md](../../openspec/changes/catalog-data-model/design.md
 | Not a postcode | route test `43a0`; live `abc` | 400 naming `params/postcode` |
 | Seeded data | seed test | All rows marked as placeholders |
 | Seeding twice | seed test; local database seeded twice | No duplicates; confirmed price kept |
+| Preview with a new table (project-foundation) | live branch preview after push d1045ee | Migrated and seeded on deploy, five occasions served |
+| Production is not seeded (project-foundation) | `deployPlan` test; local run as production | Migrated, 0 occasions added |
 
-Totals: 53 backend tests (36 new), 4 frontend tests. Lint, types, format and build pass.
+Totals: 58 backend tests (41 new), 4 frontend tests. Lint, types, format and build pass.

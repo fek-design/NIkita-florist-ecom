@@ -1,6 +1,6 @@
 ## Context
 
-See proposal.md for motivation. Process note: [docs/process/2026-11-19-catalog-data-model.md](../../../docs/process/2026-11-19-catalog-data-model.md) (written during implementation).
+See proposal.md for motivation. Process note: [docs/process/2026-11-19-catalog-data-model.md](../../../../docs/process/2026-11-19-catalog-data-model.md) (written during implementation).
 
 Current state: `backend/` has Drizzle with an empty schema and one empty migration, the `postgres` driver with prepared statements off (Neon's pooler), and routes built in `src/build-app.ts` with `registerRoutes()`. Tests use `app.inject()` with a fake database ping; nothing touches a real database in tests yet. Money is whole øre (D-007). Staging and production run on Neon in Frankfurt.
 
