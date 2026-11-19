@@ -23,7 +23,7 @@
 
 ## 5. CI and records
 
-- [ ] 5.1 Add a `postgres:17` service to the CI job and run the integration tests there; verify the CI run is green and a deliberately broken database rule turns it red — *19 Nov: service added; with the price trigger disabled locally the price-order test fails (1 of 53), restored it passes. CI green to confirm after the push*
+- [x] 5.1 Add a `postgres:17` service to the CI job and run the integration tests there; verify the CI run is green and a deliberately broken database rule turns it red — *19 Nov: service added; with the price trigger disabled locally the price-order test fails (1 of 53), restored it passes. CI green on the first run with the service (commit 8909029)*
 - [x] 5.2 Record the new tables and routes in `docs/decisions.md` (decision entry and dependency check) and the run commands in `CLAUDE.md`; verify the commands work as written — *19 Nov: D-014; no new packages; migrate and seed run from the root as written*
 - [x] 5.3 Finish the process note with the checks and their results; verify it lists every spec scenario — *19 Nov: all 13 scenarios in the check table*
 

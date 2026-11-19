@@ -164,3 +164,23 @@ describe("GET /delivery/postcodes/:postcode", () => {
     expect(res.json().message).toMatch(/postcode/);
   });
 });
+
+describe("server errors", () => {
+  it("answer without SQL or other internal detail", async () => {
+    const broken = buildApp({
+      getDatabase: () => {
+        throw new Error(
+          'Failed query: select "delivery_fee_oere" from "shop_settings" (postgres://user:hunter2@db)',
+        );
+      },
+      pingDatabase: async () => 1,
+    });
+    const res = await broken.inject({
+      method: "GET",
+      url: "/delivery/postcodes/4300",
+    });
+    expect(res.statusCode).toBe(500);
+    expect(res.json()).toEqual({ error: "internal error" });
+    expect(res.body).not.toMatch(/select|shop_settings|hunter2/);
+  });
+});

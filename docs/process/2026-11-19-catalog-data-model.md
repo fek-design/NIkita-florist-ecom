@@ -35,6 +35,10 @@ See the change's [design.md](../../openspec/changes/catalog-data-model/design.md
 3. **A hidden formatting failure:** piping the format check through `tail` swallowed its error, so a commit went in with unformatted generated files. Drizzle's `meta/` folder is now excluded from Prettier (machine-written), and commands run with `pipefail`.
 4. **A commit that was not mine:** a commit with my message appeared before my command reached it, containing the test files unformatted. Probably made from the editor. Its content was right; formatting was fixed in a follow-up commit rather than rewriting history.
 
+5. **Error details leaked to visitors (found on the preview, fixed).** The branch preview answered 500 with Drizzle's message, which contains the full SQL query. A server error handler now answers every 5xx with `{"error":"internal error"}` and logs the full error, including Postgres's own reason, which Drizzle's message left out. Validation errors (400) keep their message. Tested with a forced database error and live against a database that does not exist.
+6. **The preview's database had no tables.** Neon's integration gives preview builds their own database copy; this branch's copy was made before the migration ran on the main database. Staging, which uses the main database, is healthy. How previews get migrated is an open question for Felix.
+7. **CI with Postgres:** green on the first run with the service container (`Initialize containers` to `Stop containers`).
+
 ## How it was checked
 
 | Spec scenario | Check | Result |

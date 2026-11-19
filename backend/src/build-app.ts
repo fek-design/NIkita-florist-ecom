@@ -1,4 +1,4 @@
-import Fastify, { type FastifyInstance } from "fastify";
+import Fastify, { type FastifyError, type FastifyInstance } from "fastify";
 import { sql } from "drizzle-orm";
 import { registerCatalogRoutes } from "./catalog/routes.js";
 import type { Db } from "./catalog/queries.js";
@@ -28,6 +28,29 @@ export function registerRoutes(
 ): FastifyInstance {
   const pingDatabase =
     options.pingDatabase ?? (() => getDb().execute(sql`select 1`));
+
+  // Server errors never reach the visitor in detail: a failed query's message
+  // contains the SQL. The full error, including Postgres's own reason (the
+  // driver error behind Drizzle's wrapper), goes to the log only.
+  // Client errors such as validation (400) keep their message.
+  app.setErrorHandler<FastifyError>((error, request, reply) => {
+    const status =
+      typeof error.statusCode === "number" && error.statusCode >= 400
+        ? error.statusCode
+        : 500;
+    if (status >= 500) {
+      request.log.error(
+        { err: error, cause: (error as { cause?: unknown }).cause },
+        "request failed",
+      );
+      return reply.code(status).send({ error: "internal error" });
+    }
+    return reply.code(status).send({
+      statusCode: status,
+      error: error.name,
+      message: error.message,
+    });
+  });
 
   app.get("/", async () => ({ service: "backend" }));
 
