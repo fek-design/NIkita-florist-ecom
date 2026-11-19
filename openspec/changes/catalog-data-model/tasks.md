@@ -17,9 +17,9 @@
 ## 4. Read routes
 
 - [x] 4.1 Write the catalogue queries taking the database as an argument; verify with integration tests for visible, hidden, sold-out and incomplete occasions — *19 Nov: 11 tests, plus photo order, closed dates and both postcode cases; "today" is computed in Danish time (`lib/danish-time.ts`, tested across midnight and summer time)*
-- [ ] 4.2 Add `GET /occasions` and `GET /occasions/:slug` with response schemas; verify list order, lowest price, photo order, 404 for hidden, incomplete and unknown slugs
-- [ ] 4.3 Add `GET /delivery` with a response schema that has no capacity field; verify the response and that closed dates before today are left out
-- [ ] 4.4 Add `GET /delivery/postcodes/:postcode`; verify 4300 (in zone, 8000 øre, pickup offered), 8000 (not in zone, pickup offered) and `43a0` (400)
+- [x] 4.2 Add `GET /occasions` and `GET /occasions/:slug` with response schemas; verify list order, lowest price, photo order, 404 for hidden, incomplete and unknown slugs — *19 Nov: route tests over `app.inject` plus a live run against the local database. Public responses carry `Cache-Control: public, s-maxage=60, stale-while-revalidate=300`, so Vercel's edge spares the database*
+- [x] 4.3 Add `GET /delivery` with a response schema that has no capacity field; verify the response and that closed dates before today are left out — *19 Nov: the test also asserts the word "capacity" never appears in the body; 503 if the settings row is missing*
+- [x] 4.4 Add `GET /delivery/postcodes/:postcode`; verify 4300 (in zone, 8000 øre, pickup offered), 8000 (not in zone, pickup offered) and `43a0` (400) — *19 Nov: all three, plus 4550 and 2100 live; the 400 message names `params/postcode`*
 
 ## 5. CI and records
 

@@ -1,5 +1,7 @@
 import Fastify, { type FastifyInstance } from "fastify";
 import { sql } from "drizzle-orm";
+import { registerCatalogRoutes } from "./catalog/routes.js";
+import type { Db } from "./catalog/queries.js";
 import { getDb } from "./db/index.js";
 import { checkHealth } from "./lib/health.js";
 import { isAuthorisedJobCall } from "./lib/job-auth.js";
@@ -10,6 +12,10 @@ export type AppOptions = {
   pingDatabase?: () => Promise<unknown>;
   /** Replaced in tests; by default read from JOB_SECRET. */
   jobSecret?: string;
+  /** Replaced in tests with the test database; by default the real one. */
+  getDatabase?: () => Db;
+  /** Replaced in tests to fix "today"; by default the current time. */
+  now?: () => Date;
 };
 
 /**
@@ -24,6 +30,8 @@ export function registerRoutes(
     options.pingDatabase ?? (() => getDb().execute(sql`select 1`));
 
   app.get("/", async () => ({ service: "backend" }));
+
+  registerCatalogRoutes(app, options.getDatabase ?? getDb, options.now);
 
   app.get("/health", async (request, reply) => {
     const result = await checkHealth(pingDatabase, (message) =>
