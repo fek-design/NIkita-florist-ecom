@@ -46,18 +46,25 @@ Before a bouquet can be added, the visitor SHALL choose delivery or pickup and a
 - **THEN** the page asks whether to move the whole order to the new date, and changes nothing unless the visitor confirms
 
 ### Requirement: Card message per bouquet
-Each bouquet MAY carry a card message of at most 200 characters, written on the occasion page and shown in the cart.
+The occasion page SHALL let the visitor add a card message of at most 200 characters to each bouquet, and the cart SHALL show it with that bouquet. The message is optional.
 
 #### Scenario: Message too long
 - **WHEN** a visitor types more than 200 characters
 - **THEN** the field shows how many characters remain and does not accept more
 
 ### Requirement: Cart kept across visits
-The cart SHALL list each bouquet with occasion, tier, card message, unit price and quantity, and SHALL allow changing the quantity (1 to 10) and removing a bouquet. It SHALL show the delivery choice, the delivery fee (none for pickup), and the total including moms. The cart SHALL survive a page reload and a closed tab on the same device. Prices in the cart are for display: the cart SHALL refresh them from the catalogue when opened and say so if one has changed. Checkout SHALL be shown as coming, not as a working button.
+The cart SHALL list each bouquet with occasion, tier, card message, unit price and quantity, and SHALL allow changing the quantity (1 to 10) and removing a bouquet. It SHALL survive a page reload and a closed tab on the same device.
 
 #### Scenario: Reload
 - **WHEN** a visitor adds a bouquet and reloads the cart page
 - **THEN** the bouquet, its card message and the delivery choice are still there
+
+#### Scenario: Quantity limits
+- **WHEN** a visitor tries to set a quantity below 1 or above 10
+- **THEN** the quantity stays within 1 to 10, and removing is a separate, labelled action
+
+### Requirement: Cart totals with current prices
+The cart SHALL show the delivery choice, the delivery fee (none for pickup), and the total including moms. Prices in the cart are for display: the cart SHALL refresh them from the catalogue when opened and say so if one has changed. Checkout SHALL be shown as coming, not as a working button, until the checkout exists.
 
 #### Scenario: Totals
 - **WHEN** the cart holds one Mellem Fødselsdag at 350 kr. for delivery to 4300
