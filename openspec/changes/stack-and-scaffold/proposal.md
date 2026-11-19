@@ -13,8 +13,9 @@ Inputs that shape the stack:
   - `backend/`: a standalone API service (Node.js, TypeScript, Fastify) that owns the database, business rules, payment and email.
 - **Free hosting in EU regions:** the frontend and the backend as two Vercel projects (functions in Frankfurt), and PostgreSQL on Neon's free plan (Frankfurt).
 - **Automatic deploys:** every branch gets a preview address, `DevEnv` deploys to staging, `main` to production.
-- **Scheduled work through GitHub Actions:** Vercel's free plan runs scheduled jobs at most once a day, so a GitHub Actions schedule calls protected backend endpoints instead (used later for email retries and reading the inbox).
-- **Nightly encrypted database backups**, because Neon's free plan keeps only 6 hours of restore history. One restore is tested.
+- **A protected job endpoint** in the backend (`POST /jobs/<name>`, guarded by `JOB_SECRET`), ready for scheduled work.
+
+*Moved out on 19 Nov (Felix):* the GitHub Actions schedule that calls it moves to the email change in week 4, where email retries first need it. Nightly encrypted backups and the restore test move to hardening in week 5, once real data exists. The runbook and the data processing agreements move to weeks 5–6. The designs stay in decisions 6 and 7 below and in decision log D-012.
 - **Lock the stack** and record each decision in `docs/decisions.md`.
 - **Checks on every push and pull request:** lint, format, type check, unit tests, build and a dependency audit, for both apps.
 - **Local development unchanged in spirit:** Docker Compose runs Postgres and a mail catcher on Felix's Mac.

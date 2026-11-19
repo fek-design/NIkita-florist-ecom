@@ -53,11 +53,15 @@ The Hobby plan is for non-commercial use. That fits the school project. At go-li
 *Rejected:* own server (costs money; Felix's call); Oracle Always Free VM (card required, idle reclaim risk); Simply webhotel (static sites only).
 
 ### 6. Scheduled work: GitHub Actions calling the backend
+*Built in this change: the protected endpoint. Deferred on 19 Nov to the email change (week 4): the schedule itself.*
+
 Vercel Hobby runs cron jobs at most once a day, with up to an hour of drift (Vercel docs, read 17 Nov). Email retries and inbox reading need about every 15 minutes. A scheduled GitHub Actions workflow calls `POST /jobs/<name>` on the backend with a shared secret in a header. This change adds the mechanism with one harmless job (`ping`); the email changes add real jobs.
 GitHub schedules can be delayed under load, which is acceptable for retries and inbox reading.
 *Rejected:* Vercel Pro cron (costs money); an external cron service (one more account).
 
 ### 7. Backups: nightly encrypted dump via GitHub Actions
+*Deferred on 19 Nov to hardening (week 5), once there is real data to protect. Until then Neon's 6-hour restore window covers test data.*
+
 A scheduled workflow runs `pg_dump` against production, encrypts the file with `age` using Felix's public key, and stores it as a workflow artifact kept for 14 days. Only the encrypted file leaves the job, so GitHub (a US company) never holds readable customer data. One restore into a fresh Neon branch is tested before merge.
 *Rejected:* relying on Neon's 6-hour restore window alone; unencrypted artifacts.
 

@@ -13,11 +13,13 @@ export type AppOptions = {
 };
 
 /**
- * Builds the API without starting it, so tests can send requests with
- * `app.inject()` and `server.ts` can start it for real.
+ * Adds every route to a Fastify instance. `server.ts` calls it on the real
+ * server; `buildApp` below calls it for tests.
  */
-export function buildApp(options: AppOptions = {}): FastifyInstance {
-  const app = Fastify({ logger: options.logger ?? false });
+export function registerRoutes(
+  app: FastifyInstance,
+  options: AppOptions = {},
+): FastifyInstance {
   const pingDatabase =
     options.pingDatabase ?? (() => getDb().execute(sql`select 1`));
 
@@ -56,4 +58,12 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
   );
 
   return app;
+}
+
+/**
+ * Builds the API without starting it, so tests can send requests with
+ * `app.inject()`.
+ */
+export function buildApp(options: AppOptions = {}): FastifyInstance {
+  return registerRoutes(Fastify({ logger: options.logger ?? false }), options);
 }

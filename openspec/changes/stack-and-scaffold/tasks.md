@@ -30,24 +30,23 @@
 
 *Order change, 17 Nov: the code in groups 1–3 is merged into `DevEnv` before this group, because Vercel imports a project from the repository's default branch (`DevEnv`), which must already contain `frontend/` and `backend/`. The remaining groups continue on a new branch, `feature/hosting`; this change is archived when they are done.*
 
-- [ ] 4.1 Felix creates the Neon project (free plan, Frankfurt) with the Vercel integration; record region and date in the decision log
+- [x] 4.1 Felix creates the Neon project (free plan, Frankfurt) with the Vercel integration; record region and date in the decision log — *17 Nov: `nikita-florist`, Frankfurt, connected to the backend project only*
 - [ ] 4.2 Felix creates the two Vercel projects (Hobby) from the repository, root directories `frontend/` and `backend/`, function region Frankfurt; set environment variables in Vercel only; record region and date
-- [ ] 4.3 Assign `DevEnv` to the staging domains and `main` to production; verify a pushed branch gets preview addresses for both apps and the preview frontend talks to a non-production backend
-- [ ] 4.4 Run the migration against the staging and production databases; verify the backend health check reports success on preview, staging and production
+- [ ] 4.3 Make `main` the production branch and `DevEnv` staging (its automatic branch address); verify a pushed branch gets preview addresses for both apps and the preview frontend talks to a non-production backend
+- [ ] 4.4 Run the migration against the staging and production databases; verify the backend health check reports success on preview and staging; production is verified at the first release to `main` (v0.1) — *17 Nov: migration applied to Neon's main branch (Felix; drizzle-kit printed no success line against Neon, confirmed in the Neon console: `drizzle.__drizzle_migrations` has 1 row). `/health` on the `feature/hosting` preview returns ok. Staging and production pending*
 - [x] 4.5 Felix protects `DevEnv` and `main` on GitHub (pull request and passing checks required), sets `DevEnv` as default branch and deletes the old `dev` branch; verify a direct push is rejected — *17 Nov: `DevEnv` is the default and `dev` is deleted (confirmed via GitHub). Branch protection set by Felix the same day; the GitHub API reports both `DevEnv` and `main` as protected*
 
-## 5. Scheduling and backups
+## 5. Moved out (19 Nov, Felix)
 
-- [ ] 5.1 Add the GitHub Actions schedule calling `POST /jobs/ping` every 15 minutes on staging; verify runs appear and succeed
-- [ ] 5.2 Felix creates an `age` key pair and stores the public key as a repository secret, keeping the private key offline
-- [ ] 5.3 Add the nightly backup workflow (`pg_dump`, encrypt with `age`, upload as an artifact kept 14 days); verify a manual run produces an encrypted file that cannot be read without the key
-- [ ] 5.4 Restore a backup into a fresh Neon branch; verify the backend health check passes against it and test data is present
+Not part of this change any more. Each is written into the roadmap week that needs it:
+- Schedule calling `POST /jobs/<name>` from GitHub Actions: week 4, with the email change (retries and inbox reading need it first).
+- `age` key pair, nightly encrypted backup workflow and a tested restore: week 5, hardening.
+- `docs/runbook.md`, including the lesson that a start-up crash on Vercel shows as a generic 500: week 6, hand-over.
+- Data processing agreements for Vercel, Neon, Stripe, GitHub and the mailbox: week 5, GDPR.
 
 ## 6. Records and hand-over
 
 - [ ] 6.0 Keep `docs/handover.md` complete: one row per account, secret and personal detail created in this change; verify every account and variable in group 4 and 5 has a row
-- [ ] 6.1 Write `docs/runbook.md`: accounts, deploys, rollback, backup and restore, scheduled jobs, free-plan limits with the dates they were read, and what the owner must change to go live (paid plans or another host, moving each account to her); verify each step names the screen or command it uses
-- [ ] 6.2 Save or link the data processing agreements for Vercel, Neon, Stripe and GitHub in `docs/`, marking the third-country transfers; verify all four are listed
 - [x] 6.3 Update `CLAUDE.md` with the workspace commands and the local stack; verify the commands work as written
 - [ ] 6.4 Update the process note with the architecture changes of 16–17 Nov and every check result; verify it links this change
 

@@ -1,6 +1,6 @@
 ## Purpose
 
-Defines how the webshop is split, built, checked, deployed and backed up, so that every change is verified automatically, customer data sits behind a backend that alone can reach it, and that data is stored and processed in EU regions.
+Defines how the webshop is split, built, checked and deployed, so that every change is verified automatically, customer data sits behind a backend that alone can reach it, and that data is stored and processed in EU regions.
 
 ## ADDED Requirements
 
@@ -42,7 +42,7 @@ Every pushed branch SHALL get its own preview address for both apps. A merge int
 - **THEN** the staging address shows the merged result
 
 ### Requirement: Data is stored and processed in the EU
-The database SHALL be hosted in an EU region, and the server functions that handle personal data SHALL run in an EU region. Providers outside the EU SHALL be recorded as third-country transfers with their data processing agreements.
+The database SHALL be hosted in an EU region, and the server functions that handle personal data SHALL run in an EU region. Providers outside the EU SHALL be recorded as third-country transfers in the decision log.
 
 #### Scenario: Regions recorded
 - **WHEN** the hosting and database projects are created
@@ -69,28 +69,6 @@ The backend SHALL expose a health check that reports whether it can reach the da
 #### Scenario: Database unreachable
 - **WHEN** the database cannot be reached
 - **THEN** the health check reports failure with an error status and no connection string or credentials in the response
-
-### Requirement: Scheduled work runs reliably
-Work that must run on a schedule SHALL be triggered at least every 15 minutes through an endpoint that only an authorised caller can start.
-
-#### Scenario: Authorised trigger
-- **WHEN** the scheduler calls the endpoint with the shared secret
-- **THEN** the work runs and the call is reported as successful
-
-#### Scenario: Unauthorised trigger
-- **WHEN** anyone calls the endpoint without the secret
-- **THEN** the call is rejected and no work runs
-
-### Requirement: Backups can be restored
-The production database SHALL be backed up at least daily, encrypted before it leaves the backup job, kept for 14 days, and a restore SHALL have been tested.
-
-#### Scenario: Nightly backup
-- **WHEN** a day has passed
-- **THEN** a new encrypted backup exists, and older backups beyond 14 days are gone
-
-#### Scenario: Restore tested
-- **WHEN** a backup is decrypted and restored into an empty database
-- **THEN** the backend health check passes against it and the backed-up data is present
 
 ### Requirement: Stack decisions are recorded
 Each stack decision SHALL be recorded in the decision log with what was chosen, why, and what was rejected.

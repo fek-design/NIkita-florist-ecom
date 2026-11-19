@@ -136,7 +136,7 @@ The highest-risk week. Start with payment integration on day one.
 - New-order notification to the florist
 - Status emails where useful (ready for pickup, out for delivery)
 - Sending domain authenticated: SPF, DKIM, DMARC
-- Email sending is queued and retried, so a provider outage does not lose a confirmation
+- Email sending is queued and retried, so a provider outage does not lose a confirmation. The retries run from a GitHub Actions schedule calling the backend's protected `POST /jobs/<name>` (decision D-012; moved here from `stack-and-scaffold` on 19 Nov)
 - Admin order view: today's and upcoming orders sorted by delivery date, status changes, printable order slip with card message
 - Stock and availability: sold-out handling, daily capacity limit per delivery date if the owner wants it
 - Refund and cancellation flow from admin
@@ -153,12 +153,12 @@ The highest-risk week. Start with payment integration on day one.
 - Rate limiting on checkout, login and contact endpoints
 - Secrets only in environment config. Repo history scanned for leaks
 - Dependency audit. Admin login protected with strong auth (two-factor if the provider allows)
-- Database backups configured and a restore tested once
+- Database backups configured and a restore tested once: nightly `pg_dump` from GitHub Actions, encrypted with `age` before upload, kept 14 days (decision D-012; moved here from `stack-and-scaffold` on 19 Nov)
 
 **GDPR and Danish e-commerce rules**
 
 - Data map: what personal data is collected, why, where it is stored, for how long
-- Data processing agreements in place with hosting, database, payment and email providers
+- Data processing agreements in place with hosting, database, payment and email providers (Vercel, Neon, Stripe, GitHub, the mailbox), with the US providers recorded as third-country transfers
 - Privacy policy and cookie policy. Consent banner only if non-essential cookies are used. Aim for none
 - Retention rule: order data kept as required by bookkeeping law, everything else deleted or anonymised on schedule
 - Procedure for access and deletion requests
@@ -193,7 +193,7 @@ The highest-risk week. Start with payment integration on day one.
 - Domain, DNS and HTTPS. Redirects and links from the shop's social profiles
 - Monitoring: error tracking, uptime check, alert on failed webhooks and failed emails
 - Soft launch to existing social media followers
-- Handover: short owner manual (add a product, handle an order, refund), credentials transferred to the owner's own accounts, technical README
+- Handover: short owner manual (add a product, handle an order, refund), credentials transferred to the owner's own accounts using `docs/handover.md`, technical README and `docs/runbook.md` (accounts, deploys, rollback, backup and restore; note that a start-up crash on Vercel shows as a generic 500, so check the environment variables first)
 - Report and presentation finalised from the decision log and recorded results
 - Final two days are buffer. No changes to production other than fixes
 
