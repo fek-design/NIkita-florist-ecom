@@ -27,7 +27,7 @@ Week 2's exit criteria need a shop a visitor can use on a phone: browse the occa
 - **Placeholder content is marked** wherever it appears, so nothing unconfirmed looks final.
 - **Checked:** phone tests from front page to cart and back after a reload, accessibility rules from the brand guide, and a dated Lighthouse baseline.
 
-Defaults chosen for this change, open to Felix's review (design decisions 2–4):
+Defaults chosen for this change, confirmed by Felix on 19 Nov (design decisions 2–4):
 - one delivery per order: one date and one place for the whole cart;
 - date and card message chosen on the occasion page, before adding;
 - cart prices for display only, recalculated by the server at checkout.

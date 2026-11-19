@@ -32,13 +32,13 @@ Current state:
 
 Danish addresses (`anledning`, `kurv`) match the customers' language and read well in search results (P10). Catalogue data is read with `use cache` and a one-minute lifetime, matching the backend's cache header, so a sold-out toggle shows within about a minute.
 
-### 2. One delivery per order *(default, Felix to confirm)*
+### 2. One delivery per order *(confirmed by Felix, 19 Nov)*
 The cart holds one delivery choice: pickup, or delivery to a postcode, plus one date. All bouquets go together.
 - *Why:* most orders are one bouquet for one recipient, and one choice keeps checkout to a single address and date, which matters most on a phone (P1, P4).
 - *Rejected:* a delivery per bouquet (several addresses and dates in one payment; heavier checkout, capacity counted per address).
 - If the owner wants several recipients per order later, the cart format has a version number, so it can grow without breaking stored carts.
 
-### 3. Date and card message on the occasion page *(default)*
+### 3. Date and card message on the occasion page *(confirmed by Felix, 19 Nov)*
 The visitor chooses delivery or pickup, a postcode and a date before "Læg i kurv", following P2: the day is part of the product. The card message is written next to the bouquet it belongs to (wireframe C). The recipient's name and address belong to checkout, where the payment form already collects details.
 
 ### 4. Available dates come from the backend
@@ -89,4 +89,4 @@ Prices are formatted in Danish: "350 kr.", "1.250,50 kr.", with tabular numbers.
 
 ## Open Questions
 
-- Defaults 2 and 3 (one delivery per order; date and card message on the occasion page) are for Felix to confirm or change before or during review.
+None. Defaults 2 and 3 were confirmed by Felix on 19 Nov.
