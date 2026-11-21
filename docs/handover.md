@@ -55,6 +55,7 @@ Details that must show the shop's real information, not Felix's or placeholders 
 
 | Detail | Where it appears | Status |
 |---|---|---|
-| Shop name, address, CVR, phone, email | Footer, legal pages, structured data, order emails | not added yet |
+| Shop name **Nikita Nielsen**, address **Tuse Byvej 94, 4300 Tuse**, email **Nikita_nielsen@hotmail.com**, phone **+45 28 25 74 13**, Facebook | Footer, legal pages, structured data, order emails | known; already public online, so usable (Felix, 21 Nov) |
+| CVR number | Footer, legal pages, invoices | **missing**: ask the owner; required by Danish e-commerce law before launch |
 | Sender name and address on emails | Backend email settings | not added yet |
 | Delivery postcodes, cut-off, capacity, prices | Admin settings (placeholders now, see interview note) | not added yet |

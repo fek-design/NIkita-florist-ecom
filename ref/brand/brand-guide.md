@@ -137,6 +137,10 @@ Photos are the product (design rationale P6).
 - **One look across the range:** the same light, angle and background, so the grid reads as one collection.
 - **Format:** 4:5 portrait for product images. Always state the size in words too ("ca. 40 cm høj").
 - **Not decided:** whether a neutral or a styled main image sells better. We start neutral and treat it as a test.
+- **What each photo shows** (Felix, 21 Nov, DD-05):
+  - *Occasion photos:* the bouquet only, possibly held in a hand. No people.
+  - *Front page hero:* a person working with the flowers, face not shown.
+  - *"Besøg Nikita":* Nikita herself, preferably in front of her shop.
 
 ---
 

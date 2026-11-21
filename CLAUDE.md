@@ -63,6 +63,7 @@ This is a design-oriented education: the project is judged on why every screen l
 - **Decision log.** Each choice gets an entry in [docs/design-decisions.md](docs/design-decisions.md) in the format of `ref/Design-Rationale.md` section 5: what, why, principle (P1–P12) or *opinion*, evidence grade, rejected variants, and how it will be tested.
 - **Shown, not only told.** Each finished screen gets an annotated screenshot (numbered markers, each saying why that element is there, in that place, looking that way), and the rejected variants are kept as images beside it, under `docs/design/`.
 - Small details that follow directly from the brand guide or an already logged decision do not need variants; say which rule they follow.
+- **When Felix supplies his own design** (Figma), build it exactly. Only font sizes and the spacing around elements and text may be adjusted, plus anything he explicitly hands over; anything else that looks off is raised, not changed.
 
 ## Skill overrides
 

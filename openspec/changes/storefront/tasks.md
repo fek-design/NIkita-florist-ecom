@@ -7,9 +7,12 @@
 
 - [x] D.1 Create `docs/design-decisions.md` (format of Design-Rationale section 5) and `docs/design/storefront/`; verify the format matches the rationale's example — *19 Nov: numbered DD-01 and up; three earlier choices listed under "To confirm"*
 - [x] D.2 Build the front page variant board in `ref/design/storefront/` (what comes first, cards one or two columns, place of the delivery facts) with reasoning and evidence per variant; verify each variant renders at 390 px with real tokens, fonts and seeded data — *19 Nov: 8 frames in three choices (A first screen, B cards, C delivery facts); every count in the texts measured from the frames against a ~660 px visible area; image in `docs/design/storefront/front-page-variants.png`*
-- [ ] D.3 Build the occasion page variant board (order of photo, tiers and delivery; day buttons or calendar; delivery/pickup as two choices or a switch); verify as D.2
-- [ ] D.4 Build the cart variant board (delivery summary above or below; total bar fixed or at the end); verify as D.2
-- [ ] D.5 Felix chooses for each board and states why; verify each choice is logged in `docs/design-decisions.md` with the rejected variants saved as images
+- [ ] D.3 *(replaced 21 Nov by DD-01: Felix designs the occasion page in Figma; Claude builds variants only where he asks)* Build the occasion page variant board (order of photo, tiers and delivery; day buttons or calendar; delivery/pickup as two choices or a switch); verify as D.2
+- [ ] D.4 *(replaced 21 Nov by DD-01: Felix designs the cart in Figma)* Build the cart variant board (delivery summary above or below; total bar fixed or at the end); verify as D.2
+- [ ] D.5 Felix chooses for each board and states why; verify each choice is logged in `docs/design-decisions.md` with the rejected variants saved as images *(21 Nov: front page decided as DD-01 to DD-07; footer open as DD-08)*
+- [ ] D.6 Connect Figma through Figwright (pinned version) and read Felix's front page frame: fonts, weights, sizes, spacing, radii, icon weights; verify the values are recorded before building
+- [ ] D.7 Build 2–3 footer variants in Figma from Felix's content (DD-08); verify Felix's choice is logged
+- [ ] D.8 Add a featured bouquet to the catalogue (seasonal, else most popular; DD-04) as a small data change with its own spec delta; verify `GET /featured` or an equivalent field returns it
 
 ## 2. Backend: available dates
 
