@@ -97,6 +97,13 @@ Why: The owner interview made occasions the products. Felix chose explicit price
 Rejected: shared base prices plus an occasion offset (option B); categories (occasions replace them); a key-value settings table (loses types and checks); a trigger forcing exactly three tiers (makes creating an occasion awkward; the API treats incomplete occasions as not offered instead); PGlite for tests (not the same Postgres as Neon).
 Note: no new packages. Tests run against a real Postgres: `florist_test` locally, a `postgres:17` service in CI.
 
+### D-015 Figma connection: Figwright, pinned
+Date: 2026-11-21 · Status: locked
+Decision: Claude reads and writes Felix's Figma files through Figwright (`@figwright/mcp`, MIT), configured for this project in `.mcp.json` and pinned to version 0.7.0.
+Why: Felix designs the screens in Figma (DD-01). Figwright needs no paid Figma seat and avoids the official connection's API limits, and it can also write to the canvas (footer variants, DD-08).
+Checked 2026-11-21: version 0.7.0 published 26 Oct 2026, no install scripts, ordinary dependencies (ws, zod, msgpack, the MCP server library); one maintainer, which is why the version is pinned instead of `@latest`.
+Rejected: Figma's official MCP (API limits, paid seat for Dev Mode); reading PDF exports (fonts, weights and line widths are lost in the export, as found on 21 Nov).
+
 ---
 
 ## Dependencies
