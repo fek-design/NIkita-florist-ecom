@@ -25,7 +25,8 @@ Current state:
 ### 1. Pages and addresses
 | Address | Page | Rendering |
 |---|---|---|
-| `/` | Occasions and delivery facts | Server, catalogue cached 60 s |
+| `/` | Hero, featured bouquet, four best-selling occasions, "Besøg Nikita" (Felix's Figma design) | Server, catalogue cached 60 s |
+| `/anledninger` | Category page: every occasion ("Se alle") | Server, catalogue cached 60 s |
 | `/anledning/<slug>` | One occasion | Server shell; tier and delivery choice in a client component |
 | `/kurv` | Cart | Client (the cart lives in the browser) |
 | `/status` | Existing system status | Unchanged, left out of the sitemap |
@@ -89,6 +90,13 @@ The education is design-oriented, so the layout choices must be Felix's and argu
   - *Cart:* delivery summary above or below the bouquets; a total bar fixed at the bottom of the screen or at the end of the page.
 - **Records:** every choice goes into `docs/design-decisions.md` (format of Design-Rationale section 5). Each built screen gets an annotated screenshot with numbered markers, and the rejected variants are kept as images, in `docs/design/storefront/`.
 - Details that follow directly from the brand guide (button height, colours on grounds, focus ring) are built without variants and cite the guide.
+
+### 12. From Felix's Figma front page (21 Nov)
+Read through Figwright (exact values, not from a picture). Built as designed, with these changes, all logged in `docs/design-decisions.md`:
+- **Within Claude's remit (font sizes, spacing):** body, prices and buttons 12 → 16 px, small print 14 px; side margins 10 → 16 px; buttons 48 px high; 44 px tap area around the menu and basket icons.
+- **Handed over by Felix:** Paper background (DD-02); navbar logo at the brand minimum of 110 px, with the navbar as tall as that needs; text in Ink instead of black; radius 4 px as in the brand guide; Linen instead of the wireframe greys for photo placeholders and dividers.
+- **Images:** every photo gets its size reserved and a Linen background while loading; photos below the first screen load lazily, the hero first (P7).
+- **Ranking:** "best-selling" needs orders (week 3). Until then the owner's sort order stands in; the catalogue API gets a ranking field when orders exist.
 
 ## Risks / Trade-offs
 

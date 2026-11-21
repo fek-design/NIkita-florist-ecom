@@ -14,9 +14,9 @@ Choices Claude made alone before this rule existed. Each goes to Felix with the 
 
 | Choice | Where it was made | Goes to Felix with |
 |---|---|---|
-| Navbar 72 px high, half-moon logo 110 px wide (below that the name is hard to read) | Brand board, 17 Nov | Felix's Figma front page (navbar measured there) |
+| ~~Navbar 72 px high, half-moon logo 110 px wide~~ | Brand board, 17 Nov | Settled by DD-09 |
 | Tier picker as three equal buttons, chosen one filled Ink | Brand board, 17 Nov | Occasion page board |
-| Cards as Paper with a 1 px Sand border (Linen on Paper is only 1.33:1) | Brand guide, 17 Nov | Felix's Figma front page: his occasion cards have no border, photo only |
+| ~~Cards as Paper with a 1 px Sand border~~ | Brand guide, 17 Nov | Settled by Felix's design: occasion cards are photo, name and price with no border |
 
 ---
 
@@ -66,6 +66,33 @@ Date: 2026-11-21 · Principles: P11 · Evidence grade: C
 Decision: Phosphor icons in a lighter weight (Light or Thin) so their lines match the logo's hairlines. The exact weight is chosen by comparing against the logo in Figma.
 Rejected: Phosphor Regular (too heavy next to the logo, Felix).
 Test: icons and logo side by side at the navbar size.
+
+### DD-09 Navbar logo at the brand minimum
+Date: 2026-11-21 · Principles: P9 · Evidence grade: C (measured)
+Decision: The half-moon logo in the navbar is 110 px wide, the brand guide's minimum, and the navbar grows to fit it. Felix's permission.
+Rejected: 58 px wide as in the mockup (the name's capitals are about 5 px tall: unreadable; `docs/design/storefront/icon-weights.png`).
+Test: the name is readable at arm's length on a phone in the usability test.
+
+### DD-10 Text in Ink, not black
+Date: 2026-11-21 · Principles: P11 · Evidence grade: C
+Decision: All text uses Ink `#2D2A26` instead of the mockup's `#000000`. Felix's permission.
+Test: the contrast table (`ref/brand/contrast.md`): Ink on Paper 13.0:1.
+
+### DD-11 Corner radius 4 px
+Date: 2026-11-21 · Principles: P11 · Evidence grade: C
+Decision: Buttons and photos use the brand guide's 4 px radius instead of the mockup's 8 px. Felix's call.
+
+### DD-12 Linen instead of wireframe greys; photos load without jumps
+Date: 2026-11-21 · Principles: P7, P11 · Evidence grade: A for the threshold (Google, CLS ≤ 0.1), C for the rest
+Decision: Photo placeholders and dividers use Linen instead of `#E6E6E6` / `#DFDFDF`, which came from the lo-fi wireframe kit. Every photo reserves its size and shows Linen while loading; photos below the first screen load as the visitor scrolls, the hero first. Felix: "we should have something in place for the images' lazy loading".
+Test: Lighthouse layout shift (CLS) on the front page under 0.1.
+
+### DD-13 Top four occasions on the front page, all on the category page
+Date: 2026-11-21 · Principles: P1, P2 · Evidence grade: C
+Decision: The front page shows the four best-selling occasions; "Se alle" opens the category page (`/anledninger`) with every occasion. Until orders exist, the owner's sort order stands in for "best-selling". Felix's call.
+Rejected: all occasions on the front page (with five, the two-column grid leaves an empty cell and the front page grows with every new occasion).
+Test: usability task: "Find flowers for a thank-you" (Tak is not in the top four, so it tests "Se alle").
+Open: where the delivery facts (fee, area, cut-off, pickup) go, since the design has no place for them yet (P3).
 
 ### DD-08 Footer
 Date: 2026-11-21 · Status: open, variants to Felix

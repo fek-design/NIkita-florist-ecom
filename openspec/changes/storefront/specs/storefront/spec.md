@@ -4,16 +4,41 @@ The pages a customer uses to choose flowers on a phone: the occasions, one occas
 
 ## ADDED Requirements
 
-### Requirement: Occasions are the first choice
-The front page SHALL show the visible occasions in the owner's order, each with its name, intro, lowest price written as "Fra 250 kr." and its main photo or a placeholder area. A sold-out occasion SHALL say "Udsolgt" in words, and its link SHALL still open the occasion page. The front page SHALL also state the delivery fee, the delivery area, the same-day cut-off and that pickup is possible, read from the delivery rules.
+### Requirement: Front page leads with a featured bouquet and the top occasions
+The front page SHALL follow Felix's design (DD-01), in this order: hero photo, one featured bouquet (DD-04), the four best-selling visible occasions, a "Se alle" button to the category page, and "Besøg Nikita". Each occasion card SHALL show its main photo or a Linen placeholder, its name and its lowest price ("fra 250 kr."). Until orders exist, the owner's sort order SHALL stand in for best-selling.
 
 #### Scenario: Front page on a phone
 - **WHEN** a visitor opens the front page at 390 px wide
-- **THEN** the occasions appear in the owner's order with their lowest prices, and the delivery facts are visible without horizontal scrolling
+- **THEN** the featured bouquet and four occasions appear in that order, with their lowest prices, without horizontal scrolling
+
+#### Scenario: Before any orders
+- **WHEN** no orders exist yet
+- **THEN** the four occasions shown are the first four in the owner's sort order
 
 #### Scenario: Sold out
 - **WHEN** an occasion is sold out
 - **THEN** its card says "Udsolgt" in text, not only by colour or opacity
+
+### Requirement: Category page with every occasion
+The category page at `/anledninger` SHALL list every visible occasion in the same card style as the front page, ordered best-selling first (owner's order until orders exist). "Se alle" on the front page SHALL lead to it.
+
+#### Scenario: See all
+- **WHEN** a visitor taps "Se alle"
+- **THEN** the category page lists all five occasions
+
+### Requirement: Delivery facts are easy to find
+The delivery fee, the delivery area, the same-day cut-off and that pickup is possible SHALL be stated in plain words, read from the delivery rules, where a visitor finds them before choosing a bouquet (P3). Their place on the front page is an open design decision for Felix (his design has none yet); at the latest, the occasion page shows the fee as soon as a postcode is entered.
+
+#### Scenario: Fee before checkout
+- **WHEN** a visitor has entered a postcode on the occasion page
+- **THEN** the delivery fee is shown before anything is added to the cart
+
+### Requirement: Images load without jumps
+Every photo SHALL have its dimensions reserved and a Linen background while it loads, so nothing on the page moves when it arrives (P7). Photos below the first screen SHALL load only as the visitor scrolls towards them; the hero photo SHALL load first.
+
+#### Scenario: Slow connection
+- **WHEN** the front page loads on a slow connection
+- **THEN** each photo's place is shown as a Linen area of the final size, and the layout does not shift when the photo appears
 
 ### Requirement: Occasion page with three tiers
 The occasion page SHALL be at `/anledning/<slug>` and SHALL show the name, intro, description, photos (or a placeholder area), and the three tiers with their prices including moms and sizes in words. Exactly one tier SHALL be selected at a time. An unknown or hidden occasion SHALL show a Danish not-found page with a link back to the occasions.

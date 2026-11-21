@@ -22,7 +22,9 @@
 ## 3. Layout and front page
 
 - [ ] 3.1 Build the layout: navbar with the half-moon logo and the cart count, Sand footer with the full logo, base styles from the tokens, Danish not-found page; verify at 390 px with no horizontal scroll
-- [ ] 3.2 Build the front page from `GET /occasions` and `GET /delivery`: occasion cards with "Fra … kr.", "Udsolgt" in words, placeholder labels, delivery facts and a short FAQ; verify against the seeded catalogue
+- [ ] 3.2 Build the front page from Felix's Figma design (design decision 12): hero, featured bouquet, four best-selling occasions (owner's order until orders exist), "Se alle", "Besøg Nikita"; Linen image placeholders with reserved sizes and lazy loading below the first screen; verify against the seeded catalogue and a screenshot comparison with the Figma frame
+- [ ] 3.3 Build the category page `/anledninger` with every visible occasion in the front page's card style; verify "Se alle" leads there and lists five occasions
+- [ ] 3.4 Place the delivery facts where Felix decides (open, DD-13); verify they read from `GET /delivery`
 
 ## 4. Occasion page
 
