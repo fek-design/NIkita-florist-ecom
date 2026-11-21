@@ -1,0 +1,1 @@
+Phosphor icons 2.1.1 (`@phosphor-icons/core`, MIT, https://phosphoricons.com), downloaded 21 Nov 2026 from the npm registry for the icon-weight comparison (DD-07). Regular, Light and Thin versions of the six icons in Felix's front page mockup.
