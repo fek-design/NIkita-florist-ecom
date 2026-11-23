@@ -30,6 +30,7 @@ Evidence grades as in the Design Rationale. Baymard's full guidelines are paywal
 | BM-date | Baymard, [Checkout UX best practices](https://baymard.com/research-articles/current-state-of-checkout-ux): “Delivery date” instead of “delivery speed” (48% don't) | B |
 | BM-confirm | Baymard, [Order confirmation page best practices](https://baymard.com/blog/order-confirmation-page) | B |
 | POL | Shopify Polaris, [Index table](https://polaris-react.shopify.com/components/tables/index-table) and [resource index / details templates](https://shopify.dev/docs/api/app-home/latest/patterns/templates/resource-index): a list of same-type items each opening a details page; status shown on the item; primary action on the details page | A (the design system's own documentation) |
+| NIST | NIST SP 800-63B, [Digital Identity Guidelines: Authentication](https://pages.nist.gov/800-63-4/sp800-63b.html): passkeys (syncable authenticators) as phishing-resistant multi-factor; SMS codes are a restricted authenticator | A |
 | CMP-B / CMP-I / CMP-K | Felix's competitor boards: Bloomit, Interflora, Kaj Larsen (`ref/competitor/*.pdf`) | C |
 
 ## Front page analysis (Felix's design)
