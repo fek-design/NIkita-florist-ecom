@@ -22,7 +22,7 @@ The owner SHALL receive the sales overview as an email on the first day of each 
 - **THEN** the owner receives last month's orders and revenue next to the month before, without opening the back office
 
 ### Requirement: Orders taken in the shop or by phone
-The owner SHALL be able to register an order that does not come through the webshop from the "I dag" screen, in the order of a till: order type, occasion, size, an optional comment, then for phone orders the pickup day and slot, the customer's name and phone, and whether it is paid (DD-21). Phone orders SHALL be pickup only. A registered order SHALL count against the day's capacity and the slot, print the same order slip, and appear on the morning sheet and in the monthly figures, marked as taken in the shop. No payment SHALL be taken through the system for these orders.
+The owner SHALL be able to register an order that does not come through the webshop from the "I dag" screen, in the order of a till: type, occasion, size, an optional comment, and for phone orders the pickup slot, name, phone and whether it is paid (DD-21). Phone orders SHALL be pickup only, and no payment SHALL run through the system.
 
 #### Scenario: Phone order
 - **WHEN** the owner registers a phone order for Bisættelse, Mellem, tomorrow 14–15, paid at pickup
@@ -31,6 +31,13 @@ The owner SHALL be able to register an order that does not come through the webs
 #### Scenario: Sale over the counter
 - **WHEN** the owner registers a sale in the shop for now
 - **THEN** it is counted in today's figures without printing a slip
+
+### Requirement: Registered orders count like web orders
+An order registered in the shop or by phone SHALL count against the day's capacity and its pickup slot, print the same order slip, and appear on the morning sheet and in the monthly figures, marked as taken in the shop.
+
+#### Scenario: Slot fills up
+- **WHEN** the last place in a pickup slot is taken by a phone order
+- **THEN** the webshop shows that slot as full
 
 ## MODIFIED Requirements
 
