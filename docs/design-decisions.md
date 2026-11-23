@@ -100,11 +100,9 @@ Rejected: a short delivery block on the front page under the featured bouquet (a
 Risk, stated honestly: P3 asks for the fee before the visitor chooses. Here a visitor meets it after choosing an occasion but before the cart, so it is never a surprise at checkout.
 Test: usability task "Hvad koster levering til 4300?": time to answer and where people look first. If most look on the front page first, revisit a) or b).
 
-### DD-08 Footer
-Date: 2026-11-21 · Status: open, variants to Felix
-Decision: Felix found no elegant footer layout; Claude built three variants in Figma beside his frame (`docs/design/storefront/footer-variants.png`), keeping his content (logo, Kontakt, email, phone, Facebook) with the repository logo at the 120 px minimum and Phosphor Light icons. Felix chooses.
-Added to all three, for Felix to confirm: address, a marked CVR placeholder, links to Handelsbetingelser and Privatlivspolitik (required for a Danish webshop; CLAUDE.md override 1).
-- **A · Side by side:** Felix's layout on Linen. Shortest (335 px). The email only fits beside the 120 px logo at 14 px, below the brand's size for things people act on (P9).
-- **B · Centred stack:** Linen, logo centred on top, contact rows at 16 px with icons and the address. 496 px. Reads as one calm column; centred lists are slower to scan than left-aligned ones (C).
-- **C · Sand band, tap rows:** the brand guide's Sand footer with Paper logo and text, each contact a full-width 48 px row between lines. 516 px. Clearest tap targets and a firm end to the page; the only variant that departs from Felix's Linen.
-Test: usability task "Ring til butikken" from the bottom of the front page.
+### DD-08 Footer: Sand band with tap rows (variant C)
+Date: 2026-11-21, chosen 2026-11-23 · Principles: P9, P11 · Evidence grade: C
+Decision: The footer is a Sand band with the full logo, text and icons in Paper (5.1:1). Kontakt lists email, phone, address and Facebook as full-width 48 px rows between Linen lines; below them the CVR number and links to Handelsbetingelser and Privatlivspolitik. Felix's reason: it follows the brand guide, where bands and the footer are Sand (the 30% share).
+Kept from Felix's design: the content (logo, Kontakt, email, phone, Facebook), Ancizar Serif heading, icon + text rows. Added and accepted: address, CVR (placeholder until the owner supplies it), the two legal links (CLAUDE.md override 1).
+Rejected (`docs/design/storefront/footer-variants.png`): A, Felix's side-by-side layout on Linen (the email only fits beside the 120 px logo at 14 px); B, a centred stack on Linen (centred lists scan slower).
+Test: usability task "Ring til butikken" from the bottom of the front page; contrast already checked (Paper on Sand 5.1:1).
