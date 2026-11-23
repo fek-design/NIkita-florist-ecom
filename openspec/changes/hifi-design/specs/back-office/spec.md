@@ -21,6 +21,17 @@ The owner SHALL receive the sales overview as an email on the first day of each 
 - **WHEN** a new month starts
 - **THEN** the owner receives last month's orders and revenue next to the month before, without opening the back office
 
+### Requirement: Orders taken in the shop or by phone
+The owner SHALL be able to register an order that does not come through the webshop from the "I dag" screen, in the order of a till: order type, occasion, size, an optional comment, then for phone orders the pickup day and slot, the customer's name and phone, and whether it is paid (DD-21). Phone orders SHALL be pickup only. A registered order SHALL count against the day's capacity and the slot, print the same order slip, and appear on the morning sheet and in the monthly figures, marked as taken in the shop. No payment SHALL be taken through the system for these orders.
+
+#### Scenario: Phone order
+- **WHEN** the owner registers a phone order for Bisættelse, Mellem, tomorrow 14–15, paid at pickup
+- **THEN** a slip prints, the 14–15 slot has one place fewer online, and the order is on tomorrow's morning sheet
+
+#### Scenario: Sale over the counter
+- **WHEN** the owner registers a sale in the shop for now
+- **THEN** it is counted in today's figures without printing a slip
+
 ## MODIFIED Requirements
 
 ### Requirement: Protected sign-in

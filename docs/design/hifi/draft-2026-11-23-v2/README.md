@@ -15,10 +15,12 @@
 | S7 | No instructions for delivery | "Hvis modtageren ikke er hjemme" (3 choices); "Skal være fremme senest kl." for Bisættelse | DD-19 |
 | S8 | "i løbet af dagen" only | Adds the latest time and the not-home choice | DD-19 |
 | B1, B1b | Title only | Sign-in with email and password, "Husk mig i 30 dage", Face ID (passkey) first; password + "Husk mig i 30 dage" + 6-digit SMS code (B1b) as fallback | Back-office spec (second factor); DD-20 |
+| B8a, B8b (new) + "+ Ny ordre" on B2 | — | Register shop and phone orders like a till; phone = pickup only; prints the same slip | Felix: orders outside the webshop must be tracked (DD-21) |
 | P1, P2, E1, E2 (new) | — | Order slip, morning sheet, pickup reminder email, monthly sales email | DD-16, DD-18 |
 
 ## Open
 
+- Forslag 4 (add-ons as buttons in B8a) needs add-on products in the catalogue.
 - Forslag 1 (hero line) and Forslag 2 (payment methods in the footer) wait for Felix.
 
 - Opening hours and pickups per hour are placeholders (owner questions 2 and 8).

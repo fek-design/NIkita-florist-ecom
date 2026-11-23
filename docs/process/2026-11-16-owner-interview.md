@@ -97,6 +97,7 @@ Ordinary values for a small florist, to build and test against. They are *opinio
 7. **Tier presentation:** one example photo and a size in words per tier, as Felix suggests?
 8. **Pickups per hour** *(added 23 Nov, DD-18)*: how many pickups can she have ready in one hour-slot? Placeholder: 4.
 9. **Printer** *(added 23 Nov, DD-16)*: would she buy a receipt printer for order slips (about 1,500–3,000 kr.)? Until then the order email carries the slip.
+11. **Phone and counter orders** *(added 23 Nov, DD-21)*: roughly how many a week, compared with Messenger and Instagram? And which add-ons (vase, card, chocolate) does she sell, at what prices?
 10. **Delivery round** *(added 23 Nov, parked by Felix)*: one round a day at a fixed time, or as orders come? Decides whether a "på vej" message is worth adding later.
 
 ## How this was checked

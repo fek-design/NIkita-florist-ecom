@@ -143,3 +143,10 @@ Date: 2026-11-23 · Principles: P9; DD-16 (least screen time) · Evidence grade:
 Decision: "Log ind med Face ID" (a passkey) is the main way into the back office: one touch, and it counts as two factors (her phone and her face or finger). Password plus a 6-digit SMS code remains for the first sign-in on a new phone and as the fallback. "Husk mig i 30 dage" keeps her signed in. Felix's call.
 Rejected: an authenticator app as second factor (too complicated for the owner, Felix); password with no second factor (the spec requires one, and a forgotten password would still lock her out).
 Test: in the usability test, time from opening the admin link to the "I dag" screen.
+
+### DD-21 Orders taken in the shop or by phone are registered like a till
+Date: 2026-11-23 · Principles: DD-16 (one paper flow), capacity in the back-office spec · Evidence grade: C (restaurant tills: order type → category → item → modifiers → ticket to the printer)
+Decision: "+ Ny ordre" on the "I dag" screen registers orders that do not come through the webshop, so every order counts against the day's capacity and pickup slots, gets the same slip, and appears on the morning sheet and in the monthly figures. Two types: *I butikken nu* (registered in one tap, no slip) and *Telefon*, which is **pickup only**: occasion, size, optional comment, day and slot, name and phone, and "Ved afhentning" or "Allerede betalt". No payment runs through the system; she keeps taking MobilePay as today, and Stripe stays the online gateway. Felix's design, from restaurant tills; phone orders limited to pickup by Felix so she never types an address.
+Rejected: a payment link sent to the customer (the problem was tracking, not payment); a card terminal linked to the system (hardware, a second payment flow, past feature freeze); a count-only "+1" capacity button (no slip, no record).
+Open: add-ons ("upsells") as one-tap buttons need add-on products in the catalogue first (Forslag 4); how many orders come by phone or over the counter (owner question 11).
+Test: time to register a phone order, target under 30 seconds, in the owner walkthrough in week 4.
