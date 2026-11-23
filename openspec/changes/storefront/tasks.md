@@ -1,7 +1,7 @@
 ## 1. Setup
 
 - [x] 1.1 Start `docs/process/2026-11-19-storefront.md` with goal, inputs and the defaults to confirm; verify it links this change — *19 Nov: defaults recorded as confirmed*
-- [ ] 1.2 Bring the brand into `frontend/`: copy `tokens.css`, the font files (via `next/font/local`), the web logo PNGs and the favicons; add the token drift test; verify the drift test fails when one token differs and passes when they match
+- [x] 1.2 Bring the brand into `frontend/`: copy `tokens.css`, the font files (via `next/font/local`), the web logo PNGs and the favicons; add the token drift test; verify the drift test fails when one token differs and passes when they match — *23 Nov: fonts through `next/font/local` (both load, checked in the browser at 390 px), tokens copied to `frontend/src/styles/tokens.css`, drift test with a changed-value case, web logo PNGs in `public/brand/`, apple-icon; favicon.ico kept from 17 Nov. Added `--color-text-muted` (DD-24) to the brand tokens first*
 
 ## D. Design rounds (Felix chooses)
 

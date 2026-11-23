@@ -32,3 +32,8 @@ Felix's education is design-oriented, so every key layout choice is his (CLAUDE.
   - *What forced the variants:* at the brand minimum of 120 px for the full logo, Felix's side-by-side layout leaves about 234 px for the contact column. The email address at 16 px needs about 250 px, so A keeps his layout only with 14 px contact text, which the brand guide reserves for text nobody must act on. B and C stack instead and keep 16 px.
   - *Added beyond Felix's content, to be confirmed by him:* the address (Danish e-commerce law and CLAUDE.md override 1: name, address and CVR must be easy to find), a marked CVR placeholder, and links to Handelsbetingelser and Privatlivspolitik (a webshop needs both). Rows and links are 44–48 px high for tapping (design decision 12).
   - Measured heights at 402 px: A 335 px, B 496 px, C 516 px (Felix's original 213 px, without the additions).
+- **Build starts: brand in the frontend (23 Nov).** The hi-fi set (change `hifi-design`, v2) is the design to build from. Task 1.2:
+  - Fonts load through `next/font/local` from the subset files; checked in a browser at 390 px that both families load and headings use Ancizar Serif.
+  - The tokens are copied into the frontend because Vercel builds only `frontend/`; a test compares every `:root` token with `ref/brand/tokens.css`. First run failed because Prettier had wrapped one value across lines in the copy; the test now compares values, not formatting.
+  - DD-24 (toned-down supporting text) added as the role token `--color-text-muted` in the brand tokens and the brand guide before the copy.
+  - *Found:* the font subsets do not contain ✓, ‹ or •, which the design uses. In the build these become Phosphor icons or plain words rather than fallback glyphs from another font.

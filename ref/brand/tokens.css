@@ -46,6 +46,9 @@
   --color-surface: var(--linen);
   --color-text: var(--ink);
   --color-heading: var(--ink);
+  /* Supporting text: descriptions, hints, meta (DD-24). On Paper only;
+     on Linen use --color-text, because Sand on Linen is 3.8:1. */
+  --color-text-muted: var(--sand);
   --color-accent: var(--sand); /* buttons, links on Paper, feature bands */
   --color-on-accent: var(--paper); /* text on Sand */
   --color-link: var(--sand); /* on Paper only; on Linen use Ink (see contrast.md) */

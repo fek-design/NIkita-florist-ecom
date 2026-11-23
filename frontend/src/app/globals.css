@@ -1,11 +1,68 @@
-/* Placeholder until the brand tokens from change brand-identity land. */
+@import "../styles/tokens.css";
+
+/* next/font gives the fonts generated family names; point the brand's
+   font tokens at them, keeping the brand guide's fallbacks. */
 :root {
   color-scheme: light;
+  --font-heading: var(--font-ancizar-serif), Georgia, "Times New Roman", serif;
+  --font-body:
+    var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #f7f4ef;
-  color: #2d2a26;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  -webkit-text-size-adjust: 100%;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  color: var(--color-heading);
+  font-family: var(--font-heading);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+}
+
+p {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Two-tone focus ring on every ground (brand guide §2). */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Supporting text: descriptions, hints, meta (DD-24). Paper only. */
+.muted {
+  color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }

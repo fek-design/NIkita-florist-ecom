@@ -62,7 +62,7 @@ Paper is the ground. The colour placed on it is split about **60 / 30 / 10** bet
 | `--error` | `#9B2C24` | Error messages and invalid fields | functional |
 | `--success` | `#36602F` | Confirmations | functional |
 
-In components, use the role tokens (`--color-bg`, `--color-surface`, `--color-text`, `--color-accent`, `--color-on-accent`, `--color-link`, `--color-border`, `--color-error`, `--color-success`), not the palette names.
+In components, use the role tokens (`--color-bg`, `--color-surface`, `--color-text`, `--color-text-muted`, `--color-accent`, `--color-on-accent`, `--color-link`, `--color-border`, `--color-error`, `--color-success`), not the palette names.
 
 ### Pairings (WCAG 2.1 AA)
 
@@ -71,7 +71,7 @@ The full table is generated from the tokens: [contrast.md](contrast.md). The rul
 | Do | Ratio |
 |---|---|
 | Ink text on Paper or Linen | 13.0:1 / 9.8:1 |
-| Sand text, links and buttons on Paper | 5.1:1 |
+| Sand text, links and buttons on Paper; supporting text (`--color-text-muted`, DD-24) | 5.1:1 |
 | Paper text on Sand (buttons, bands, footer) | 5.1:1 |
 | Error and success text on Paper or Linen | 5.0:1 or more |
 
