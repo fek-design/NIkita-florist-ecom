@@ -26,9 +26,10 @@
 ## 5. v2: the owner works on paper
 
 - [x] 5.1 Decide how customers learn when a pickup is ready and when a delivery comes, with no action from the owner — *23 Nov: pickup slots with an automatic morning email (DD-18); delivery during the day with not-home instructions and a latest time for Bisættelse (DD-19)*
-- [ ] 5.1b Storefront for DD-18/DD-19: pickup slots on the occasion page, not-home choice and latest time in checkout, confirmation text, pickup reminder email; verify the checkout still has at most eight fields for a normal delivery
-- [ ] 5.2 Design the order slip at 80 mm (receipt printer) and the same slip as the order email; verify every field the owner needs to make and deliver is on it
-- [ ] 5.3 Design the 7:00 morning sheet (A4); verify it lists deliveries and pickups for the day
-- [ ] 5.4 Reduce the back office to the exceptions (sold out today, closed today, settings set at hand-over, sales as a monthly email); verify against DD-16/DD-17
-- [ ] 5.5 Write the back-office spec delta (statuses removed, slips and morning sheet added); verify `openspec validate --strict`
-- [ ] 5.6 Freeze v2 with its changelog
+- [x] 5.1b Storefront for DD-18/DD-19: pickup slots on the occasion page, not-home choice and latest time in checkout, confirmation text, pickup reminder email; verify the checkout still has at most eight fields for a normal delivery
+- [x] 5.2 Design the order slip at 80 mm (receipt printer) and the same slip as the order email; verify every field the owner needs to make and deliver is on it
+- [x] 5.3 Design the 7:00 morning sheet (A4); verify it lists deliveries and pickups for the day
+- [x] 5.4 Reduce the back office to the exceptions (sold out today, closed today, settings set at hand-over, sales as a monthly email); verify against DD-16/DD-17
+- [x] 5.5 Write the back-office spec delta (statuses removed, slips and morning sheet added); verify `openspec validate --strict`
+- [ ] 5.6 Felix reviews v2 (`docs/design/hifi/draft-2026-11-23-v2/`); then freeze v2 with its changelog
+- [ ] 5.7 Add pickup slots (DD-18) and the not-home choice and latest time (DD-19) to the storefront spec (occasion page) and the checkout spec (week 3); verify `openspec validate --strict`

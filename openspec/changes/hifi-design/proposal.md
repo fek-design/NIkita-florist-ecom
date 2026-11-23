@@ -20,7 +20,9 @@ Felix designed the front page in Figma and the footer has been chosen (DD-01 to 
 
 ### Modified Capabilities
 
-None. The storefront and back-office behaviour stays in their own specs; this change only produces the design they are built from.
+- `back-office` *(added 23 Nov, v2)*: the owner works on paper (DD-16, DD-17), so orders arrive as printed slips and a morning sheet, the order status is the pinboard, and sales come as a monthly email.
+
+The storefront's pickup slots and delivery instructions (DD-18, DD-19) belong to the storefront and checkout specs and are added there.
 
 ## Impact
 
