@@ -100,6 +100,8 @@ Ordinary values for a small florist, to build and test against. They are *opinio
 11. **Phone and counter orders** *(added 23 Nov, DD-21)*: roughly how many a week, compared with Messenger and Instagram? And which add-ons (vase, card, chocolate) does she sell, at what prices?
 10. **Delivery round** *(added 23 Nov, parked by Felix)*: one round a day at a fixed time, or as orders come? Decides whether a "på vej" message is worth adding later.
 
+*23 Nov: Felix holds these questions for the owner's first test of the built shop, so she can answer them while using it; placeholders stay marked until then.*
+
 ## How this was checked
 
 Answers are as relayed by Felix on 16 Nov 2026. Nothing here is confirmed in writing by the owner yet. Placeholders let the build go ahead; open questions 1–3 must be answered before the checkout change in week 3 is finished.

@@ -20,7 +20,7 @@
 ## 4. Review and version
 
 - [ ] 4.1 Export the set to `docs/design/hifi/` with a source list per screen; verify every 44 px rule and contrast pair against the brand guide
-- [ ] 4.2 Felix reviews; his changes are made and logged as decisions; verify the proposals are each accepted or dropped
+- [x] 4.2 Felix reviews; his changes are made and logged as decisions; verify the proposals are each accepted or dropped — *23 Nov: DD-22*
 - [x] 4.3 Freeze v1: Figma page "v1", PNGs in `docs/design/versions/v1/`, changelog; verify v1 matches the approved set — *23 Nov: frozen early, before Felix's full review, because the owner's way of working changes the back office (DD-16, DD-17)*
 
 ## 5. v2: the owner works on paper
@@ -31,5 +31,7 @@
 - [x] 5.3 Design the 7:00 morning sheet (A4); verify it lists deliveries and pickups for the day
 - [x] 5.4 Reduce the back office to the exceptions (sold out today, closed today, settings set at hand-over, sales as a monthly email); verify against DD-16/DD-17
 - [x] 5.5 Write the back-office spec delta (statuses removed, slips and morning sheet added); verify `openspec validate --strict`
-- [ ] 5.6 Felix reviews v2 (`docs/design/hifi/draft-2026-11-23-v2/`); then freeze v2 with its changelog
+- [x] 5.6 Felix reviews v2 (`docs/design/hifi/draft-2026-11-23-v2/`); then freeze v2 with its changelog — *23 Nov: Forslag decided (DD-22), featured bouquet owner-editable (DD-23); frozen in Figma and `docs/design/versions/v2/`*
 - [ ] 5.7 Add pickup slots (DD-18) and the not-home choice and latest time (DD-19) to the storefront spec (occasion page) and the checkout spec (week 3); verify `openspec validate --strict`
+- [ ] 5.8 Add-ons (DD-22, Forslag 4): once the catalogue has add-on products, add them as one-tap buttons on B8a and as an option on the occasion page; mark non-perishable add-ons for the 14-day right of withdrawal (P12). Do not drop this task when archiving: move it to the back-office or catalogue change
+- [ ] 5.9 "På forsiden nu" (DD-23): the featured bouquet is chosen by the owner; add it to the catalogue data change (storefront task D.8)

@@ -15,7 +15,7 @@ Choices Claude made alone before this rule existed. Each goes to Felix with the 
 | Choice | Where it was made | Goes to Felix with |
 |---|---|---|
 | ~~Navbar 72 px high, half-moon logo 110 px wide~~ | Brand board, 17 Nov | Settled by DD-09 |
-| Tier picker as three equal buttons, chosen one filled Ink | Brand board, 17 Nov | Occasion page board |
+| ~~Tier picker as three equal buttons, chosen one filled Ink~~ | Brand board, 17 Nov | Approved by Felix, 23 Nov (in S4 and B8a) |
 | ~~Cards as Paper with a 1 px Sand border~~ | Brand guide, 17 Nov | Settled by Felix's design: occasion cards are photo, name and price with no border |
 
 ---
@@ -95,7 +95,7 @@ Test: usability task: "Find flowers for a thank-you" (Tak is not in the top four
 
 ### DD-14 Delivery facts on the occasion page only
 Date: 2026-11-23 · Principles: P3 · Evidence grade: C
-Decision: The delivery facts (fee, area, cut-off, pickup) are not added to the front page. They sit on the occasion page with the delivery choice, and the fee appears as soon as a postcode is entered, before anything goes in the cart. Felix's choice (option c). Why: *to be added by Felix*.
+Decision: The delivery facts (fee, area, cut-off, pickup) are not added to the front page. They sit on the occasion page with the delivery choice, and the fee appears as soon as a postcode is entered, before anything goes in the cart. Felix's choice (option c). Why, in his words: let the customer fall in love with the product first. The 80 kr. will always hurt; better that someone who leaves does so knowing what the shop offers than leaves at once. (He calls it the sunk-cost effect: time spent choosing makes the fee easier to accept.)
 Rejected: a short delivery block on the front page under the featured bouquet (a); the facts in the footer (b).
 Risk, stated honestly: P3 asks for the fee before the visitor chooses. Here a visitor meets it after choosing an occasion but before the cart, so it is never a surprise at checkout.
 Test: usability task "Hvad koster levering til 4300?": time to answer and where people look first. If most look on the front page first, revisit a) or b).
@@ -150,3 +150,17 @@ Decision: "+ Ny ordre" on the "I dag" screen registers orders that do not come t
 Rejected: a payment link sent to the customer (the problem was tracking, not payment); a card terminal linked to the system (hardware, a second payment flow, past feature freeze); a count-only "+1" capacity button (no slip, no record).
 Open: add-ons ("upsells") as one-tap buttons need add-on products in the catalogue first (Forslag 4); how many orders come by phone or over the counter (owner question 11).
 Test: time to register a phone order, target under 30 seconds, in the owner walkthrough in week 4.
+
+### DD-22 The four hi-fi proposals
+Date: 2026-11-23 · Principles: P8, P5, P9 · Evidence grade: B/C (sources per proposal in `openspec/changes/hifi-design/design.md`)
+Decision (Felix):
+- **Forslag 1, intro line on the front page:** yes, but it leads into the recommendation: "Håndbundne buketter fra Nikitas værksted i Tuse. Lige nu anbefaler hun:" followed by the featured bouquet, which is the seasonal one or else the best-selling (DD-04). The prime spot under the hero recommends a bouquet rather than only describing the shop.
+- **Forslag 2, payment methods in the footer:** yes.
+- **Forslag 3, passkey:** yes (DD-20).
+- **Forslag 4, add-ons as one-tap buttons on shop orders:** yes, added once the catalogue has add-ons. Kept as an open task so it is not forgotten.
+Test: front page first impression in the usability test ("Hvad sælger butikken, og hvad ville du købe?").
+
+### DD-23 Everyday content is the owner's to change
+Date: 2026-11-23 · Principles: back-office spec purpose · Evidence grade: C
+Decision: What changes day to day or month to month is editable in the back office, even if Felix ends up maintaining the shop: the featured bouquet on the front page ("På forsiden nu · Skift" on B4), sold out, closed days, prices and photos. Code changes are only for what changes rarely. Felix's call.
+Test: in the owner's first test, can she swap the featured bouquet without help?
