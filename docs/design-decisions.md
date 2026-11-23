@@ -164,3 +164,10 @@ Test: front page first impression in the usability test ("Hvad sælger butikken,
 Date: 2026-11-23 · Principles: back-office spec purpose · Evidence grade: C
 Decision: What changes day to day or month to month is editable in the back office, even if Felix ends up maintaining the shop: the featured bouquet on the front page ("På forsiden nu · Skift" on B4), sold out, closed days, prices and photos. Code changes are only for what changes rarely. Felix's call.
 Test: in the owner's first test, can she swap the featured bouquet without help?
+
+### DD-24 Supporting text is toned down
+Date: 2026-11-23 · Principles: P9 (contrast kept), P11 · Evidence grade: C (visual hierarchy: fewer elements competing for attention)
+Decision: Descriptions, hints, meta lines and helper text use Sand instead of Ink (role token `--color-text-muted`; Sand on Paper 5.1:1, AA). Headings, prices, choices and buttons stay Ink, so they lead. On Linen panels supporting text stays Ink, because Sand on Linen is 3.8:1. The owner asked for simple; Felix found the hi-fi set busy even where the extra text is optional. Felix's call.
+Rejected: removing the optional text (it answers real questions: size, fee, cut-off); a new grey outside the palette (brand rule: one palette).
+Applies from v3; built into the frontend from the start. Figma working page to follow.
+Test: in the owner's first test and the usability test, ask what people noticed first on the occasion page.
