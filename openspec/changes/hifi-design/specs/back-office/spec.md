@@ -23,6 +23,22 @@ The owner SHALL receive the sales overview as an email on the first day of each 
 
 ## MODIFIED Requirements
 
+### Requirement: Protected sign-in
+The back office SHALL only be reachable after the owner signs in with two factors. The main way SHALL be a passkey (Face ID or fingerprint on her phone), which counts as both factors (DD-20). Password plus a one-time code SHALL remain for a new phone and as the fallback. No customer-facing page SHALL link to the back office.
+
+#### Scenario: Not signed in
+- **WHEN** someone opens a back-office address without a valid session
+- **THEN** they see the sign-in screen and no shop data
+
+#### Scenario: Second factor required
+- **WHEN** the owner enters a correct password
+- **THEN** she is asked for a one-time code before any back-office screen opens
+
+#### Scenario: Passkey
+- **WHEN** the owner taps "Log ind med Face ID" on a phone where her passkey is set up
+- **THEN** the "I dag" screen opens after one touch, with no password or code
+
+
 ### Requirement: Order handling from one screen
 An order's detail SHALL show everything needed to make and deliver it: the bouquet or budget and wishes, the card message, the recipient and address, and the buyer's contact. It SHALL let her print the slip again. It SHALL NOT ask her to change a status: the slip on the pinboard is the status (DD-17).
 

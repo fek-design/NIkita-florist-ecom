@@ -14,12 +14,12 @@
 | S4c (new) | Pickup had no time | Pickup in one-hour slots, full slots struck through, morning reminder | Felix: no long waiting windows (DD-18) |
 | S7 | No instructions for delivery | "Hvis modtageren ikke er hjemme" (3 choices); "Skal være fremme senest kl." for Bisættelse | DD-19 |
 | S8 | "i løbet af dagen" only | Adds the latest time and the not-home choice | DD-19 |
-| B1, B1b | Title only | Sign-in with email and password, "Husk mig i 30 dage", then a 6-digit code (B1b); Forslag 3: passkey (Face ID) instead | Back-office spec (second factor); Felix noticed B1 was missing |
+| B1, B1b | Title only | Sign-in with email and password, "Husk mig i 30 dage", Face ID (passkey) first; password + "Husk mig i 30 dage" + 6-digit SMS code (B1b) as fallback | Back-office spec (second factor); DD-20 |
 | P1, P2, E1, E2 (new) | — | Order slip, morning sheet, pickup reminder email, monthly sales email | DD-16, DD-18 |
 
 ## Open
 
-- How the owner signs in: password + SMS code (as drawn), password + authenticator app, or a passkey (Forslag 3). A passkey is one touch and counts as two factors; NIST SP 800-63B rates it highest.
+- Forslag 1 (hero line) and Forslag 2 (payment methods in the footer) wait for Felix.
 
 - Opening hours and pickups per hour are placeholders (owner questions 2 and 8).
 - Whether the owner buys a receipt printer (owner question 9).

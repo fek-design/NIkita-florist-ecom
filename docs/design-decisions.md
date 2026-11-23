@@ -137,3 +137,9 @@ Date: 2026-11-23 · Principles: P2, P3 · Evidence grade: C (CMP-K: "Hvis modtag
 Decision: Delivery is promised for the chosen day ("i løbet af dagen"), not a window. Checkout asks what to do if the recipient is not home (by the door, with a neighbour, or call the buyer). For Bisættelse it asks when the flowers must be there at the latest, because a funeral has a fixed time. No messages need the owner to act. Felix's call (option a).
 Rejected: a "på vej" message from one scan of the morning sheet (b; parked until it is known how she drives, owner question 10); morning/afternoon at checkout (c; binds her round to the customers' choices).
 Test: in the usability test, ask the buyer whether "i løbet af dagen" is enough; collect what they would want instead.
+
+### DD-20 The owner signs in with a passkey
+Date: 2026-11-23 · Principles: P9; DD-16 (least screen time) · Evidence grade: A (NIST SP 800-63B rates passkeys as phishing-resistant multi-factor)
+Decision: "Log ind med Face ID" (a passkey) is the main way into the back office: one touch, and it counts as two factors (her phone and her face or finger). Password plus a 6-digit SMS code remains for the first sign-in on a new phone and as the fallback. "Husk mig i 30 dage" keeps her signed in. Felix's call.
+Rejected: an authenticator app as second factor (too complicated for the owner, Felix); password with no second factor (the spec requires one, and a forgotten password would still lock her out).
+Test: in the usability test, time from opening the admin link to the "I dag" screen.
