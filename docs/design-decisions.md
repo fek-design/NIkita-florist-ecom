@@ -106,3 +106,9 @@ Decision: The footer is a Sand band with the full logo, text and icons in Paper 
 Kept from Felix's design: the content (logo, Kontakt, email, phone, Facebook), Ancizar Serif heading, icon + text rows. Added and accepted: address, CVR (placeholder until the owner supplies it), the two legal links (CLAUDE.md override 1).
 Rejected (`docs/design/storefront/footer-variants.png`): A, Felix's side-by-side layout on Linen (the email only fits beside the 120 px logo at 14 px); B, a centred stack on Linen (centred lists scan slower).
 Test: usability task "Ring til butikken" from the bottom of the front page; contrast already checked (Paper on Sand 5.1:1).
+
+### DD-15 One hi-fi set from proven patterns, then tests
+Date: 2026-11-23 · Principles: all; process decision · Evidence grade: n/a (process)
+Decision: The remaining screens, front page to checkout and the back office, are made as one hi-fi set in Figma, in Felix's design language. No new patterns: each element follows Baymard, Nielsen Norman Group, Shopify Polaris (back office) or Felix's competitor boards, and cites it; anything else is marked "Forslag". After Felix's review the set is improved through usability tests on the live page, and each version is kept (`docs/design/versions/vN/`). Felix's call. Mobbin was considered and dropped again (no paid plan; it shows what apps do, not whether it works); Baymard's tested findings were preferred.
+Rejected: 2–3 variants per key choice for every screen (does not fit the four weeks left); Mobbin as the pattern source.
+Test: the versions' changelogs show which test findings changed the design.
