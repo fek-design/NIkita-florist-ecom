@@ -27,7 +27,7 @@ The category page at `/anledninger` SHALL list every visible occasion in the sam
 - **THEN** the category page lists all five occasions
 
 ### Requirement: Delivery facts are easy to find
-The delivery fee, the delivery area, the same-day cut-off and that pickup is possible SHALL be stated in plain words, read from the delivery rules, where a visitor finds them before choosing a bouquet (P3). Their place on the front page is an open design decision for Felix (his design has none yet); at the latest, the occasion page shows the fee as soon as a postcode is entered.
+The delivery fee, the delivery area, the same-day cut-off and that pickup is possible SHALL be stated in plain words, read from the delivery rules, on the occasion page with the delivery choice (P3, DD-14). The fee SHALL be shown as soon as a postcode is entered, before anything is added to the cart. The front page does not carry them.
 
 #### Scenario: Fee before checkout
 - **WHEN** a visitor has entered a postcode on the occasion page

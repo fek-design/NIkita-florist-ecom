@@ -61,11 +61,11 @@ Date: 2026-11-21 · Principles: P11 · Evidence grade: C
 Decision: The logo's thin lines (circle, divider) keep the same proportion at every size. In Figma: resize with the Scale tool (K). On the web: a version with the lines converted to filled shapes, so they cannot stay thick when the logo shrinks. Felix's gripe, 21 Nov.
 Test: the logo at 110 px and at full size, side by side, with the same line-to-logo ratio.
 
-### DD-07 Icons as thin as the logo
-Date: 2026-11-21 · Principles: P11 · Evidence grade: C
-Decision: Phosphor icons in a lighter weight (Light or Thin) so their lines match the logo's hairlines. The exact weight is chosen by comparing against the logo in Figma.
-Rejected: Phosphor Regular (too heavy next to the logo, Felix).
-Test: icons and logo side by side at the navbar size.
+### DD-07 Icons in Phosphor Light
+Date: 2026-11-21, chosen 2026-11-23 · Principles: P11 · Evidence grade: C (measured)
+Decision: Phosphor icons in the Light weight (lines about 1.1 px at 24 px), closest to the hairlines and letter strokes of the logo. Felix's choice from the weight comparison (`docs/design/storefront/icon-weights.png`).
+Rejected: Regular (about 1.5 px, too heavy next to the logo, Felix); Thin (about 0.75 px, matches the logo circle but turns faint at 24 px on a phone).
+Test: icons and logo side by side at the navbar size; icons recognisable in the usability test.
 
 ### DD-09 Navbar logo at the brand minimum
 Date: 2026-11-21 · Principles: P9 · Evidence grade: C (measured)
@@ -92,7 +92,13 @@ Date: 2026-11-21 · Principles: P1, P2 · Evidence grade: C
 Decision: The front page shows the four best-selling occasions; "Se alle" opens the category page (`/anledninger`) with every occasion. Until orders exist, the owner's sort order stands in for "best-selling". Felix's call.
 Rejected: all occasions on the front page (with five, the two-column grid leaves an empty cell and the front page grows with every new occasion).
 Test: usability task: "Find flowers for a thank-you" (Tak is not in the top four, so it tests "Se alle").
-Open: where the delivery facts (fee, area, cut-off, pickup) go, since the design has no place for them yet (P3).
+
+### DD-14 Delivery facts on the occasion page only
+Date: 2026-11-23 · Principles: P3 · Evidence grade: C
+Decision: The delivery facts (fee, area, cut-off, pickup) are not added to the front page. They sit on the occasion page with the delivery choice, and the fee appears as soon as a postcode is entered, before anything goes in the cart. Felix's choice (option c). Why: *to be added by Felix*.
+Rejected: a short delivery block on the front page under the featured bouquet (a); the facts in the footer (b).
+Risk, stated honestly: P3 asks for the fee before the visitor chooses. Here a visitor meets it after choosing an occasion but before the cart, so it is never a surprise at checkout.
+Test: usability task "Hvad koster levering til 4300?": time to answer and where people look first. If most look on the front page first, revisit a) or b).
 
 ### DD-08 Footer
 Date: 2026-11-21 · Status: open, variants to Felix

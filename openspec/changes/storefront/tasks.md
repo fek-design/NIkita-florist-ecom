@@ -24,12 +24,12 @@
 - [ ] 3.1 Build the layout: navbar with the half-moon logo and the cart count, Sand footer with the full logo, base styles from the tokens, Danish not-found page; verify at 390 px with no horizontal scroll
 - [ ] 3.2 Build the front page from Felix's Figma design (design decision 12): hero, featured bouquet, four best-selling occasions (owner's order until orders exist), "Se alle", "Besøg Nikita"; Linen image placeholders with reserved sizes and lazy loading below the first screen; verify against the seeded catalogue and a screenshot comparison with the Figma frame
 - [ ] 3.3 Build the category page `/anledninger` with every visible occasion in the front page's card style; verify "Se alle" leads there and lists five occasions
-- [ ] 3.4 Place the delivery facts where Felix decides (open, DD-13); verify they read from `GET /delivery`
+- [x] 3.4 Decide where the delivery facts go — *23 Nov: occasion page only (DD-14); built in group 4*
 
 ## 4. Occasion page
 
 - [ ] 4.1 Build `/anledning/<slug>`: photo area with "Foto kommer", intro and description, tier picker with prices and sizes; verify 404 for an unknown slug and that the chosen tier is marked without relying on colour
-- [ ] 4.2 Build "Hvornår og hvor?": delivery or pickup, postcode check through `/api`, date buttons from `/api/delivery/dates`, card message with a 200-character counter; verify 4300, 8000 and that only offered dates can be chosen
+- [ ] 4.2 Build "Hvornår og hvor?": the delivery facts in plain words from `/api/delivery` (DD-14), delivery or pickup, postcode check through `/api` showing the fee, date buttons from `/api/delivery/dates`, card message with a 200-character counter; verify 4300, 8000 and that only offered dates can be chosen
 - [ ] 4.3 Add to cart, including the confirm step when the order's delivery would change; verify the button is disabled until tier, delivery and date are chosen
 
 ## 5. Cart
