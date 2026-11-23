@@ -95,6 +95,9 @@ Ordinary values for a small florist, to build and test against. They are *opinio
 5. **Free amount:** may a customer type their own amount above the top tier?
 6. **Large orders:** should weddings and events be ordered online at all, or only by phone, with a "ring til mig" link?
 7. **Tier presentation:** one example photo and a size in words per tier, as Felix suggests?
+8. **Pickups per hour** *(added 23 Nov, DD-18)*: how many pickups can she have ready in one hour-slot? Placeholder: 4.
+9. **Printer** *(added 23 Nov, DD-16)*: would she buy a receipt printer for order slips (about 1,500–3,000 kr.)? Until then the order email carries the slip.
+10. **Delivery round** *(added 23 Nov, parked by Felix)*: one round a day at a fixed time, or as orders come? Decides whether a "på vej" message is worth adding later.
 
 ## How this was checked
 

@@ -124,3 +124,16 @@ Date: 2026-11-23 · Principles: none beyond DD-16 · Evidence grade: C
 Decision: No status buttons in the back office. A slip on the pinboard is an order to make; a slip taken down is done. Felix's call.
 Rejected: one-tap statuses on the phone (v1, B2/B3); a QR code on each slip to scan when done.
 Consequence: the back-office spec's "Order handling from one screen" (status in one tap) changes. Open: how customers learn when a pickup is ready or roughly when a delivery comes, without the owner having to act (Felix's concern, 23 Nov).
+
+### DD-18 Pickup at a time the customer chooses
+Date: 2026-11-23 · Principles: P2 (the date, and here the hour, is part of the product) · Evidence grade: C (CMP-K: Kaj Larsen offers pickup with a schedule; click-and-collect convention)
+Decision: A customer who picks up chooses a one-hour slot within opening hours on the occasion page. The slip prints the slot in large type. On the morning of the pickup an automatic email says when and where the bouquet is ready. The owner does nothing; nobody keeps a long window free. Felix's call, from his own annoyance at long waiting windows.
+Rejected: a "klar til afhentning" message the owner sends by hand (she would have to act, against DD-16/DD-17).
+Open for the owner: opening hours and pickups per hour (owner questions 2 and 8).
+Test: usability task "Bestil en buket, du selv henter i morgen eftermiddag"; afterwards, can the participant say when to come?
+
+### DD-19 Delivery during the day, with instructions for when nobody is home
+Date: 2026-11-23 · Principles: P2, P3 · Evidence grade: C (CMP-K: "Hvis modtageren ikke er hjemme, må vi …")
+Decision: Delivery is promised for the chosen day ("i løbet af dagen"), not a window. Checkout asks what to do if the recipient is not home (by the door, with a neighbour, or call the buyer). For Bisættelse it asks when the flowers must be there at the latest, because a funeral has a fixed time. No messages need the owner to act. Felix's call (option a).
+Rejected: a "på vej" message from one scan of the morning sheet (b; parked until it is known how she drives, owner question 10); morning/afternoon at checkout (c; binds her round to the customers' choices).
+Test: in the usability test, ask the buyer whether "i løbet af dagen" is enough; collect what they would want instead.
