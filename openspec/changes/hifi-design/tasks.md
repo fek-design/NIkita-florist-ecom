@@ -21,4 +21,13 @@
 
 - [ ] 4.1 Export the set to `docs/design/hifi/` with a source list per screen; verify every 44 px rule and contrast pair against the brand guide
 - [ ] 4.2 Felix reviews; his changes are made and logged as decisions; verify the proposals are each accepted or dropped
-- [ ] 4.3 Freeze v1: Figma page "v1", PNGs in `docs/design/versions/v1/`, changelog; verify v1 matches the approved set
+- [x] 4.3 Freeze v1: Figma page "v1", PNGs in `docs/design/versions/v1/`, changelog; verify v1 matches the approved set — *23 Nov: frozen early, before Felix's full review, because the owner's way of working changes the back office (DD-16, DD-17)*
+
+## 5. v2: the owner works on paper
+
+- [ ] 5.1 Decide how customers learn when a pickup is ready and when a delivery comes, with no action from the owner (open, Felix)
+- [ ] 5.2 Design the order slip at 80 mm (receipt printer) and the same slip as the order email; verify every field the owner needs to make and deliver is on it
+- [ ] 5.3 Design the 7:00 morning sheet (A4); verify it lists deliveries and pickups for the day
+- [ ] 5.4 Reduce the back office to the exceptions (sold out today, closed today, settings set at hand-over, sales as a monthly email); verify against DD-16/DD-17
+- [ ] 5.5 Write the back-office spec delta (statuses removed, slips and morning sheet added); verify `openspec validate --strict`
+- [ ] 5.6 Freeze v2 with its changelog

@@ -112,3 +112,15 @@ Date: 2026-11-23 · Principles: all; process decision · Evidence grade: n/a (pr
 Decision: The remaining screens, front page to checkout and the back office, are made as one hi-fi set in Figma, in Felix's design language. No new patterns: each element follows Baymard, Nielsen Norman Group, Shopify Polaris (back office) or Felix's competitor boards, and cites it; anything else is marked "Forslag". After Felix's review the set is improved through usability tests on the live page, and each version is kept (`docs/design/versions/vN/`). Felix's call. Mobbin was considered and dropped again (no paid plan; it shows what apps do, not whether it works); Baymard's tested findings were preferred.
 Rejected: 2–3 variants per key choice for every screen (does not fit the four weeks left); Mobbin as the pattern source.
 Test: the versions' changelogs show which test findings changed the design.
+
+### DD-16 Orders reach the owner on paper
+Date: 2026-11-23 · Principles: P1 (her phone is not her workplace), back-office spec purpose ("less of her time than the phone orders it replaces") · Evidence grade: C (owner's way of working, via Felix)
+Decision: Every order becomes a printed slip for her pinboard, laid out for a receipt printer (80 mm), the same way kitchens receive tickets and florist networks send work slips. She has no printer yet, so until one is bought the order email is laid out as the same slip and printed by hand. A morning sheet at 7:00 lists the day's deliveries and pickups. Felix's call, after the owner's preference for paper.
+Rejected: managing orders on the phone (v1's back office; she treats technology as a medium, not a pleasure, and less screen time means more time with flowers); a printer with its own email address (no printer to build on).
+Test: minutes per day the owner spends in the back office, measured in the usability test and after a week of use.
+
+### DD-17 The pinboard is the order status
+Date: 2026-11-23 · Principles: none beyond DD-16 · Evidence grade: C
+Decision: No status buttons in the back office. A slip on the pinboard is an order to make; a slip taken down is done. Felix's call.
+Rejected: one-tap statuses on the phone (v1, B2/B3); a QR code on each slip to scan when done.
+Consequence: the back-office spec's "Order handling from one screen" (status in one tap) changes. Open: how customers learn when a pickup is ready or roughly when a delivery comes, without the owner having to act (Felix's concern, 23 Nov).
