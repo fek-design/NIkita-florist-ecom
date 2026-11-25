@@ -7,6 +7,8 @@ export const SHOP = {
   postcode: "4300",
   town: "Tuse",
   phone: "+45 28 25 74 13",
+  /** The delivery area in words (owner interview, 16 Nov). */
+  deliveryArea: "Holbæk og omegn",
   phoneHref: "tel:+4528257413",
   email: "Nikita_nielsen@hotmail.com",
   /** Placeholder: the page address is not known yet (hand-over sheet). */

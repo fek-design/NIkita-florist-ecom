@@ -28,9 +28,9 @@
 
 ## 4. Occasion page
 
-- [ ] 4.1 Build `/anledning/<slug>`: photo area with "Foto kommer", intro and description, tier picker with prices and sizes; verify 404 for an unknown slug and that the chosen tier is marked without relying on colour
-- [ ] 4.2 Build "Hvornår og hvor?": the delivery facts in plain words from `/api/delivery` (DD-14), delivery or pickup, postcode check through `/api` showing the fee, date buttons from `/api/delivery/dates`, card message with a 200-character counter; verify 4300, 8000 and that only offered dates can be chosen
-- [ ] 4.3 Add to cart, including the confirm step when the order's delivery would change; verify the button is disabled until tier, delivery and date are chosen
+- [x] 4.1 Build `/anledning/<slug>`: photo area with "Foto kommer", intro and description, tier picker with prices and sizes; verify 404 for an unknown slug and that the chosen tier is marked without relying on colour
+- [x] 4.2 Build "Hvornår og hvor?": the delivery facts in plain words from `/api/delivery` (DD-14), delivery or pickup, postcode check through `/api` showing the fee, date buttons from `/api/delivery/dates`, card message with a 200-character counter; verify 4300, 8000 and that only offered dates can be chosen
+- [x] 4.3 Add to cart, including the confirm step when the order's delivery would change; verify the button is disabled until tier, delivery and date are chosen
 
 ## 5. Cart
 

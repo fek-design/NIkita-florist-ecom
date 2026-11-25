@@ -1,0 +1,227 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.heading {
+  font-size: var(--text-xl);
+  line-height: 1.3;
+}
+
+.label {
+  padding: 0;
+  font-weight: var(--weight-semibold);
+}
+
+.facts {
+  font-size: var(--text-sm);
+}
+
+.row2,
+.row3,
+.slots {
+  display: grid;
+  gap: 8px;
+}
+
+.row2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.row3,
+.slots {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* A choice (size, delivery, day, slot). Chosen: filled Ink with a check,
+   so it is never colour alone (P9). */
+.choice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 48px;
+  padding: 8px 4px;
+  border: 1px solid var(--sand);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.choice[aria-checked="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.choice:disabled {
+  border-color: var(--linen);
+  background: var(--linen);
+  cursor: not-allowed;
+}
+
+.choiceMain {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: var(--weight-semibold);
+}
+
+.choiceSub {
+  font-size: var(--text-sm);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 16 px text so iPhones do not zoom in on focus (brand guide). */
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid var(--sand);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--text-base);
+}
+
+#postnummer {
+  max-width: 160px;
+}
+
+.input[aria-invalid="true"] {
+  border: 2px solid var(--color-error);
+}
+
+.answer {
+  min-height: 1.55em;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.success {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-success);
+}
+
+.error {
+  color: var(--color-error);
+}
+
+.cta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.primary,
+.secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  border-radius: 4px;
+  font: inherit;
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primary {
+  border: 0;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.primary:disabled {
+  background: var(--linen);
+  color: var(--color-text);
+  cursor: not-allowed;
+}
+
+.secondary {
+  border: 1px solid var(--ink);
+  background: none;
+  color: var(--color-text);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.confirm,
+.sheet {
+  border: 0;
+  background: var(--paper);
+  color: var(--color-text);
+}
+
+.confirm {
+  width: calc(100% - 32px);
+  max-width: 420px;
+  padding: 24px 16px;
+  border-radius: 4px;
+}
+
+.confirm p {
+  margin: 12px 0 20px;
+}
+
+/* S5: a bottom sheet over the dimmed page. */
+.sheet {
+  width: 100%;
+  max-width: 100%;
+  margin: auto 0 0;
+  padding: 24px 16px 32px;
+}
+
+.sheet[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.confirm::backdrop,
+.sheet::backdrop {
+  background: rgb(45 42 38 / 45%);
+}
+
+.successTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-success);
+  font-weight: var(--weight-semibold);
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--linen);
+  font-weight: var(--weight-semibold);
+}

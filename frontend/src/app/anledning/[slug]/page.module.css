@@ -1,0 +1,20 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px 16px 40px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title h1 {
+  font-size: var(--text-2xl);
+}
+
+.soldOut {
+  font-weight: var(--weight-semibold);
+}
