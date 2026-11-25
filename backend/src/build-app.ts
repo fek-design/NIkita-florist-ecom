@@ -7,6 +7,8 @@ import { checkHealth } from "./lib/health.js";
 import { isAuthorisedJobCall } from "./lib/job-auth.js";
 import { registerPaymentRoutes } from "./payments/routes.js";
 import { registerCheckoutRoutes } from "./orders/checkout.js";
+import { expirePendingOrders } from "./orders/expire.js";
+import { registerOrderRoutes } from "./orders/routes.js";
 import { stripeProvider, type PaymentProvider } from "./payments/provider.js";
 import { ipCheckMode, type IpList } from "./payments/stripe-ips.js";
 
@@ -71,6 +73,7 @@ export function registerRoutes(
   app.get("/", async () => ({ service: "backend" }));
 
   registerCatalogRoutes(app, options.getDatabase ?? getDb, options.now);
+  registerOrderRoutes(app, options.getDatabase ?? getDb);
   const secretKey = process.env.STRIPE_SECRET_KEY ?? "";
   registerCheckoutRoutes(
     app,
@@ -119,6 +122,12 @@ export function registerRoutes(
   // once a day). Only callers holding JOB_SECRET may start a job.
   const jobs: Record<string, () => Promise<unknown>> = {
     ping: async () => ({ ok: true }),
+    "expire-orders": async () => ({
+      expired: await expirePendingOrders(
+        (options.getDatabase ?? getDb)(),
+        options.now?.() ?? new Date(),
+      ),
+    }),
   };
 
   app.post<{ Params: { name: string } }>(

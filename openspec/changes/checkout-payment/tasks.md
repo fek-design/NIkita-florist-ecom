@@ -19,8 +19,8 @@
 
 - [x] 4.1 `POST /checkout` (no payment method list in code, D-017): validate the form (email twice and matching, required fields per delivery or pickup, latest time only for Bisættelse), recompute the total, create the pending order, create the Checkout Session (30 min), return the redirect URL; verify route tests for valid, invalid, full day and past cut-off — *25 Nov: `backend/src/orders/checkout.ts` + `payments/provider.ts`; 13 tests (server price despite browser amounts, pickup, email mismatch, outside zone, Sunday and past cut-off, slot outside hours, full slot 409, payment page failure releases the place, not configured 503). Payment window 31 min, hold 33 (Stripe refuses exactly 30 a few seconds later). New setting `FRONTEND_URL`*
 - [x] 4.2 `POST /webhooks/stripe` (handle `checkout.session.completed` with payment status paid, `checkout.session.async_payment_succeeded`/`failed` for safety, `checkout.session.expired`, `charge.refunded`; receive them locally through the Stripe CLI): verify the signature, store the event id, set paid / expired / refunded; verify tests for forged, duplicate, paid, expired and refunded events — *25 Nov: route and event logic built with 9 tests (signed with Stripe's own test signer); payment intent id stored for refunds (migration 0006). Real event checked 25 Nov 20:23: `stripe trigger` → `stripe listen` → signature accepted (200) → recorded in `stripe_events`*
-- [ ] 4.3 Expiry job through `POST /jobs/expire-orders`: pending orders past their session become expired; verify with a test on a fixed clock
-- [ ] 4.4 `GET /orders/:token`: the confirmation data, nothing for an unknown token; verify route tests
+- [x] 4.3 Expiry job through `POST /jobs/expire-orders`: pending orders past their session become expired; verify with a test on a fixed clock — *25 Nov: `POST /jobs/expire-orders`, tested on a fixed clock (inside and after the hold, needs the job secret). Running it on a schedule is the GitHub Actions job from week 4 (D-012); until then Stripe's expiry webhook does the work*
+- [x] 4.4 `GET /orders/:token`: the confirmation data, nothing for an unknown token; verify route tests — *25 Nov: `GET /orders/:token`, never cached; a changed token gives 404 and the order number alone is refused (400)*
 
 - [ ] 4.5 Felix: in the Stripe dashboard (test now, the owner's account at hand-over) switch on only instant methods (MobilePay, cards incl. Apple Pay and Google Pay) and turn on two-factor sign-in; verify a test checkout shows only those
 - [x] 4.6 Second layer on the webhook (D-018): Stripe's published addresses, report mode by default; verify tests for report, enforce, Stripe's address, missing list and localhost, and one live fetch of the list — *25 Nov: 11 tests; the live list has 15 addresses*
@@ -40,6 +40,7 @@
 
 ## Workflow follow-up
 
+- Week 4: schedule `POST /jobs/expire-orders` from GitHub Actions every 15 minutes (D-012).
 - Hardening week (week 5): rate-limit `POST /checkout` (roadmap).
 - Hardening week (week 5): read the webhook logs for unknown callers; if there are no false alarms, set `STRIPE_WEBHOOK_IP_CHECK=enforce` in Vercel (D-018).
 
