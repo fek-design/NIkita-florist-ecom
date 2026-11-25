@@ -8,12 +8,40 @@
   background: var(--linen);
 }
 
+/* Skeleton wave (DD-26): a band of Paper light sliding across. Only
+   `transform` moves, so the browser does not repaint the page. */
+.frame::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgb(247 244 239 / 55%) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  animation: skeleton-wave 1.6s ease-in-out infinite;
+  content: "";
+}
+
+/* The photo is in: no more wave underneath it. */
+.frame[data-loaded]::before {
+  display: none;
+}
+
+@keyframes skeleton-wave {
+  to {
+    transform: translateX(100%);
+  }
+}
+
 .image {
   object-fit: cover;
 }
 
 /* Ink on Linen 9.8:1; supporting text stays Ink on Linen (DD-24). */
 .coming {
+  position: relative;
   color: var(--color-text);
   font-size: var(--text-sm);
 }

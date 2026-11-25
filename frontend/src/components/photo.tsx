@@ -1,10 +1,15 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import styles from "./photo.module.css";
 
 /**
- * A photo area that keeps its size while loading (DD-12: no jumps, Linen
- * behind). Without an owner photo it says one is coming (spec: placeholder
- * content is marked). Below the first screen the photo loads lazily.
+ * A photo area that keeps its size while loading (DD-12: no jumps). Until
+ * the photo has loaded, and where there is no owner photo yet, a light
+ * skeleton wave runs over the Linen (DD-26). It stops once the photo is in;
+ * with "reduce motion" the area stays plain Linen. Photos below the first
+ * screen load lazily (next/image default).
  */
 export function Photo({
   photo,
@@ -18,8 +23,13 @@ export function Photo({
   sizes: string;
   priority?: boolean;
 }) {
+  const [loaded, setLoaded] = useState(false);
   return (
-    <div className={styles.frame} style={{ aspectRatio: ratio }}>
+    <div
+      className={styles.frame}
+      style={{ aspectRatio: ratio }}
+      data-loaded={loaded || undefined}
+    >
       {photo ? (
         <Image
           src={photo.url}
@@ -28,6 +38,7 @@ export function Photo({
           sizes={sizes}
           priority={priority}
           className={styles.image}
+          onLoad={() => setLoaded(true)}
         />
       ) : (
         <span className={styles.coming}>Foto kommer</span>
