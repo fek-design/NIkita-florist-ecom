@@ -3,6 +3,7 @@
 // values (such as the daily capacity) can never leak into a response.
 import type { FastifyInstance } from "fastify";
 import { danishDate } from "../lib/danish-time.js";
+import { availableDates, loadDateRules } from "./dates.js";
 import {
   checkPostcode,
   getDeliveryRules,
@@ -201,6 +202,37 @@ export function registerCatalogRoutes(
       const rules = await getDeliveryRules(getDatabase(), danishDate(now()));
       if (!rules) return reply.code(503).send(settingsMissing);
       return reply.header("Cache-Control", PUBLIC_CACHE).send(rules);
+    },
+  );
+
+  // Dates change at the cut-off, so the cache is short; checkout checks the
+  // chosen date again in any case.
+  app.get(
+    "/delivery/dates",
+    {
+      schema: {
+        response: {
+          200: {
+            type: "object",
+            required: ["dates"],
+            properties: {
+              dates: {
+                type: "array",
+                items: { type: "string", format: "date" },
+              },
+            },
+          },
+          503: notFound,
+        },
+      },
+    },
+    async (_request, reply) => {
+      const at = now();
+      const rules = await loadDateRules(getDatabase(), at);
+      if (!rules) return reply.code(503).send(settingsMissing);
+      return reply
+        .header("Cache-Control", "public, s-maxage=60")
+        .send({ dates: availableDates(rules, at) });
     },
   );
 

@@ -16,8 +16,8 @@
 
 ## 2. Backend: available dates
 
-- [ ] 2.1 Write the available-dates function (Danish time, weekdays, closed dates, cut-off, 60 days) with unit tests on a fixed clock; verify the four spec scenarios
-- [ ] 2.2 Add `GET /delivery/dates` with a response schema and a route test; verify the response holds only dates and no capacity
+- [x] 2.1 Write the available-dates function (Danish time, weekdays, closed dates, cut-off, 60 days) with unit tests on a fixed clock; verify the four spec scenarios — *25 Nov: `backend/src/catalog/dates.ts`, one implementation shared with checkout (`isAvailableDate`); 7 tests incl. the four scenarios, exactly at the cut-off, and Danish vs UTC midnight*
+- [x] 2.2 Add `GET /delivery/dates` with a response schema and a route test; verify the response holds only dates and no capacity — *25 Nov: `GET /delivery/dates`, response holds only `dates`; cached 60 s, checkout re-checks the date*
 
 ## 3. Layout and front page
 

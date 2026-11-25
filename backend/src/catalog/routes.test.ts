@@ -184,3 +184,27 @@ describe("server errors", () => {
     expect(res.body).not.toMatch(/select|shop_settings|hunter2/);
   });
 });
+
+describe("GET /delivery/dates", () => {
+  // The shared app runs at 10:00 Danish time on Thursday 19 Nov 2026.
+  it("lists dates from today, without closed dates or capacity", async () => {
+    await db
+      .insert(closedDates)
+      .values({ date: "2026-11-20", reason: "Lukket" });
+    const res = await app.inject({ method: "GET", url: "/delivery/dates" });
+    expect(res.statusCode).toBe(200);
+    expect(res.headers["cache-control"]).toBe("public, s-maxage=60");
+    const body = res.json();
+    // Only dates: no capacity or count of any kind.
+    expect(Object.keys(body)).toEqual(["dates"]);
+    expect(body.dates[0]).toBe("2026-11-19");
+    expect(body.dates).not.toContain("2026-11-20");
+    expect(body.dates).not.toContain("2026-11-22"); // Sunday
+  });
+
+  it("answers 503 without shop settings", async () => {
+    await db.delete(shopSettings);
+    const res = await app.inject({ method: "GET", url: "/delivery/dates" });
+    expect(res.statusCode).toBe(503);
+  });
+});
