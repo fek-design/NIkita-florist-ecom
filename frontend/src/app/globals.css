@@ -52,6 +52,12 @@ img {
   box-shadow: var(--focus-ring);
 }
 
+/* Jump targets (#kontakt, #besoeg, #indhold) land below the sticky navbar
+   instead of under it (DD-27). */
+[id] {
+  scroll-margin-top: 80px;
+}
+
 /* For screen readers only. */
 .visually-hidden {
   position: absolute;

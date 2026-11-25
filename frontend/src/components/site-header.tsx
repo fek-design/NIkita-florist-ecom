@@ -9,7 +9,7 @@ import styles from "./site-header.module.css";
 /**
  * The navbar (hi-fi S1): menu, the half-moon logo at the brand's 110 px
  * minimum (DD-09), and the basket with its count. 72 px high so the logo
- * fits; every target 44 px.
+ * fits; every target 44 px. Sticky, so it stays in reach (DD-27).
  */
 export async function SiteHeader() {
   const occasions = await getOccasionLinks();

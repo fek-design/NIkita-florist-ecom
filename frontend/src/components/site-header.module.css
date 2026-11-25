@@ -1,4 +1,8 @@
+/* Sticky (DD-27): the menu and basket stay in reach while scrolling. */
 .bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: space-between;
