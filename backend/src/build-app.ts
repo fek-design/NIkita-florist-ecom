@@ -8,6 +8,8 @@ import { isAuthorisedJobCall } from "./lib/job-auth.js";
 import { registerPaymentRoutes } from "./payments/routes.js";
 import { registerCheckoutRoutes } from "./orders/checkout.js";
 import { expirePendingOrders } from "./orders/expire.js";
+import { sendPaidOrderEmails, type Mailer } from "./email/order-emails.js";
+import { smtpMailer, smtpSettingsFromEnv } from "./email/mailer.js";
 import { registerOrderRoutes } from "./orders/routes.js";
 import { stripeProvider, type PaymentProvider } from "./payments/provider.js";
 import { ipCheckMode, type IpList } from "./payments/stripe-ips.js";
@@ -34,6 +36,10 @@ export type AppOptions = {
   paymentProvider?: PaymentProvider | null;
   /** The shop's address for Stripe's return links; FRONTEND_URL. */
   frontendUrl?: string;
+  /** Replaced in tests; by default SMTP from the SMTP_* variables. */
+  mailer?: Mailer | null;
+  /** Where order slips go; OWNER_EMAIL. */
+  ownerEmail?: string;
 };
 
 /**
@@ -98,7 +104,24 @@ export function registerRoutes(
     {
       webhookSecret:
         options.stripeWebhookSecret ?? process.env.STRIPE_WEBHOOK_SECRET ?? "",
-      onPaid: options.onPaid,
+      onPaid:
+        options.onPaid ??
+        (async (ids) => {
+          const smtp = smtpSettingsFromEnv();
+          const mailer =
+            options.mailer !== undefined
+              ? options.mailer
+              : smtp
+                ? smtpMailer(smtp)
+                : null;
+          await sendPaidOrderEmails(
+            (options.getDatabase ?? getDb)(),
+            mailer,
+            ids,
+            { ownerEmail: options.ownerEmail ?? process.env.OWNER_EMAIL ?? "" },
+            options.now?.() ?? new Date(),
+          );
+        }),
       ipCheck:
         options.stripeIpCheck ??
         ipCheckMode(process.env.STRIPE_WEBHOOK_IP_CHECK),

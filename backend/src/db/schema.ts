@@ -18,6 +18,7 @@ import {
   text,
   time,
   timestamp,
+  unique,
 } from "drizzle-orm/pg-core";
 
 /** Postgres orders enum values as declared, so lille < mellem < stor. */
@@ -288,3 +289,36 @@ export const stripeEvents = pgTable("stripe_events", {
 
 export type OrderSource = (typeof orderSource.enumValues)[number];
 export type PaymentState = (typeof paymentState.enumValues)[number];
+
+// ---------------------------------------------------------------------------
+// Email outbox (D-011): every email is written here first. One confirmation
+// and one slip per order, enforced by the database, so a repeated payment
+// event can never send twice. Week 4's job retries what failed.
+
+export const emailKind = pgEnum("email_kind", ["confirmation", "owner_slip"]);
+export const emailStatus = pgEnum("email_status", [
+  "pending",
+  "sent",
+  "failed",
+]);
+
+export const emailOutbox = pgTable(
+  "email_outbox",
+  {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    orderId: integer()
+      .notNull()
+      .references(() => orders.id, { onDelete: "cascade" }),
+    kind: emailKind().notNull(),
+    toAddress: text().notNull(),
+    subject: text().notNull(),
+    html: text().notNull(),
+    text: text().notNull(),
+    status: emailStatus().notNull().default("pending"),
+    attempts: smallint().notNull().default(0),
+    lastError: text(),
+    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+    sentAt: timestamp({ withTimezone: true }),
+  },
+  (t) => [unique("email_outbox_one_per_kind").on(t.orderId, t.kind)],
+);

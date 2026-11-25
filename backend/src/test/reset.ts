@@ -6,7 +6,7 @@ type TestDb = ReturnType<typeof connectTestDatabase>["db"];
 /** Empties every catalogue and order table, so each test starts from nothing. */
 export async function resetCatalog(db: TestDb) {
   await db.execute(
-    sql`truncate orders, order_lines, stripe_events, occasions, occasion_tiers, occasion_photos, delivery_postcodes, closed_dates, shop_settings restart identity cascade`,
+    sql`truncate email_outbox, orders, order_lines, stripe_events, occasions, occasion_tiers, occasion_photos, delivery_postcodes, closed_dates, shop_settings restart identity cascade`,
   );
 }
 

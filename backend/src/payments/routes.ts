@@ -83,7 +83,13 @@ export function registerPaymentRoutes(
         now(),
       );
       if (outcome.paidOrderIds.length > 0 && options.onPaid) {
-        await options.onPaid(outcome.paidOrderIds);
+        // The order is already paid and the event recorded. If emails fail
+        // here, they wait in the outbox; Stripe must still get its 200.
+        try {
+          await options.onPaid(outcome.paidOrderIds);
+        } catch (error) {
+          request.log.error({ err: error }, "paid order: emails failed");
+        }
       }
       return reply.send({ received: true, duplicate: outcome.duplicate });
     });

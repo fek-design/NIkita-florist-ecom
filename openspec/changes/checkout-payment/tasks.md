@@ -26,7 +26,7 @@
 - [x] 4.6 Second layer on the webhook (D-018): Stripe's published addresses, report mode by default; verify tests for report, enforce, Stripe's address, missing list and localhost, and one live fetch of the list — *25 Nov: 11 tests; the live list has 15 addresses*
 ## 5. Emails
 
-- [ ] 5.1 Confirmation email to the buyer (S8 content) and slip email to the owner (P1 layout), sent once when an order turns paid; verify in Mailpit locally and with a test that a duplicate webhook sends nothing
+- [x] 5.1 Confirmation email to the buyer (S8 content) and slip email to the owner (P1 layout), sent once when an order turns paid; verify in Mailpit locally and with a test that a duplicate webhook sends nothing — *25 Nov: outbox table (D-011; one email per order and kind, enforced by the database), immediate send over SMTP, failures kept for week 4's retry job; customer text escaped in HTML; 8 tests incl. webhook to outbox with a repeated event; both emails checked in Mailpit over real SMTP, images in `docs/design/implemented/`*
 
 ## 6. Frontend (after the storefront cart exists)
 

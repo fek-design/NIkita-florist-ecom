@@ -75,7 +75,7 @@ Rejected: backend nested inside the Next.js root (overlapping `package.json` tre
 
 ### D-011 Email: SMTP out, IMAP in, through a mailbox
 Date: 2026-11-16, updated 2026-11-17 · Change: email change (weeks 3–4) · Status: conditional (mailbox provider not chosen)
-Decision: The backend sends over authenticated SMTP and reads over IMAP. Plain SMTP's weak points are covered in our own code: an outbox table logs every message, a scheduled job sends at a steady rate and retries, and IMAP reads bounce messages back. IMAP is also used later for customer replies and orders sent by email. Locally, Mailpit catches all mail.
+Decision: The backend sends over authenticated SMTP and reads over IMAP. *(25 Nov: the outbox table and the first sending, for paid orders, built in change checkout-payment; the retry job and IMAP follow in week 4.)* Plain SMTP's weak points are covered in our own code: an outbox table logs every message, a scheduled job sends at a steady rate and retries, and IMAP reads bounce messages back. IMAP is also used later for customer replies and orders sent by email. Locally, Mailpit catches all mail.
 Why: Felix's choice; the case names email "via SMTP/API". Running it ourselves is good exam material and keeps mail in a mailbox the shop controls.
 Rejected: a vendor email API (D-005); running our own mail server (new servers usually cannot send on port 25, and self-run servers rarely reach inboxes); Simply.com mail (Felix: Simply was considered for hosting only).
 
@@ -155,11 +155,13 @@ Roadmap rule 8: each package needs a reason.
 | `fastify` | runtime | The API framework (D-009) |
 | `drizzle-orm` | runtime | Typed SQL queries (D-002) |
 | `postgres` | runtime | Postgres driver used by Drizzle (D-002) |
+| `nodemailer` | runtime | Sends email over SMTP through the shop's mailbox (D-011). Added 25 Nov; MIT-0; `npm audit --omit=dev` 0 vulnerabilities |
 | `stripe` | runtime | Stripe's server library: Checkout Sessions, webhook signature checks (D-016). Added 25 Nov; `npm audit --omit=dev` 0 vulnerabilities |
 | `typescript`, `@types/node` | dev | Type checking and the production build |
 | `tsx` | dev | Runs the TypeScript server directly in development, restarting on change |
 | `eslint`, `typescript-eslint`, `eslint-config-prettier` | dev | Lint rules for TypeScript |
 | `vitest` | dev | Unit tests, including route tests with `app.inject()` |
+| `@types/nodemailer` | dev | Types for nodemailer |
 | `drizzle-kit` | dev | Generates and runs migrations |
 
 Audit on 2026-11-17: `npm audit --omit=dev` reports 0 vulnerabilities. CI fails on any high or critical finding in production dependencies.
