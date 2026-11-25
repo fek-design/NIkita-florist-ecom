@@ -5,7 +5,7 @@ API-driven full-stack webshop for a local Danish florist that today sells only t
 - Case: [ref/Case Synopsis - Felix.md](ref/Case%20Synopsis%20-%20Felix.md)
 - Plan and working rules: [ref/Roadmap.md](ref/Roadmap.md)
 - Why we design the way we do: [ref/Design-Rationale.md](ref/Design-Rationale.md)
-- Changes are planned in OpenSpec (`openspec/`). Use `/opsx:propose` before larger work.
+- Changes are planned in OpenSpec (`openspec/`). **Never start a new feature without `/opsx:explore` first** (Felix, 25 Nov): explore the problem with Felix, then `/opsx:propose`, then build. Fixes and docs-only work are exempt.
 
 ## Branches
 

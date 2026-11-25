@@ -6,6 +6,7 @@ How the florist webshop was made, condensed so the next project can start from i
 
 ## 0. The ground rules (put these in CLAUDE.md on day 1)
 
+1. **Every new feature starts with `/opsx:explore`**, then `/opsx:propose`, then the build.
 1. **Design decisions are mine.** Claude proposes, with evidence; I choose and say why. Claude never settles a key choice alone.
 2. **Everything is written down as it happens:** a process note per piece of work, a decision log, a changelog per design version. Dead ends stay in; nothing is rewritten to look planned.
 3. **Nothing is deleted.** A new version is added beside the old one.
