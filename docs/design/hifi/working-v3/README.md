@@ -5,3 +5,4 @@ Changes made after v2, before the owner's first test. Frozen as v3 with its chan
 | Where | v2 | v3 | Caused by |
 |---|---|---|---|
 | All screens | Descriptions, hints and meta text in Ink | In Sand (`--color-text-muted`), except on Linen panels | Owner's wish for simple, via Felix (DD-24) |
+| Photo areas | Plain Linen with "Foto kommer" | Light skeleton wave while loading or missing, off with reduced motion | Felix (DD-26) |
