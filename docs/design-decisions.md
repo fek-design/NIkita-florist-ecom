@@ -178,3 +178,10 @@ Decision: In checkout (S7) the email gets a typo suggestion ("Mente du …@gmail
 Trade-off, stated honestly: the repeat field adds one field. A normal delivery has 8 fields and Bisættelse 9, one over Baymard's guide figure of about eight; Baymard advises against confirmation fields because people paste the first into the second.
 Rejected: typo suggestion and summary only (Claude's recommendation); the repeat field only.
 Test: in the usability test, time on the checkout form and whether anyone pastes into the repeat field; count bounced confirmation emails after launch.
+
+### DD-26 A light skeleton wave on photo areas
+Date: 2026-11-25 · Principles: P7 (light; no layout shift), P9 (reduced motion respected) · Evidence grade: C
+Decision: While a photo loads, and where no owner photo exists yet, a soft band of Paper light slides across the Linen photo area. It stops when the photo has loaded and is off for visitors who ask for reduced motion. Felix's call ("very lightweight").
+Trade-off, stated honestly: on areas with no photo yet the wave keeps running next to "Foto kommer", which reads a little like loading; the text keeps it clear. All areas are like this until the owner's photos arrive.
+Rejected: plain Linen only (DD-12 as first built).
+Test: Lighthouse layout shift stays under 0.1; in the usability test, nobody waits for a photo that is not coming.
