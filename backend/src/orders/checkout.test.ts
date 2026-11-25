@@ -1,12 +1,11 @@
 // POST /checkout over HTTP, against the seeded test database, with a fake
 // payment provider (the real one is tested by hand in test mode, task 2.1).
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
-import { eq } from "drizzle-orm";
 import { buildApp } from "../build-app.js";
 import { connectTestDatabase } from "../test/test-database.js";
 import { resetCatalog } from "../test/reset.js";
 import { seed } from "../db/seed.js";
-import { occasions, orderLines, orders, shopSettings } from "../db/schema.js";
+import { orderLines, orders, shopSettings } from "../db/schema.js";
 import type { PaymentProvider, SessionRequest } from "../payments/provider.js";
 import { checkForm, type CheckoutBody } from "./checkout.js";
 
@@ -36,23 +35,17 @@ const app = buildApp({
   getStripeIps: async () => null,
 });
 
-let bisaettelse: number;
 beforeEach(async () => {
   sessions.length = 0;
   failNext = false;
   await resetCatalog(db);
   await seed(db);
-  const [row] = await db
-    .select()
-    .from(occasions)
-    .where(eq(occasions.slug, "bisaettelse"));
-  bisaettelse = row!.id;
 });
 
 const delivery = (overrides: Partial<CheckoutBody> = {}): CheckoutBody => ({
   items: [
     {
-      occasionId: bisaettelse,
+      slug: "bisaettelse",
       tier: "mellem",
       quantity: 1,
       cardMessage: "Kh. familien",
@@ -148,6 +141,15 @@ describe("POST /checkout", () => {
     expect(res.statusCode).toBe(422);
     expect(codes(res)).toContain("email_mismatch");
     expect(await db.select().from(orders)).toHaveLength(0);
+  });
+
+  it("refuses an unknown occasion by its slug", async () => {
+    const res = await post(
+      delivery({
+        items: [{ slug: "findes-ikke", tier: "mellem", quantity: 1 }],
+      }),
+    );
+    expect(codes(res)).toContain("unknown_occasion");
   });
 
   it("refuses a delivery outside the zone and offers the reason", async () => {

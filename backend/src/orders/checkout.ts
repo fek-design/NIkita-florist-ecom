@@ -3,10 +3,10 @@
 // payment session. The browser is sent to the session's URL.
 import { randomBytes } from "node:crypto";
 import type { FastifyInstance } from "fastify";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import type { Db } from "../catalog/queries.js";
 import { isAvailableDate, loadDateRules } from "../catalog/dates.js";
-import { orders } from "../db/schema.js";
+import { occasions, orders } from "../db/schema.js";
 import type { PaymentProvider } from "../payments/provider.js";
 import { placeOrder } from "./capacity.js";
 import { getPickupSlots } from "./pickup-slots.js";
@@ -18,7 +18,8 @@ import {
 
 export type CheckoutBody = {
   items: {
-    occasionId: number;
+    /** The occasion's public name in addresses; internal ids stay internal. */
+    slug: string;
     tier: "lille" | "mellem" | "stor";
     quantity: number;
     cardMessage?: string;
@@ -57,10 +58,14 @@ const bodySchema = {
       maxItems: 20,
       items: {
         type: "object",
-        required: ["occasionId", "tier", "quantity"],
+        required: ["slug", "tier", "quantity"],
         additionalProperties: false,
         properties: {
-          occasionId: { type: "integer" },
+          slug: {
+            type: "string",
+            pattern: "^[a-z0-9]+(-[a-z0-9]+)*$",
+            maxLength: 80,
+          },
           tier: { enum: ["lille", "mellem", "stor"] },
           quantity: { type: "integer" },
           cardMessage: { type: "string", maxLength: 400 },
@@ -144,8 +149,24 @@ export function registerCheckoutRoutes(
       const db = getDatabase();
 
       const problems: CheckoutProblem[] = checkForm(body);
+      // Slugs to internal ids; an unknown slug becomes id 0, which pricing
+      // reports as an unknown occasion on the right line.
+      const slugs = [...new Set(body.items.map((i) => i.slug))];
+      const found =
+        slugs.length === 0
+          ? []
+          : await db
+              .select({ id: occasions.id, slug: occasions.slug })
+              .from(occasions)
+              .where(inArray(occasions.slug, slugs));
+      const idBySlug = new Map(found.map((o) => [o.slug, o.id]));
       const pricingRequest = {
-        items: body.items,
+        items: body.items.map((item) => ({
+          occasionId: idBySlug.get(item.slug) ?? 0,
+          tier: item.tier,
+          quantity: item.quantity,
+          cardMessage: item.cardMessage,
+        })),
         fulfilment: body.fulfilment,
         postcode: body.postcode,
       };

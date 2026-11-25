@@ -190,5 +190,5 @@ Test: Lighthouse layout shift stays under 0.1; in the usability test, nobody wai
 Date: 2026-11-25 · Principles: P1 (phone: menu and basket in reach) · Evidence grade: C
 Decision: The navbar is sticky: it stays at the top of the screen while the page scrolls, so the menu and the basket are always one tap away. Links that jump within a page land below it. Felix's call.
 Trade-off: it takes 72 px of the screen at all times (about 9 % of an 844 px phone screen, less of the visible area in Safari or Instagram).
-Rejected: a navbar that scrolls away with the page (as built first); one that hides on scroll down and returns on scroll up (more motion and code, Felix asked for sticky).
+Rejected: a navbar that scrolls away with the page (as built first); one that hides on scroll down and returns on scroll up (Felix: elderly visitors "lose it" when it disappears, and the shop's buyers include older gift senders; also more motion and code).
 Test: in the usability test, can people reach the basket from the bottom of a long page without scrolling back up?
