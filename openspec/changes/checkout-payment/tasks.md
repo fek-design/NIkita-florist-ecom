@@ -11,7 +11,7 @@
 ## 3. Orders and capacity
 
 - [x] 3.1 Migration: `orders` (public number, private token, source, payment state, buyer, recipient, not-home choice, latest time, delivery or pickup, date, slot, fee, total, Stripe session and event ids) and `order_lines` (occasion, tier, quantity, unit price); verify the migration applies on a fresh database and on staging's — *25 Nov: `orders`, `order_lines`, `stripe_events` with the rules as database checks (web needs email and Stripe; phone is pickup only; delivery needs recipient and not-home; pickup needs a slot; latest time only on delivery; pending needs a hold; card message ≤ 200); 13 tests on a fresh test database; applied to the local database. Staging gets it on the next deploy*
-- [ ] 3.2 Price calculation from the catalogue and delivery rules in øre; verify with unit tests, including a tampered client price
+- [x] 3.2 Price calculation from the catalogue and delivery rules in øre; verify with unit tests, including a tampered client price — *25 Nov: `backend/src/orders/pricing.ts`, a pure function plus a loader; 10 tests incl. a tampered price and total, one fee per order, pickup without fee, outside the zone, sold out, hidden, bad quantities, card message > 200*
 - [ ] 3.3 Capacity counting with pending holds: day capacity and pickup slot capacity, checked and inserted in one transaction; verify with integration tests for "last place" and two concurrent requests
 - [ ] 3.4 Pickup slots in the catalogue: opening hours and pickups per slot in shop settings (placeholders 10–17 and 4), `GET /pickup/slots?date=`; verify the spec scenarios with route tests
 
