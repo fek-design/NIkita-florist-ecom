@@ -5,6 +5,7 @@ import type { Db } from "./catalog/queries.js";
 import { getDb } from "./db/index.js";
 import { checkHealth } from "./lib/health.js";
 import { isAuthorisedJobCall } from "./lib/job-auth.js";
+import { registerPaymentRoutes } from "./payments/routes.js";
 
 export type AppOptions = {
   logger?: boolean;
@@ -16,6 +17,10 @@ export type AppOptions = {
   getDatabase?: () => Db;
   /** Replaced in tests to fix "today"; by default the current time. */
   now?: () => Date;
+  /** Replaced in tests; by default read from STRIPE_WEBHOOK_SECRET. */
+  stripeWebhookSecret?: string;
+  /** Called with orders that became paid; emails hook in here (task 5.1). */
+  onPaid?: (orderIds: number[]) => Promise<void>;
 };
 
 /**
@@ -55,6 +60,16 @@ export function registerRoutes(
   app.get("/", async () => ({ service: "backend" }));
 
   registerCatalogRoutes(app, options.getDatabase ?? getDb, options.now);
+  registerPaymentRoutes(
+    app,
+    options.getDatabase ?? getDb,
+    {
+      webhookSecret:
+        options.stripeWebhookSecret ?? process.env.STRIPE_WEBHOOK_SECRET ?? "",
+      onPaid: options.onPaid,
+    },
+    options.now,
+  );
 
   app.get("/health", async (request, reply) => {
     const result = await checkHealth(pingDatabase, (message) =>

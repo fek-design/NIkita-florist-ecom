@@ -203,6 +203,8 @@ export const orders = pgTable(
     totalOere: integer().notNull(),
 
     stripeSessionId: text().unique(),
+    /** Set when paid; refunds from Stripe refer to the payment, not the session. */
+    stripePaymentIntentId: text().unique(),
     /** While pending: the order holds capacity until this moment. */
     holdExpiresAt: timestamp({ withTimezone: true }),
     paidAt: timestamp({ withTimezone: true }),

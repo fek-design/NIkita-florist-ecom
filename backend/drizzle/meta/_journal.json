@@ -43,6 +43,13 @@
       "when": 1795602226001,
       "tag": "0005_placeholder_opening_hours",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1795602978238,
+      "tag": "0006_payment_intent",
+      "breakpoints": true
     }
   ]
 }
