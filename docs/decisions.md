@@ -110,6 +110,13 @@ Decision: Payment runs on Stripe's hosted Checkout page (MobilePay and cards), r
 Why: Felix, 25 Nov. Stripe is acquirer and gateway in one contract, has no monthly fee, offers MobilePay, and its test mode covers webhooks and failures, which matters in the riskiest week of the plan. The hosted page keeps card data off our servers and needs the least UI work.
 Rejected: Stripe Payment Element embedded in our page (more payment states to build now; possible later); the Vipps MobilePay ePayment API directly (MobilePay only, a second integration for cards); QuickPay (needs a separate acquirer agreement and a monthly fee). The payment code sits behind a small module so a later switch does not touch the rest.
 
+### D-017 Payment methods are chosen in the Stripe dashboard, instant ones only
+Date: 2026-11-25 · Status: locked
+Decision: The code does not list payment methods; Stripe's dashboard decides which ones the checkout page shows ("dynamic payment methods", as stripe-best-practices advises). In the dashboard only methods that are confirmed at once are switched on: MobilePay and cards (Apple Pay and Google Pay are cards). Felix, 25 Nov: "as long as it has no vulnerabilities; give a user access to what they need and nothing more".
+Why: the owner can switch methods on and off herself without code (DD-23). It adds no attack surface on our side: the payment page is Stripe's, and our key's permissions stay the four from 25 Nov.
+Rule for the dashboard: no delayed methods (bank debits, invoices, pay-later that settles later). A same-day bouquet cannot wait days for a payment to settle; the webhook handles delayed methods correctly, but the shop could not use them. Whoever holds the Stripe login (Felix now, the owner at hand-over) uses two-factor sign-in.
+Rejected: listing `allowed_payment_method_types` in code (MobilePay and card only), used in the 25 Nov payment test.
+
 ---
 
 ## Dependencies

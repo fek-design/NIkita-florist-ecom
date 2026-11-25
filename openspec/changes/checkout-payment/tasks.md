@@ -17,11 +17,12 @@
 
 ## 4. Checkout and payment
 
-- [ ] 4.1 `POST /checkout`: validate the form (email twice and matching, required fields per delivery or pickup, latest time only for Bisættelse), recompute the total, create the pending order, create the Checkout Session (30 min), return the redirect URL; verify route tests for valid, invalid, full day and past cut-off
+- [ ] 4.1 `POST /checkout` (no payment method list in code, D-017): validate the form (email twice and matching, required fields per delivery or pickup, latest time only for Bisættelse), recompute the total, create the pending order, create the Checkout Session (30 min), return the redirect URL; verify route tests for valid, invalid, full day and past cut-off
 - [ ] 4.2 `POST /webhooks/stripe` (handle `checkout.session.completed` with payment status paid, `checkout.session.async_payment_succeeded`/`failed` for safety, `checkout.session.expired`, `charge.refunded`; receive them locally through the Stripe CLI): verify the signature, store the event id, set paid / expired / refunded; verify tests for forged, duplicate, paid, expired and refunded events — *25 Nov: route and event logic built with 9 tests (signed with Stripe's own test signer); payment intent id stored for refunds (migration 0006). Still open: one real event through `stripe listen` locally*
 - [ ] 4.3 Expiry job through `POST /jobs/expire-orders`: pending orders past their session become expired; verify with a test on a fixed clock
 - [ ] 4.4 `GET /orders/:token`: the confirmation data, nothing for an unknown token; verify route tests
 
+- [ ] 4.5 Felix: in the Stripe dashboard (test now, the owner's account at hand-over) switch on only instant methods (MobilePay, cards incl. Apple Pay and Google Pay) and turn on two-factor sign-in; verify a test checkout shows only those
 ## 5. Emails
 
 - [ ] 5.1 Confirmation email to the buyer (S8 content) and slip email to the owner (P1 layout), sent once when an order turns paid; verify in Mailpit locally and with a test that a duplicate webhook sends nothing
