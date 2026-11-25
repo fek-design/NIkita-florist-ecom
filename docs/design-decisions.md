@@ -192,3 +192,11 @@ Decision: The navbar is sticky: it stays at the top of the screen while the page
 Trade-off: it takes 72 px of the screen at all times (about 9 % of an 844 px phone screen, less of the visible area in Safari or Instagram).
 Rejected: a navbar that scrolls away with the page (as built first); one that hides on scroll down and returns on scroll up (Felix: elderly visitors "lose it" when it disappears, and the shop's buyers include older gift senders; also more motion and code).
 Test: in the usability test, can people reach the basket from the bottom of a long page without scrolling back up?
+
+### DD-28 A layout grid and 8 px spacing, for phone, tablet and desktop
+Date: 2026-11-25 · Principles: P1 (mobile first, not mobile only), P11 (one system, fewer stray values) · Evidence grade: B (Material Design 3 window size classes and layout grid; 8-point spacing as used by Material and Shopify Polaris)
+Decision: Phone under 600 px: 4 columns, 16 px margins and gutters. Tablet 600–1199 px: 8 columns, 32 px margins, 24 px gutters. Desktop from 1200 px: 12 columns of 72 px with 24 px gutters, 1128 px in all, centred. Layout spacing uses steps of 8 (tokens `--space-1` to `--space-10`); inside a single small part (button, row, badge, input) half steps of 4 are allowed. Coloured bands (footer, navbar) stay full width; their content keeps to the grid. Running text is capped at about 70 characters (`--measure`) where desktop layouts are built. Felix's call ("divisible by 8"; "we shouldn't neglect the desktop and tablet").
+Follows from it on the phone: the card gap from the Figma frame (10 px) became 16 px, and a handful of 10, 12, 20 and 2 px gaps moved to the nearest step.
+Rejected: 16 desktop columns so that column counts are divisible by 8 too (fiddly, unusual); a narrower 936 px desktop; an extra step for small laptops.
+Next: tablet and desktop frames for S1, S3, S4 and S6/S7 in Figma, each element citing its pattern, for Felix to review before they are built.
+Test: no horizontal scroll and content edges on the grid at 390, 768, 1280 and 1600 px (checked 25 Nov); in the usability test, one session on a laptop.

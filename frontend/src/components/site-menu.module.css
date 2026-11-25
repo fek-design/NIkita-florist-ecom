@@ -32,14 +32,14 @@
   align-items: center;
   justify-content: space-between;
   height: 72px;
-  padding: 0 8px;
+  padding: 0 max(var(--space-1), calc(var(--page-inline) - 8px));
   border-bottom: 1px solid var(--linen);
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  padding: 24px 16px;
+  padding: var(--space-3) var(--page-inline);
 }
 
 .label {

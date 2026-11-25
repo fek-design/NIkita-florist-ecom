@@ -1,5 +1,5 @@
 /*
- * Nikita Nielsen: brand tokens. The single source for colour and type.
+ * Nikita Nielsen: brand tokens. The single source for colour, type, spacing and the layout grid.
  * The brand board reads these; the frontend will import them.
  * Change a value here, then run `node ref/brand/scripts/contrast.mjs`
  * to regenerate the pairing table in ref/brand/contrast.md.
@@ -81,4 +81,46 @@
 
   --leading-tight: 1.15; /* headings */
   --leading-body: 1.55; /* body text */
+
+  /* Spacing (DD-28): layout spacing in steps of 8. Inside a single small
+     part (a button, a row, a badge) half steps of 4 are allowed. */
+  --space-half: 4px;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-10: 80px;
+
+  /* Layout grid (DD-28, after Material Design 3's window size classes,
+     rounded to 8). Phone under 600 px: 4 columns. Tablet 600-1199 px:
+     8 columns. Desktop from 1200 px: 12 columns of 72 with gutters of 24,
+     1128 px in all. The overrides follow below this block. */
+  --grid-columns: 4;
+  --grid-margin: 16px;
+  --grid-gutter: 16px;
+  --content-max: 1128px;
+  /* Side padding that keeps a full-width band's content on the grid. */
+  --page-inline: max(
+    var(--grid-margin),
+    calc((100% - var(--content-max)) / 2)
+  );
+  /* Readable line length for running text, about 70 characters. */
+  --measure: 36rem;
+}
+
+@media (min-width: 600px) {
+  :root {
+    --grid-columns: 8;
+    --grid-margin: 32px;
+    --grid-gutter: 24px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --grid-columns: 12;
+  }
 }

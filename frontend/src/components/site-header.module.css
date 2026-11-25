@@ -7,7 +7,9 @@
   align-items: center;
   justify-content: space-between;
   height: 72px;
-  padding: 0 8px;
+  /* The 28 px icon sits centred in a 44 px target, 8 px in from its
+     edge, so the icon lines up with the page's content edge. */
+  padding: 0 max(var(--space-1), calc(var(--page-inline) - 8px));
   border-bottom: 1px solid var(--linen);
   background: var(--color-bg);
 }

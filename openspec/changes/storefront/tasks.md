@@ -32,6 +32,12 @@
 - [x] 4.2 Build "Hvornår og hvor?": the delivery facts in plain words from `/api/delivery` (DD-14), delivery or pickup, postcode check through `/api` showing the fee, date buttons from `/api/delivery/dates`, card message with a 200-character counter; verify 4300, 8000 and that only offered dates can be chosen
 - [x] 4.3 Add to cart, including the confirm step when the order's delivery would change; verify the button is disabled until tier, delivery and date are chosen
 
+## G. Layout grid for phone, tablet and desktop (DD-28, 25 Nov)
+
+- [x] G.1 Add the spacing scale and the layout grid (4 / 8 / 12 columns, 1128 px max) to the brand tokens and the frontend copy; extend the drift test to the tablet and desktop values; move off-grid spacings onto the steps; verify content and header icons sit on the grid edge at 390, 768, 1280 and 1600 px with no horizontal scroll — *25 Nov: content edges 16 / 32 / 76 / 236 px, icons aligned, scroll width equal to the window at all four; "before" images `docs/design/implemented/2026-11-25-grid-before-*.png`*
+- [ ] G.2 Draw tablet and desktop frames for S1, S3, S4 and S6/S7 in Figma on the 12-column grid, each element citing its pattern; verify Felix has reviewed them
+- [ ] G.3 Build the reviewed tablet and desktop layouts; verify screenshots at 768 and 1280 px against the frames
+
 ## 5. Cart
 
 - [ ] 5.1 Write the cart store (versioned `localStorage`, `useSyncExternalStore`, fallback when storage fails) and `formatKroner` with unit tests; verify add, quantity, remove, one delivery and the storage fallback

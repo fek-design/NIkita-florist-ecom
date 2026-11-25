@@ -1,8 +1,8 @@
 .featured {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 16px 16px 24px;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--page-inline) var(--space-3);
 }
 
 .intro {
@@ -42,8 +42,8 @@
 .occasions {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 8px 16px 32px;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--page-inline) var(--space-4);
 }
 
 .occasions h2,
@@ -55,7 +55,7 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px 10px;
+  gap: var(--space-3) var(--grid-gutter);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -63,8 +63,8 @@
 
 .visit {
   display: flex;
-  gap: 16px;
-  padding: 24px 16px 32px;
+  gap: var(--grid-gutter);
+  padding: var(--space-3) var(--page-inline) var(--space-4);
 }
 
 .visitPhoto {
@@ -74,7 +74,7 @@
 .visitText {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-1);
   min-width: 0;
   font-size: var(--text-sm);
 }
@@ -82,7 +82,7 @@
 .address {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-1);
   min-height: 44px;
   margin-top: auto;
   color: var(--color-text);

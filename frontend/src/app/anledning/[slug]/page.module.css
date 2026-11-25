@@ -1,14 +1,14 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 16px 16px 40px;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--page-inline) var(--space-5);
 }
 
 .title {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-1);
 }
 
 .title h1 {
