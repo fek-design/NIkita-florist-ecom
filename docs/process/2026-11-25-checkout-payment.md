@@ -36,4 +36,4 @@ A test-mode order goes from cart to paid in the database with correct totals, an
 
 - What the real MobilePay app flow looks like on a phone (only testable with live keys; plan a 1 kr. live test at hand-over with the owner's account).
 - **Orders tables, task 3.1 (25 Nov).** `orders`, `order_lines` and `stripe_events`, with the order rules as database checks so no code path can store an impossible order. Order numbers start at 1001; the confirmation link uses a separate token. 13 tests on a fresh database.
-  - *Found:* `stripe login` put 11 Stripe "agent skills" into `.agents/skills/` in the project (11:11, a minute after the CLI's config). Not added by Claude, not committed; raised with Felix because the skill policy allows no skill outside the four gates.
+  - *Found:* `stripe login` put 11 Stripe "agent skills" into `.agents/skills/` in the project (11:11, a minute after the CLI's config). Not added by Claude, not committed; raised with Felix because the skill policy allows no skill outside the four gates. Felix: delete the folder, and run the gates for stripe-best-practices only (logged in the skill curation note; trial on task 4.2).

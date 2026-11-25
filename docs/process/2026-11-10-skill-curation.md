@@ -113,6 +113,18 @@ Felix looked at both rounds and liked neither outcome. He did not pick A2 or B. 
 - `neonwatty/logo-designer-skill`: reviewed clean with conditions, not adopted (replaced by Felix's switch before its trial was judged).
 - The library question (install `assets/library/` or not) is moot until the gap reopens.
 
+## Checkup, 25 Nov: Stripe skills installed by the Stripe CLI
+
+`stripe login` (25 Nov, 11:10) put 11 Stripe "agent skills" into `.agents/skills/` without asking. None was added under this policy, so Felix had the folder deleted (option a). For **stripe-best-practices** only, he asked for the gates (option b); a copy is kept outside the repository for the trial.
+
+| Gate | Result |
+|---|---|
+| 1 Gap | **Passes, narrowly.** The gap is current Stripe API knowledge: on 25 Nov the first Checkout Session failed because `payment_method_types` was removed on 30 Sep 2026, after Claude's training. A CLAUDE.md rule ("check Stripe's docs before using an API") would cover part of it; the skill carries the current API version (2026-11-18) and current patterns in one place |
+| 2 Evidence | **Open.** Published by Stripe itself and installed by Stripe's CLI; licence and source repository still to be found, and Reddit usage reports to be looked for (Reddit could not be reached in November) |
+| 3 Security | **Passes.** Markdown only (SKILL.md and six reference files, 79 KB); no scripts, hooks or install steps. It tells agents to use the CLI and Stripe's docs; nothing it asks for needs more access than we already have |
+| 4 Trial | **Planned** on task 4.2 (the webhook route): criteria written before the run: handles the events the change needs, verifies signatures, idempotent, matches the current API version; build once without and once with the skill, compare blind |
+| 5 Adopt | Only if 2 and 4 pass: pin the version, add a provenance row with the named job "Stripe integration in checkout-payment" and a retire-by "when checkout-payment is archived" |
+
 ## Options considered
 
 - **Vector asset drawing:** `neonwatty/logo-designer-skill` (MIT, active) is the only candidate with a verifiable repo. `kaankiziltug` cannot be located yet. Option: draw with plain SVG and no skill, which is the baseline the trial in task 4.3 would compare against.
