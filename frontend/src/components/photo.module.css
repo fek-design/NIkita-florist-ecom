@@ -1,0 +1,19 @@
+.frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--linen);
+}
+
+.image {
+  object-fit: cover;
+}
+
+/* Ink on Linen 9.8:1; supporting text stays Ink on Linen (DD-24). */
+.coming {
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}

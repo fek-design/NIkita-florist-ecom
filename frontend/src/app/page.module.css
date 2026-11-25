@@ -1,0 +1,90 @@
+.featured {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 16px 24px;
+}
+
+.intro {
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+}
+
+.featuredName {
+  font-size: var(--text-xl);
+  line-height: 1.3;
+}
+
+.primary,
+.secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border-radius: 4px;
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}
+
+.primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.secondary {
+  border: 1px solid var(--ink);
+  color: var(--color-text);
+}
+
+.occasions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 8px 16px 32px;
+}
+
+.occasions h2,
+.visit h2 {
+  font-size: var(--text-lg);
+  line-height: 1.3;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.visit {
+  display: flex;
+  gap: 16px;
+  padding: 24px 16px 32px;
+}
+
+.visitPhoto {
+  flex: 0 0 45%;
+}
+
+.visitText {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  font-size: var(--text-sm);
+}
+
+.address {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: auto;
+  color: var(--color-text);
+  text-decoration: none;
+}

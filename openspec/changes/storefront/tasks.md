@@ -12,7 +12,7 @@
 - [ ] D.5 Felix chooses for each board and states why; verify each choice is logged in `docs/design-decisions.md` with the rejected variants saved as images *(21 Nov: front page decided as DD-01 to DD-07; footer open as DD-08)*
 - [x] D.6 Connect Figma through Figwright (pinned version) and read Felix's front page frame: fonts, weights, sizes, spacing, radii, icon weights; verify the values are recorded before building  — *21 Nov: values recorded in design decision 12 and DD-09 to DD-12*
 - [x] D.7 Build 2–3 footer variants in Figma from Felix's content (DD-08); verify Felix's choice is logged — *23 Nov: three built (A side by side, B centred stack, C Sand band), image in `docs/design/storefront/footer-variants.png`; Felix chose C (DD-08)*
-- [ ] D.8 Add a featured bouquet to the catalogue (seasonal, else most popular; DD-04) as a small data change with its own spec delta; verify `GET /featured` or an equivalent field returns it
+- [ ] D.8 Add a featured bouquet to the catalogue (seasonal, else most popular; DD-04) as a small data change with its own spec delta; verify `GET /featured` or an equivalent field returns it — *25 Nov: moved to the back-office work (week 4). It needs a migration, and the checkout branch already uses migration numbers 0003–0007; added after the merges. Until then the front page shows the first occasion in the owner's order (DD-04 fallback)*
 
 ## 2. Backend: available dates
 
@@ -22,7 +22,7 @@
 ## 3. Layout and front page
 
 - [x] 3.1 Build the layout: navbar with the half-moon logo and the cart count, Sand footer with the full logo, base styles from the tokens, Danish not-found page; verify at 390 px with no horizontal scroll — *25 Nov: navbar (half-moon 110 px, menu as a native dialog per S2, basket with count from the browser cart), footer C, skip link, Danish not-found page. Checked in a browser at 390 px: no horizontal scroll (390/390), every visible target ≥ 44 px, first Tab is the skip link, Esc closes the menu; images in `docs/design/implemented/`*
-- [ ] 3.2 Build the front page from Felix's Figma design (design decision 12): hero, featured bouquet, four best-selling occasions (owner's order until orders exist), "Se alle", "Besøg Nikita"; Linen image placeholders with reserved sizes and lazy loading below the first screen; verify against the seeded catalogue and a screenshot comparison with the Figma frame
+- [x] 3.2 Build the front page from Felix's Figma design (design decision 12): hero, featured bouquet, four best-selling occasions (owner's order until orders exist), "Se alle", "Besøg Nikita"; Linen image placeholders with reserved sizes and lazy loading below the first screen; verify against the seeded catalogue and a screenshot comparison with the Figma frame — *25 Nov: hero, intro line as the page's h1 (P10), featured bouquet, top four in the owner's order, Se alle, Besøg Nikita; Linen photo areas with fixed ratios and "Foto kommer"; "Eksempel" on placeholder prices; sold out in words. Checked at 390 px (no scroll, no target under 44 px, headings in order); image `docs/design/implemented/2026-11-25-front-page.png`*
 - [ ] 3.3 Build the category page `/anledninger` with every visible occasion in the front page's card style; verify "Se alle" leads there and lists five occasions
 - [x] 3.4 Decide where the delivery facts go — *23 Nov: occasion page only (DD-14); built in group 4*
 
