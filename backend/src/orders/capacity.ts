@@ -18,7 +18,7 @@ export type PlaceResult =
   | { ok: false; reason: "day_full" | "slot_full" | "no_settings" };
 
 /** Orders that count against capacity at `now`: paid, or pending and held. */
-function counting(now: Date) {
+export function counting(now: Date) {
   return or(
     eq(orders.paymentState, "paid"),
     and(eq(orders.paymentState, "pending"), gt(orders.holdExpiresAt, now)),

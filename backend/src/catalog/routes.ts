@@ -3,6 +3,7 @@
 // values (such as the daily capacity) can never leak into a response.
 import type { FastifyInstance } from "fastify";
 import { danishDate } from "../lib/danish-time.js";
+import { getPickupSlots } from "../orders/pickup-slots.js";
 import {
   checkPostcode,
   getDeliveryRules,
@@ -156,6 +157,27 @@ const postcodeCheck = {
 
 const settingsMissing = { error: "delivery settings missing" };
 
+const pickupSlotsResponse = {
+  type: "object",
+  required: ["date", "slots", "placeholder"],
+  properties: {
+    date: { type: "string" },
+    placeholder: { type: "boolean" },
+    slots: {
+      type: "array",
+      items: {
+        type: "object",
+        required: ["hour", "label", "available"],
+        properties: {
+          hour: { type: "integer" },
+          label: { type: "string" },
+          available: { type: "boolean" },
+        },
+      },
+    },
+  },
+} as const;
+
 export function registerCatalogRoutes(
   app: FastifyInstance,
   getDatabase: () => Db,
@@ -201,6 +223,31 @@ export function registerCatalogRoutes(
       const rules = await getDeliveryRules(getDatabase(), danishDate(now()));
       if (!rules) return reply.code(503).send(settingsMissing);
       return reply.header("Cache-Control", PUBLIC_CACHE).send(rules);
+    },
+  );
+
+  // Pickup slots change as orders come in, so they are never cached.
+  app.get<{ Querystring: { date: string } }>(
+    "/pickup/slots",
+    {
+      schema: {
+        querystring: {
+          type: "object",
+          required: ["date"],
+          properties: {
+            date: { type: "string", pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+          },
+        },
+        response: { 200: pickupSlotsResponse, 503: notFound },
+      },
+    },
+    async (request, reply) => {
+      const { date } = request.query;
+      const result = await getPickupSlots(getDatabase(), date, now());
+      if (!result) return reply.code(503).send(settingsMissing);
+      return reply
+        .header("Cache-Control", "no-store")
+        .send({ date, ...result });
     },
   );
 

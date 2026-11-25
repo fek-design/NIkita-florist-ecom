@@ -19,3 +19,21 @@ export function danishDate(now: Date = new Date()): string {
 export function hoursAndMinutes(time: string): string {
   return time.slice(0, 5);
 }
+
+/** The current hour (0–23) in Denmark. */
+export function danishHour(now: Date = new Date()): number {
+  const hour = new Intl.DateTimeFormat("en-GB", {
+    timeZone: SHOP_TIME_ZONE,
+    hour: "2-digit",
+    hourCycle: "h23",
+  }).format(now);
+  return Number(hour);
+}
+
+/** Weekday key of a YYYY-MM-DD date, as used in the opening hours. */
+export function weekdayKey(
+  date: string,
+): "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat" {
+  const keys = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"] as const;
+  return keys[new Date(`${date}T12:00:00Z`).getUTCDay()]!;
+}

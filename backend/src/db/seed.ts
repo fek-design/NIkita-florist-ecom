@@ -137,7 +137,15 @@ export async function seed(db: Db) {
       deliveryWeekdays: [1, 2, 3, 4, 5, 6],
       dailyCapacity: 15,
       pickupEnabled: true,
-      openingHours: {},
+      // Placeholders until the owner confirms (owner question 2).
+      openingHours: {
+        mon: ["10:00", "17:00"],
+        tue: ["10:00", "17:00"],
+        wed: ["10:00", "17:00"],
+        thu: ["10:00", "17:00"],
+        fri: ["10:00", "17:00"],
+        sat: ["10:00", "14:00"],
+      },
     })
     .onConflictDoNothing();
 }
