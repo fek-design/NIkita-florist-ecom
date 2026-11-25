@@ -31,7 +31,7 @@ return to S8 --GET /orders/:ref--> shows paid order, or "venter på betaling" un
 
 **3. Payment states only.** `pending → paid → refunded`, `pending → expired`. The owner's progress lives on the pinboard (DD-17). A paid order is never changed by the return page; only a verified webhook moves state.
 
-**4. Capacity holds.** A pending order counts against the day's capacity and, for pickup, its slot, until it is paid or expires. The hold lasts as long as the Checkout Session, 30 minutes, Stripe's minimum. Counting pending orders (rather than a separate hold table) keeps one source of truth. A scheduled job marks pending orders older than the session as expired, in case a webhook is missed.
+**4. Capacity holds.** A pending order counts against the day's capacity and, for pickup, its slot, until it is paid or expires. The Checkout Session lives 31 minutes (Stripe's minimum is 30, measured when Stripe receives the call) and the hold 33, so the place is never released while the customer can still pay. *Changed 25 Nov while building 4.1: first planned as 30 and 30, which Stripe would refuse a few seconds after the order is created.* Counting pending orders (rather than a separate hold table) keeps one source of truth. A scheduled job marks pending orders older than the session as expired, in case a webhook is missed.
 
 **5. Prices only from the server.** The checkout request carries occasion, tier, quantity and the delivery choice; the backend computes lines, fee and total in øre and sends those amounts to Stripe.
 

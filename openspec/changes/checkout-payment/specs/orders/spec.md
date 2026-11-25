@@ -34,14 +34,14 @@ An order SHALL become paid only when the payment provider's signed notification 
 - **THEN** the order is paid once and the emails are sent once
 
 ### Requirement: Capacity is held while paying
-A pending order SHALL count against its day's capacity and, for pickup, its slot, for as long as its payment can still complete (30 minutes). When the payment expires or fails, the order SHALL become expired and stop counting. Checking capacity and creating the pending order SHALL be one step, so two customers cannot take the last place.
+A pending order SHALL count against its day's capacity and, for pickup, its slot, for as long as its payment can still complete, plus a short margin (about half an hour in all). When the payment expires or fails, the order SHALL become expired and stop counting. Checking capacity and creating the pending order SHALL be one step, so two customers cannot take the last place.
 
 #### Scenario: Last place taken during payment
 - **WHEN** one place is left on a day and a customer starts paying for it
 - **THEN** a second customer is told the day is full until the first payment completes or expires
 
 #### Scenario: Abandoned payment
-- **WHEN** a customer leaves the payment page and the 30 minutes pass
+- **WHEN** a customer leaves the payment page and the hold runs out
 - **THEN** the order is expired and the place is offered again
 
 ### Requirement: Emails when an order is paid

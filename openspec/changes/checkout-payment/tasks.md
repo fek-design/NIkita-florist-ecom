@@ -17,7 +17,7 @@
 
 ## 4. Checkout and payment
 
-- [ ] 4.1 `POST /checkout` (no payment method list in code, D-017): validate the form (email twice and matching, required fields per delivery or pickup, latest time only for Bisættelse), recompute the total, create the pending order, create the Checkout Session (30 min), return the redirect URL; verify route tests for valid, invalid, full day and past cut-off
+- [x] 4.1 `POST /checkout` (no payment method list in code, D-017): validate the form (email twice and matching, required fields per delivery or pickup, latest time only for Bisættelse), recompute the total, create the pending order, create the Checkout Session (30 min), return the redirect URL; verify route tests for valid, invalid, full day and past cut-off — *25 Nov: `backend/src/orders/checkout.ts` + `payments/provider.ts`; 13 tests (server price despite browser amounts, pickup, email mismatch, outside zone, Sunday and past cut-off, slot outside hours, full slot 409, payment page failure releases the place, not configured 503). Payment window 31 min, hold 33 (Stripe refuses exactly 30 a few seconds later). New setting `FRONTEND_URL`*
 - [x] 4.2 `POST /webhooks/stripe` (handle `checkout.session.completed` with payment status paid, `checkout.session.async_payment_succeeded`/`failed` for safety, `checkout.session.expired`, `charge.refunded`; receive them locally through the Stripe CLI): verify the signature, store the event id, set paid / expired / refunded; verify tests for forged, duplicate, paid, expired and refunded events — *25 Nov: route and event logic built with 9 tests (signed with Stripe's own test signer); payment intent id stored for refunds (migration 0006). Real event checked 25 Nov 20:23: `stripe trigger` → `stripe listen` → signature accepted (200) → recorded in `stripe_events`*
 - [ ] 4.3 Expiry job through `POST /jobs/expire-orders`: pending orders past their session become expired; verify with a test on a fixed clock
 - [ ] 4.4 `GET /orders/:token`: the confirmation data, nothing for an unknown token; verify route tests
@@ -40,6 +40,7 @@
 
 ## Workflow follow-up
 
+- Hardening week (week 5): rate-limit `POST /checkout` (roadmap).
 - Hardening week (week 5): read the webhook logs for unknown callers; if there are no false alarms, set `STRIPE_WEBHOOK_IP_CHECK=enforce` in Vercel (D-018).
 
 - Merge order: `feature/hifi-design`, then `feature/storefront`, then this branch.

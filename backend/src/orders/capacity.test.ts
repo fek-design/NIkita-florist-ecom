@@ -53,7 +53,7 @@ const webPickup = (slot: number, date = "2026-11-24") => ({
 });
 
 describe("placeOrder", () => {
-  it("creates a pending order holding its place for 30 minutes", async () => {
+  it("creates a pending order holding its place for the payment window plus a margin", async () => {
     const result = await placeOrder(db, webPickup(14), [line], NOW);
     expect(result.ok).toBe(true);
     expect(result.ok && result.order.holdExpiresAt).toEqual(

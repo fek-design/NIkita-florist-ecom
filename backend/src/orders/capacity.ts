@@ -8,8 +8,12 @@ import type { Db } from "../catalog/queries.js";
 import { orderLines, orders, shopSettings } from "../db/schema.js";
 import type { PricedLine } from "./pricing.js";
 
-/** How long a pending order holds its place: Stripe's shortest session. */
-export const HOLD_MINUTES = 30;
+/**
+ * How long a pending order holds its place: the payment window (31 minutes,
+ * see payments/provider.ts) plus a margin, so the place is never released
+ * while the customer can still pay.
+ */
+export const HOLD_MINUTES = 33;
 
 type NewOrder = typeof orders.$inferInsert;
 

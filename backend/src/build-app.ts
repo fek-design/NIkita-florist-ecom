@@ -6,6 +6,8 @@ import { getDb } from "./db/index.js";
 import { checkHealth } from "./lib/health.js";
 import { isAuthorisedJobCall } from "./lib/job-auth.js";
 import { registerPaymentRoutes } from "./payments/routes.js";
+import { registerCheckoutRoutes } from "./orders/checkout.js";
+import { stripeProvider, type PaymentProvider } from "./payments/provider.js";
 import { ipCheckMode, type IpList } from "./payments/stripe-ips.js";
 
 export type AppOptions = {
@@ -26,6 +28,10 @@ export type AppOptions = {
   getStripeIps?: (now: number) => Promise<IpList | null>;
   /** Replaced in tests; by default read from STRIPE_WEBHOOK_IP_CHECK. */
   stripeIpCheck?: "report" | "enforce" | "off";
+  /** Replaced in tests; by default Stripe with STRIPE_SECRET_KEY. */
+  paymentProvider?: PaymentProvider | null;
+  /** The shop's address for Stripe's return links; FRONTEND_URL. */
+  frontendUrl?: string;
 };
 
 /**
@@ -65,6 +71,24 @@ export function registerRoutes(
   app.get("/", async () => ({ service: "backend" }));
 
   registerCatalogRoutes(app, options.getDatabase ?? getDb, options.now);
+  const secretKey = process.env.STRIPE_SECRET_KEY ?? "";
+  registerCheckoutRoutes(
+    app,
+    options.getDatabase ?? getDb,
+    {
+      provider:
+        options.paymentProvider !== undefined
+          ? options.paymentProvider
+          : secretKey
+            ? stripeProvider(secretKey)
+            : null,
+      frontendUrl:
+        options.frontendUrl ??
+        process.env.FRONTEND_URL ??
+        "http://localhost:3000",
+    },
+    options.now,
+  );
   registerPaymentRoutes(
     app,
     options.getDatabase ?? getDb,
