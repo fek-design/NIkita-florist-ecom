@@ -15,7 +15,7 @@ Choices Claude made alone before this rule existed. Each goes to Felix with the 
 | Choice | Where it was made | Goes to Felix with |
 |---|---|---|
 | ~~Navbar 72 px high, half-moon logo 110 px wide~~ | Brand board, 17 Nov | Settled by DD-09 |
-| Tier picker as three equal buttons, chosen one filled Ink | Brand board, 17 Nov | Occasion page board |
+| ~~Tier picker as three equal buttons, chosen one filled Ink~~ | Brand board, 17 Nov | Approved by Felix, 23 Nov (in S4 and B8a) |
 | ~~Cards as Paper with a 1 px Sand border~~ | Brand guide, 17 Nov | Settled by Felix's design: occasion cards are photo, name and price with no border |
 
 ---
@@ -95,7 +95,7 @@ Test: usability task: "Find flowers for a thank-you" (Tak is not in the top four
 
 ### DD-14 Delivery facts on the occasion page only
 Date: 2026-11-23 · Principles: P3 · Evidence grade: C
-Decision: The delivery facts (fee, area, cut-off, pickup) are not added to the front page. They sit on the occasion page with the delivery choice, and the fee appears as soon as a postcode is entered, before anything goes in the cart. Felix's choice (option c). Why: *to be added by Felix*.
+Decision: The delivery facts (fee, area, cut-off, pickup) are not added to the front page. They sit on the occasion page with the delivery choice, and the fee appears as soon as a postcode is entered, before anything goes in the cart. Felix's choice (option c). Why, in his words: let the customer fall in love with the product first. The 80 kr. will always hurt; better that someone who leaves does so knowing what the shop offers than leaves at once. (He calls it the sunk-cost effect: time spent choosing makes the fee easier to accept.)
 Rejected: a short delivery block on the front page under the featured bouquet (a); the facts in the footer (b).
 Risk, stated honestly: P3 asks for the fee before the visitor chooses. Here a visitor meets it after choosing an occasion but before the cart, so it is never a surprise at checkout.
 Test: usability task "Hvad koster levering til 4300?": time to answer and where people look first. If most look on the front page first, revisit a) or b).
@@ -106,3 +106,75 @@ Decision: The footer is a Sand band with the full logo, text and icons in Paper 
 Kept from Felix's design: the content (logo, Kontakt, email, phone, Facebook), Ancizar Serif heading, icon + text rows. Added and accepted: address, CVR (placeholder until the owner supplies it), the two legal links (CLAUDE.md override 1).
 Rejected (`docs/design/storefront/footer-variants.png`): A, Felix's side-by-side layout on Linen (the email only fits beside the 120 px logo at 14 px); B, a centred stack on Linen (centred lists scan slower).
 Test: usability task "Ring til butikken" from the bottom of the front page; contrast already checked (Paper on Sand 5.1:1).
+
+### DD-15 One hi-fi set from proven patterns, then tests
+Date: 2026-11-23 · Principles: all; process decision · Evidence grade: n/a (process)
+Decision: The remaining screens, front page to checkout and the back office, are made as one hi-fi set in Figma, in Felix's design language. No new patterns: each element follows Baymard, Nielsen Norman Group, Shopify Polaris (back office) or Felix's competitor boards, and cites it; anything else is marked "Forslag". After Felix's review the set is improved through usability tests on the live page, and each version is kept (`docs/design/versions/vN/`). Felix's call. Mobbin was considered and dropped again (no paid plan; it shows what apps do, not whether it works); Baymard's tested findings were preferred.
+Rejected: 2–3 variants per key choice for every screen (does not fit the four weeks left); Mobbin as the pattern source.
+Test: the versions' changelogs show which test findings changed the design.
+
+### DD-16 Orders reach the owner on paper
+Date: 2026-11-23 · Principles: P1 (her phone is not her workplace), back-office spec purpose ("less of her time than the phone orders it replaces") · Evidence grade: C (owner's way of working, via Felix)
+Decision: Every order becomes a printed slip for her pinboard, laid out for a receipt printer (80 mm), the same way kitchens receive tickets and florist networks send work slips. She has no printer yet, so until one is bought the order email is laid out as the same slip and printed by hand. A morning sheet at 7:00 lists the day's deliveries and pickups. Felix's call, after the owner's preference for paper.
+Rejected: managing orders on the phone (v1's back office; she treats technology as a medium, not a pleasure, and less screen time means more time with flowers); a printer with its own email address (no printer to build on).
+Test: minutes per day the owner spends in the back office, measured in the usability test and after a week of use.
+
+### DD-17 The pinboard is the order status
+Date: 2026-11-23 · Principles: none beyond DD-16 · Evidence grade: C
+Decision: No status buttons in the back office. A slip on the pinboard is an order to make; a slip taken down is done. Felix's call.
+Rejected: one-tap statuses on the phone (v1, B2/B3); a QR code on each slip to scan when done.
+Consequence: the back-office spec's "Order handling from one screen" (status in one tap) changes. Open: how customers learn when a pickup is ready or roughly when a delivery comes, without the owner having to act (Felix's concern, 23 Nov).
+
+### DD-18 Pickup at a time the customer chooses
+Date: 2026-11-23 · Principles: P2 (the date, and here the hour, is part of the product) · Evidence grade: C (CMP-K: Kaj Larsen offers pickup with a schedule; click-and-collect convention)
+Decision: A customer who picks up chooses a one-hour slot within opening hours on the occasion page. The slip prints the slot in large type. On the morning of the pickup an automatic email says when and where the bouquet is ready. The owner does nothing; nobody keeps a long window free. Felix's call, from his own annoyance at long waiting windows.
+Rejected: a "klar til afhentning" message the owner sends by hand (she would have to act, against DD-16/DD-17).
+Open for the owner: opening hours and pickups per hour (owner questions 2 and 8).
+Test: usability task "Bestil en buket, du selv henter i morgen eftermiddag"; afterwards, can the participant say when to come?
+
+### DD-19 Delivery during the day, with instructions for when nobody is home
+Date: 2026-11-23 · Principles: P2, P3 · Evidence grade: C (CMP-K: "Hvis modtageren ikke er hjemme, må vi …")
+Decision: Delivery is promised for the chosen day ("i løbet af dagen"), not a window. Checkout asks what to do if the recipient is not home (by the door, with a neighbour, or call the buyer). For Bisættelse it asks when the flowers must be there at the latest, because a funeral has a fixed time. No messages need the owner to act. Felix's call (option a).
+Rejected: a "på vej" message from one scan of the morning sheet (b; parked until it is known how she drives, owner question 10); morning/afternoon at checkout (c; binds her round to the customers' choices).
+Test: in the usability test, ask the buyer whether "i løbet af dagen" is enough; collect what they would want instead.
+
+### DD-20 The owner signs in with a passkey
+Date: 2026-11-23 · Principles: P9; DD-16 (least screen time) · Evidence grade: A (NIST SP 800-63B rates passkeys as phishing-resistant multi-factor)
+Decision: "Log ind med Face ID" (a passkey) is the main way into the back office: one touch, and it counts as two factors (her phone and her face or finger). Password plus a 6-digit SMS code remains for the first sign-in on a new phone and as the fallback. "Husk mig i 30 dage" keeps her signed in. Felix's call.
+Rejected: an authenticator app as second factor (too complicated for the owner, Felix); password with no second factor (the spec requires one, and a forgotten password would still lock her out).
+Test: in the usability test, time from opening the admin link to the "I dag" screen.
+
+### DD-21 Orders taken in the shop or by phone are registered like a till
+Date: 2026-11-23 · Principles: DD-16 (one paper flow), capacity in the back-office spec · Evidence grade: C (restaurant tills: order type → category → item → modifiers → ticket to the printer)
+Decision: "+ Ny ordre" on the "I dag" screen registers orders that do not come through the webshop, so every order counts against the day's capacity and pickup slots, gets the same slip, and appears on the morning sheet and in the monthly figures. Two types: *I butikken nu* (registered in one tap, no slip) and *Telefon*, which is **pickup only**: occasion, size, optional comment, day and slot, name and phone, and "Ved afhentning" or "Allerede betalt". No payment runs through the system; she keeps taking MobilePay as today, and Stripe stays the online gateway. Felix's design, from restaurant tills; phone orders limited to pickup by Felix so she never types an address.
+Rejected: a payment link sent to the customer (the problem was tracking, not payment); a card terminal linked to the system (hardware, a second payment flow, past feature freeze); a count-only "+1" capacity button (no slip, no record).
+Open: add-ons ("upsells") as one-tap buttons need add-on products in the catalogue first (Forslag 4); how many orders come by phone or over the counter (owner question 11).
+Test: time to register a phone order, target under 30 seconds, in the owner walkthrough in week 4.
+
+### DD-22 The four hi-fi proposals
+Date: 2026-11-23 · Principles: P8, P5, P9 · Evidence grade: B/C (sources per proposal in `openspec/changes/hifi-design/design.md`)
+Decision (Felix):
+- **Forslag 1, intro line on the front page:** yes, but it leads into the recommendation: "Håndbundne buketter fra Nikitas værksted i Tuse. Lige nu anbefaler hun:" followed by the featured bouquet, which is the seasonal one or else the best-selling (DD-04). The prime spot under the hero recommends a bouquet rather than only describing the shop.
+- **Forslag 2, payment methods in the footer:** yes.
+- **Forslag 3, passkey:** yes (DD-20).
+- **Forslag 4, add-ons as one-tap buttons on shop orders:** yes, added once the catalogue has add-ons. Kept as an open task so it is not forgotten.
+Test: front page first impression in the usability test ("Hvad sælger butikken, og hvad ville du købe?").
+
+### DD-23 Everyday content is the owner's to change
+Date: 2026-11-23 · Principles: back-office spec purpose · Evidence grade: C
+Decision: What changes day to day or month to month is editable in the back office, even if Felix ends up maintaining the shop: the featured bouquet on the front page ("På forsiden nu · Skift" on B4), sold out, closed days, prices and photos. Code changes are only for what changes rarely. Felix's call.
+Test: in the owner's first test, can she swap the featured bouquet without help?
+
+### DD-24 Supporting text is toned down
+Date: 2026-11-23 · Principles: P9 (contrast kept), P11 · Evidence grade: C (visual hierarchy: fewer elements competing for attention)
+Decision: Descriptions, hints, meta lines and helper text use Sand instead of Ink (role token `--color-text-muted`; Sand on Paper 5.1:1, AA). Headings, prices, choices and buttons stay Ink, so they lead. On Linen panels supporting text stays Ink, because Sand on Linen is 3.8:1. The owner asked for simple; Felix found the hi-fi set busy even where the extra text is optional. Felix's call.
+Rejected: removing the optional text (it answers real questions: size, fee, cut-off); a new grey outside the palette (brand rule: one palette).
+Applies from v3; built into the frontend from the start. Figma working page to follow.
+Test: in the owner's first test and the usability test, ask what people noticed first on the occasion page.
+
+### DD-25 The customer's email is checked three ways
+Date: 2026-11-25 · Principles: P4 (guest checkout), DD-18 (the pickup reminder goes by email) · Evidence grade: C
+Decision: In checkout (S7) the email gets a typo suggestion ("Mente du …@gmail.com?"), a second field "Gentag e-mail", and is shown again in the summary before "Betal". Felix's call: the confirmation and the pickup reminder must arrive, and a typo means neither does.
+Trade-off, stated honestly: the repeat field adds one field. A normal delivery has 8 fields and Bisættelse 9, one over Baymard's guide figure of about eight; Baymard advises against confirmation fields because people paste the first into the second.
+Rejected: typo suggestion and summary only (Claude's recommendation); the repeat field only.
+Test: in the usability test, time on the checkout form and whether anyone pastes into the repeat field; count bounced confirmation emails after launch.

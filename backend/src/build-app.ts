@@ -5,6 +5,14 @@ import type { Db } from "./catalog/queries.js";
 import { getDb } from "./db/index.js";
 import { checkHealth } from "./lib/health.js";
 import { isAuthorisedJobCall } from "./lib/job-auth.js";
+import { registerPaymentRoutes } from "./payments/routes.js";
+import { registerCheckoutRoutes } from "./orders/checkout.js";
+import { expirePendingOrders } from "./orders/expire.js";
+import { sendPaidOrderEmails, type Mailer } from "./email/order-emails.js";
+import { smtpMailer, smtpSettingsFromEnv } from "./email/mailer.js";
+import { registerOrderRoutes } from "./orders/routes.js";
+import { stripeProvider, type PaymentProvider } from "./payments/provider.js";
+import { ipCheckMode, type IpList } from "./payments/stripe-ips.js";
 
 export type AppOptions = {
   logger?: boolean;
@@ -16,6 +24,22 @@ export type AppOptions = {
   getDatabase?: () => Db;
   /** Replaced in tests to fix "today"; by default the current time. */
   now?: () => Date;
+  /** Replaced in tests; by default read from STRIPE_WEBHOOK_SECRET. */
+  stripeWebhookSecret?: string;
+  /** Called with orders that became paid; emails hook in here (task 5.1). */
+  onPaid?: (orderIds: number[]) => Promise<void>;
+  /** Replaced in tests; by default fetched from Stripe and cached. */
+  getStripeIps?: (now: number) => Promise<IpList | null>;
+  /** Replaced in tests; by default read from STRIPE_WEBHOOK_IP_CHECK. */
+  stripeIpCheck?: "report" | "enforce" | "off";
+  /** Replaced in tests; by default Stripe with STRIPE_SECRET_KEY. */
+  paymentProvider?: PaymentProvider | null;
+  /** The shop's address for Stripe's return links; FRONTEND_URL. */
+  frontendUrl?: string;
+  /** Replaced in tests; by default SMTP from the SMTP_* variables. */
+  mailer?: Mailer | null;
+  /** Where order slips go; OWNER_EMAIL. */
+  ownerEmail?: string;
 };
 
 /**
@@ -55,6 +79,57 @@ export function registerRoutes(
   app.get("/", async () => ({ service: "backend" }));
 
   registerCatalogRoutes(app, options.getDatabase ?? getDb, options.now);
+  registerOrderRoutes(app, options.getDatabase ?? getDb);
+  const secretKey = process.env.STRIPE_SECRET_KEY ?? "";
+  registerCheckoutRoutes(
+    app,
+    options.getDatabase ?? getDb,
+    {
+      provider:
+        options.paymentProvider !== undefined
+          ? options.paymentProvider
+          : secretKey
+            ? stripeProvider(secretKey)
+            : null,
+      frontendUrl:
+        options.frontendUrl ??
+        process.env.FRONTEND_URL ??
+        "http://localhost:3000",
+    },
+    options.now,
+  );
+  registerPaymentRoutes(
+    app,
+    options.getDatabase ?? getDb,
+    {
+      webhookSecret:
+        options.stripeWebhookSecret ?? process.env.STRIPE_WEBHOOK_SECRET ?? "",
+      onPaid:
+        options.onPaid ??
+        (async (ids) => {
+          const smtp = smtpSettingsFromEnv();
+          const mailer =
+            options.mailer !== undefined
+              ? options.mailer
+              : smtp
+                ? smtpMailer(smtp)
+                : null;
+          await sendPaidOrderEmails(
+            (options.getDatabase ?? getDb)(),
+            mailer,
+            ids,
+            { ownerEmail: options.ownerEmail ?? process.env.OWNER_EMAIL ?? "" },
+            options.now?.() ?? new Date(),
+          );
+        }),
+      ipCheck:
+        options.stripeIpCheck ??
+        ipCheckMode(process.env.STRIPE_WEBHOOK_IP_CHECK),
+      getStripeIps: options.getStripeIps,
+      isLocal: !process.env.VERCEL,
+    },
+    options.now,
+  );
 
   app.get("/health", async (request, reply) => {
     const result = await checkHealth(pingDatabase, (message) =>
@@ -70,6 +145,12 @@ export function registerRoutes(
   // once a day). Only callers holding JOB_SECRET may start a job.
   const jobs: Record<string, () => Promise<unknown>> = {
     ping: async () => ({ ok: true }),
+    "expire-orders": async () => ({
+      expired: await expirePendingOrders(
+        (options.getDatabase ?? getDb)(),
+        options.now?.() ?? new Date(),
+      ),
+    }),
   };
 
   app.post<{ Params: { name: string } }>(

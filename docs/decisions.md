@@ -75,7 +75,7 @@ Rejected: backend nested inside the Next.js root (overlapping `package.json` tre
 
 ### D-011 Email: SMTP out, IMAP in, through a mailbox
 Date: 2026-11-16, updated 2026-11-17 · Change: email change (weeks 3–4) · Status: conditional (mailbox provider not chosen)
-Decision: The backend sends over authenticated SMTP and reads over IMAP. Plain SMTP's weak points are covered in our own code: an outbox table logs every message, a scheduled job sends at a steady rate and retries, and IMAP reads bounce messages back. IMAP is also used later for customer replies and orders sent by email. Locally, Mailpit catches all mail.
+Decision: The backend sends over authenticated SMTP and reads over IMAP. *(25 Nov: the outbox table and the first sending, for paid orders, built in change checkout-payment; the retry job and IMAP follow in week 4.)* Plain SMTP's weak points are covered in our own code: an outbox table logs every message, a scheduled job sends at a steady rate and retries, and IMAP reads bounce messages back. IMAP is also used later for customer replies and orders sent by email. Locally, Mailpit catches all mail.
 Why: Felix's choice; the case names email "via SMTP/API". Running it ourselves is good exam material and keeps mail in a mailbox the shop controls.
 Rejected: a vendor email API (D-005); running our own mail server (new servers usually cannot send on port 25, and self-run servers rarely reach inboxes); Simply.com mail (Felix: Simply was considered for hosting only).
 
@@ -103,6 +103,26 @@ Decision: Claude reads and writes Felix's Figma files through Figwright (`@figwr
 Why: Felix designs the screens in Figma (DD-01). Figwright needs no paid Figma seat and avoids the official connection's API limits, and it can also write to the canvas (footer variants, DD-08).
 Checked 2026-11-21: version 0.7.0 published 26 Oct 2026, no install scripts, ordinary dependencies (ws, zod, msgpack, the MCP server library); one maintainer, which is why the version is pinned instead of `@latest`.
 Rejected: Figma's official MCP (API limits, paid seat for Dev Mode); reading PDF exports (fonts, weights and line widths are lost in the export, as found on 21 Nov).
+
+### D-016 Payment: Stripe Checkout, hosted
+Date: 2026-11-25 · Status: locked
+Decision: Payment runs on Stripe's hosted Checkout page (MobilePay and cards), reached from our own checkout form; the backend uses Stripe's server library (`stripe`). An order is paid only on a verified webhook.
+Why: Felix, 25 Nov. Stripe is acquirer and gateway in one contract, has no monthly fee, offers MobilePay, and its test mode covers webhooks and failures, which matters in the riskiest week of the plan. The hosted page keeps card data off our servers and needs the least UI work.
+Rejected: Stripe Payment Element embedded in our page (more payment states to build now; possible later); the Vipps MobilePay ePayment API directly (MobilePay only, a second integration for cards); QuickPay (needs a separate acquirer agreement and a monthly fee). The payment code sits behind a small module so a later switch does not touch the rest.
+
+### D-017 Payment methods are chosen in the Stripe dashboard, instant ones only
+Date: 2026-11-25 · Status: locked
+Decision: The code does not list payment methods; Stripe's dashboard decides which ones the checkout page shows ("dynamic payment methods", as stripe-best-practices advises). In the dashboard only methods that are confirmed at once are switched on: MobilePay and cards (Apple Pay and Google Pay are cards). Felix, 25 Nov: "as long as it has no vulnerabilities; give a user access to what they need and nothing more".
+Why: the owner can switch methods on and off herself without code (DD-23). It adds no attack surface on our side: the payment page is Stripe's, and our key's permissions stay the four from 25 Nov.
+Rule for the dashboard: no delayed methods (bank debits, invoices, pay-later that settles later). A same-day bouquet cannot wait days for a payment to settle; the webhook handles delayed methods correctly, but the shop could not use them. Whoever holds the Stripe login (Felix now, the owner at hand-over) uses two-factor sign-in.
+Rejected: listing `allowed_payment_method_types` in code (MobilePay and card only), used in the 25 Nov payment test.
+
+### D-018 Stripe webhook: caller address checked as a second layer
+Date: 2026-11-25 · Status: locked (report now, enforce in week 5)
+Decision: Besides the signature, the webhook checks whether the caller is one of Stripe's published webhook addresses (`stripe.com/files/ips/ips_webhooks.json`, fetched and cached for a day, the last good list kept if a fetch fails). `STRIPE_WEBHOOK_IP_CHECK=report` logs unknown callers and lets them through; in the hardening week, once the logs show no false alarms, it is set to `enforce`, which refuses them. Signature failures are logged too. Felix, option b: "we can't skip security".
+Why: defence in depth, as stripe-best-practices advises. The signature alone already stops forged events; the address check only matters if the signing secret leaks.
+Guard: if Stripe's list cannot be fetched, events still go through (logged as an error). Refusing them would lose real payments, and the signature still protects. Locally, `stripe listen` calls from localhost and is let through outside Vercel only.
+Rejected: skipping it (option a); enforcing from day one (option c: a stale or unfetched list could refuse genuine payments before we have seen it work); a list copied into the code (goes out of date silently).
 
 ---
 
@@ -135,10 +155,13 @@ Roadmap rule 8: each package needs a reason.
 | `fastify` | runtime | The API framework (D-009) |
 | `drizzle-orm` | runtime | Typed SQL queries (D-002) |
 | `postgres` | runtime | Postgres driver used by Drizzle (D-002) |
+| `nodemailer` | runtime | Sends email over SMTP through the shop's mailbox (D-011). Added 25 Nov; MIT-0; `npm audit --omit=dev` 0 vulnerabilities |
+| `stripe` | runtime | Stripe's server library: Checkout Sessions, webhook signature checks (D-016). Added 25 Nov; `npm audit --omit=dev` 0 vulnerabilities |
 | `typescript`, `@types/node` | dev | Type checking and the production build |
 | `tsx` | dev | Runs the TypeScript server directly in development, restarting on change |
 | `eslint`, `typescript-eslint`, `eslint-config-prettier` | dev | Lint rules for TypeScript |
 | `vitest` | dev | Unit tests, including route tests with `app.inject()` |
+| `@types/nodemailer` | dev | Types for nodemailer |
 | `drizzle-kit` | dev | Generates and runs migrations |
 
 Audit on 2026-11-17: `npm audit --omit=dev` reports 0 vulnerabilities. CI fails on any high or critical finding in production dependencies.

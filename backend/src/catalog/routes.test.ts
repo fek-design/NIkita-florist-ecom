@@ -119,7 +119,14 @@ describe("GET /delivery", () => {
       deliveryWeekdays: [1, 2, 3, 4, 5, 6],
       closedDates: [{ date: "2026-12-24", reason: "Juleaften" }],
       pickupEnabled: true,
-      openingHours: {},
+      openingHours: {
+        mon: ["10:00", "17:00"],
+        tue: ["10:00", "17:00"],
+        wed: ["10:00", "17:00"],
+        thu: ["10:00", "17:00"],
+        fri: ["10:00", "17:00"],
+        sat: ["10:00", "14:00"],
+      },
       placeholder: true,
     });
     expect(res.body).not.toMatch(/capacity/i);

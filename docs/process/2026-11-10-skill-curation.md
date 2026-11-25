@@ -113,6 +113,18 @@ Felix looked at both rounds and liked neither outcome. He did not pick A2 or B. 
 - `neonwatty/logo-designer-skill`: reviewed clean with conditions, not adopted (replaced by Felix's switch before its trial was judged).
 - The library question (install `assets/library/` or not) is moot until the gap reopens.
 
+## Checkup, 25 Nov: Stripe skills installed by the Stripe CLI
+
+`stripe login` (25 Nov, 11:10) put 11 Stripe "agent skills" into `.agents/skills/` without asking. None was added under this policy, so Felix had the folder deleted (option a). For **stripe-best-practices** only, he asked for the gates (option b); a copy is kept outside the repository for the trial.
+
+| Gate | Result |
+|---|---|
+| 1 Gap | **Passes, narrowly.** The gap is current Stripe API knowledge: on 25 Nov the first Checkout Session failed because `payment_method_types` was removed on 30 Sep 2026, after Claude's training. A CLAUDE.md rule ("check Stripe's docs before using an API") would cover part of it; the skill carries the current API version (2026-11-18) and current patterns in one place |
+| 2 Evidence | **Open.** Published by Stripe itself and installed by Stripe's CLI; licence and source repository still to be found, and Reddit usage reports to be looked for (Reddit could not be reached in November) |
+| 3 Security | **Passes.** Markdown only (SKILL.md and six reference files, 79 KB); no scripts, hooks or install steps. It tells agents to use the CLI and Stripe's docs; nothing it asks for needs more access than we already have |
+| 4 Trial | **Run 25 Nov on task 4.2, not blind** (Claude wrote the version without the skill and then read the skill, so it could not judge blind). Against the criteria written beforehand: the version without the skill already met all four (events gated on `payment_status`, signature on the raw body, idempotent event table, SDK 23.2.0 = the skill's latest). The skill found no defect. It added two points Claude did not have: let the dashboard choose payment methods instead of restricting them in code ("dynamic payment methods"), and allowlist Stripe's IP addresses as defence in depth. **Result: not clearly better on the task, so the gate fails as written.** Claude's recommendation: do not adopt; instead a CLAUDE.md rule to read Stripe's current docs (the same content is published at `docs.stripe.com/.well-known/skills/stripe-best-practices/`) before using a Stripe API. Felix decides |
+| 5 Adopt | **Adopted by Felix's decision, 25 Nov, although gate 4 failed and gate 2 is open** ("keep it anyways"). Pinned by content hash in `.claude/skills/PROVENANCE.md`, with a named job and a retire-by condition. Licence not stated in the files: to settle before the project is handed over |
+
 ## Options considered
 
 - **Vector asset drawing:** `neonwatty/logo-designer-skill` (MIT, active) is the only candidate with a verifiable repo. `kaankiziltug` cannot be located yet. Option: draw with plain SVG and no skill, which is the baseline the trial in task 4.3 would compare against.
