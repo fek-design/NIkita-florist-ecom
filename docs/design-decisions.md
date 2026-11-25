@@ -171,3 +171,10 @@ Decision: Descriptions, hints, meta lines and helper text use Sand instead of In
 Rejected: removing the optional text (it answers real questions: size, fee, cut-off); a new grey outside the palette (brand rule: one palette).
 Applies from v3; built into the frontend from the start. Figma working page to follow.
 Test: in the owner's first test and the usability test, ask what people noticed first on the occasion page.
+
+### DD-25 The customer's email is checked three ways
+Date: 2026-11-25 · Principles: P4 (guest checkout), DD-18 (the pickup reminder goes by email) · Evidence grade: C
+Decision: In checkout (S7) the email gets a typo suggestion ("Mente du …@gmail.com?"), a second field "Gentag e-mail", and is shown again in the summary before "Betal". Felix's call: the confirmation and the pickup reminder must arrive, and a typo means neither does.
+Trade-off, stated honestly: the repeat field adds one field. A normal delivery has 8 fields and Bisættelse 9, one over Baymard's guide figure of about eight; Baymard advises against confirmation fields because people paste the first into the second.
+Rejected: typo suggestion and summary only (Claude's recommendation); the repeat field only.
+Test: in the usability test, time on the checkout form and whether anyone pastes into the repeat field; count bounced confirmation emails after launch.
