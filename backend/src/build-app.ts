@@ -6,6 +6,7 @@ import { getDb } from "./db/index.js";
 import { checkHealth } from "./lib/health.js";
 import { isAuthorisedJobCall } from "./lib/job-auth.js";
 import { registerPaymentRoutes } from "./payments/routes.js";
+import { ipCheckMode, type IpList } from "./payments/stripe-ips.js";
 
 export type AppOptions = {
   logger?: boolean;
@@ -21,6 +22,10 @@ export type AppOptions = {
   stripeWebhookSecret?: string;
   /** Called with orders that became paid; emails hook in here (task 5.1). */
   onPaid?: (orderIds: number[]) => Promise<void>;
+  /** Replaced in tests; by default fetched from Stripe and cached. */
+  getStripeIps?: (now: number) => Promise<IpList | null>;
+  /** Replaced in tests; by default read from STRIPE_WEBHOOK_IP_CHECK. */
+  stripeIpCheck?: "report" | "enforce" | "off";
 };
 
 /**
@@ -67,6 +72,11 @@ export function registerRoutes(
       webhookSecret:
         options.stripeWebhookSecret ?? process.env.STRIPE_WEBHOOK_SECRET ?? "",
       onPaid: options.onPaid,
+      ipCheck:
+        options.stripeIpCheck ??
+        ipCheckMode(process.env.STRIPE_WEBHOOK_IP_CHECK),
+      getStripeIps: options.getStripeIps,
+      isLocal: !process.env.VERCEL,
     },
     options.now,
   );

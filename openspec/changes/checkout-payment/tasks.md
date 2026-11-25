@@ -23,6 +23,7 @@
 - [ ] 4.4 `GET /orders/:token`: the confirmation data, nothing for an unknown token; verify route tests
 
 - [ ] 4.5 Felix: in the Stripe dashboard (test now, the owner's account at hand-over) switch on only instant methods (MobilePay, cards incl. Apple Pay and Google Pay) and turn on two-factor sign-in; verify a test checkout shows only those
+- [x] 4.6 Second layer on the webhook (D-018): Stripe's published addresses, report mode by default; verify tests for report, enforce, Stripe's address, missing list and localhost, and one live fetch of the list — *25 Nov: 11 tests; the live list has 15 addresses*
 ## 5. Emails
 
 - [ ] 5.1 Confirmation email to the buyer (S8 content) and slip email to the owner (P1 layout), sent once when an order turns paid; verify in Mailpit locally and with a test that a duplicate webhook sends nothing
@@ -38,6 +39,8 @@
 - [ ] 7.1 Week 3 exit check: a test-mode order goes from cart to paid with correct totals; a declined and an abandoned payment leave no paid order; record the result with a date in the process note
 
 ## Workflow follow-up
+
+- Hardening week (week 5): read the webhook logs for unknown callers; if there are no false alarms, set `STRIPE_WEBHOOK_IP_CHECK=enforce` in Vercel (D-018).
 
 - Merge order: `feature/hifi-design`, then `feature/storefront`, then this branch.
 - Archive after merge; the `checkout`, `orders` and `catalog` deltas then become main specs.

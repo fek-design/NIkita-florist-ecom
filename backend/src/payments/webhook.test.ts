@@ -12,6 +12,7 @@ const { client, db } = connectTestDatabase();
 afterAll(() => client.end());
 
 const SECRET = "whsec_test_secret";
+const STRIPE_LIST = { ips: new Set(["3.18.12.63"]), fetchedAt: 0 };
 const NOW = new Date("2026-11-23T09:00:00Z");
 const paidCalls: number[][] = [];
 const app = buildApp({
@@ -22,6 +23,9 @@ const app = buildApp({
   onPaid: async (ids) => {
     paidCalls.push(ids);
   },
+  // Never fetch Stripe's real list in tests.
+  getStripeIps: async () => STRIPE_LIST,
+  stripeIpCheck: "report",
 });
 
 let orderId: number;
@@ -81,13 +85,22 @@ function event(type: string, object: Record<string, unknown>, id?: string) {
   };
 }
 
-async function send(body: object, secret = SECRET) {
+async function send(
+  body: object,
+  secret = SECRET,
+  target = app,
+  callerIp?: string,
+) {
   const payload = JSON.stringify(body);
   const header = Stripe.webhooks.generateTestHeaderString({ payload, secret });
-  return app.inject({
+  return target.inject({
     method: "POST",
     url: "/webhooks/stripe",
-    headers: { "content-type": "application/json", "stripe-signature": header },
+    headers: {
+      "content-type": "application/json",
+      "stripe-signature": header,
+      ...(callerIp ? { "x-real-ip": callerIp } : {}),
+    },
     payload,
   });
 }
@@ -186,6 +199,7 @@ describe("POST /webhooks/stripe", () => {
       getDatabase: () => db,
       pingDatabase: async () => 1,
       stripeWebhookSecret: "",
+      getStripeIps: async () => STRIPE_LIST,
     });
     const res = await unconfigured.inject({
       method: "POST",
@@ -194,5 +208,46 @@ describe("POST /webhooks/stripe", () => {
       payload: "{}",
     });
     expect(res.statusCode).toBe(503);
+  });
+});
+
+describe("caller address check (second layer)", () => {
+  const enforcing = buildApp({
+    getDatabase: () => db,
+    now: () => NOW,
+    pingDatabase: async () => 1,
+    stripeWebhookSecret: SECRET,
+    getStripeIps: async () => STRIPE_LIST,
+    stripeIpCheck: "enforce",
+  });
+
+  it("report mode lets an unknown address through (signature still checked)", async () => {
+    const res = await send(completed(), SECRET, app, "203.0.113.9");
+    expect(res.statusCode).toBe(200);
+    expect((await state()).paymentState).toBe("paid");
+  });
+
+  it("enforce mode refuses an unknown address and changes nothing", async () => {
+    const res = await send(completed(), SECRET, enforcing, "203.0.113.9");
+    expect(res.statusCode).toBe(403);
+    expect((await state()).paymentState).toBe("pending");
+  });
+
+  it("enforce mode accepts Stripe's address", async () => {
+    const res = await send(completed(), SECRET, enforcing, "3.18.12.63");
+    expect(res.statusCode).toBe(200);
+  });
+
+  it("enforce mode still lets events through when the list cannot be fetched", async () => {
+    const noList = buildApp({
+      getDatabase: () => db,
+      now: () => NOW,
+      pingDatabase: async () => 1,
+      stripeWebhookSecret: SECRET,
+      getStripeIps: async () => null,
+      stripeIpCheck: "enforce",
+    });
+    const res = await send(completed(), SECRET, noList, "203.0.113.9");
+    expect(res.statusCode).toBe(200);
   });
 });

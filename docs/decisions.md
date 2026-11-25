@@ -117,6 +117,13 @@ Why: the owner can switch methods on and off herself without code (DD-23). It ad
 Rule for the dashboard: no delayed methods (bank debits, invoices, pay-later that settles later). A same-day bouquet cannot wait days for a payment to settle; the webhook handles delayed methods correctly, but the shop could not use them. Whoever holds the Stripe login (Felix now, the owner at hand-over) uses two-factor sign-in.
 Rejected: listing `allowed_payment_method_types` in code (MobilePay and card only), used in the 25 Nov payment test.
 
+### D-018 Stripe webhook: caller address checked as a second layer
+Date: 2026-11-25 · Status: locked (report now, enforce in week 5)
+Decision: Besides the signature, the webhook checks whether the caller is one of Stripe's published webhook addresses (`stripe.com/files/ips/ips_webhooks.json`, fetched and cached for a day, the last good list kept if a fetch fails). `STRIPE_WEBHOOK_IP_CHECK=report` logs unknown callers and lets them through; in the hardening week, once the logs show no false alarms, it is set to `enforce`, which refuses them. Signature failures are logged too. Felix, option b: "we can't skip security".
+Why: defence in depth, as stripe-best-practices advises. The signature alone already stops forged events; the address check only matters if the signing secret leaks.
+Guard: if Stripe's list cannot be fetched, events still go through (logged as an error). Refusing them would lose real payments, and the signature still protects. Locally, `stripe listen` calls from localhost and is let through outside Vercel only.
+Rejected: skipping it (option a); enforcing from day one (option c: a stale or unfetched list could refuse genuine payments before we have seen it work); a list copied into the code (goes out of date silently).
+
 ---
 
 ## Dependencies
