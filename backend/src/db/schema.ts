@@ -8,6 +8,7 @@ import {
   char,
   check,
   date,
+  index,
   integer,
   jsonb,
   pgEnum,
@@ -104,6 +105,8 @@ export const shopSettings = pgTable(
     deliveryWeekdays: integer().array().notNull(),
     /** Orders accepted per day. Internal: never sent to the storefront. */
     dailyCapacity: integer().notNull(),
+    /** Pickups the owner can have ready per one-hour slot (DD-18). Internal. */
+    pickupsPerSlot: smallint().notNull().default(4),
     pickupEnabled: boolean().notNull().default(true),
     /** Shown only, e.g. {"mon": ["10:00", "17:30"]}; days left out are closed. */
     openingHours: jsonb()
@@ -117,6 +120,10 @@ export const shopSettings = pgTable(
     check("shop_settings_single_row", sql`${t.id} = 1`),
     check("shop_settings_fee_not_negative", sql`${t.deliveryFeeOere} >= 0`),
     check("shop_settings_capacity_positive", sql`${t.dailyCapacity} > 0`),
+    check(
+      "shop_settings_pickups_per_slot_positive",
+      sql`${t.pickupsPerSlot} > 0`,
+    ),
     check(
       "shop_settings_weekdays_valid",
       sql`cardinality(${t.deliveryWeekdays}) > 0 and ${t.deliveryWeekdays} <@ array[1,2,3,4,5,6,7]`,
@@ -203,6 +210,8 @@ export const orders = pgTable(
     updatedAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
+    // Capacity is counted per day, often for one slot.
+    index("orders_fulfilment_date_idx").on(t.fulfilmentDate, t.pickupSlotHour),
     check("orders_fee_not_negative", sql`${t.deliveryFeeOere} >= 0`),
     check("orders_total_positive", sql`${t.totalOere} > 0`),
     check(
