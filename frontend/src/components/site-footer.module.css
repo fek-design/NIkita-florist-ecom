@@ -1,0 +1,66 @@
+/* Paper on Sand is 5.1:1 (brand contrast table). */
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 32px 16px 24px;
+  background: var(--sand);
+  color: var(--paper);
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+}
+
+.heading {
+  color: var(--paper);
+  font-size: var(--text-lg);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--linen);
+}
+
+.list li {
+  border-bottom: 1px solid var(--linen);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  color: var(--paper);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.legal {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--text-sm);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 24px;
+  font-size: var(--text-base);
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--paper);
+}
+
+.placeholder {
+  font-style: italic;
+  opacity: 0.85;
+}

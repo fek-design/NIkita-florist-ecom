@@ -1,0 +1,31 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 48px 16px;
+}
+
+.page h1 {
+  font-size: var(--text-2xl);
+}
+
+.page a:not(.button) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-text);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  border-radius: 4px;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}

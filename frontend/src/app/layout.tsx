@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 
 // Brand fonts, self-hosted subsets from ref/brand/fonts (no requests to
 // Google; P7 and GDPR). Both are variable fonts limited to weights 400–700.
@@ -26,7 +28,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="da" className={`${ancizarSerif.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <a href="#indhold" className="skip-link">
+          Gå til indhold
+        </a>
+        <SiteHeader />
+        <main id="indhold">{children}</main>
+        <SiteFooter />
+      </body>
     </html>
   );
 }

@@ -1,0 +1,24 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--linen);
+  background: var(--color-bg);
+}
+
+.logo {
+  display: block;
+  border-radius: 4px;
+}
+
+.basket {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  color: var(--color-text);
+}

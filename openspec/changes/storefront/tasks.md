@@ -21,7 +21,7 @@
 
 ## 3. Layout and front page
 
-- [ ] 3.1 Build the layout: navbar with the half-moon logo and the cart count, Sand footer with the full logo, base styles from the tokens, Danish not-found page; verify at 390 px with no horizontal scroll
+- [x] 3.1 Build the layout: navbar with the half-moon logo and the cart count, Sand footer with the full logo, base styles from the tokens, Danish not-found page; verify at 390 px with no horizontal scroll — *25 Nov: navbar (half-moon 110 px, menu as a native dialog per S2, basket with count from the browser cart), footer C, skip link, Danish not-found page. Checked in a browser at 390 px: no horizontal scroll (390/390), every visible target ≥ 44 px, first Tab is the skip link, Esc closes the menu; images in `docs/design/implemented/`*
 - [ ] 3.2 Build the front page from Felix's Figma design (design decision 12): hero, featured bouquet, four best-selling occasions (owner's order until orders exist), "Se alle", "Besøg Nikita"; Linen image placeholders with reserved sizes and lazy loading below the first screen; verify against the seeded catalogue and a screenshot comparison with the Figma frame
 - [ ] 3.3 Build the category page `/anledninger` with every visible occasion in the front page's card style; verify "Se alle" leads there and lists five occasions
 - [x] 3.4 Decide where the delivery facts go — *23 Nov: occasion page only (DD-14); built in group 4*

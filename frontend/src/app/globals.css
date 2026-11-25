@@ -52,6 +52,52 @@ img {
   box-shadow: var(--focus-ring);
 }
 
+/* For screen readers only. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* First Tab stop: jump past the navbar (P9). Shown below the navbar, so it
+   never covers the menu button. */
+.skip-link {
+  position: absolute;
+  top: 80px;
+  left: 8px;
+  z-index: 10;
+  padding: 12px 16px;
+  border-radius: 4px;
+  background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-400%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* The number on the basket (S5 onwards). */
+.cart-badge {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 11px;
+  font-weight: var(--weight-bold);
+  line-height: 1;
+}
+
 /* Supporting text: descriptions, hints, meta (DD-24). Paper only. */
 .muted {
   color: var(--color-text-muted);
