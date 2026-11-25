@@ -104,6 +104,12 @@ Why: Felix designs the screens in Figma (DD-01). Figwright needs no paid Figma s
 Checked 2026-11-21: version 0.7.0 published 26 Oct 2026, no install scripts, ordinary dependencies (ws, zod, msgpack, the MCP server library); one maintainer, which is why the version is pinned instead of `@latest`.
 Rejected: Figma's official MCP (API limits, paid seat for Dev Mode); reading PDF exports (fonts, weights and line widths are lost in the export, as found on 21 Nov).
 
+### D-016 Payment: Stripe Checkout, hosted
+Date: 2026-11-25 · Status: locked
+Decision: Payment runs on Stripe's hosted Checkout page (MobilePay and cards), reached from our own checkout form; the backend uses Stripe's server library (`stripe`). An order is paid only on a verified webhook.
+Why: Felix, 25 Nov. Stripe is acquirer and gateway in one contract, has no monthly fee, offers MobilePay, and its test mode covers webhooks and failures, which matters in the riskiest week of the plan. The hosted page keeps card data off our servers and needs the least UI work.
+Rejected: Stripe Payment Element embedded in our page (more payment states to build now; possible later); the Vipps MobilePay ePayment API directly (MobilePay only, a second integration for cards); QuickPay (needs a separate acquirer agreement and a monthly fee). The payment code sits behind a small module so a later switch does not touch the rest.
+
 ---
 
 ## Dependencies
@@ -135,6 +141,7 @@ Roadmap rule 8: each package needs a reason.
 | `fastify` | runtime | The API framework (D-009) |
 | `drizzle-orm` | runtime | Typed SQL queries (D-002) |
 | `postgres` | runtime | Postgres driver used by Drizzle (D-002) |
+| `stripe` | runtime | Stripe's server library: Checkout Sessions, webhook signature checks (D-016). Added 25 Nov; `npm audit --omit=dev` 0 vulnerabilities |
 | `typescript`, `@types/node` | dev | Type checking and the production build |
 | `tsx` | dev | Runs the TypeScript server directly in development, restarting on change |
 | `eslint`, `typescript-eslint`, `eslint-config-prettier` | dev | Lint rules for TypeScript |
