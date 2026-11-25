@@ -1,7 +1,7 @@
 ## 1. Setup
 
 - [x] 1.1 Start `docs/process/2026-11-19-storefront.md` with goal, inputs and the defaults to confirm; verify it links this change — *19 Nov: defaults recorded as confirmed*
-- [ ] 1.2 Bring the brand into `frontend/`: copy `tokens.css`, the font files (via `next/font/local`), the web logo PNGs and the favicons; add the token drift test; verify the drift test fails when one token differs and passes when they match
+- [x] 1.2 Bring the brand into `frontend/`: copy `tokens.css`, the font files (via `next/font/local`), the web logo PNGs and the favicons; add the token drift test; verify the drift test fails when one token differs and passes when they match — *23 Nov: fonts through `next/font/local` (both load, checked in the browser at 390 px), tokens copied to `frontend/src/styles/tokens.css`, drift test with a changed-value case, web logo PNGs in `public/brand/`, apple-icon; favicon.ico kept from 17 Nov. Added `--color-text-muted` (DD-24) to the brand tokens first*
 
 ## D. Design rounds (Felix chooses)
 
@@ -16,8 +16,8 @@
 
 ## 2. Backend: available dates
 
-- [ ] 2.1 Write the available-dates function (Danish time, weekdays, closed dates, cut-off, 60 days) with unit tests on a fixed clock; verify the four spec scenarios
-- [ ] 2.2 Add `GET /delivery/dates` with a response schema and a route test; verify the response holds only dates and no capacity
+- [x] 2.1 Write the available-dates function (Danish time, weekdays, closed dates, cut-off, 60 days) with unit tests on a fixed clock; verify the four spec scenarios — *25 Nov: `backend/src/catalog/dates.ts`, one implementation shared with checkout (`isAvailableDate`); 7 tests incl. the four scenarios, exactly at the cut-off, and Danish vs UTC midnight*
+- [x] 2.2 Add `GET /delivery/dates` with a response schema and a route test; verify the response holds only dates and no capacity — *25 Nov: `GET /delivery/dates`, response holds only `dates`; cached 60 s, checkout re-checks the date*
 
 ## 3. Layout and front page
 
