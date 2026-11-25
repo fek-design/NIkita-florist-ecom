@@ -1,0 +1,19 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 16px 40px;
+}
+
+.page h1 {
+  font-size: var(--text-2xl);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
