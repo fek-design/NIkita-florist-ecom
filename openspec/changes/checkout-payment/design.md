@@ -1,6 +1,6 @@
 ## Context
 
-The backend owns the catalogue, delivery rules and money in øre; the frontend reaches it only through the API. The storefront change builds the cart and the available-dates rules; this change starts where the cart ends. Design: hi-fi v2, screens S7 and S8, decisions DD-16 to DD-19, DD-21 and DD-25 (`docs/design-decisions.md`). Explored with Felix on 25 Nov; process note to follow in `docs/process/`.
+The backend owns the catalogue, delivery rules and money in øre; the frontend reaches it only through the API. The storefront change builds the cart and the available-dates rules; this change starts where the cart ends. Design: hi-fi v2, screens S7 and S8, decisions DD-16 to DD-19, DD-21 and DD-25 (`docs/design-decisions.md`). Explored with Felix on 25 Nov; process note: [2026-11-25-checkout-payment.md](../../../docs/process/2026-11-25-checkout-payment.md).
 
 ## Goals / Non-Goals
 

@@ -1,12 +1,12 @@
 ## 1. Setup
 
-- [ ] 1.1 Start `docs/process/2026-11-25-checkout-payment.md` (goal, inputs, the explore decisions, what was rejected) and link it from design.md; verify both links resolve
-- [ ] 1.2 Add `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` to `backend/src/env.ts`, `.env.example` and `docs/handover.md`; Felix enters the test values himself; verify the env test fails without them and passes with them
-- [ ] 1.3 Add the Stripe server library and log it in `docs/decisions.md` with the reason (D-016: Stripe Checkout, hosted); verify `npm audit --omit=dev --audit-level=high` passes
+- [x] 1.1 Start `docs/process/2026-11-25-checkout-payment.md` (goal, inputs, the explore decisions, what was rejected) and link it from design.md; verify both links resolve
+- [ ] 1.2 Add `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` to `backend/src/env.ts`, `.env.example` and `docs/handover.md`; Felix enters the test values himself; verify the env test fails without them and passes with them — *25 Nov: `.env.example` and hand-over done, test key in `.env.local`. `env.ts` waits until the keys are also in Vercel, or preview deploys would fail at start-up*
+- [x] 1.3 Add the Stripe server library and log it in `docs/decisions.md` with the reason (D-016: Stripe Checkout, hosted); verify `npm audit --omit=dev --audit-level=high` passes — *25 Nov: 0 vulnerabilities*
 
 ## 2. Payment test first (highest risk)
 
-- [ ] 2.1 Spike: create a test-mode Checkout Session in DKK with MobilePay and card, pay it with MobilePay test and a test card, receive the webhook locally through the Stripe CLI; verify both payments reach "completed" and note in the process log anything that only works live
+- [x] 2.1 Spike: create a test-mode Checkout Session in DKK with MobilePay and card, pay it with MobilePay test and a test card, receive the webhook locally through the Stripe CLI; verify both payments reach "completed" and note in the process log anything that only works live — *25 Nov: MobilePay and card both paid (480 kr., DKK); `allowed_payment_method_types` replaces the removed `payment_method_types`; the local webhook via the Stripe CLI moved to 4.2 (CLI not installed)*
 
 ## 3. Orders and capacity
 
@@ -18,7 +18,7 @@
 ## 4. Checkout and payment
 
 - [ ] 4.1 `POST /checkout`: validate the form (email twice and matching, required fields per delivery or pickup, latest time only for Bisættelse), recompute the total, create the pending order, create the Checkout Session (30 min), return the redirect URL; verify route tests for valid, invalid, full day and past cut-off
-- [ ] 4.2 `POST /webhooks/stripe`: verify the signature, store the event id, set paid / expired / refunded; verify tests for forged, duplicate, paid, expired and refunded events
+- [ ] 4.2 `POST /webhooks/stripe` (handle `checkout.session.completed` with payment status paid, `checkout.session.async_payment_succeeded`/`failed` for safety, `checkout.session.expired`, `charge.refunded`; receive them locally through the Stripe CLI): verify the signature, store the event id, set paid / expired / refunded; verify tests for forged, duplicate, paid, expired and refunded events
 - [ ] 4.3 Expiry job through `POST /jobs/expire-orders`: pending orders past their session become expired; verify with a test on a fixed clock
 - [ ] 4.4 `GET /orders/:token`: the confirmation data, nothing for an unknown token; verify route tests
 
