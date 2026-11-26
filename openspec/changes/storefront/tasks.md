@@ -35,7 +35,7 @@
 ## G. Layout grid for phone, tablet and desktop (DD-28, 25 Nov)
 
 - [x] G.1 Add the spacing scale and the layout grid (4 / 8 / 12 columns, 1128 px max) to the brand tokens and the frontend copy; extend the drift test to the tablet and desktop values; move off-grid spacings onto the steps; verify content and header icons sit on the grid edge at 390, 768, 1280 and 1600 px with no horizontal scroll — *25 Nov: content edges 16 / 32 / 76 / 236 px, icons aligned, scroll width equal to the window at all four; "before" images `docs/design/implemented/2026-11-25-grid-before-*.png`*
-- [ ] G.2 Draw tablet and desktop frames for S1, S3, S4 and S6/S7 in Figma on the 12-column grid, each element citing its pattern; verify Felix has reviewed them — *25 Nov: drawn in section "V0.3 · Tablet og desktop (DD-28, forslag)" from clones of the phone parts (no new elements); images in `docs/design/hifi/working-v3/grid/`. Waiting for Felix's review*
+- [x] G.2 Draw tablet and desktop frames for S1, S3, S4 and S6/S7 in Figma on the 12-column grid, each element citing its pattern; verify Felix has reviewed them — *25 Nov: drawn in section "V0.3 · Tablet og desktop (DD-28, forslag)" from clones of the phone parts (no new elements); images in `docs/design/hifi/working-v3/grid/`. 26 Nov: Felix found too much empty space in the front page hero and especially "Besøg Nikita"; revised (3:2 hero photo, brand heading sizes, landscape about photo, text centred); first frames kept as rejected images. Felix chose a sticky photo on the occasion page and a sticky "Din ordre" in checkout, and no separate frames for S3 or tablet S3/S6/S7 (DD-29)*
 - [ ] G.3 Build the reviewed tablet and desktop layouts; verify screenshots at 768 and 1280 px against the frames
 
 ## 5. Cart
