@@ -80,6 +80,24 @@ AI writes most of the code and drafts. A human owns every decision and every mer
 
 Feature freeze is the end of week 4. Weeks 5 and 6 add no new features.
 
+### Compressed schedule (decided 27 Nov)
+
+Felix moved the wrap-up to **about 10 December**, ten days earlier than the table above, which stays as the original plan. Nothing in scope is dropped ("we are making good progress"); the weeks are squeezed, and only work that is **more of the same** is reduced, never a kind of work. Examples: photographing one bouquet in three sizes (plus a bårebuket and a cover) instead of every occasion in every size; one shared description pattern instead of a text per occasion; three usability test persons rather than five if three already show the same top issues.
+
+| Dates | Work | Milestone |
+|---|---|---|
+| 27 Nov | Week 3 closed: test-mode order paid end to end, declined and abandoned leave no paid order | Done |
+| 28–29 Nov | Change `occasion-page-choices`: card (20 kr.) and wishes per bouquet, town or postcode | Occasion page asks only what changes the bouquet |
+| 30 Nov – 3 Dec | Week 4: back office (explore first) and the automation: login, orders with status and the printable slip, the till for phone orders, occasions, prices, sold out, closed days, capacity (incl. a funeral limit), the featured bouquet, sales report, printing on arrival; expiry and email-retry jobs | **Feature freeze 3 Dec**: the order flow runs with no manual step |
+| 4 Dec | Usability test with test persons, fix the top issues; legal pages (terms, privacy) | Findings logged, v3 frozen |
+| 5–6 Dec | Week 5 hardening: security headers, rate limits, webhook IP check enforced, backups, GDPR data map, Lighthouse, accessibility, SEO checks | Every claim has a dated result |
+| 7 Dec | Photo day at the shop (10:00); the owner chooses between two background swatches | Real photos taken |
+| 8 Dec | Photos and real content in, stand-ins out, palette settled | No stand-ins left |
+| 9 Dec | Hand-over (manual, `docs/handover.md`, transfer rehearsal, runbook), report material, release `v1.0` to `main` | Tagged release |
+| 10 Dec | Buffer; wrap-up | Handed in |
+
+Skill checkup for hardening moves with it, to 5 Dec.
+
 **Skill checkups** (the gate process in [CLAUDE.md, Skill policy](../CLAUDE.md), at phase boundaries only):
 - 10 Nov: design phase, first checkup (change `prepare-design-workflow`)
 - 16 Nov: build (start of week 2)
