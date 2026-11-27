@@ -1,0 +1,153 @@
+/* S6, from the hi-fi frame: 24 px between blocks. */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--page-inline) var(--space-5);
+}
+
+.note {
+  padding: var(--space-2);
+  border-left: 4px solid var(--ink);
+  background: var(--linen);
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.line {
+  display: flex;
+  gap: 12px;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--linen);
+}
+
+.thumb {
+  flex: 0 0 96px;
+}
+
+.info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-half);
+  min-width: 0;
+}
+
+.name {
+  font-weight: var(--weight-semibold);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 132px;
+  height: 44px;
+  border: 1px solid var(--sand);
+  border-radius: 4px;
+}
+
+.stepper button {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--text-lg);
+  cursor: pointer;
+}
+
+.stepper button:disabled {
+  color: var(--linen);
+  cursor: not-allowed;
+}
+
+.remove {
+  min-height: 44px;
+  padding: 0 var(--space-half);
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Linen panel: Ink text and links (Sand on Linen is 3.8:1). */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  padding: var(--space-2);
+  border-radius: 4px;
+  background: var(--linen);
+  color: var(--ink);
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panelHead h2 {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+}
+
+.panelHead a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink);
+  font-weight: var(--weight-semibold);
+}
+
+.totals {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+}
+
+.totals div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.totals dd {
+  margin: 0;
+}
+
+.sum {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--linen);
+  font-size: 1.125rem;
+  font-weight: var(--weight-semibold);
+}
+
+.cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  text-align: center;
+}
+
+.cta p {
+  font-size: var(--text-sm);
+}

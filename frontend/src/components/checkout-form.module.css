@@ -1,0 +1,163 @@
+/* S7, from the hi-fi frame: 32 px between sections, 16 px between fields. */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--page-inline) var(--space-5);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.heading {
+  margin-bottom: var(--space-2);
+  padding: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  line-height: 1.3;
+}
+
+/* Inside a flex fieldset the legend's margin does the spacing. */
+h2.heading {
+  margin-bottom: 0;
+}
+
+.hint {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.error {
+  color: var(--color-error);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.notice {
+  padding: var(--space-2);
+  border-left: 4px solid var(--ink);
+  background: var(--linen);
+  color: var(--ink);
+}
+
+.suggestion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.suggestion button,
+.linkButton {
+  min-height: 44px;
+  padding: 0 var(--space-half);
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: var(--weight-semibold);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.linkButton {
+  align-self: flex-start;
+  padding: 0;
+}
+
+/* Postcode from the cart: shown, not asked again (spec). Linen, Ink text. */
+.fixed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 0 12px;
+  border-radius: 4px;
+  background: var(--linen);
+  color: var(--ink);
+}
+
+.fixed a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink);
+  font-weight: var(--weight-semibold);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* The rows of S7's "Betal med": 56 px, Sand border; chosen gets 2 px Ink. */
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--sand);
+  border-radius: 4px;
+  background: var(--paper);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+.option:has(input:checked) {
+  border: 2px solid var(--ink);
+}
+
+.option input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border-radius: 4px;
+  background: var(--linen);
+  color: var(--ink);
+}
+
+.summary h2 {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+}
+
+.summary ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sum {
+  font-size: 1.125rem;
+  font-weight: var(--weight-semibold);
+}
+
+.cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.page a:not([class]) {
+  color: var(--color-link);
+}

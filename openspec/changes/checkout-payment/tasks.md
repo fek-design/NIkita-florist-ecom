@@ -30,8 +30,8 @@
 
 ## 6. Frontend (after the storefront cart exists)
 
-- [ ] 6.1 `/betaling` (S7): the form from the hi-fi set, the email typo suggestion and repeat field, the summary with server totals, the fresh-flowers note, "Betal X kr."; verify at 390 px against Figma and with keyboard only
-- [ ] 6.2 Confirmation page (S8) with the waiting state until paid; verify by paying in test mode and by opening a changed token
+- [x] 6.1 `/betaling` (S7): the form from the hi-fi set, the email typo suggestion and repeat field, the summary with server totals, the fresh-flowers note, "Betal X kr."; verify at 390 px against Figma and with keyboard only — *27 Nov: checked at 390 px: an empty submit lists every missing field and focuses the first; `mette@gmial.com` gets "Mente du mette@gmail.com?"; a differing repeat is refused; 480 kr. reaches Stripe. Built from the spec where the v2 frame predates later decisions: repeat email (DD-25), "Hvis ingen er hjemme" and the latest time for Bisættelse (DD-19), and "Betal med" as text instead of a picker, because the customer picks MobilePay or card on Stripe's page (D-016). Keyboard-only pass still to do*
+- [x] 6.2 Confirmation page (S8) with the waiting state until paid; verify by paying in test mode and by opening a changed token — *27 Nov: the waiting state shows until the webhook marks the order paid, then the paid page; the cart empties; both emails arrive in Mailpit. The payment was confirmed with a locally signed `checkout.session.completed` (Stripe's test card form refused browser automation); the real Stripe path was verified on 25 Nov. A changed token shows "Vi kan ikke finde ordren"*
 - [ ] 6.3 End-to-end test: cart → checkout → Stripe test payment → confirmation shows paid; verify it runs in CI (Stripe test mode or a mocked webhook, whichever CI allows)
 
 ## 7. Done

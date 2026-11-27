@@ -40,8 +40,8 @@
 
 ## 5. Cart
 
-- [ ] 5.1 Write the cart store (versioned `localStorage`, `useSyncExternalStore`, fallback when storage fails) and `formatKroner` with unit tests; verify add, quantity, remove, one delivery and the storage fallback
-- [ ] 5.2 Build `/kurv`: lines, quantity 1–10, remove, delivery summary with change link, fee, total incl. moms, price refresh with a note, unavailable bouquets left out, checkout shown as coming; verify the totals scenario (350 + 80 = 430 kr.) and pickup without fee
+- [x] 5.1 Write the cart store (versioned `localStorage`, `useSyncExternalStore`, fallback when storage fails) and `formatKroner` with unit tests; verify add, quantity, remove, one delivery and the storage fallback — *27 Nov: 8 tests (350 + 80 = 430, pickup without fee, conflict on a second delivery, quantity kept within 1–10, removing the last line forgets the delivery, storage failure, damaged storage); the price helper is `kroner` in `lib/format.ts`*
+- [x] 5.2 Build `/kurv`: lines, quantity 1–10, remove, delivery summary with change link, fee, total incl. moms, price refresh with a note, unavailable bouquets left out, checkout shown as coming; verify the totals scenario (350 + 80 = 430 kr.) and pickup without fee — *27 Nov: built from S6; checked in a browser at 390 px (480 kr. for Bisættelse Mellem + 80, plus button to 880 and back, no horizontal scroll); totals scenario and pickup in the unit tests; prices checked against the catalogue on opening, with a note when one changed or a bouquet can no longer be ordered*
 
 ## 6. Findability and checks
 

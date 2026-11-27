@@ -107,3 +107,45 @@ export function addMovingDelivery(line: CartLine, delivery: CartDelivery) {
 export function notifyCartChanged() {
   listeners.forEach((l) => l());
 }
+
+export const MAX_QUANTITY = 10;
+
+/** Quantity of one line, kept within 1–10 (spec: quantity 1–10). */
+export function setQuantity(index: number, quantity: number) {
+  const cart = getCart();
+  if (!cart.lines[index]) return;
+  const q = Math.min(MAX_QUANTITY, Math.max(1, Math.round(quantity)));
+  save({
+    ...cart,
+    lines: cart.lines.map((l, i) => (i === index ? { ...l, quantity: q } : l)),
+  });
+}
+
+/** Removes one line; an empty cart forgets its delivery too. */
+export function removeLine(index: number) {
+  const cart = getCart();
+  const lines = cart.lines.filter((_, i) => i !== index);
+  save({ delivery: lines.length > 0 ? cart.delivery : null, lines });
+}
+
+/** Replaces the lines, e.g. after prices were refreshed. */
+export function replaceLines(lines: CartLine[]) {
+  const cart = getCart();
+  save({ delivery: lines.length > 0 ? cart.delivery : null, lines });
+}
+
+/** After a paid order. */
+export function clearCart() {
+  save(EMPTY);
+}
+
+/** What the customer sees before checkout; the server prices the order. */
+export function cartTotals(cart: Cart) {
+  const bouquetsOere = cart.lines.reduce(
+    (sum, l) => sum + l.unitPriceOere * l.quantity,
+    0,
+  );
+  const feeOere =
+    cart.delivery?.fulfilment === "delivery" ? cart.delivery.feeOere : 0;
+  return { bouquetsOere, feeOere, totalOere: bouquetsOere + feeOere };
+}

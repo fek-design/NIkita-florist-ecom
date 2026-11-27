@@ -542,7 +542,13 @@ export function OrderForm({
               <span>{kroner(cartTotal)}</span>
             </p>
             <div className={styles.stack}>
-              <Link href="/kurv" className={styles.primary}>
+              {/* Close first: Next keeps the left page alive in the
+                  background, and an open modal would block the next one. */}
+              <Link
+                href="/kurv"
+                className={styles.primary}
+                onClick={() => sheet.current?.close()}
+              >
                 Gå til kurven
               </Link>
               <Link

@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
+  // Development only: lets a phone on the same home network open the dev
+  // server by the computer's address (usability tests, roadmap week 5).
+  // Next blocks other hosts by default; production ignores this setting.
+  allowedDevOrigins: ["192.168.*.*", "10.*.*.*"],
   partialPrefetching: true,
   async rewrites() {
     // Browser calls to /api/* go to the backend, so the browser only ever
