@@ -24,6 +24,7 @@ const ORDER = ["fodselsdag", "bisaettelse", "bare-fordi", "kaerlighed", "tak"];
 
 /** A stand-in for an occasion's main photo, varied so the grid is not one picture. */
 export function standInFor(slug: string): StandIn {
+  if (slug === "jul-og-advent") return HERO_STAND_IN;
   const i = ORDER.indexOf(slug);
   return BOUQUETS[(i === -1 ? 0 : i) % BOUQUETS.length]!;
 }

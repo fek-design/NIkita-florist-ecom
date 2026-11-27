@@ -259,3 +259,9 @@ Date: 2026-11-27 · Principles: P11 · Evidence grade: B (Gestalt law of proximi
 Decision: Inside a group (the recommendation, the occasions, the visit) elements stay 16 px apart; between groups there are 48 px on the phone and 64 px from tablet up, so each reads as its own block. Before, the recommendation ran on into the occasions and the visit at nearly the same spacing as its own lines (Felix: "one long line that continues until the about me section").
 Rejected: dividing lines or panels (more elements, against the owner's wish for simple); keeping the spacing.
 Test: in the usability test, ask what the front page offers; do people name the recommendation, the occasions and the shop as separate things?
+
+### DD-38 The recommendation: "Jul og advent" under a label, the shop line on its own
+Date: 2026-11-27 · Principles: P11, DD-22, DD-37 (grouping) · Evidence grade: C (opinion: Felix; the label comes from his v2 frame)
+Decision: Under the hero, the shop sentence "Håndbundne buketter fra Nikitas værksted i Tuse." stands alone as a quiet Sand line (still the page's h1 for search engines). Below it, as one group: a small label "MÅNEDENS BUKET", the bouquet's name and the button with the price. "Lige nu anbefaler hun:" is gone; it tied two unrelated lines together (Felix: "two different lines of text that just kind of are there"). The recommended bouquet is now "Jul og advent", added to the placeholder catalogue first in the owner's order (DD-04 fallback until she chooses in the back office, DD-23), with the Christmas stand-in photo.
+Replaces: DD-22's lead-in ("Lige nu anbefaler hun:").
+Rejected: one sentence leading into the name with the shop line moved to "Besøg Nikita"; only the shop sentence with the recommendation as the first card.

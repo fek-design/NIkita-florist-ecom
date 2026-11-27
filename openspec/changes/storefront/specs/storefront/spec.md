@@ -24,7 +24,7 @@ The category page at `/anledninger` SHALL list every visible occasion in the sam
 
 #### Scenario: See all
 - **WHEN** a visitor taps "Se alle"
-- **THEN** the category page lists all five occasions
+- **THEN** the category page lists every visible occasion (six in the placeholder catalogue)
 
 ### Requirement: Delivery facts are easy to find
 The delivery fee, the delivery area, the same-day cut-off and that pickup is possible SHALL be stated in plain words, read from the delivery rules, on the occasion page with the delivery choice (P3, DD-14). The fee SHALL be shown as soon as a postcode is entered, before anything is added to the cart. The front page does not carry them.
@@ -119,7 +119,7 @@ Every page SHALL have its own Danish title and description. The site SHALL serve
 
 #### Scenario: Sitemap
 - **WHEN** a crawler fetches `/sitemap.xml`
-- **THEN** it lists the front page, the category page and the five occasion pages, and not the cart, checkout, order or status pages
+- **THEN** it lists the front page, the category page and every visible occasion page, and not the cart, checkout, order or status pages
 
 #### Scenario: Product data
 - **WHEN** a crawler reads an occasion page

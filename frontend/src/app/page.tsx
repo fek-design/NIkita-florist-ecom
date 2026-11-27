@@ -39,14 +39,14 @@ export default async function Home() {
       </div>
 
       <section className={styles.featured} aria-labelledby="anbefaling">
-        {/* The page's main heading for search engines (P10), styled as the
-            plain intro line of the design. */}
+        {/* The page's main heading for search engines (P10), a quiet line of
+            its own; the recommendation is a separate group below (DD-38). */}
         <h1 className={styles.intro}>
-          Håndbundne buketter fra Nikitas værksted i Tuse. Lige nu anbefaler
-          hun:
+          Håndbundne buketter fra Nikitas værksted i Tuse.
         </h1>
         {featured && (
-          <>
+          <div className={styles.pick}>
+            <p className={styles.label}>Månedens buket</p>
             <h2 id="anbefaling" className={styles.featuredName}>
               {featured.name}
             </h2>
@@ -56,7 +56,7 @@ export default async function Home() {
             >
               Se fra {kroner(featured.fromPriceOere)}
             </Link>
-          </>
+          </div>
         )}
       </section>
 

@@ -58,8 +58,10 @@ Ask with the screen or the slip in front of her, so the question has a concrete 
 | 5 | "Hvor mange afhentninger kan du have klar på én time?" | 4 per hour | Pickups per slot (8) |
 | 6 | "Hvilke anledninger sælger du mest til, og hvad koster de i lille, mellem og stor?" | 5 occasions, example prices | The occasion list and prices (4), the featured bouquet |
 | 7 | "Fortæl om de sidste tre bestillinger på Messenger: hvad spurgte kunden om, før de bestilte?" | Nothing | What the occasion page is missing |
-| 8 | "Hvad skriver folk på kortet, og hvor langt plejer det at være?" | 200 characters | The card-message limit |
-| 9 | "Når nogen ringer og bestiller: hvad spørger du om, og hvad sælger du ekstra? Til hvilken pris?" | No add-ons | The till screen fields, add-ons (11) |
+| 8 | "Hvad skriver folk på kortet, og hvor langt plejer det at være? Koster kortet noget?" | 200 characters, price unknown | The card-message limit; whether "+ Tilføj et kort" may say "gratis" |
+| 8a | "Hvis nogen bestiller to buketter på én gang, er det så til samme modtager?" | One delivery per cart, card per bouquet | Whether one delivery per cart holds; card and wishes per bouquet (decided 27 Nov) |
+| 8b | "Har du haft bestillinger, hvor kunden ønskede en bestemt farve eller ikke ville have en bestemt blomst? Hvad gjorde du?" | No wishes field | The "Ønsker til buketten" field and its wording |
+| 9 | "Når nogen ringer og bestiller: hvad spørger du om? Hvilke chokolader sælger du, og til hvilken pris? Sælger du andet ekstra?" | No add-ons (we know she sells chocolate) | The till screen fields, add-ons (11) |
 | 10 | "Hvornår har nogen sidst bestilt til et bryllup eller en fest? Hvordan foregik det?" | Not offered online | Large orders online or by phone (6) |
 | 11 | "Hvornår har nogen sidst villet bruge mere end den største størrelse?" | Three fixed tiers | A free amount above the top tier (5) |
 | 12 | "Hvilken printer har du, eller har du adgang til en?" | Slip as email | Print layout: A4 or 80 mm (9) |

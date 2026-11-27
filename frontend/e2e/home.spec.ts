@@ -6,7 +6,7 @@ test("home page loads in Danish with the intro as its heading", async ({
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("lang", "da");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Håndbundne buketter fra Nikitas værksted i Tuse",
+    "Håndbundne buketter fra Nikitas værksted i Tuse.",
   );
 });
 

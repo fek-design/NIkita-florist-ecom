@@ -27,6 +27,8 @@ export const seedOccasions: {
   name: string;
   intro: string;
   prices: Record<Tier, number>;
+  /** Set where the position must not follow the list (added later). */
+  sortOrder?: number;
 }[] = [
   {
     slug: "fodselsdag",
@@ -57,6 +59,16 @@ export const seedOccasions: {
     name: "Tak",
     intro: "En buket som tak, i tre størrelser.",
     prices: { lille: 250, mellem: 350, stor: 500 },
+  },
+  // Added 27 Nov (Felix): the season's recommendation for December, first in
+  // the owner's order so the front page features it (DD-04 fallback) until
+  // she can choose in the back office (DD-23). Base prices, a placeholder.
+  {
+    slug: "jul-og-advent",
+    name: "Jul og advent",
+    intro: "Buketter til jul og advent i tre størrelser.",
+    prices: { lille: 250, mellem: 350, stor: 500 },
+    sortOrder: 5,
   },
 ];
 
@@ -94,7 +106,7 @@ export async function seed(db: Db) {
         name: o.name,
         intro: o.intro,
         description: commonDescription,
-        sortOrder: (i + 1) * 10,
+        sortOrder: o.sortOrder ?? (i + 1) * 10,
       })),
     )
     .onConflictDoNothing({ target: occasions.slug });

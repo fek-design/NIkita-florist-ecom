@@ -37,13 +37,14 @@ describe("listOccasions", () => {
   it("lists the seeded occasions in sort order with the lowest price", async () => {
     const list = await listOccasions(db);
     expect(list.map((o) => o.slug)).toEqual([
+      "jul-og-advent",
       "fodselsdag",
       "bisaettelse",
       "bare-fordi",
       "kaerlighed",
       "tak",
     ]);
-    expect(list[1]).toMatchObject({
+    expect(list[2]).toMatchObject({
       name: "Bisættelse",
       fromPriceOere: 30000,
       soldOut: false,

@@ -16,16 +16,37 @@
 .featured {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-4);
   padding: var(--space-3) var(--page-inline) var(--space-6);
 }
 
 .intro {
-  color: var(--color-text);
+  color: var(--color-text-muted);
   font-family: var(--font-body);
   font-size: var(--text-base);
   font-weight: var(--weight-regular);
   line-height: var(--leading-body);
+}
+
+/* The recommendation as one group: label, name, button (DD-38, from
+   Felix's v2 frame). */
+.pick {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pick .primary,
+.pick .secondary {
+  margin-top: var(--space-1);
 }
 
 .featuredName {

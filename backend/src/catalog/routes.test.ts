@@ -33,11 +33,11 @@ describe("GET /occasions", () => {
     expect(res.statusCode).toBe(200);
     expect(res.headers["cache-control"]).toContain("s-maxage=60");
     const { occasions: list } = res.json();
-    expect(list).toHaveLength(5);
+    expect(list).toHaveLength(6);
     expect(list[0]).toEqual({
-      slug: "fodselsdag",
-      name: "Fødselsdag",
-      intro: "Buketter til fødselsdagen i tre størrelser.",
+      slug: "jul-og-advent",
+      name: "Jul og advent",
+      intro: "Buketter til jul og advent i tre størrelser.",
       fromPriceOere: 25000,
       soldOut: false,
       placeholder: true,
