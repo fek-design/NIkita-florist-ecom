@@ -109,6 +109,8 @@ export const shopSettings = pgTable(
     /** Pickups the owner can have ready per one-hour slot (DD-18). Internal. */
     pickupsPerSlot: smallint().notNull().default(4),
     pickupEnabled: boolean().notNull().default(true),
+    /** Price of a card with a bouquet (the owner, 27 Nov: 20 kr.). */
+    cardPriceOere: integer().notNull().default(2000),
     /** Shown only, e.g. {"mon": ["10:00", "17:30"]}; days left out are closed. */
     openingHours: jsonb()
       .$type<Partial<Record<Weekday, [string, string]>>>()
@@ -268,6 +270,10 @@ export const orderLines = pgTable(
     quantity: smallint().notNull(),
     unitPriceOere: integer().notNull(),
     cardMessage: text().notNull().default(""),
+    /** The card price per bouquet when ordered; 0 without a card. */
+    cardPriceOere: integer().notNull().default(0),
+    /** What the buyer wishes for the bouquet ("kun hvide"); may be empty. */
+    wish: text().notNull().default(""),
   },
   (t) => [
     primaryKey({ columns: [t.orderId, t.lineNo] }),
@@ -277,6 +283,8 @@ export const orderLines = pgTable(
       "order_lines_card_message_length",
       sql`char_length(${t.cardMessage}) <= 200`,
     ),
+    check("order_lines_wish_length", sql`char_length(${t.wish}) <= 200`),
+    check("order_lines_card_price_not_negative", sql`${t.cardPriceOere} >= 0`),
   ],
 );
 

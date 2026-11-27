@@ -29,16 +29,32 @@ export function stripeProvider(secretKey: string): PaymentProvider {
   const stripe = new Stripe(secretKey);
   return {
     async createSession(request) {
-      const lineItems = request.lines.map((line) => ({
-        quantity: line.quantity,
-        price_data: {
-          currency: "dkk",
-          unit_amount: line.unitPriceOere,
-          product_data: {
-            name: `${line.occasionName} · ${TIER_NAME[line.tier]}`,
+      const lineItems = request.lines.flatMap((line) => [
+        {
+          quantity: line.quantity,
+          price_data: {
+            currency: "dkk",
+            unit_amount: line.unitPriceOere,
+            product_data: {
+              name: `${line.occasionName} · ${TIER_NAME[line.tier]}`,
+            },
           },
         },
-      }));
+        // The card as its own line, so the payment page shows what it is
+        // (occasion-page-choices, design 4a).
+        ...(line.cardPriceOere > 0
+          ? [
+              {
+                quantity: line.quantity,
+                price_data: {
+                  currency: "dkk",
+                  unit_amount: line.cardPriceOere,
+                  product_data: { name: `Kort til ${line.occasionName}` },
+                },
+              },
+            ]
+          : []),
+      ]);
       if (request.deliveryFeeOere > 0) {
         lineItems.push({
           quantity: 1,

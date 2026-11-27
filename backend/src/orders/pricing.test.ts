@@ -46,6 +46,7 @@ const catalog: PricingCatalog = {
     ],
   ]),
   deliveryFeeOere: 8000,
+  cardPriceOere: 2000,
   zone: new Set(["4300"]),
   pickupEnabled: true,
 };
@@ -56,6 +57,52 @@ const delivery = (
 ): PricingRequest => ({ items, fulfilment: "delivery", postcode });
 
 describe("priceOrder", () => {
+  it("adds 20 kr. per bouquet with a card, times its quantity", () => {
+    const result = priceOrder(
+      delivery([
+        { occasionId: 1, tier: "mellem", quantity: 2, cardMessage: "Kh. os" },
+        { occasionId: 1, tier: "lille", quantity: 1 },
+      ]),
+      catalog,
+    );
+    expect(result.ok && result.lines.map((l) => l.cardPriceOere)).toEqual([
+      2000, 0,
+    ]);
+    // 2 × (400 + 20) + 300 + 80 delivery
+    expect(result.ok && result.totalOere).toBe(2 * 42000 + 30000 + 8000);
+  });
+
+  it("charges no card for an empty or blank message", () => {
+    const result = priceOrder(
+      delivery([
+        { occasionId: 1, tier: "mellem", quantity: 1, cardMessage: "  " },
+      ]),
+      catalog,
+    );
+    expect(result.ok && result.lines[0]!.cardPriceOere).toBe(0);
+  });
+
+  it("keeps the wish per bouquet and refuses one over 200 characters", () => {
+    const ok = priceOrder(
+      delivery([
+        { occasionId: 1, tier: "mellem", quantity: 1, wish: " Ingen liljer " },
+      ]),
+      catalog,
+    );
+    expect(ok.ok && ok.lines[0]!.wish).toBe("Ingen liljer");
+    expect(ok.ok && ok.totalOere).toBe(48000);
+    const long = priceOrder(
+      delivery([
+        { occasionId: 1, tier: "mellem", quantity: 1, wish: "x".repeat(201) },
+      ]),
+      catalog,
+    );
+    expect(!long.ok && long.problems).toContainEqual({
+      code: "wish_too_long",
+      line: 1,
+    });
+  });
+
   it("prices Bisættelse Mellem with delivery at 480 kr.", () => {
     const result = priceOrder(
       delivery([{ occasionId: 1, tier: "mellem", quantity: 1 }]),

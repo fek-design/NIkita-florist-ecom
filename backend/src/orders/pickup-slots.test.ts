@@ -123,6 +123,8 @@ describe("GET /pickup/slots", () => {
           quantity: 1,
           unitPriceOere: 25000,
           cardMessage: "",
+          cardPriceOere: 0,
+          wish: "",
         },
       ],
       NOW,

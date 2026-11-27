@@ -68,6 +68,8 @@ beforeEach(async () => {
         quantity: 1,
         unitPriceOere: 40000,
         cardMessage: "",
+        cardPriceOere: 0,
+        wish: "",
       },
     ],
     NOW,

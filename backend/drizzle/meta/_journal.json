@@ -64,6 +64,13 @@
       "when": 1795780848766,
       "tag": "0008_owner_answers_27_nov",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1795782507315,
+      "tag": "0009_card_price_and_wish",
+      "breakpoints": true
     }
   ]
 }

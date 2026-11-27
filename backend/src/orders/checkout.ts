@@ -23,6 +23,7 @@ export type CheckoutBody = {
     tier: "lille" | "mellem" | "stor";
     quantity: number;
     cardMessage?: string;
+    wish?: string;
   }[];
   fulfilment: "delivery" | "pickup";
   date: string;
@@ -69,6 +70,7 @@ const bodySchema = {
           tier: { enum: ["lille", "mellem", "stor"] },
           quantity: { type: "integer" },
           cardMessage: { type: "string", maxLength: 400 },
+          wish: { type: "string", maxLength: 400 },
         },
       },
     },
@@ -166,6 +168,7 @@ export function registerCheckoutRoutes(
           tier: item.tier,
           quantity: item.quantity,
           cardMessage: item.cardMessage,
+          wish: item.wish,
         })),
         fulfilment: body.fulfilment,
         postcode: body.postcode,

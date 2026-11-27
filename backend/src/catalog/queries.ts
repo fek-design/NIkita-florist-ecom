@@ -222,3 +222,35 @@ export async function checkPostcode(
     pickupOffered: settings.pickup,
   };
 }
+
+export type Place = { postcode: string; town: string };
+
+/**
+ * Places on the delivery list whose postcode or town starts with what was
+ * typed (occasion-page-choices, spec catalog). Case-insensitive; at most
+ * eight; never anything outside the list.
+ */
+export async function findPlaces(db: Db, query: string): Promise<Place[]> {
+  const q = query.trim().toLocaleLowerCase("da-DK");
+  if (!q) return [];
+  const all = await db
+    .select({
+      postcode: deliveryPostcodes.postcode,
+      town: deliveryPostcodes.town,
+    })
+    .from(deliveryPostcodes);
+  // The list is short (the owner's zone), so it is filtered here rather
+  // than in SQL, where Danish letters and case would need extra care.
+  return all
+    .filter(
+      (p) =>
+        p.postcode.startsWith(q) ||
+        p.town.toLocaleLowerCase("da-DK").startsWith(q) ||
+        p.town
+          .toLocaleLowerCase("da-DK")
+          .split(/[\s-]+/)
+          .some((word) => word.startsWith(q)),
+    )
+    .sort((a, b) => a.postcode.localeCompare(b.postcode))
+    .slice(0, 8);
+}

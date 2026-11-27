@@ -14,12 +14,15 @@ import {
 export const MAX_QUANTITY = 10;
 export const MAX_LINES = 20;
 export const MAX_CARD_MESSAGE = 200;
+export const MAX_WISH = 200;
 
 export type OrderItemRequest = {
   occasionId: number;
   tier: Tier;
   quantity: number;
   cardMessage?: string;
+  /** Wishes for the bouquet (occasion-page-choices); not priced. */
+  wish?: string;
 };
 
 export type PricingRequest = {
@@ -40,6 +43,8 @@ export type PricingCatalog = {
     }
   >;
   deliveryFeeOere: number;
+  /** Added per bouquet that has a card message (the owner: 20 kr.). */
+  cardPriceOere: number;
   /** Postcodes in the delivery zone (only those asked about are needed). */
   zone: Set<string>;
   pickupEnabled: boolean;
@@ -53,6 +58,9 @@ export type PricedLine = {
   quantity: number;
   unitPriceOere: number;
   cardMessage: string;
+  /** Per bouquet, so the line pays it times its quantity; 0 without a card. */
+  cardPriceOere: number;
+  wish: string;
 };
 
 /** Why an order cannot be priced; the route turns these into Danish text. */
@@ -64,6 +72,7 @@ export type PricingProblem =
   | { code: "sold_out"; line: number }
   | { code: "unknown_tier"; line: number }
   | { code: "card_message_too_long"; line: number }
+  | { code: "wish_too_long"; line: number }
   | { code: "postcode_missing" }
   | { code: "outside_zone"; postcode: string }
   | { code: "pickup_off" };
@@ -102,6 +111,10 @@ export function priceOrder(
     if (cardMessage.length > MAX_CARD_MESSAGE) {
       problems.push({ code: "card_message_too_long", line });
     }
+    const wish = (item.wish ?? "").trim();
+    if (wish.length > MAX_WISH) {
+      problems.push({ code: "wish_too_long", line });
+    }
     const occasion = catalog.occasions.get(item.occasionId);
     if (!occasion || !occasion.isVisible) {
       problems.push({ code: "unknown_occasion", line });
@@ -124,6 +137,8 @@ export function priceOrder(
       quantity: item.quantity,
       unitPriceOere: price,
       cardMessage,
+      cardPriceOere: cardMessage ? catalog.cardPriceOere : 0,
+      wish,
     });
   });
 
@@ -144,7 +159,11 @@ export function priceOrder(
 
   if (problems.length > 0) return { ok: false, problems };
 
-  const goods = lines.reduce((sum, l) => sum + l.unitPriceOere * l.quantity, 0);
+  // A card is charged per bouquet: times the quantity, like the bouquet.
+  const goods = lines.reduce(
+    (sum, l) => sum + (l.unitPriceOere + l.cardPriceOere) * l.quantity,
+    0,
+  );
   return {
     ok: true,
     lines,
@@ -161,6 +180,7 @@ export async function loadPricingCatalog(
   const [settings] = await db
     .select({
       fee: shopSettings.deliveryFeeOere,
+      card: shopSettings.cardPriceOere,
       pickup: shopSettings.pickupEnabled,
     })
     .from(shopSettings);
@@ -210,6 +230,7 @@ export async function loadPricingCatalog(
   return {
     occasions: catalogOccasions,
     deliveryFeeOere: settings.fee,
+    cardPriceOere: settings.card,
     zone,
     pickupEnabled: settings.pickup,
   };

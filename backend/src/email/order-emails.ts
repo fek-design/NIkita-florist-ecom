@@ -93,10 +93,13 @@ function where({ order, town }: OrderForEmail): string {
 export function confirmationEmail(data: OrderForEmail): Mail {
   const { order, lines } = data;
   const subject = `Tak for din bestilling, ordre ${order.number}`;
-  const lineText = lines.map(
-    (l) =>
-      `${l.quantity} × ${l.occasionName} · ${TIER[l.tier]}: ${formatKroner(l.unitPriceOere * l.quantity)}`,
-  );
+  const lineText = lines.flatMap((l) => [
+    `${l.quantity} × ${l.occasionName} · ${TIER[l.tier]}: ${formatKroner(l.unitPriceOere * l.quantity)}`,
+    ...(l.cardPriceOere > 0
+      ? [`Kort: ${formatKroner(l.cardPriceOere * l.quantity)}`]
+      : []),
+    ...(l.wish ? [`Ønske: ${l.wish}`] : []),
+  ]);
   const cards = lines.filter((l) => l.cardMessage).map((l) => l.cardMessage);
   const notHome =
     order.fulfilment === "delivery" && order.notHome
@@ -157,10 +160,11 @@ export function ownerSlipEmail(data: OrderForEmail, ownerEmail: string): Mail {
         ? `SENEST KL. ${order.latestTime.slice(0, 5)}`
         : "I LØBET AF DAGEN";
   const subject = `${head} ${danishLongDate(order.fulfilmentDate)} · #${order.number}`;
-  const bouquets = lines.map((l) =>
-    `${l.quantity > 1 ? `${l.quantity} × ` : ""}${l.occasionName} · ${TIER[l.tier]}`.toUpperCase(),
-  );
-  const cards = lines.filter((l) => l.cardMessage).map((l) => l.cardMessage);
+  const bouquets = lines.map((l) => ({
+    name: `${l.quantity > 1 ? `${l.quantity} × ` : ""}${l.occasionName} · ${TIER[l.tier]}`.toUpperCase(),
+    wish: l.wish,
+    card: l.cardMessage,
+  }));
   const to =
     order.fulfilment === "delivery"
       ? [
@@ -180,9 +184,11 @@ export function ownerSlipEmail(data: OrderForEmail, ownerEmail: string): Mail {
     `${day} · ${time}`,
     `#${order.number}`,
     "",
-    ...bouquets,
-    "",
-    ...cards.map((c) => `KORT: ${c}`),
+    ...bouquets.flatMap((b) => [
+      b.name,
+      ...(b.wish ? [`ØNSKE: ${b.wish}`] : []),
+      ...(b.card ? [`KORT: ${b.card}`] : []),
+    ]),
     "",
     ...(to.length ? ["TIL", ...to, notHome, ""] : []),
     "FRA",
@@ -199,8 +205,21 @@ export function ownerSlipEmail(data: OrderForEmail, ownerEmail: string): Mail {
 <div style="font-size:12px">#${order.number}</div>
 </div>
 <hr style="border:0;border-top:1px solid #000;margin:10px 0">
-${bouquets.map((b) => `<div style="font-weight:700;font-size:20px">${e(b)}</div>`).join("")}
-${cards.map((c) => `<div style="border:2px solid #000;padding:8px 10px;margin:10px 0"><div style="font-weight:700;font-size:12px">KORT</div><div style="font-size:18px;line-height:1.4">${e(c)}</div></div>`).join("")}
+${bouquets
+  .map(
+    (b) =>
+      `<div style="margin:0 0 10px"><div style="font-weight:700;font-size:20px">${e(b.name)}</div>` +
+      (b.wish
+        ? `<div style="font-size:16px;margin-top:4px"><b>ØNSKE:</b> ${e(b.wish)}</div>`
+        : "") +
+      // The card text in its own box with a dashed cutting line, to cut out
+      // and put in the card (the owner, 27 Nov: as with Interflora's slips).
+      (b.card
+        ? `<div style="font-size:10px;margin-top:8px">✂ KLIP UD</div><div style="border:2px dashed #000;padding:10px 12px;font-size:18px;line-height:1.4">${e(b.card)}</div>`
+        : "") +
+      `</div>`,
+  )
+  .join("")}
 ${to.length ? `<hr style="border:0;border-top:1px solid #000;margin:10px 0"><div style="font-size:16px">TIL<br>${to.map((t) => e(t ?? "")).join("<br>")}</div>${notHome ? `<div style="font-weight:700;font-size:14px;margin-top:6px">${e(notHome)}</div>` : ""}` : ""}
 <hr style="border:0;border-top:1px solid #000;margin:10px 0">
 <div style="font-size:14px">FRA<br>${e(from)}</div>

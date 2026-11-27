@@ -7,6 +7,7 @@ import { getPickupSlots } from "../orders/pickup-slots.js";
 import { availableDates, loadDateRules } from "./dates.js";
 import {
   checkPostcode,
+  findPlaces,
   getDeliveryRules,
   getOccasion,
   listOccasions,
@@ -280,6 +281,43 @@ export function registerCatalogRoutes(
       return reply
         .header("Cache-Control", "public, s-maxage=60")
         .send({ dates: availableDates(rules, at) });
+    },
+  );
+
+  // Suggestions while typing a town or postcode (occasion-page-choices).
+  app.get<{ Querystring: { q: string } }>(
+    "/delivery/places",
+    {
+      schema: {
+        querystring: {
+          type: "object",
+          required: ["q"],
+          properties: { q: { type: "string", maxLength: 40 } },
+        },
+        response: {
+          200: {
+            type: "object",
+            required: ["places"],
+            properties: {
+              places: {
+                type: "array",
+                items: {
+                  type: "object",
+                  required: ["postcode", "town"],
+                  properties: {
+                    postcode: { type: "string" },
+                    town: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const places = await findPlaces(getDatabase(), request.query.q);
+      return reply.header("Cache-Control", PUBLIC_CACHE).send({ places });
     },
   );
 

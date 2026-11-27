@@ -92,7 +92,8 @@ describe("POST /checkout", () => {
     expect(order).toMatchObject({
       paymentState: "pending",
       source: "web",
-      totalOere: 48000,
+      // 400 + card 20 + delivery 80 (the owner: a card is 20 kr.)
+      totalOere: 50000,
       deliveryFeeOere: 8000,
       stripeSessionId: "cs_test_1",
       latestTime: "12:30:00",
@@ -102,6 +103,7 @@ describe("POST /checkout", () => {
     expect(lines[0]).toMatchObject({
       unitPriceOere: 40000,
       cardMessage: "Kh. familien",
+      cardPriceOere: 2000,
     });
 
     expect(sessions[0]).toMatchObject({
@@ -117,7 +119,7 @@ describe("POST /checkout", () => {
     const res = await post({ ...delivery(), totalOere: 1, deliveryFeeOere: 0 });
     expect(res.statusCode).toBe(201);
     const [order] = await db.select().from(orders);
-    expect(order!.totalOere).toBe(48000);
+    expect(order!.totalOere).toBe(50000);
     expect(order!.deliveryFeeOere).toBe(8000);
   });
 
@@ -128,8 +130,57 @@ describe("POST /checkout", () => {
     expect(order).toMatchObject({
       fulfilment: "pickup",
       pickupSlotHour: 14,
-      totalOere: 40000,
+      totalOere: 42000,
     });
+  });
+
+  it("keeps each wish with its own bouquet and charges one card", async () => {
+    const res = await post(
+      delivery({
+        items: [
+          {
+            slug: "bisaettelse",
+            tier: "mellem",
+            quantity: 1,
+            wish: "Kun hvide",
+          },
+          {
+            slug: "bisaettelse",
+            tier: "lille",
+            quantity: 1,
+            cardMessage: "Kh. Ida",
+          },
+        ],
+      }),
+    );
+    expect(res.statusCode).toBe(201);
+    const lines = await db.select().from(orderLines).orderBy(orderLines.lineNo);
+    expect(lines.map((l) => [l.wish, l.cardPriceOere])).toEqual([
+      ["Kun hvide", 0],
+      ["", 2000],
+    ]);
+    const [order] = await db.select().from(orders);
+    expect(order!.totalOere).toBe(40000 + 30000 + 2000 + 8000);
+    // The card is its own line on the payment page.
+    expect(sessions[0]!.lines.map((l) => l.cardPriceOere)).toEqual([0, 2000]);
+  });
+
+  it("refuses a wish over 200 characters and stores nothing", async () => {
+    const res = await post(
+      delivery({
+        items: [
+          {
+            slug: "bisaettelse",
+            tier: "mellem",
+            quantity: 1,
+            wish: "x".repeat(201),
+          },
+        ],
+      }),
+    );
+    expect(res.statusCode).toBe(422);
+    expect(codes(res)).toContain("wish_too_long");
+    expect(await db.select().from(orders)).toHaveLength(0);
   });
 
   it("refuses emails that do not match", async () => {

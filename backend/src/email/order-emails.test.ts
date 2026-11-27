@@ -32,6 +32,7 @@ const settings = { ownerEmail: "owner@localhost" };
 async function paidOrder(
   overrides: Partial<typeof orders.$inferInsert> = {},
   card = "Kh. familien",
+  wish = "",
 ) {
   const [occasion] = await db
     .select()
@@ -68,6 +69,8 @@ async function paidOrder(
         quantity: 1,
         unitPriceOere: 40000,
         cardMessage: card,
+        cardPriceOere: card ? 2000 : 0,
+        wish,
       },
     ],
     NOW,
@@ -84,6 +87,30 @@ beforeEach(async () => {
 });
 
 describe("sendPaidOrderEmails", () => {
+  it("prints the wish under its bouquet and the card in a box to cut out", async () => {
+    const order = await paidOrder({}, "Kh. familien", "Ingen liljer");
+    await sendPaidOrderEmails(db, mailer, [order.id], settings, NOW);
+
+    const slip = sent.find((m) => m.to === "owner@localhost")!;
+    expect(slip.text).toContain(
+      "BISÆTTELSE · MELLEM\nØNSKE: Ingen liljer\nKORT: Kh. familien",
+    );
+    expect(slip.html).toContain("✂ KLIP UD");
+    expect(slip.html).toContain("border:2px dashed #000");
+
+    const confirmation = sent.find((m) => m.to === "mette@eksempel.dk")!;
+    expect(confirmation.text).toContain("Kort: 20 kr.");
+    expect(confirmation.text).toContain("Ønske: Ingen liljer");
+  });
+
+  it("escapes a wish before it reaches the HTML", async () => {
+    const order = await paidOrder({}, "", "<b>røde</b>");
+    await sendPaidOrderEmails(db, mailer, [order.id], settings, NOW);
+    const slip = sent.find((m) => m.to === "owner@localhost")!;
+    expect(slip.html).toContain("&lt;b&gt;røde&lt;/b&gt;");
+    expect(slip.html).not.toContain("<b>røde</b>");
+  });
+
   it("sends the confirmation to the buyer and the slip to the owner", async () => {
     const order = await paidOrder();
     const result = await sendPaidOrderEmails(

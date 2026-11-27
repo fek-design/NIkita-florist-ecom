@@ -139,6 +139,44 @@ describe("GET /delivery", () => {
   });
 });
 
+describe("GET /delivery/places", () => {
+  const places = async (q: string) =>
+    (
+      await app.inject({
+        method: "GET",
+        url: `/delivery/places?q=${encodeURIComponent(q)}`,
+      })
+    ).json().places as { postcode: string; town: string }[];
+
+  it("finds a town by its start, in any case (spec: start of a town)", async () => {
+    expect(await places("hol")).toEqual([{ postcode: "4300", town: "Holbæk" }]);
+    expect(await places("VIPP")).toEqual([
+      { postcode: "4390", town: "Vipperød" },
+    ]);
+  });
+
+  it("finds places by the start of a postcode", async () => {
+    const found = (await places("43")).map((p) => p.postcode);
+    expect(found).toContain("4300");
+    expect(found).toContain("4340");
+    expect(found.length).toBeLessThanOrEqual(8);
+  });
+
+  it("matches the second word of a town, with Danish letters", async () => {
+    expect(await places("merl")).toEqual([
+      { postcode: "4370", town: "Store Merløse" },
+    ]);
+    expect(await places("tøll")).toEqual([
+      { postcode: "4340", town: "Tølløse" },
+    ]);
+  });
+
+  it("suggests nothing outside the delivery list", async () => {
+    expect(await places("Aarhus")).toEqual([]);
+    expect(await places("80")).toEqual([]);
+  });
+});
+
 describe("GET /delivery/postcodes/:postcode", () => {
   it("4300: delivery for 80 kr., and pickup offered", async () => {
     const res = await app.inject({

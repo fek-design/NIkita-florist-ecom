@@ -98,6 +98,8 @@ export async function placeOrder(
         quantity: line.quantity,
         unitPriceOere: line.unitPriceOere,
         cardMessage: line.cardMessage,
+        cardPriceOere: line.cardPriceOere,
+        wish: line.wish,
       })),
     );
     return { ok: true, order: created! } as const;
