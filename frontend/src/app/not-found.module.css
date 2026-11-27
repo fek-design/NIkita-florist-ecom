@@ -25,7 +25,10 @@
   min-height: 48px;
   border-radius: 4px;
   background: var(--ink);
+  border: 0;
   color: var(--paper);
+  font: inherit;
   font-weight: var(--weight-semibold);
   text-decoration: none;
+  cursor: pointer;
 }
