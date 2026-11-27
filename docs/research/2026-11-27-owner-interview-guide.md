@@ -21,7 +21,13 @@ She does **not** test the customer flow. She is not a customer, and a half-built
 
 ### Running on the phone
 
-Felix's phone on the same Wi-Fi as the PC. Before the session, check on the phone that the front page loads from the PC's address (for example `http://192.168.x.x:3000`) and that a test payment returns to the order page, not to `localhost`.
+Felix's phone on the same Wi-Fi (or the phone's hotspot) as the PC:
+
+1. Find the PC's address: `npm run dev -w frontend` prints it as "Network", for example `http://192.168.1.186:3000`. The dev server already accepts phones on `192.168.*.*` and `10.*.*.*`.
+2. In `backend/.env.local`, set `FRONTEND_URL` to that address, so Stripe sends the phone back to the PC and not to `localhost`. Restart the backend after changing it. The address changes with the network, so do this on site.
+3. Run `stripe listen` (command under Setup) so the payment reaches the backend.
+4. Test once: order, pay with card `4242 4242 4242 4242` (any future date, any CVC), land on "Tak for din bestilling", and see two new emails in Mailpit (`http://localhost:8025/`, on the PC).
+5. Stripe's page currently offers card and Klarna but not MobilePay; pay by card in the demo (MobilePay is a Stripe dashboard setting, still open).
 
 ## Part 1: Her day with an order (about 15 min)
 
