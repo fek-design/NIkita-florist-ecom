@@ -11,7 +11,7 @@ export function OccasionCard({ occasion }: { occasion: OccasionSummary }) {
       <Photo
         photo={occasion.mainPhoto}
         ratio={5 / 7}
-        sizes="(max-width: 600px) 50vw, 300px"
+        sizes="(max-width: 600px) 50vw, 360px"
       />
       <span className={styles.name}>{occasion.name}</span>
       <span className={styles.price}>

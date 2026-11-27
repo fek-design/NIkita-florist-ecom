@@ -29,7 +29,15 @@ export default async function Home() {
 
   return (
     <>
-      <Photo photo={null} ratio={6 / 5} sizes="100vw" priority />
+      {/* Edge to edge on the phone; in the column from tablet up (DD-30). */}
+      <div className={styles.hero}>
+        <Photo
+          photo={null}
+          ratio={6 / 5}
+          sizes="(max-width: 600px) 100vw, 744px"
+          priority
+        />
+      </div>
 
       <section className={styles.featured} aria-labelledby="anbefaling">
         {/* The page's main heading for search engines (P10), styled as the

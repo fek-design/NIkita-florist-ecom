@@ -18,3 +18,11 @@
 .soldOut {
   font-weight: var(--weight-semibold);
 }
+
+/* 4:5 in the 744 px column would be 930 px tall: the photo keeps its shape
+   but never grows taller than about 70% of the screen (DD-30). No effect on
+   a phone, where the width decides. */
+.photo {
+  width: min(100%, calc(70svh * 4 / 5));
+  margin-inline: auto;
+}

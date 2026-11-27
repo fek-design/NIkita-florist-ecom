@@ -274,7 +274,7 @@ export function OrderForm({
               value={postcode}
               aria-invalid={check.state === "outside"}
               aria-describedby="postnummer-svar"
-              className={styles.input}
+              className={`${styles.input} ${styles.postcode}`}
               onChange={(e) => checkPostcode(e.target.value.replace(/\D/g, ""))}
             />
             <p

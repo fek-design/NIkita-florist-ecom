@@ -104,7 +104,8 @@
   font-size: var(--text-base);
 }
 
-#postnummer {
+/* A class, not the id: CSS Modules rename ids, so the id rule never applied. */
+.postcode {
   max-width: 160px;
 }
 

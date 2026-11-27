@@ -1,3 +1,11 @@
+/* The hero runs edge to edge on the phone and sits in the column from
+   tablet up, so it never fills more than the first screen (DD-30). */
+@media (min-width: 600px) {
+  .hero {
+    padding: var(--space-3) var(--page-inline) 0;
+  }
+}
+
 .featured {
   display: flex;
   flex-direction: column;
