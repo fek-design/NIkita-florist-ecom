@@ -6,7 +6,8 @@
 // note (P12) and "Betal X kr.". The server prices the order again and opens
 // the payment page; the customer chooses MobilePay or card there (D-016).
 import Link from "next/link";
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import { CaretLeftIcon } from "@/components/icons";
 import { cartTotals } from "@/lib/cart-store";
 import { deliveryDay, deliveryWhere } from "@/lib/delivery-text";
 import { suggestEmail } from "@/lib/email-typo";
@@ -87,6 +88,16 @@ function Checkout({ cancelled }: { cancelled: boolean }) {
   );
   const [general, setGeneral] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
+
+  // Kept as the customer types, so "Tilbage til kurven" or a cancelled
+  // payment brings them back to a filled form (this visit only).
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(SAVED, JSON.stringify(fields));
+    } catch {
+      // Without storage the form is simply not kept.
+    }
+  }, [fields]);
 
   const delivery = cart.delivery;
   if (cart.lines.length === 0 || !delivery) {
@@ -282,7 +293,14 @@ function Checkout({ cancelled }: { cancelled: boolean }) {
 
   return (
     <form className={styles.page} onSubmit={pay} noValidate>
-      <h1>Betaling</h1>
+      <div className={styles.top}>
+        {/* Baymard: let people step back to the cart without losing the
+            form; it is kept in this visit's storage on the way. */}
+        <Link href="/kurv" className={styles.back}>
+          <CaretLeftIcon /> Tilbage til kurven
+        </Link>
+        <h1>Betaling</h1>
+      </div>
 
       {cancelled && (
         <p className={styles.notice} role="status">

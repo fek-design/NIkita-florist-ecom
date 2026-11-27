@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { OrderForm } from "@/components/order-form";
 import { Photo } from "@/components/photo";
 import { getDeliveryRules, getOccasion } from "@/lib/catalog";
+import { standInFor } from "@/lib/stand-ins";
 import styles from "./page.module.css";
 
 export async function generateMetadata({
@@ -40,7 +41,8 @@ async function Occasion({ slug }: { slug: string }) {
     getDeliveryRules(),
   ]);
   if (!occasion) notFound();
-  const main = occasion.photos.find((p) => p.role === "main") ?? null;
+  const main =
+    occasion.photos.find((p) => p.role === "main") ?? standInFor(slug);
   return (
     <article className={styles.page}>
       <Photo photo={main} ratio={4 / 5} sizes="100vw" priority />

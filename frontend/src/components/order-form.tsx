@@ -24,6 +24,7 @@ import {
 } from "@/lib/dates";
 import { kroner } from "@/lib/format";
 import { SHOP } from "@/lib/shop";
+import { standInFor } from "@/lib/stand-ins";
 import styles from "./order-form.module.css";
 
 const TIER_NAME: Record<Tier, string> = {
@@ -167,6 +168,9 @@ export function OrderForm({
       quantity: 1,
       unitPriceOere: price.priceOere,
       cardMessage: card.trim(),
+      photo:
+        occasion.photos.find((p) => p.role === "main") ??
+        standInFor(occasion.slug),
     };
     const d = delivery();
     if (addToCart(line, d) === "conflict") {

@@ -28,6 +28,8 @@ export type CartLine = {
   /** For showing only: checkout recalculates every price on the server. */
   unitPriceOere: number;
   cardMessage: string;
+  /** The occasion's main photo when added, for the cart's thumbnail. */
+  photo?: { url: string; alt: string };
 };
 
 export type Cart = { delivery: CartDelivery | null; lines: CartLine[] };

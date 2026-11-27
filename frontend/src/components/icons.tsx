@@ -131,3 +131,20 @@ export function CheckIcon({ size = 24, className }: IconProps) {
     </svg>
   );
 }
+
+/** Phosphor "caret-left", Light. Stands in for "‹", which the brand fonts lack. */
+export function CaretLeftIcon({ size = 20, className }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 256 256"
+      fill="currentColor"
+      aria-hidden="true"
+      focusable="false"
+      className={className}
+    >
+      <path d="M164.24,203.76a6,6,0,1,1-8.48,8.48l-80-80a6,6,0,0,1,0-8.48l80-80a6,6,0,0,1,8.48,8.48L88.49,128Z" />
+    </svg>
+  );
+}

@@ -14,6 +14,7 @@ import {
 } from "@/lib/cart-store";
 import { deliveryDay, deliveryWhere } from "@/lib/delivery-text";
 import { kroner } from "@/lib/format";
+import { standInFor } from "@/lib/stand-ins";
 import { TIER_NAME, useCart, useRefreshedPrices } from "@/lib/use-cart";
 import form from "./order-form.module.css";
 import styles from "./cart-view.module.css";
@@ -61,13 +62,24 @@ export function CartView() {
             key={`${line.slug}-${line.tier}-${index}`}
             className={styles.line}
           >
-            <div className={styles.thumb}>
-              <Photo photo={null} ratio={4 / 5} sizes="96px" />
-            </div>
+            {/* Thumbnail and name lead back to the bouquet; the thumbnail
+                is a duplicate of the name for screen readers, so hidden. */}
+            <Link
+              href={`/anledning/${line.slug}`}
+              className={styles.thumb}
+              tabIndex={-1}
+              aria-hidden="true"
+            >
+              <Photo
+                photo={line.photo ?? standInFor(line.slug)}
+                ratio={4 / 5}
+                sizes="96px"
+              />
+            </Link>
             <div className={styles.info}>
-              <p className={styles.name}>
+              <Link href={`/anledning/${line.slug}`} className={styles.name}>
                 {line.name} · {TIER_NAME[line.tier]}
-              </p>
+              </Link>
               <p>{kroner(line.unitPriceOere * line.quantity)}</p>
               <div className={styles.actions}>
                 <div
@@ -155,6 +167,9 @@ export function CartView() {
         <p className="muted">
           Du betaler med MobilePay eller kort. Ingen konto nødvendig.
         </p>
+        <Link href="/anledninger" className={styles.more}>
+          Se flere buketter
+        </Link>
       </div>
     </div>
   );

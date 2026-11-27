@@ -6,6 +6,7 @@ import { Photo } from "@/components/photo";
 import { getOccasions } from "@/lib/catalog";
 import { kroner } from "@/lib/format";
 import { SHOP } from "@/lib/shop";
+import { HERO_STAND_IN, VISIT_STAND_IN } from "@/lib/stand-ins";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -30,7 +31,7 @@ export default async function Home() {
   return (
     <>
       <div className={styles.hero}>
-        <Photo photo={null} ratio={6 / 5} sizes="100vw" priority />
+        <Photo photo={HERO_STAND_IN} ratio={6 / 5} sizes="100vw" priority />
       </div>
 
       <section className={styles.featured} aria-labelledby="anbefaling">
@@ -79,7 +80,7 @@ export default async function Home() {
         aria-labelledby="besoeg-titel"
       >
         <div className={styles.visitPhoto}>
-          <Photo photo={null} ratio={168 / 198} sizes="45vw" />
+          <Photo photo={VISIT_STAND_IN} ratio={168 / 198} sizes="45vw" />
         </div>
         <div className={styles.visitText}>
           <h2 id="besoeg-titel">Besøg Nikita</h2>
