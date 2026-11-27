@@ -237,14 +237,25 @@ Depends on: MobilePay switched on in the Stripe dashboard (checkout-payment 4.5)
 Rejected: "100 % sikker betaling"; the plain text line alone (DD-22).
 Test: in the usability test, ask before checkout how they expect to pay.
 
-### DD-34 "Besøg Nikita" gets more text, the opening hours and a two-click map
+### DD-34 "Besøg Nikita" gets more text, the opening hours and a two-click map (map removed the same day)
 Date: 2026-11-27 · Principles: P10 (facts people and AI tools can quote), P9 (no tracking without consent) · Evidence grade: C (two-click embeds are common practice on Danish and German sites under the cookie rules)
 Decision: Under the photo and the short introduction: a paragraph with only facts the shop has given (the shop and workshop are in Tuse, just outside Holbæk; pick up at the chosen time; call about a special occasion), the opening hours from the back office ("Eksempel" while placeholders), and a map. The map is a Linen panel, "Vis kort, Kortet hentes fra Google Maps, når du trykker"; Google Maps loads only when tapped. Measured: 0 requests to Google before the tap, 33–39 after. The address link stays. On the phone the new text and map run full width under photo and introduction; from tablet up they sit in the text column beside the photo. Felix's call (map instead of only the link, "so it can take up more space and write more text"; two-click chosen over loading at once or OpenStreetMap).
 Follow-up: the privacy policy (week 5) must say the map loads from Google when tapped.
 Rejected: loading Google Maps with the page (needs a cookie banner, loads Google fonts against the spec); OpenStreetMap.
+Changed the same day (Felix: the section "still looks bulky"): the map is taken out; the address moves down above the opening hours as one line ("Tuse Byvej 94, 4300 Tuse"). The extra text and the opening hours stay. With no map, the privacy-policy follow-up falls away.
 Test: in the usability test, can people say where the shop is and when it is open?
 
 ### DD-35 The recommendation: two texts and a button that fits its text
 Date: 2026-11-27 · Principles: P11 (fewer competing elements), DD-22 · Evidence grade: C (opinion: Felix found three texts and a full-width button messy)
 Decision: The recommended bouquet's description line is dropped; the intro line leads straight into the name and the button "Se fra 250 kr.", which carries the price. From tablet up the buttons "Se fra …" and "Se alle" fit their text instead of spanning the width; on the phone they stay full width for the thumb (Felix's choice). The description is still on the bouquet's own page.
 Rejected: merging the intro line and the name (a shorter h1 says less about the shop); keeping all three texts; narrow buttons on the phone too.
+
+### DD-36 The footer splits from tablet up
+Date: 2026-11-27 · Principles: DD-08 (footer C), P11 · Evidence grade: C (opinion: Felix)
+Decision: From 600 px the footer is two columns: the full logo larger (200 px instead of 120) on the left, contact, CVR and legal links on the right, and "Sikker betaling" with the payment marks across both below. The phone keeps one column, because at 390 px the logo beside the email address leaves too little room (the reason footer variant A needed 14 px text on 23 Nov). Felix's call.
+
+### DD-37 The front page groups by proximity
+Date: 2026-11-27 · Principles: P11 · Evidence grade: B (Gestalt law of proximity; NN/g on visual grouping)
+Decision: Inside a group (the recommendation, the occasions, the visit) elements stay 16 px apart; between groups there are 48 px on the phone and 64 px from tablet up, so each reads as its own block. Before, the recommendation ran on into the occasions and the visit at nearly the same spacing as its own lines (Felix: "one long line that continues until the about me section").
+Rejected: dividing lines or panels (more elements, against the owner's wish for simple); keeping the spacing.
+Test: in the usability test, ask what the front page offers; do people name the recommendation, the occasions and the shop as separate things?

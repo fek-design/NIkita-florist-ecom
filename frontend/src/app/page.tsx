@@ -6,7 +6,6 @@ import { Photo } from "@/components/photo";
 import { getDeliveryRules, getOccasions } from "@/lib/catalog";
 import { kroner } from "@/lib/format";
 import { openingHoursInWords } from "@/lib/opening-hours";
-import { MapEmbed } from "@/components/map-embed";
 import { SHOP } from "@/lib/shop";
 import { HERO_STAND_IN, VISIT_STAND_IN } from "@/lib/stand-ins";
 import styles from "./page.module.css";
@@ -90,21 +89,11 @@ export default async function Home() {
             kun fantasien sætter grænser. Kontakt mig gerne for inspiration og
             ideer.
           </p>
-          <a
-            className={styles.address}
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
-          >
-            <MapTrifoldIcon />
-            <span>
-              {SHOP.street}
-              <br />
-              {SHOP.postcode} {SHOP.town}
-            </span>
-          </a>
         </div>
-        {/* More about the shop and a map (Felix, 27 Nov). Only facts the
-            shop has given: the address, pickup at a chosen time (DD-18),
-            the phone, and the opening hours from the back office. */}
+        {/* More about the shop (Felix, 27 Nov, DD-34): only facts the shop
+            has given, then the address on one line and the opening hours
+            from the back office. The map was tried and taken out the same
+            day (too bulky). */}
         <div className={styles.visitMore}>
           <p className="muted">
             Butikken og værkstedet ligger i Tuse, lidt uden for Holbæk. Her kan
@@ -112,13 +101,19 @@ export default async function Home() {
             på <a href={SHOP.phoneHref}>{SHOP.phone}</a> og høre om en buket til
             en særlig lejlighed.
           </p>
+          <a
+            className={styles.address}
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
+          >
+            <MapTrifoldIcon />
+            <span>{address}</span>
+          </a>
           {rules && Object.keys(rules.openingHours).length > 0 && (
             <p>
               <strong>Åbent</strong> {openingHoursInWords(rules.openingHours)}
               {rules.placeholder && <em className="muted"> · Eksempel</em>}
             </p>
           )}
-          <MapEmbed address={address} />
         </div>
       </section>
     </>

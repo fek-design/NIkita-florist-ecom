@@ -91,3 +91,35 @@
 .methods {
   font-size: var(--text-sm);
 }
+
+/* From tablet up (Felix, 27 Nov, DD-36): logo larger on the left, the
+   information on the right, payment across both below. */
+@media (min-width: 600px) {
+  .footer {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-4) var(--grid-gutter);
+    padding-top: var(--space-6);
+  }
+
+  .logo {
+    width: 200px;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    min-width: 0;
+  }
+
+  .payment {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 599px) {
+  .info {
+    display: contents;
+  }
+}
