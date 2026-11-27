@@ -178,3 +178,19 @@ h2.heading {
   font-weight: var(--weight-semibold);
   text-decoration: none;
 }
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+.check input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--ink);
+}

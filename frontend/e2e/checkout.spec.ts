@@ -48,12 +48,13 @@ async function fillCart(page: Page) {
 }
 
 async function fillForm(page: Page) {
-  await page.getByLabel("Navn").first().fill("Mette Jensen");
+  await page.getByLabel("Navn", { exact: true }).fill("Mette Jensen");
   await page.getByLabel("E-mail", { exact: true }).fill("mette@eksempel.dk");
   await page.getByLabel("Gentag e-mail").fill("mette@eksempel.dk");
   await page.getByLabel("Telefon", { exact: true }).fill("12345678");
-  await page.getByLabel("Navn").nth(1).fill("Familien Hansen");
-  await page.getByLabel("Adresse").fill("Skovvej 12");
+  await page.getByLabel("Buketten skal leveres til en anden end mig").check();
+  await page.getByLabel("Modtagerens navn").fill("Familien Hansen");
+  await page.getByLabel("Leveringsadresse").fill("Skovvej 12");
   await page.getByText("Stil den ved døren").click();
 }
 
@@ -66,7 +67,7 @@ test("checkout asks for what is missing and catches email mistakes", async ({
   await expect(
     page.getByText("Vælg, hvad vi gør, hvis ingen er hjemme."),
   ).toBeVisible();
-  await expect(page.getByLabel("Navn").first()).toBeFocused();
+  await expect(page.getByLabel("Navn", { exact: true })).toBeFocused();
 
   await page.getByLabel("E-mail", { exact: true }).fill("mette@gmial.com");
   await page.getByLabel("Gentag e-mail").focus();
@@ -151,4 +152,13 @@ test("a changed order link shows no order", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Vi kan ikke finde ordren" }),
   ).toBeVisible();
+});
+
+test("without the tick the bouquet goes to the buyer", async ({ page }) => {
+  await fillCart(page);
+  await expect(page.getByLabel("Modtagerens navn")).toHaveCount(0);
+  await page.getByLabel("Buketten skal leveres til en anden end mig").check();
+  await expect(page.getByLabel("Modtagerens navn")).toBeVisible();
+  await page.getByLabel("Buketten skal leveres til en anden end mig").uncheck();
+  await expect(page.getByLabel("Modtagerens navn")).toHaveCount(0);
 });

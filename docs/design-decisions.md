@@ -265,3 +265,9 @@ Date: 2026-11-27 · Principles: P11, DD-22, DD-37 (grouping) · Evidence grade: 
 Decision: Under the hero, the shop sentence "Håndbundne buketter fra Nikitas værksted i Tuse." stands alone as a quiet Sand line (still the page's h1 for search engines). Below it, as one group: a small label "MÅNEDENS BUKET", the bouquet's name and the button with the price. "Lige nu anbefaler hun:" is gone; it tied two unrelated lines together (Felix: "two different lines of text that just kind of are there"). The recommended bouquet is now "Jul og advent", added to the placeholder catalogue first in the owner's order (DD-04 fallback until she chooses in the back office, DD-23), with the Christmas stand-in photo.
 Replaces: DD-22's lead-in ("Lige nu anbefaler hun:").
 Rejected: one sentence leading into the name with the shop line moved to "Besøg Nikita"; only the shop sentence with the recommendation as the first card.
+
+### DD-39 Checkout delivers to the buyer unless "til en anden" is ticked
+Date: 2026-11-27 · Principles: P4 (only what fulfilment needs) · Evidence grade: B (Baymard: "same as" checkbox instead of asking for a second person and address by default)
+Decision: The delivery section of checkout (S7) is headed "Levering" and starts with a checkbox, "Buketten skal leveres til en anden end mig", unticked. Unticked, the bouquet goes to the buyer at the delivery address, and the order's recipient is the buyer's name. Ticked, "Modtagerens navn" and "Modtagerens telefon (valgfrit)" appear. Felix's call.
+Open risk, stated honestly: many flower orders are gifts, so many customers will have to tick the box. If the usability test shows people missing it (the bouquet would carry the buyer's name), the default can flip to ticked.
+Test: in the usability test, give one gift task and one "to yourself" task; count misses.

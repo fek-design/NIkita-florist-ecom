@@ -25,6 +25,8 @@ type Fields = {
   email: string;
   emailRepeat: string;
   phone: string;
+  /** Ticked when the bouquet goes to someone other than the buyer. */
+  otherRecipient: boolean;
   recipientName: string;
   address: string;
   co: string;
@@ -38,6 +40,7 @@ const EMPTY: Fields = {
   email: "",
   emailRepeat: "",
   phone: "",
+  otherRecipient: false,
   recipientName: "",
   address: "",
   co: "",
@@ -51,6 +54,10 @@ const NOT_HOME: { value: NotHome; label: string }[] = [
   { value: "neighbour", label: "Aflevér den hos en nabo" },
   { value: "call_buyer", label: "Ring til mig" },
 ];
+
+type TextField = {
+  [K in keyof Fields]: Fields[K] extends string ? K : never;
+}[keyof Fields];
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -133,7 +140,8 @@ function Checkout({ cancelled }: { cancelled: boolean }) {
     if (f.phone.replace(/\D/g, "").length < 8)
       e.phone = "Skriv et telefonnummer med 8 cifre.";
     if (isDelivery) {
-      if (!f.recipientName.trim()) e.recipientName = "Skriv modtagerens navn.";
+      if (f.otherRecipient && !f.recipientName.trim())
+        e.recipientName = "Skriv modtagerens navn.";
       if (!f.address.trim()) e.address = "Skriv adressen.";
       if (!f.notHome) e.notHome = "Vælg, hvad vi gør, hvis ingen er hjemme.";
     }
@@ -178,9 +186,12 @@ function Checkout({ cancelled }: { cancelled: boolean }) {
         ? {
             postcode: delivery!.postcode,
             recipient: {
-              name: fields.recipientName.trim(),
+              // To the buyer unless "til en anden" is ticked (Felix, 27 Nov).
+              name: fields.otherRecipient
+                ? fields.recipientName.trim()
+                : fields.name.trim(),
               address,
-              ...(fields.recipientPhone.trim()
+              ...(fields.otherRecipient && fields.recipientPhone.trim()
                 ? { phone: fields.recipientPhone.trim() }
                 : {}),
             },
@@ -260,7 +271,7 @@ function Checkout({ cancelled }: { cancelled: boolean }) {
     ) : null;
 
   const input = (
-    key: keyof Fields,
+    key: TextField,
     label: string,
     props: React.InputHTMLAttributes<HTMLInputElement> = {},
     hint?: string,
@@ -374,11 +385,24 @@ function Checkout({ cancelled }: { cancelled: boolean }) {
 
       {isDelivery && delivery.fulfilment === "delivery" && (
         <fieldset className={styles.section}>
-          <legend className={styles.heading}>Modtager</legend>
-          {input("recipientName", "Navn", { autoComplete: "off" })}
+          <legend className={styles.heading}>Levering</legend>
+          {/* Baymard's "same as" checkbox: delivered to the buyer unless
+              ticked; ticking asks for the recipient (Felix, 27 Nov). */}
+          <label className={styles.check}>
+            <input
+              type="checkbox"
+              checked={fields.otherRecipient}
+              onChange={(e) => set("otherRecipient", e.target.checked)}
+            />
+            <span>Buketten skal leveres til en anden end mig</span>
+          </label>
+          {fields.otherRecipient &&
+            input("recipientName", "Modtagerens navn", {
+              autoComplete: "off",
+            })}
           <div className={form.field}>
-            {input("address", "Adresse", {
-              autoComplete: "street-address",
+            {input("address", "Leveringsadresse", {
+              autoComplete: fields.otherRecipient ? "off" : "street-address",
             })}
             {showCo ? (
               input("co", "Firma eller c/o (valgfrit)")
@@ -405,12 +429,13 @@ function Checkout({ cancelled }: { cancelled: boolean }) {
               </Link>
             </p>
           </div>
-          {input(
-            "recipientPhone",
-            "Telefon (valgfrit)",
-            { type: "tel" },
-            "Bruges kun, hvis vi ikke kan finde adressen.",
-          )}
+          {fields.otherRecipient &&
+            input(
+              "recipientPhone",
+              "Modtagerens telefon (valgfrit)",
+              { type: "tel" },
+              "Bruges kun, hvis vi ikke kan finde adressen.",
+            )}
           {isFuneral &&
             input(
               "latestTime",
