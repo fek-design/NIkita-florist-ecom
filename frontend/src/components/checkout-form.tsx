@@ -173,6 +173,7 @@ function Checkout({ cancelled }: { cancelled: boolean }) {
         tier: l.tier,
         quantity: l.quantity,
         ...(l.cardMessage ? { cardMessage: l.cardMessage } : {}),
+        ...(l.wish ? { wish: l.wish } : {}),
       })),
       fulfilment: delivery!.fulfilment,
       date: delivery!.date,
@@ -478,6 +479,9 @@ function Checkout({ cancelled }: { cancelled: boolean }) {
               {l.quantity > 1 ? `${l.quantity} × ` : ""}
               {l.name} · {TIER_NAME[l.tier]} –{" "}
               {kroner(l.unitPriceOere * l.quantity)}
+              {(l.cardPriceOere ?? 0) > 0 &&
+                ` + kort ${kroner((l.cardPriceOere ?? 0) * l.quantity)}`}
+              {l.wish && <span className={styles.wish}>Ønske: {l.wish}</span>}
             </li>
           ))}
           <li>

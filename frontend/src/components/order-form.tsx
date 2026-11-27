@@ -2,14 +2,17 @@
 
 // The choices on the occasion page (hi-fi S4, S4b, S4c, S5): size, delivery
 // or pickup, postcode with the fee (P3, DD-14), date (P2), pickup slot
-// (DD-18), card message, and "Læg i kurven". Prices shown here are for
-// reading only; checkout recalculates everything on the server.
+// (DD-18), a card and wishes per bouquet behind links (occasion-page-choices),
+// and "Læg i kurven". The place field takes a postcode or a town. Prices
+// shown here are for reading only; checkout recalculates everything on the
+// server.
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { CheckIcon } from "@/components/icons";
 import {
   addMovingDelivery,
   addToCart,
+  cartTotals,
   getCart,
   type CartDelivery,
   type CartLine,
@@ -33,6 +36,9 @@ const TIER_NAME: Record<Tier, string> = {
   stor: "Stor",
 };
 const MAX_CARD = 200;
+const MAX_WISH = 200;
+
+type Place = { postcode: string; town: string };
 
 type Postcode =
   | { state: "idle" }
@@ -65,6 +71,12 @@ export function OrderForm({
   } | null>(null);
   const [slot, setSlot] = useState<number | null>(null);
   const [card, setCard] = useState("");
+  const [showCard, setShowCard] = useState(false);
+  const [wish, setWish] = useState("");
+  const [showWish, setShowWish] = useState(false);
+  const [places, setPlaces] = useState<Place[]>([]);
+  const [active, setActive] = useState(-1);
+  const latestQuery = useRef("");
   const [added, setAdded] = useState<CartLine | null>(null);
   const confirmDialog = useRef<HTMLDialogElement>(null);
   const sheet = useRef<HTMLDialogElement>(null);
@@ -100,15 +112,11 @@ export function OrderForm({
   }, [fulfilment, date]);
   const slots = slotsFor?.date === date ? slotsFor.slots : null;
 
-  async function checkPostcode(value: string) {
-    setPostcode(value);
-    if (!/^[0-9]{4}$/.test(value)) {
-      setCheck({ state: "idle" });
-      return;
-    }
+  /** The zone and fee check for one postcode (unchanged rules, P3). */
+  async function lookUp(code: string) {
     setCheck({ state: "checking" });
     try {
-      const res = await fetch(`/api/delivery/postcodes/${value}`);
+      const res = await fetch(`/api/delivery/postcodes/${code}`);
       const body = (await res.json()) as {
         inZone: boolean;
         town: string | null;
@@ -118,14 +126,74 @@ export function OrderForm({
         body.inZone
           ? {
               state: "ok",
-              postcode: value,
+              postcode: code,
               town: body.town ?? "",
               feeOere: body.feeOere ?? 0,
             }
-          : { state: "outside", postcode: value },
+          : { state: "outside", postcode: code },
       );
     } catch {
       setCheck({ state: "error" });
+    }
+  }
+
+  /**
+   * A postcode or the start of a town (occasion-page-choices). Four digits
+   * are checked at once; anything else asks for suggestions from the shop's
+   * own delivery list. A town with no suggestion is outside the zone.
+   */
+  async function typePlace(value: string) {
+    setPostcode(value);
+    setActive(-1);
+    const q = value.trim();
+    latestQuery.current = q;
+    if (/^[0-9]{4}$/.test(q)) {
+      setPlaces([]);
+      await lookUp(q);
+      return;
+    }
+    setCheck({ state: "idle" });
+    if (q.length < 2) {
+      setPlaces([]);
+      return;
+    }
+    try {
+      const res = await fetch(
+        `/api/delivery/places?q=${encodeURIComponent(q)}`,
+      );
+      const body = (await res.json()) as { places: Place[] };
+      if (latestQuery.current !== q) return; // a newer keystroke won
+      setPlaces(body.places);
+      if (body.places.length === 0 && /[a-zæøå]{3,}/i.test(q)) {
+        setCheck({ state: "outside", postcode: q });
+      }
+    } catch {
+      setPlaces([]);
+    }
+  }
+
+  function choosePlace(place: Place) {
+    latestQuery.current = place.postcode;
+    setPostcode(`${place.postcode} ${place.town}`);
+    setPlaces([]);
+    setActive(-1);
+    void lookUp(place.postcode);
+  }
+
+  function placeKeys(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (places.length === 0) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActive((i) => (i + 1) % places.length);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActive((i) => (i <= 0 ? places.length - 1 : i - 1));
+    } else if (e.key === "Enter" && active >= 0) {
+      e.preventDefault();
+      choosePlace(places[active]!);
+    } else if (e.key === "Escape") {
+      setPlaces([]);
+      setActive(-1);
     }
   }
 
@@ -142,10 +210,13 @@ export function OrderForm({
   const missing: string[] = [];
   if (occasion.soldOut) missing.push("Buketten er udsolgt");
   if (fulfilment === "delivery" && check.state !== "ok")
-    missing.push("et postnummer, vi leverer til");
+    missing.push("et postnummer eller en by, vi leverer til");
   if (!date) missing.push("en dag");
   if (fulfilment === "pickup" && slot === null) missing.push("et tidspunkt");
   const ready = missing.length === 0 && price !== undefined;
+  const cardPrice = rules?.cardPriceOere ?? 2000;
+  const cardText = showCard ? card.trim() : "";
+  const cardCost = cardText ? cardPrice : 0;
 
   function delivery(): CartDelivery {
     return fulfilment === "delivery" && check.state === "ok"
@@ -167,7 +238,9 @@ export function OrderForm({
       tier,
       quantity: 1,
       unitPriceOere: price.priceOere,
-      cardMessage: card.trim(),
+      cardMessage: cardText,
+      cardPriceOere: cardCost,
+      wish: showWish ? wish.trim() : "",
       photo:
         occasion.photos.find((p) => p.role === "main") ??
         standInFor(occasion.slug),
@@ -187,10 +260,7 @@ export function OrderForm({
   }
 
   const cart = added ? getCart() : null;
-  const cartTotal = cart
-    ? cart.lines.reduce((s, l) => s + l.unitPriceOere * l.quantity, 0) +
-      (cart.delivery?.fulfilment === "delivery" ? cart.delivery.feeOere : 0)
-    : 0;
+  const cartTotal = cart ? cartTotals(cart).totalOere : 0;
 
   return (
     <div className={styles.form}>
@@ -268,19 +338,50 @@ export function OrderForm({
         {fulfilment === "delivery" && (
           <div className={styles.field}>
             <label htmlFor="postnummer" className={styles.label}>
-              Postnummer
+              Postnummer eller by
             </label>
-            <input
-              id="postnummer"
-              inputMode="numeric"
-              autoComplete="postal-code"
-              maxLength={4}
-              value={postcode}
-              aria-invalid={check.state === "outside"}
-              aria-describedby="postnummer-svar"
-              className={`${styles.input} ${styles.postcode}`}
-              onChange={(e) => checkPostcode(e.target.value.replace(/\D/g, ""))}
-            />
+            {/* ARIA combobox: suggestions from the shop's own delivery list,
+                arrow keys and Enter to choose, Escape to close. */}
+            <div className={styles.combo}>
+              <input
+                id="postnummer"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded={places.length > 0}
+                aria-controls="steder"
+                aria-activedescendant={
+                  active >= 0 ? `sted-${active}` : undefined
+                }
+                autoComplete="off"
+                maxLength={40}
+                value={postcode}
+                aria-invalid={check.state === "outside"}
+                aria-describedby="postnummer-svar"
+                className={`${styles.input} ${styles.postcode}`}
+                onChange={(e) => typePlace(e.target.value)}
+                onKeyDown={placeKeys}
+                onBlur={() => setTimeout(() => setPlaces([]), 150)}
+              />
+              {places.length > 0 && (
+                <ul id="steder" role="listbox" className={styles.places}>
+                  {places.map((p, i) => (
+                    <li
+                      key={p.postcode}
+                      id={`sted-${i}`}
+                      role="option"
+                      aria-selected={i === active}
+                      className={styles.place}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        choosePlace(p);
+                      }}
+                    >
+                      {p.postcode} {p.town}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
             <p
               id="postnummer-svar"
               aria-live="polite"
@@ -438,33 +539,93 @@ export function OrderForm({
         )}
       </section>
 
-      <div className={styles.field}>
-        <label htmlFor="kort" className={styles.label}>
-          Hilsen på kortet (valgfrit)
-        </label>
-        <textarea
-          id="kort"
-          rows={4}
-          maxLength={MAX_CARD}
-          value={card}
-          aria-describedby="kort-taeller"
-          className={styles.input}
-          onChange={(e) => setCard(e.target.value)}
-        />
-        <p id="kort-taeller" className="muted">
-          {card.length} / {MAX_CARD} tegn
-        </p>
+      {/* Card and wishes per bouquet, behind links: shown only to those
+          who want them (occasion-page-choices; Baymard: optional fields
+          behind a link). */}
+      <div className={styles.extras}>
+        {showCard ? (
+          <div className={styles.field}>
+            <label htmlFor="kort" className={styles.label}>
+              Hilsen på kortet ({kroner(cardPrice)})
+            </label>
+            <textarea
+              id="kort"
+              rows={4}
+              maxLength={MAX_CARD}
+              value={card}
+              aria-describedby="kort-taeller"
+              className={styles.input}
+              onChange={(e) => setCard(e.target.value)}
+            />
+            <p id="kort-taeller" className="muted">
+              {card.length} / {MAX_CARD} tegn
+            </p>
+            <button
+              type="button"
+              className={styles.more}
+              onClick={() => setShowCard(false)}
+            >
+              Fjern kortet
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            className={styles.more}
+            onClick={() => setShowCard(true)}
+          >
+            + Tilføj et kort ({kroner(cardPrice)})
+          </button>
+        )}
+
+        {showWish ? (
+          <div className={styles.field}>
+            <label htmlFor="oenske" className={styles.label}>
+              Ønsker til buketten
+            </label>
+            <textarea
+              id="oenske"
+              rows={3}
+              maxLength={MAX_WISH}
+              value={wish}
+              aria-describedby="oenske-note"
+              placeholder="Fx gerne hvide og grønne farver"
+              className={styles.input}
+              onChange={(e) => setWish(e.target.value)}
+            />
+            <p id="oenske-note" className="muted">
+              Nikita binder med sæsonens blomster og følger dit ønske, så vidt
+              det kan lade sig gøre.
+            </p>
+            <button
+              type="button"
+              className={styles.more}
+              onClick={() => setShowWish(false)}
+            >
+              Fjern ønsket
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            className={styles.more}
+            onClick={() => setShowWish(true)}
+          >
+            + Ønsker til buketten
+          </button>
+        )}
       </div>
 
       <div className={styles.cta}>
         {price && (
           <p className="muted">
             {TIER_NAME[tier]} {kroner(price.priceOere)}
+            {cardCost > 0 ? ` + kort ${kroner(cardCost)}` : ""}
             {fulfilment === "delivery"
               ? fee > 0
-                ? ` + levering ${kroner(fee)} = ${kroner(price.priceOere + fee)} inkl. moms`
-                : " + levering (vælg postnummer)"
-              : ` + afhentning 0 kr. = ${kroner(price.priceOere)} inkl. moms`}
+                ? ` + levering ${kroner(fee)} = ${kroner(price.priceOere + cardCost + fee)} inkl. moms`
+                : " + levering (vælg postnummer eller by)"
+              : ` + afhentning 0 kr. = ${kroner(price.priceOere + cardCost)} inkl. moms`}
           </p>
         )}
         <button

@@ -112,6 +112,7 @@ const deliveryRules = {
     "deliveryWeekdays",
     "closedDates",
     "pickupEnabled",
+    "cardPriceOere",
     "openingHours",
     "placeholder",
   ],
@@ -128,6 +129,7 @@ const deliveryRules = {
       },
     },
     pickupEnabled: { type: "boolean" },
+    cardPriceOere: { type: "integer" },
     openingHours: {
       type: "object",
       properties: {

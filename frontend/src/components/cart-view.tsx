@@ -81,6 +81,12 @@ export function CartView() {
                 {line.name} · {TIER_NAME[line.tier]}
               </Link>
               <p>{kroner(line.unitPriceOere * line.quantity)}</p>
+              {(line.cardPriceOere ?? 0) > 0 && (
+                <p className={styles.extra}>
+                  + kort {kroner((line.cardPriceOere ?? 0) * line.quantity)}
+                </p>
+              )}
+              {line.wish && <p className={styles.extra}>Ønske: {line.wish}</p>}
               <div className={styles.actions}>
                 <div
                   className={styles.stepper}

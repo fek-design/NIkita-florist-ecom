@@ -163,6 +163,8 @@ export type DeliveryRules = {
   deliveryWeekdays: number[];
   closedDates: { date: string; reason: string }[];
   pickupEnabled: boolean;
+  /** Price of a card per bouquet, shown before adding (P3). */
+  cardPriceOere: number;
   openingHours: Partial<Record<schema.Weekday, [string, string]>>;
   placeholder: boolean;
 };
@@ -185,6 +187,7 @@ export async function getDeliveryRules(
     deliveryWeekdays: [...settings.deliveryWeekdays].sort((a, b) => a - b),
     closedDates: closed,
     pickupEnabled: settings.pickupEnabled,
+    cardPriceOere: settings.cardPriceOere,
     openingHours: settings.openingHours,
     placeholder: settings.isPlaceholder,
   };

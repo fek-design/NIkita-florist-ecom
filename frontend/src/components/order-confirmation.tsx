@@ -34,6 +34,8 @@ type Order = {
     quantity: number;
     unitPriceOere: number;
     cardMessage: string;
+    cardPriceOere: number;
+    wish: string;
   }[];
   deliveryFeeOere: number;
   totalOere: number;
@@ -179,6 +181,14 @@ export function OrderConfirmation({ token }: { token: string }) {
           {cards.map((l, i) => (
             <li key={i}>Kortet lyder: “{l.cardMessage}”</li>
           ))}
+          {order.lines
+            .filter((l) => l.wish)
+            .map((l, i) => (
+              <li key={`w${i}`}>
+                Dit ønske til {l.name}: “{l.wish}”. Nikita følger det, så vidt
+                det kan lade sig gøre.
+              </li>
+            ))}
         </ol>
         <p className={styles.total}>
           {paid ? "Betalt" : "I alt"}: {kroner(order.totalOere)} inkl. moms

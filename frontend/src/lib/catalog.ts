@@ -80,6 +80,8 @@ export type DeliveryRules = {
   sameDayCutoff: string;
   deliveryWeekdays: number[];
   pickupEnabled: boolean;
+  /** Price of a card per bouquet (the owner: 20 kr.). */
+  cardPriceOere: number;
   /** Per weekday ("mon"…"sun"): [opens, closes] as "HH:MM"; closed days absent. */
   openingHours: Partial<Record<Weekday, [string, string]>>;
   placeholder: boolean;

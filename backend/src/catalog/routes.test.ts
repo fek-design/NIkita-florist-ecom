@@ -119,6 +119,7 @@ describe("GET /delivery", () => {
       deliveryWeekdays: [1, 2, 3, 4, 5, 6],
       closedDates: [{ date: "2026-12-24", reason: "Juleaften" }],
       pickupEnabled: true,
+      cardPriceOere: 2000,
       openingHours: {
         mon: ["10:00", "17:00"],
         tue: ["10:00", "17:00"],

@@ -194,3 +194,9 @@ h2.heading {
   margin: 0;
   accent-color: var(--ink);
 }
+
+.wish {
+  display: block;
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}

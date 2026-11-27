@@ -111,3 +111,50 @@ async function expectFocusRing(page: Page) {
   );
   expect(shadow, "visible focus ring").not.toBe("none");
 }
+
+test("card and wishes stay folded away until asked for", async ({ page }) => {
+  await page.goto("/anledning/bisaettelse");
+  await expect(page.getByLabel(/Hilsen på kortet/)).toHaveCount(0);
+  await expect(page.getByLabel("Ønsker til buketten")).toHaveCount(0);
+
+  await chooseDelivery(page);
+  await page.getByRole("button", { name: "+ Tilføj et kort (20 kr.)" }).click();
+  await page.getByLabel(/Hilsen på kortet/).fill("Kh. familien");
+  await expect(
+    page.getByText(
+      "Mellem 400 kr. + kort 20 kr. + levering 80 kr. = 500 kr. inkl. moms",
+    ),
+  ).toBeVisible();
+
+  // Closing the card takes it, and its price, off the bouquet.
+  await page.getByRole("button", { name: "Fjern kortet" }).click();
+  await expect(page.getByText(/= 480 kr\. inkl\. moms/)).toBeVisible();
+
+  await page.getByRole("button", { name: "+ Ønsker til buketten" }).click();
+  await page.getByLabel("Ønsker til buketten").fill("Ingen liljer");
+  await page.getByRole("button", { name: "Læg i kurven" }).click();
+  await page.getByRole("link", { name: "Gå til kurven" }).click();
+  await expect(page.getByText("Ønske: Ingen liljer")).toBeVisible();
+});
+
+test("a town finds the place, by touch and by keyboard", async ({ page }) => {
+  await page.goto("/anledning/bisaettelse");
+  const field = page.getByRole("combobox", { name: "Postnummer eller by" });
+
+  await field.fill("Vipp");
+  await page.getByRole("option", { name: "4390 Vipperød" }).click();
+  await expect(page.getByText("Vi leverer til 4390 Vipperød")).toBeVisible();
+
+  await field.fill("");
+  await field.pressSequentially("hol");
+  await expect(page.getByRole("option", { name: "4300 Holbæk" })).toBeVisible();
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("Enter");
+  await expect(page.getByText("Vi leverer til 4300 Holbæk")).toBeVisible();
+
+  await field.fill("Aarhus");
+  await expect(page.getByText("Vi leverer ikke til Aarhus")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: /Hent i butikken/ }),
+  ).toBeVisible();
+});

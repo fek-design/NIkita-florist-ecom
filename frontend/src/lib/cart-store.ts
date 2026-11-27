@@ -28,6 +28,10 @@ export type CartLine = {
   /** For showing only: checkout recalculates every price on the server. */
   unitPriceOere: number;
   cardMessage: string;
+  /** The card's price per bouquet when added; 0 or absent without a card. */
+  cardPriceOere?: number;
+  /** Wishes for this bouquet (occasion-page-choices); may be empty. */
+  wish?: string;
   /** The occasion's main photo when added, for the cart's thumbnail. */
   photo?: { url: string; alt: string };
 };
@@ -144,7 +148,7 @@ export function clearCart() {
 /** What the customer sees before checkout; the server prices the order. */
 export function cartTotals(cart: Cart) {
   const bouquetsOere = cart.lines.reduce(
-    (sum, l) => sum + l.unitPriceOere * l.quantity,
+    (sum, l) => sum + (l.unitPriceOere + (l.cardPriceOere ?? 0)) * l.quantity,
     0,
   );
   const feeOere =

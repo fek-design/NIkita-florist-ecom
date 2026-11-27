@@ -226,3 +226,61 @@
   border-top: 1px solid var(--linen);
   font-weight: var(--weight-semibold);
 }
+
+/* The place field with its suggestions (ARIA combobox). */
+.combo {
+  position: relative;
+  max-width: 320px;
+}
+
+.combo .postcode {
+  max-width: none;
+}
+
+.places {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + var(--space-half));
+  right: 0;
+  left: 0;
+  margin: 0;
+  padding: var(--space-half) 0;
+  border: 1px solid var(--sand);
+  border-radius: 4px;
+  background: var(--paper);
+  list-style: none;
+}
+
+.place {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.place[aria-selected="true"],
+.place:hover {
+  background: var(--linen);
+  color: var(--ink);
+}
+
+/* Card and wishes: links that open their fields. */
+.extras {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.more {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: var(--weight-semibold);
+  text-decoration: underline;
+  cursor: pointer;
+}

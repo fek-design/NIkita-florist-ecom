@@ -63,6 +63,15 @@ describe("cart store", () => {
     });
   });
 
+  it("counts a 20 kr. card per bouquet, times its quantity", () => {
+    addToCart(
+      line({ quantity: 2, cardMessage: "Kh.", cardPriceOere: 2000 }),
+      delivery,
+    );
+    // 2 × (350 + 20) + 80
+    expect(cartTotals(getCart()).totalOere).toBe(2 * 37000 + 8000);
+  });
+
   it("charges no fee for a pickup", () => {
     addToCart(line(), pickup);
     expect(cartTotals(getCart()).totalOere).toBe(35000);

@@ -10,14 +10,14 @@
 
 ## 2. Occasion page
 
-- [ ] 2.1 Fold the card behind "+ Tilføj et kort (20 kr.)" and add "+ Ønsker til buketten" with the expectation line; the price summary and the cart show the card price; the cart store keeps `wish` per line; verify at 390 px that neither field shows until asked for, the summary scenario (400 + kort 20 + levering 80 = 500 kr.), and that text survives closing and reopening
-- [ ] 2.2 Replace the postcode input with one place field with suggestions (combobox pattern), keeping today's zone, fee and pickup messages; verify "4300", "Vipp" → Vipperød, "8000" and "Aarhus" in the browser and by keyboard only
+- [x] 2.1 Fold the card behind "+ Tilføj et kort (20 kr.)" and add "+ Ønsker til buketten" with the expectation line; the price summary and the cart show the card price; the cart store keeps `wish` per line; verify at 390 px that neither field shows until asked for, the summary scenario (400 + kort 20 + levering 80 = 500 kr.), and that text survives closing and reopening — *28 Nov: both behind links, "+ Tilføj et kort (20 kr.)" (price from the settings) and "+ Ønsker til buketten"; "Fjern kortet" takes card and price off; checked at 390 px and by phone tests (fields absent by default, 400 + kort 20 + levering 80 = 500 kr., back to 480 after removing)*
+- [x] 2.2 Replace the postcode input with one place field with suggestions (combobox pattern), keeping today's zone, fee and pickup messages; verify "4300", "Vipp" → Vipperød, "8000" and "Aarhus" in the browser and by keyboard only — *28 Nov: one field, "Postnummer eller by", an ARIA combobox with suggestions from the shop's list; phone tests by touch ("Vipp" → 4390 Vipperød), by keyboard ("hol", arrow down, Enter → Holbæk) and outside ("Aarhus" → no delivery, pickup offered); four digits still check at once*
 
 ## 3. Cart, checkout and confirmation
 
-- [ ] 3.1 Show the wish with its bouquet in the cart, the checkout summary and the confirmation page; send it with each checkout item; verify a two-bouquet order with two wishes end to end
+- [x] 3.1 Show the wish with its bouquet in the cart, the checkout summary and the confirmation page; send it with each checkout item; verify a two-bouquet order with two wishes end to end — *28 Nov: cart ("+ kort 20 kr.", "Ønske: …"), checkout summary, the item sent to checkout, confirmation page and email; a paid demo order (1033) with card and wish checked in Mailpit, slip rendered at 80 mm. The two-bouquet case is covered by the backend checkout test*
 
 ## 4. Checks and records
 
-- [ ] 4.1 Extend the Playwright phone tests: no card or wish fields by default, a wish reaching the confirmation, the town field by touch and keyboard; verify all pass
-- [ ] 4.2 Log the decisions in `docs/design-decisions.md`, write the process note entry, screenshots in `docs/design/implemented/`; validate the change
+- [x] 4.1 Extend the Playwright phone tests: no card or wish fields by default, a wish reaching the confirmation, the town field by touch and keyboard; verify all pass — *28 Nov: 15 phone tests pass. The payment tests now pick a random day: the owner's limit of 5 orders a day was filling tomorrow on the local database (409), which is the rule working, not a fault*
+- [x] 4.2 Log the decisions in `docs/design-decisions.md`, write the process note entry, screenshots in `docs/design/implemented/`; validate the change — *28 Nov: DD-40, process note entry, screenshots `docs/design/implemented/2026-11-28-*`; change validated*

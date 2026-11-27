@@ -174,3 +174,10 @@
   color: var(--color-link);
   font-weight: var(--weight-semibold);
 }
+
+/* Card price and wish under the bouquet: supporting text (DD-24). */
+.extra {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}

@@ -166,6 +166,7 @@ describe("getDeliveryRules", () => {
         { date: "2026-12-24", reason: "Juleaften" },
       ],
       pickupEnabled: true,
+      cardPriceOere: 2000,
       openingHours: {
         mon: ["10:00", "17:00"],
         tue: ["10:00", "17:00"],

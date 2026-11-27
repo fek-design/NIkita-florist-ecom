@@ -32,15 +32,24 @@ function signature(payload: string, secret: string): string {
   return `t=${t},v1=${v1}`;
 }
 
+/**
+ * A random day from "Anden dato": the owner takes about 5 orders a day
+ * (27 Nov), so tests that create orders spread them out instead of filling
+ * tomorrow on the local database.
+ */
+async function pickSomeDay(page: Page) {
+  await page.getByRole("radio", { name: /Anden dato/ }).click();
+  const options = await page.locator("#dato option:not([value=''])").count();
+  await page
+    .locator("#dato")
+    .selectOption({ index: 1 + Math.floor(Math.random() * (options - 1)) });
+}
+
 async function fillCart(page: Page) {
   await page.goto("/anledning/bisaettelse");
   await page.getByLabel("Postnummer").fill("4300");
   await expect(page.getByText("Vi leverer til 4300 Holbæk")).toBeVisible();
-  await page
-    .getByRole("radiogroup", { name: "Dag" })
-    .getByRole("radio")
-    .first()
-    .click();
+  await pickSomeDay(page);
   await page.getByRole("button", { name: "Læg i kurven" }).click();
   await page.getByRole("link", { name: "Gå til kurven" }).click();
   await page.getByRole("link", { name: "Gå til betaling" }).click();
@@ -145,6 +154,34 @@ test("an abandoned payment leaves no paid order and keeps the cart", async ({
     page.getByRole("heading", { name: "Betalingen blev ikke gennemført" }),
   ).toBeVisible();
   await expect(page.locator(".cart-badge")).toHaveText("1");
+});
+
+test("a wish reaches the confirmation page", async ({ page }) => {
+  test.skip(!canPay, "needs Stripe test keys in backend/.env.local");
+  await page.goto("/anledning/bisaettelse");
+  await page.getByLabel("Postnummer").fill("4300");
+  await expect(page.getByText("Vi leverer til 4300 Holbæk")).toBeVisible();
+  await pickSomeDay(page);
+  await page.getByRole("button", { name: "+ Ønsker til buketten" }).click();
+  await page.getByLabel("Ønsker til buketten").fill("Kun hvide");
+  await page.getByRole("button", { name: "Læg i kurven" }).click();
+  await page.getByRole("link", { name: "Gå til kurven" }).click();
+  await page.getByRole("link", { name: "Gå til betaling" }).click();
+  await expect(page.getByText("Ønske: Kun hvide")).toBeVisible();
+  await fillForm(page);
+  let token = "";
+  await page.route("**/api/checkout", async (route) => {
+    const response = await route.fetch();
+    const body = await response.json();
+    token = body.orderToken;
+    await route.fulfill({ response, json: body });
+  });
+  await page.getByRole("button", { name: /^Betal/ }).click();
+  await page.waitForURL(/checkout\.stripe\.com/);
+  await page.goto(`/ordre/${token}`);
+  await expect(
+    page.getByText(/Dit ønske til Bisættelse: “Kun hvide”/),
+  ).toBeVisible();
 });
 
 test("a changed order link shows no order", async ({ page }) => {
