@@ -36,7 +36,7 @@
 
 ## 7. Done
 
-- [ ] 7.1 Week 3 exit check: a test-mode order goes from cart to paid with correct totals; a declined and an abandoned payment leave no paid order; record the result with a date in the process note
+- [x] 7.1 Week 3 exit check: a test-mode order goes from cart to paid with correct totals; a declined and an abandoned payment leave no paid order; record the result with a date in the process note — *27 Nov: Felix by hand on Stripe's page: declined card 4000 0000 0000 0002 left order 1029 unpaid with no emails; then 4242 paid it, but the backend refused Stripe's event ("invalid signature": the CLI's signing secret had changed since 25 Nov, the backend still had the old one). After Felix updated `STRIPE_WEBHOOK_SECRET` and the event was resent, order 1029 became paid (680 kr.) and both emails arrived. Abandoned: covered by the phone test. Result in the process note*
 
 ## Workflow follow-up
 
