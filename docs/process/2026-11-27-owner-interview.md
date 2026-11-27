@@ -38,3 +38,9 @@ Delivery postcodes (question 1), pickups per hour (5), occasions and prices (6),
 
 - The colour concern was unexpected: the palette was built from her liking for paper (brand guide). What reads as "paper" on Felix's screen read as white on hers; screens differ, and she softened her view once she compared it with a truly white box.
 - In the call Felix gave "around 7 December" as when he needs things gathered. The roadmap's hand-in is around 20 December. To confirm which date the photo day must serve.
+
+## Put into the system (27 Nov)
+
+Felix chose to set her numbers now, still marked as placeholders: migration `0008_owner_answers_27_nov` sets the daily capacity to 5, the same-day cut-off to 00:00 (today is never offered, so orders come by the day before) and pickup 9–18 Monday to Saturday (the days to confirm by message). Only settings still marked as placeholders change. The occasion page now says "Bestil senest dagen før, du ønsker levering." instead of a same-day cut-off. A separate limit for funerals (10) waits for the back office in week 4, where she sets limits herself; the colours are put to her as two swatches on 7 Dec. Checked locally: the first date offered is tomorrow; 154 backend, 28 unit and 12 phone tests pass.
+
+Felix also moved the project's wrap-up to about 10 December (roadmap said about 20 December).

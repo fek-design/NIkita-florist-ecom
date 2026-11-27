@@ -388,9 +388,11 @@ export function OrderForm({
           )}
           {fulfilment === "delivery" && rules && (
             <p className="muted">
-              Bestil inden kl.{" "}
-              {rules.sameDayCutoff.slice(0, 2).replace(/^0/, "")} for levering
-              samme dag.
+              {/* A cut-off of 00:00 means no same-day delivery (the owner,
+                  27 Nov: orders by the day before). */}
+              {rules.sameDayCutoff.startsWith("00:00")
+                ? "Bestil senest dagen før, du ønsker levering."
+                : `Bestil inden kl. ${rules.sameDayCutoff.slice(0, 2).replace(/^0/, "")} for levering samme dag.`}
             </p>
           )}
         </fieldset>

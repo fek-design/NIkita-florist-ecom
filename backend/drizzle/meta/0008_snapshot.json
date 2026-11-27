@@ -1,0 +1,1091 @@
+{
+  "id": "be6c8132-78f6-4758-8c81-7aed137d7856",
+  "prevId": "b6b0a923-d6b6-4a54-8f14-0e76023550f3",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.closed_dates": {
+      "name": "closed_dates",
+      "schema": "",
+      "columns": {
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.delivery_postcodes": {
+      "name": "delivery_postcodes",
+      "schema": "",
+      "columns": {
+        "postcode": {
+          "name": "postcode",
+          "type": "char(4)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "town": {
+          "name": "town",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_placeholder": {
+          "name": "is_placeholder",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "delivery_postcodes_four_digits": {
+          "name": "delivery_postcodes_four_digits",
+          "value": "\"delivery_postcodes\".\"postcode\" ~ '^[0-9]{4}$'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.email_outbox": {
+      "name": "email_outbox",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "name": "email_outbox_id_seq",
+            "increment": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "startWith": "1",
+            "cache": "1",
+            "cycle": false,
+            "schema": "public",
+            "type": "always"
+          }
+        },
+        "order_id": {
+          "name": "order_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "email_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "to_address": {
+          "name": "to_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "subject": {
+          "name": "subject",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "html": {
+          "name": "html",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "text": {
+          "name": "text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "email_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "attempts": {
+          "name": "attempts",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "last_error": {
+          "name": "last_error",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "sent_at": {
+          "name": "sent_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "email_outbox_order_id_orders_id_fk": {
+          "name": "email_outbox_order_id_orders_id_fk",
+          "tableFrom": "email_outbox",
+          "columnsFrom": [
+            "order_id"
+          ],
+          "tableTo": "orders",
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "email_outbox_one_per_kind": {
+          "name": "email_outbox_one_per_kind",
+          "columns": [
+            "order_id",
+            "kind"
+          ],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.occasion_photos": {
+      "name": "occasion_photos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "name": "occasion_photos_id_seq",
+            "increment": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "startWith": "1",
+            "cache": "1",
+            "cycle": false,
+            "schema": "public",
+            "type": "always"
+          }
+        },
+        "occasion_id": {
+          "name": "occasion_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "alt": {
+          "name": "alt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "photo_role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "occasion_photos_occasion_id_occasions_id_fk": {
+          "name": "occasion_photos_occasion_id_occasions_id_fk",
+          "tableFrom": "occasion_photos",
+          "columnsFrom": [
+            "occasion_id"
+          ],
+          "tableTo": "occasions",
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.occasion_tiers": {
+      "name": "occasion_tiers",
+      "schema": "",
+      "columns": {
+        "occasion_id": {
+          "name": "occasion_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tier": {
+          "name": "tier",
+          "type": "tier",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_oere": {
+          "name": "price_oere",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "size_text": {
+          "name": "size_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_placeholder": {
+          "name": "is_placeholder",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "occasion_tiers_occasion_id_occasions_id_fk": {
+          "name": "occasion_tiers_occasion_id_occasions_id_fk",
+          "tableFrom": "occasion_tiers",
+          "columnsFrom": [
+            "occasion_id"
+          ],
+          "tableTo": "occasions",
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {
+        "occasion_tiers_occasion_id_tier_pk": {
+          "name": "occasion_tiers_occasion_id_tier_pk",
+          "columns": [
+            "occasion_id",
+            "tier"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "occasion_tiers_price_positive": {
+          "name": "occasion_tiers_price_positive",
+          "value": "\"occasion_tiers\".\"price_oere\" > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.occasions": {
+      "name": "occasions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "name": "occasions_id_seq",
+            "increment": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "startWith": "1",
+            "cache": "1",
+            "cycle": false,
+            "schema": "public",
+            "type": "always"
+          }
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "intro": {
+          "name": "intro",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "is_visible": {
+          "name": "is_visible",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "is_sold_out": {
+          "name": "is_sold_out",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "is_placeholder": {
+          "name": "is_placeholder",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "occasions_slug_unique": {
+          "name": "occasions_slug_unique",
+          "columns": [
+            "slug"
+          ],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "occasions_slug_format": {
+          "name": "occasions_slug_format",
+          "value": "\"occasions\".\"slug\" ~ '^[a-z0-9]+(-[a-z0-9]+)*$'"
+        },
+        "occasions_name_not_blank": {
+          "name": "occasions_name_not_blank",
+          "value": "length(trim(\"occasions\".\"name\")) > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.order_lines": {
+      "name": "order_lines",
+      "schema": "",
+      "columns": {
+        "order_id": {
+          "name": "order_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "line_no": {
+          "name": "line_no",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "occasion_id": {
+          "name": "occasion_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "occasion_name": {
+          "name": "occasion_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tier": {
+          "name": "tier",
+          "type": "tier",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "unit_price_oere": {
+          "name": "unit_price_oere",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "card_message": {
+          "name": "card_message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "order_lines_order_id_orders_id_fk": {
+          "name": "order_lines_order_id_orders_id_fk",
+          "tableFrom": "order_lines",
+          "columnsFrom": [
+            "order_id"
+          ],
+          "tableTo": "orders",
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        },
+        "order_lines_occasion_id_occasions_id_fk": {
+          "name": "order_lines_occasion_id_occasions_id_fk",
+          "tableFrom": "order_lines",
+          "columnsFrom": [
+            "occasion_id"
+          ],
+          "tableTo": "occasions",
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "restrict"
+        }
+      },
+      "compositePrimaryKeys": {
+        "order_lines_order_id_line_no_pk": {
+          "name": "order_lines_order_id_line_no_pk",
+          "columns": [
+            "order_id",
+            "line_no"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "order_lines_quantity_positive": {
+          "name": "order_lines_quantity_positive",
+          "value": "\"order_lines\".\"quantity\" > 0"
+        },
+        "order_lines_price_positive": {
+          "name": "order_lines_price_positive",
+          "value": "\"order_lines\".\"unit_price_oere\" > 0"
+        },
+        "order_lines_card_message_length": {
+          "name": "order_lines_card_message_length",
+          "value": "char_length(\"order_lines\".\"card_message\") <= 200"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.orders": {
+      "name": "orders",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "name": "orders_id_seq",
+            "increment": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "startWith": "1",
+            "cache": "1",
+            "cycle": false,
+            "schema": "public",
+            "type": "always"
+          }
+        },
+        "number": {
+          "name": "number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "identity": {
+            "name": "orders_number_seq",
+            "increment": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "startWith": "1001",
+            "cache": "1",
+            "cycle": false,
+            "schema": "public",
+            "type": "always"
+          }
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source": {
+          "name": "source",
+          "type": "order_source",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payment_state": {
+          "name": "payment_state",
+          "type": "payment_state",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "payment_channel": {
+          "name": "payment_channel",
+          "type": "payment_channel",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "buyer_name": {
+          "name": "buyer_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "buyer_email": {
+          "name": "buyer_email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "buyer_phone": {
+          "name": "buyer_phone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fulfilment": {
+          "name": "fulfilment",
+          "type": "fulfilment",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fulfilment_date": {
+          "name": "fulfilment_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pickup_slot_hour": {
+          "name": "pickup_slot_hour",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "latest_time": {
+          "name": "latest_time",
+          "type": "time",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "recipient_name": {
+          "name": "recipient_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "recipient_address": {
+          "name": "recipient_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "recipient_postcode": {
+          "name": "recipient_postcode",
+          "type": "char(4)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "recipient_phone": {
+          "name": "recipient_phone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "not_home": {
+          "name": "not_home",
+          "type": "not_home",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "comment": {
+          "name": "comment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "delivery_fee_oere": {
+          "name": "delivery_fee_oere",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total_oere": {
+          "name": "total_oere",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stripe_session_id": {
+          "name": "stripe_session_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stripe_payment_intent_id": {
+          "name": "stripe_payment_intent_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "hold_expires_at": {
+          "name": "hold_expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "paid_at": {
+          "name": "paid_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "orders_fulfilment_date_idx": {
+          "name": "orders_fulfilment_date_idx",
+          "columns": [
+            {
+              "expression": "fulfilment_date",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "pickup_slot_hour",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "with": {},
+          "method": "btree",
+          "concurrently": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "orders_number_unique": {
+          "name": "orders_number_unique",
+          "columns": [
+            "number"
+          ],
+          "nullsNotDistinct": false
+        },
+        "orders_token_unique": {
+          "name": "orders_token_unique",
+          "columns": [
+            "token"
+          ],
+          "nullsNotDistinct": false
+        },
+        "orders_stripeSessionId_unique": {
+          "name": "orders_stripeSessionId_unique",
+          "columns": [
+            "stripe_session_id"
+          ],
+          "nullsNotDistinct": false
+        },
+        "orders_stripePaymentIntentId_unique": {
+          "name": "orders_stripePaymentIntentId_unique",
+          "columns": [
+            "stripe_payment_intent_id"
+          ],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "orders_fee_not_negative": {
+          "name": "orders_fee_not_negative",
+          "value": "\"orders\".\"delivery_fee_oere\" >= 0"
+        },
+        "orders_total_positive": {
+          "name": "orders_total_positive",
+          "value": "\"orders\".\"total_oere\" > 0"
+        },
+        "orders_web_has_email": {
+          "name": "orders_web_has_email",
+          "value": "\"orders\".\"source\" <> 'web' or (\"orders\".\"buyer_email\" is not null and length(trim(\"orders\".\"buyer_email\")) > 0)"
+        },
+        "orders_web_pays_online": {
+          "name": "orders_web_pays_online",
+          "value": "(\"orders\".\"source\" = 'web') = (\"orders\".\"payment_channel\" = 'stripe')"
+        },
+        "orders_phone_is_pickup": {
+          "name": "orders_phone_is_pickup",
+          "value": "\"orders\".\"source\" <> 'phone' or \"orders\".\"fulfilment\" = 'pickup'"
+        },
+        "orders_delivery_has_recipient": {
+          "name": "orders_delivery_has_recipient",
+          "value": "\"orders\".\"fulfilment\" <> 'delivery' or (\"orders\".\"recipient_name\" is not null and \"orders\".\"recipient_address\" is not null and \"orders\".\"recipient_postcode\" ~ '^[0-9]{4}$' and \"orders\".\"not_home\" is not null)"
+        },
+        "orders_pickup_has_slot": {
+          "name": "orders_pickup_has_slot",
+          "value": "(\"orders\".\"fulfilment\" = 'pickup') = (\"orders\".\"pickup_slot_hour\" is not null)"
+        },
+        "orders_slot_hour_valid": {
+          "name": "orders_slot_hour_valid",
+          "value": "\"orders\".\"pickup_slot_hour\" is null or \"orders\".\"pickup_slot_hour\" between 0 and 23"
+        },
+        "orders_latest_time_delivery_only": {
+          "name": "orders_latest_time_delivery_only",
+          "value": "\"orders\".\"latest_time\" is null or \"orders\".\"fulfilment\" = 'delivery'"
+        },
+        "orders_pending_has_hold": {
+          "name": "orders_pending_has_hold",
+          "value": "\"orders\".\"payment_state\" <> 'pending' or \"orders\".\"hold_expires_at\" is not null"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.shop_settings": {
+      "name": "shop_settings",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "smallint",
+          "primaryKey": true,
+          "notNull": true,
+          "default": 1
+        },
+        "delivery_fee_oere": {
+          "name": "delivery_fee_oere",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "same_day_cutoff": {
+          "name": "same_day_cutoff",
+          "type": "time",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delivery_weekdays": {
+          "name": "delivery_weekdays",
+          "type": "integer[]",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "daily_capacity": {
+          "name": "daily_capacity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pickups_per_slot": {
+          "name": "pickups_per_slot",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 4
+        },
+        "pickup_enabled": {
+          "name": "pickup_enabled",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "opening_hours": {
+          "name": "opening_hours",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "is_placeholder": {
+          "name": "is_placeholder",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "shop_settings_single_row": {
+          "name": "shop_settings_single_row",
+          "value": "\"shop_settings\".\"id\" = 1"
+        },
+        "shop_settings_fee_not_negative": {
+          "name": "shop_settings_fee_not_negative",
+          "value": "\"shop_settings\".\"delivery_fee_oere\" >= 0"
+        },
+        "shop_settings_capacity_positive": {
+          "name": "shop_settings_capacity_positive",
+          "value": "\"shop_settings\".\"daily_capacity\" > 0"
+        },
+        "shop_settings_pickups_per_slot_positive": {
+          "name": "shop_settings_pickups_per_slot_positive",
+          "value": "\"shop_settings\".\"pickups_per_slot\" > 0"
+        },
+        "shop_settings_weekdays_valid": {
+          "name": "shop_settings_weekdays_valid",
+          "value": "cardinality(\"shop_settings\".\"delivery_weekdays\") > 0 and \"shop_settings\".\"delivery_weekdays\" <@ array[1,2,3,4,5,6,7]"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.stripe_events": {
+      "name": "stripe_events",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "received_at": {
+          "name": "received_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.email_kind": {
+      "name": "email_kind",
+      "schema": "public",
+      "values": [
+        "confirmation",
+        "owner_slip"
+      ]
+    },
+    "public.email_status": {
+      "name": "email_status",
+      "schema": "public",
+      "values": [
+        "pending",
+        "sent",
+        "failed"
+      ]
+    },
+    "public.fulfilment": {
+      "name": "fulfilment",
+      "schema": "public",
+      "values": [
+        "delivery",
+        "pickup"
+      ]
+    },
+    "public.not_home": {
+      "name": "not_home",
+      "schema": "public",
+      "values": [
+        "door",
+        "neighbour",
+        "call_buyer"
+      ]
+    },
+    "public.order_source": {
+      "name": "order_source",
+      "schema": "public",
+      "values": [
+        "web",
+        "phone",
+        "shop"
+      ]
+    },
+    "public.payment_channel": {
+      "name": "payment_channel",
+      "schema": "public",
+      "values": [
+        "stripe",
+        "at_pickup",
+        "in_shop"
+      ]
+    },
+    "public.payment_state": {
+      "name": "payment_state",
+      "schema": "public",
+      "values": [
+        "pending",
+        "paid",
+        "expired",
+        "refunded"
+      ]
+    },
+    "public.photo_role": {
+      "name": "photo_role",
+      "schema": "public",
+      "values": [
+        "main",
+        "scale",
+        "detail"
+      ]
+    },
+    "public.tier": {
+      "name": "tier",
+      "schema": "public",
+      "values": [
+        "lille",
+        "mellem",
+        "stor"
+      ]
+    }
+  },
+  "schemas": {},
+  "views": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
