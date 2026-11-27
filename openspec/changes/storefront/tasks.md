@@ -45,7 +45,7 @@
 
 ## 6. Findability and checks
 
-- [ ] 6.1 Add page metadata, `sitemap.ts`, `robots.ts` and the occasion `Product` JSON-LD, with `SITE_URL` in env, example and hand-over sheet; verify the sitemap lists the front page and five occasions only
+- [x] 6.1 Add page metadata, `sitemap.ts`, `robots.ts` and the occasion `Product` JSON-LD, with `SITE_URL` in env, example and hand-over sheet; verify the sitemap lists the front page and five occasions only — *27 Nov: sitemap lists the front page, `/anledninger` (added to the spec scenario: the category page came after the spec) and the five occasions, nothing else; robots.txt allows all crawlers, keeps out cart, checkout, orders and status, and names the sitemap; each occasion page carries `Product` data with an `AggregateOffer` in DKK (Bisættelse 300–550) and stock status, naming a photo only when it is the owner's own. `SITE_URL` is optional (falls back to Vercel's production address, then localhost), with 3 tests and a hand-over row*
 - [ ] 6.2 Write the Playwright phone tests (full path with reload, keyboard-only path, no third-party font requests); verify they pass locally against the seeded database
 - [ ] 6.3 Push for a preview, check the pages there, and record a mobile Lighthouse baseline with date and scores in the process note
 - [ ] 6.3b Make an annotated screenshot of each finished screen (numbered markers, each with the reason and the decision it comes from) in `docs/design/storefront/`; verify every marker points to a logged decision or a brand-guide rule

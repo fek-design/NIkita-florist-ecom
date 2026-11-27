@@ -119,7 +119,7 @@ Every page SHALL have its own Danish title and description. The site SHALL serve
 
 #### Scenario: Sitemap
 - **WHEN** a crawler fetches `/sitemap.xml`
-- **THEN** it lists the front page and the five occasion pages, and not the cart or the status page
+- **THEN** it lists the front page, the category page and the five occasion pages, and not the cart, checkout, order or status pages
 
 #### Scenario: Product data
 - **WHEN** a crawler reads an occasion page

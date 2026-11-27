@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { siteUrl } from "@/env";
 import localFont from "next/font/local";
 import "./globals.css";
 import { SiteFooter } from "@/components/site-footer";
@@ -21,6 +22,7 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl()),
   title: "Nikita Nielsen",
   description: "Blomster til enhver anledning, leveret i Holbæk og omegn.",
 };

@@ -29,3 +29,18 @@ export function env(name: RequiredVar): string {
   if (!value) throw new Error(`Missing required environment variable: ${name}`);
   return value;
 }
+
+/**
+ * The shop's public address, for the sitemap, robots.txt and absolute links
+ * in product data. Optional: without SITE_URL it falls back to the address
+ * Vercel gives the production project, then to the local dev server.
+ */
+export function siteUrl(
+  source: Record<string, string | undefined> = process.env,
+): string {
+  const explicit = source.SITE_URL?.trim();
+  if (explicit) return explicit.replace(/\/$/, "");
+  const vercel = source.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+  if (vercel) return `https://${vercel}`;
+  return "http://localhost:3000";
+}

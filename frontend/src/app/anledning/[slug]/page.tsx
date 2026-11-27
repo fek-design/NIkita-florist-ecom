@@ -5,6 +5,7 @@ import { OrderForm } from "@/components/order-form";
 import { Photo } from "@/components/photo";
 import { getDeliveryRules, getOccasion } from "@/lib/catalog";
 import { standInFor } from "@/lib/stand-ins";
+import { siteUrl } from "@/env";
 import styles from "./page.module.css";
 
 export async function generateMetadata({
@@ -41,10 +42,11 @@ async function Occasion({ slug }: { slug: string }) {
     getDeliveryRules(),
   ]);
   if (!occasion) notFound();
-  const main =
-    occasion.photos.find((p) => p.role === "main") ?? standInFor(slug);
+  const own = occasion.photos.find((p) => p.role === "main");
+  const main = own ?? standInFor(slug);
   return (
     <article className={styles.page}>
+      <ProductData occasion={occasion} image={own?.url ?? null} />
       <Photo photo={main} ratio={4 / 5} sizes="100vw" priority />
       <div className={styles.title}>
         <h1>{occasion.name}</h1>
@@ -64,5 +66,49 @@ function Skeleton() {
     <div className={styles.page} aria-busy="true" aria-label="Henter buketten">
       <Photo photo={null} ratio={4 / 5} sizes="100vw" />
     </div>
+  );
+}
+
+/**
+ * Product data for search engines and AI tools (spec: "Product data", P10):
+ * the price range across the tiers in DKK. Only the owner's own photo is
+ * named, never a stand-in, and no business details until they are real.
+ */
+function ProductData({
+  occasion,
+  image,
+}: {
+  occasion: NonNullable<Awaited<ReturnType<typeof getOccasion>>>;
+  image: string | null;
+}) {
+  const prices = occasion.tiers.map((t) => t.priceOere / 100);
+  const url = `${siteUrl()}/anledning/${occasion.slug}`;
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: occasion.name,
+    description: occasion.intro,
+    url,
+    ...(image ? { image: new URL(image, siteUrl()).href } : {}),
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "DKK",
+      lowPrice: Math.min(...prices),
+      highPrice: Math.max(...prices),
+      offerCount: prices.length,
+      availability: occasion.soldOut
+        ? "https://schema.org/OutOfStock"
+        : "https://schema.org/InStock",
+      url,
+    },
+  };
+  return (
+    <script
+      type="application/ld+json"
+      // JSON from our own catalogue; "<" escaped so text cannot end the tag.
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+      }}
+    />
   );
 }

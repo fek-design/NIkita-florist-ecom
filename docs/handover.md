@@ -22,6 +22,7 @@ Stored only in each service's settings, never in the repository. Every one must 
 |---|---|---|---|
 | `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `PGHOST`, `PGHOST_UNPOOLED` and related | Set by the Neon integration in the Vercel backend project (all environments); `backend/.env.local` locally | Created again when the Neon project moves to her account | in use (17 Nov) |
 | `BACKEND_URL` | Vercel frontend project; `frontend/.env.local` locally | The backend address in her Vercel team (production and staging) | in use (19 Nov), points at the staging backend |
+| `SITE_URL` (not secret) | Vercel frontend project (production only); `frontend/.env.local` locally, optional | The shop's own domain once it exists, e.g. `https://…dk`; without it Vercel's production address is used | added 27 Nov; not set in Vercel yet (falls back to Vercel's address) |
 | Backup encryption key (`age`) | Public key as a GitHub secret; private key with Felix offline | A new key pair she keeps | planned |
 | `JOB_SECRET` (job trigger secret) | Vercel backend project and GitHub secret; `backend/.env.local` locally | A new random secret (`openssl rand -hex 32`) | in use in Vercel (17 Nov); GitHub secret to come |
 | `STRIPE_SECRET_KEY` (Stripe API secret key) | `backend/.env.local` locally (test mode); Vercel backend project when checkout ships | The owner's own Stripe account: create it in her name with her CVR, then her live secret key | test key in use locally from 25 Nov (Felix's test account) |
