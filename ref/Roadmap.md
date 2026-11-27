@@ -181,14 +181,14 @@ The highest-risk week. Start with payment integration on day one.
 **Quality**
 
 - Accessibility pass to WCAG 2.1 AA: keyboard, contrast, form labels, error messages
-- Usability test with 3–5 people ordering on their own phone. Fix the top issues
+- Usability test with 3–5 people ordering on a phone against the local build, so Felix sees the screen while they think aloud (changed 27 Nov from "on their own phone": a deployed test cannot be watched). Customer flow only; the owner tests her own side (back office, slip) separately. Fix the top issues
 - Cross-browser check: iOS Safari, Android Chrome, desktop
 
 **Exit criteria:** every claim in the synopsis (performance, SEO/GEO, security, GDPR) has a dated, recorded result behind it. No open critical or high issues.
 
 ### Week 6: Launch and handover (14–20 Dec)
 
-- Full real catalog and content entered and proofread by the owner
+- Full real catalog and content entered and proofread by the owner. **Content is built last** (decided 27 Nov): photos, texts and real prices stay marked placeholders until here, and the photo plan is Felix's to make (the brand guide's photo rules apply)
 - Production payment account live. One real low-value purchase and refund completed
 - Domain, DNS and HTTPS. Redirects and links from the shop's social profiles
 - Monitoring: error tracking, uptime check, alert on failed webhooks and failed emails
@@ -225,7 +225,7 @@ Never cut: server-side price validation, webhook verification, order confirmatio
 | Risk | Impact | Mitigation |
 |---|---|---|
 | Payment provider approval takes longer than expected | No live payments at launch | Apply in week 1 with the owner's CVR and bank details |
-| Owner is slow to deliver photos, prices and texts | Empty shop at launch | Request assets in week 1, set a deadline end of week 3, enter the first 10 products in week 2 |
+| Owner is slow to deliver photos, prices and texts | Empty shop at hand-in | 27 Nov: content moved to week 6 on purpose, with marked placeholders until then. Prices and numbers asked in the owner interview of 27 Nov; the photo plan settled by Felix in week 5 at the latest, so week 6 is entering, not producing |
 | Scope creep from owner wishes | Core flow unfinished | Out-of-scope list agreed in week 1, new wishes go to a "later" list |
 | AI-generated code that is not understood | Bugs in payment logic, weak exam defence | Working rules 3 and 4, plus extra manual review of checkout and webhook code |
 | Emails land in spam | Customers think the order failed | Authenticated sending domain in week 4, test against major mailbox providers |
