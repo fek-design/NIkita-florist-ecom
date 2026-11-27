@@ -1,6 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const port = 3100;
+// 3000, the normal dev port: Next 16 allows one dev server per folder, so a
+// local run reuses the one already running; CI starts its own.
+const port = 3000;
 
 export default defineConfig({
   testDir: "./e2e",

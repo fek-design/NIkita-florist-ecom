@@ -40,7 +40,7 @@ npm run db:seed -w backend                     # placeholder catalogue; safe to 
 | `npm run dev` / `npm run dev -w backend` | Frontend on http://localhost:3000/ / backend on http://localhost:4000/ |
 | `npm run lint` / `npm run typecheck` / `npm test` / `npm run build` | Runs in both workspaces |
 | `npm run format` / `npm run format:check` | Prettier for the whole repository |
-| `npm run test:e2e` | Playwright on a phone viewport; starts both apps itself |
+| `npm run test:e2e` | Playwright on a phone viewport; starts both apps itself, or reuses the dev servers on 3000 and 4000. Needs Docker and the seeded database; the payment tests skip without Stripe test keys in `backend/.env.local` |
 | `npm run db:generate -w backend` / `npm run db:migrate -w backend` | Create / apply SQL migrations |
 | `npm run db:seed -w backend` | Insert the placeholder catalogue (never overwrites or duplicates) |
 
