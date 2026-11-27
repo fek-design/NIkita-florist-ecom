@@ -43,14 +43,7 @@ async function Occasion({ slug }: { slug: string }) {
   const main = occasion.photos.find((p) => p.role === "main") ?? null;
   return (
     <article className={styles.page}>
-      <div className={styles.photo}>
-        <Photo
-          photo={main}
-          ratio={4 / 5}
-          sizes="(max-width: 600px) 100vw, 600px"
-          priority
-        />
-      </div>
+      <Photo photo={main} ratio={4 / 5} sizes="100vw" priority />
       <div className={styles.title}>
         <h1>{occasion.name}</h1>
         <p className="muted">
@@ -67,9 +60,7 @@ async function Occasion({ slug }: { slug: string }) {
 function Skeleton() {
   return (
     <div className={styles.page} aria-busy="true" aria-label="Henter buketten">
-      <div className={styles.photo}>
-        <Photo photo={null} ratio={4 / 5} sizes="100vw" />
-      </div>
+      <Photo photo={null} ratio={4 / 5} sizes="100vw" />
     </div>
   );
 }

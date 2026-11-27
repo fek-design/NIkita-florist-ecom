@@ -29,14 +29,8 @@ export default async function Home() {
 
   return (
     <>
-      {/* Edge to edge on the phone; in the column from tablet up (DD-30). */}
       <div className={styles.hero}>
-        <Photo
-          photo={null}
-          ratio={6 / 5}
-          sizes="(max-width: 600px) 100vw, 744px"
-          priority
-        />
+        <Photo photo={null} ratio={6 / 5} sizes="100vw" priority />
       </div>
 
       <section className={styles.featured} aria-labelledby="anbefaling">

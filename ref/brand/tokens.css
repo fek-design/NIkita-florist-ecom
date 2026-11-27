@@ -102,13 +102,10 @@
   --grid-margin: 16px;
   --grid-gutter: 16px;
   --content-max: 1128px;
-  /* The site's one column (DD-30): the phone layout, centred in 8 of the
-     12 desktop columns (8 x 72 + 7 x 24). On tablet it is the full width. */
-  --column-max: 744px;
-  /* Side padding that keeps a full-width band's content in the column. */
+  /* Side padding that keeps a full-width band's content on the grid. */
   --page-inline: max(
     var(--grid-margin),
-    calc((100% - var(--column-max)) / 2)
+    calc((100% - var(--content-max)) / 2)
   );
   /* Readable line length for running text, about 70 characters. */
   --measure: 36rem;

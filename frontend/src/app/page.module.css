@@ -1,8 +1,9 @@
-/* The hero runs edge to edge on the phone and sits in the column from
-   tablet up, so it never fills more than the first screen (DD-30). */
+/* The hero stays an edge-to-edge band. On the phone it is 6:5; from tablet
+   up the same band is lower, so the intro line and the recommended bouquet
+   show on the first screen (DD-31). The photo fills it and is cropped. */
 @media (min-width: 600px) {
-  .hero {
-    padding: var(--space-3) var(--page-inline) 0;
+  .hero > * {
+    height: min(60svh, 560px);
   }
 }
 
