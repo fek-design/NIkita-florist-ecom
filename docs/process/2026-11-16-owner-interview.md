@@ -102,6 +102,8 @@ Ordinary values for a small florist, to build and test against. They are *opinio
 
 *23 Nov: Felix holds these questions for the owner's first test of the built shop, so she can answer them while using it; placeholders stay marked until then.*
 
+**Answers of 27 Nov** ([second interview](2026-11-27-owner-interview.md)): 2 pickup hours 9–18 (self-service around the clock; days and notice to confirm); 3 orders by the day before (no same-day delivery), about 5 deliveries a day, 10 for funerals; 9 she wants automatic printing on arrival, printer model unknown; 10 deliveries during the day, no fixed round; 11 card 20 kr. per bouquet, Aalborg Chokolade at 100 and 120 kr. Still open: 1, 4, 5, 6, 7, 8.
+
 ## How this was checked
 
 Answers are as relayed by Felix on 16 Nov 2026. Nothing here is confirmed in writing by the owner yet. Placeholders let the build go ahead; open questions 1–3 must be answered before the checkout change in week 3 is finished.
