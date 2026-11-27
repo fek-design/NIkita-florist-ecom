@@ -1,9 +1,10 @@
 /* The hero stays an edge-to-edge band. On the phone it is 6:5; from tablet
    up the same band is lower, so the intro line and the recommended bouquet
-   show on the first screen (DD-31). The photo fills it and is cropped. */
+   show on the first screen (DD-31, lowered again 27 Nov: Felix found 60 %
+   "comically big"). The photo fills it and is cropped. */
 @media (min-width: 600px) {
   .hero > * {
-    height: min(60svh, 560px);
+    height: min(36svh, 360px);
   }
 }
 
@@ -96,4 +97,31 @@
   margin-top: auto;
   color: var(--color-text);
   text-decoration: none;
+}
+
+/* "Besøg Nikita" from tablet up (Felix: "too empty"): the portrait stops at
+   4 columns, the text sits centred beside it with the address right under
+   it, one step larger on the brand's type scale. The phone is unchanged. */
+@media (min-width: 600px) {
+  .visit {
+    align-items: center;
+  }
+
+  .visitPhoto {
+    flex: 0 0 min(45%, 360px);
+  }
+
+  .visitText {
+    gap: var(--space-2);
+    max-width: var(--measure);
+    font-size: var(--text-base);
+  }
+
+  .visit h2 {
+    font-size: var(--text-xl);
+  }
+
+  .address {
+    margin-top: 0;
+  }
 }
