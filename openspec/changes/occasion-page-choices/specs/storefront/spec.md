@@ -1,11 +1,15 @@
 ## MODIFIED Requirements
 
 ### Requirement: Card message per bouquet
-The occasion page SHALL offer a card for each bouquet behind a link, "+ Tilføj et kort", so the field is shown only to those who want a card. The message SHALL be at most 200 characters, optional, and the cart SHALL show it with its bouquet. Removing the text, or closing the card again, SHALL leave the bouquet without a card.
+The occasion page SHALL offer a card for each bouquet behind a link that states its price, "+ Tilføj et kort (20 kr.)", so the field is shown only to those who want a card. The message SHALL be at most 200 characters. A bouquet with a card message SHALL carry the card price, shown in the price summary before adding and in the cart; removing the text, or closing the card again, SHALL leave the bouquet without a card and without the price.
 
 #### Scenario: No card wanted
-- **WHEN** a visitor adds a bouquet without opening "+ Tilføj et kort"
-- **THEN** the bouquet is added without a card message, and no card field was shown
+- **WHEN** a visitor adds a bouquet without opening "+ Tilføj et kort (20 kr.)"
+- **THEN** the bouquet is added without a card message and without the card price, and no card field was shown
+
+#### Scenario: Card with a message
+- **WHEN** a visitor adds Bisættelse Mellem (400 kr.) with a card message, for delivery to 4300
+- **THEN** the summary reads 400 kr. + kort 20 kr. + levering 80 kr. = 500 kr. inkl. moms
 
 #### Scenario: Message too long
 - **WHEN** a visitor types more than 200 characters

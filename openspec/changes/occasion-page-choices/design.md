@@ -22,9 +22,10 @@ See proposal.md for why. Today a cart line holds `cardMessage` (always shown on 
 1. **Card and wish per bouquet, not per order** (Felix, 27 Nov). Two bouquets to one funeral often come from different senders. Rejected: once per order (simpler, but one sender only).
 2. **Folded behind links**, "+ Tilføj et kort" and "+ Ønsker til buketten" (Baymard: optional fields behind a link make a form look shorter; Interflora and Bloomit fold the card). Opening keeps any text already typed; the cart line keeps the text, so editing the bouquet later starts from it.
 3. **Wish wording sets expectations**: "Nikita binder med sæsonens blomster og følger dit ønske, så vidt det kan lade sig gøre." It is not a promise, so no price or refusal logic is needed. Brand voice: plain, no exclamation marks.
-4. **Wish stored like the card**: a `wish` text column on `order_lines`, empty by default, at most 200 characters by a check constraint (as `card_message`); migration 0008. Checkout's item schema takes `wish` (max 200, like `cardMessage`), and pricing ignores it.
+4. **Wish stored like the card**: a `wish` text column on `order_lines`, empty by default, at most 200 characters by a check constraint (as `card_message`); migration 0009 (0008 holds the owner's numbers of 27 Nov). Checkout's item schema takes `wish` (max 200, like `cardMessage`), and pricing ignores it.
+4a. **Card priced on the server**: `shop_settings.card_price_oere` (2000) and `order_lines.card_price_oere` recorded per line, so a later price change never alters an old order. Pricing adds it to lines with a card message, times the quantity; the Stripe session shows it as its own line ("Kort til Bisættelse"). The browser's price is for display only, as with everything else (spec orders: "Prices come from the server").
 5. **One place field with suggestions from the zone list**: `GET /delivery/places?q=` returns at most eight `{ postcode, town }` whose postcode starts with `q` or whose town starts with `q`, compared in lower case (Danish letters kept as typed). Picking a suggestion runs today's postcode check, so fee, zone and pickup logic are unchanged. A four-digit postcode outside the list still gets "Vi leverer ikke til 8000" and the pickup offer; a town that matches nothing says the same with the typed name. The field is a native input with a listbox of suggestions (the ARIA combobox pattern), keyboard and screen reader usable.
-6. **The slip prints the wish under its bouquet**, in the same size as the card text, labelled "Ønske:", so it is read at the bench, not missed (P1 slip, DD-16).
+6. **The slip prints the wish under its bouquet**, labelled "Ønske:", so it is read at the bench, not missed (P1 slip, DD-16). **The card text stands in its own box with a dashed cutting line**, sized for a standard florist's card, so she can cut it out and put it in the card, as with Interflora's slips (the owner, 27 Nov).
 
 ## Risks / Trade-offs
 
@@ -34,5 +35,5 @@ See proposal.md for why. Today a cart line holds `cardMessage` (always shown on 
 
 ## Open Questions
 
-- Does the card cost anything? Decides whether the link says "+ Tilføj et kort (gratis)". Asked in the owner interview of 27 Nov (question 8).
-- Do two bouquets in one order usually go to the same recipient? Confirms one delivery per basket (question 8a).
+- Resolved 27 Nov: the card costs 20 kr. per bouquet (decision 4a).
+- Unanswered: do two bouquets in one order usually go to the same recipient? One delivery per basket stays; to ask by message or on 7 Dec. Does not change what this change builds.
