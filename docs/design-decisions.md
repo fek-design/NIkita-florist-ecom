@@ -227,3 +227,24 @@ Date: 2026-11-27 · Principles: P11 (less empty space, fewer competing areas), b
 Decision: From 600 px up the portrait stops at 4 columns (360 px, keeping its shape), the text is vertically centred beside it with the address directly under the text instead of pushed to the bottom, and the text is one step larger on the brand scale (body 16 px, heading 24 px), its lines kept to about 70 characters. The phone keeps the original layout.
 Rejected: the live version (507 × 598 px portrait with three lines of text and the address in the bottom corner; image `docs/design/implemented/2026-11-27-visit-1280-rejected-too-empty.png`); the two-column Figma version with a landscape crop (DD-29, rejected with the rest of those frames).
 Test: in the usability test on a laptop, does anyone mention the address or the shop visit when asked what they remember from the front page?
+
+### DD-33 The footer says "Sikker betaling" and shows the payment marks
+Date: 2026-11-27 · Principles: P5 (payment methods seen before checkout), P12 (honest legal and trust information) · Evidence grade: B (Baymard: trust marks near payment reduce abandonment; CMP-B shows payment marks)
+Decision: Under the legal links the footer shows a lock, "Sikker betaling", the MobilePay, Visa and Mastercard marks in Paper, and one line: "MobilePay, Visa/Dankort og Mastercard. Kortoplysninger håndteres af Stripe og kommer aldrig forbi butikken." Felix asked for "100 % sikker betaling" with icons; he chose "Sikker betaling" after Claude raised that "100 %" is an absolute claim (brand voice: nothing invented; Danish marketing law).
+Correction found on the way: Stripe does not process the Dankort network ("For co-branded Visa/Dankort cards, Stripe uses Visa", Stripe docs, MobilePay page; Dankort is not in Stripe's card brands). "Dankort" became "Visa/Dankort" in the footer and in checkout; no Dankort mark is shown.
+Sources of the marks: Simple Icons 13.21.0 (CC0) for Visa and Mastercard; Wikimedia Commons "MobilePay logo.svg" (public domain), flattened to one colour. Shown in one colour like the rest of the Sand band.
+Depends on: MobilePay switched on in the Stripe dashboard (checkout-payment 4.5); until then the footer names a method Stripe does not yet offer.
+Rejected: "100 % sikker betaling"; the plain text line alone (DD-22).
+Test: in the usability test, ask before checkout how they expect to pay.
+
+### DD-34 "Besøg Nikita" gets more text, the opening hours and a two-click map
+Date: 2026-11-27 · Principles: P10 (facts people and AI tools can quote), P9 (no tracking without consent) · Evidence grade: C (two-click embeds are common practice on Danish and German sites under the cookie rules)
+Decision: Under the photo and the short introduction: a paragraph with only facts the shop has given (the shop and workshop are in Tuse, just outside Holbæk; pick up at the chosen time; call about a special occasion), the opening hours from the back office ("Eksempel" while placeholders), and a map. The map is a Linen panel, "Vis kort, Kortet hentes fra Google Maps, når du trykker"; Google Maps loads only when tapped. Measured: 0 requests to Google before the tap, 33–39 after. The address link stays. On the phone the new text and map run full width under photo and introduction; from tablet up they sit in the text column beside the photo. Felix's call (map instead of only the link, "so it can take up more space and write more text"; two-click chosen over loading at once or OpenStreetMap).
+Follow-up: the privacy policy (week 5) must say the map loads from Google when tapped.
+Rejected: loading Google Maps with the page (needs a cookie banner, loads Google fonts against the spec); OpenStreetMap.
+Test: in the usability test, can people say where the shop is and when it is open?
+
+### DD-35 The recommendation: two texts and a button that fits its text
+Date: 2026-11-27 · Principles: P11 (fewer competing elements), DD-22 · Evidence grade: C (opinion: Felix found three texts and a full-width button messy)
+Decision: The recommended bouquet's description line is dropped; the intro line leads straight into the name and the button "Se fra 250 kr.", which carries the price. From tablet up the buttons "Se fra …" and "Se alle" fit their text instead of spanning the width; on the phone they stay full width for the thumb (Felix's choice). The description is still on the bouquet's own page.
+Rejected: merging the intro line and the name (a shorter h1 says less about the shop); keeping all three texts; narrow buttons on the phone too.

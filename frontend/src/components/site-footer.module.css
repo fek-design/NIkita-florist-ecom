@@ -64,3 +64,30 @@
   font-style: italic;
   opacity: 0.85;
 }
+
+/* Secure payment row: lock and words, then the marks in Paper. */
+.payment {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--linen);
+}
+
+.secure {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: var(--weight-semibold);
+}
+
+.marks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.methods {
+  font-size: var(--text-sm);
+}

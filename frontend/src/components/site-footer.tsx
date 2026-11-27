@@ -6,6 +6,12 @@ import {
   MapTrifoldIcon,
   PhoneIcon,
 } from "@/components/icons";
+import {
+  LockIcon,
+  MastercardMark,
+  MobilePayMark,
+  VisaMark,
+} from "@/components/payment-marks";
 import { SHOP } from "@/lib/shop";
 import styles from "./site-footer.module.css";
 
@@ -72,7 +78,22 @@ export function SiteFooter() {
           <Link href="/handelsbetingelser">Handelsbetingelser</Link>
           <Link href="/privatlivspolitik">Privatlivspolitik</Link>
         </p>
-        <p>Betal med MobilePay, Dankort, Visa eller Mastercard</p>
+      </div>
+      {/* Secure payment and the methods (Felix, 27 Nov). "Sikker betaling",
+          not "100 %": no absolute claims (brand voice, marketing law). */}
+      <div className={styles.payment}>
+        <p className={styles.secure}>
+          <LockIcon /> Sikker betaling
+        </p>
+        <p className={styles.marks}>
+          <MobilePayMark />
+          <VisaMark />
+          <MastercardMark />
+        </p>
+        <p className={styles.methods}>
+          MobilePay, Visa/Dankort og Mastercard. Kortoplysninger håndteres af
+          Stripe og kommer aldrig forbi butikken.
+        </p>
       </div>
     </footer>
   );

@@ -1,0 +1,38 @@
+/* Same size before and after loading, so nothing jumps (P7). Linen panel
+   with Ink text (Sand on Linen is 3.8:1). */
+.frame,
+.placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 0;
+  border-radius: 4px;
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  background: var(--linen);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.label {
+  font-weight: var(--weight-semibold);
+  text-decoration: underline;
+}
+
+.note {
+  font-size: var(--text-sm);
+}
+
+@media (min-width: 600px) {
+  .frame,
+  .placeholder {
+    aspect-ratio: 16 / 9;
+  }
+}

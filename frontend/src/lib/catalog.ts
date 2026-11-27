@@ -80,8 +80,12 @@ export type DeliveryRules = {
   sameDayCutoff: string;
   deliveryWeekdays: number[];
   pickupEnabled: boolean;
+  /** Per weekday ("mon"…"sun"): [opens, closes] as "HH:MM"; closed days absent. */
+  openingHours: Partial<Record<Weekday, [string, string]>>;
   placeholder: boolean;
 };
+
+export type Weekday = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
 
 /** The delivery facts, or null without a backend; a failure is not cached. */
 export async function getDeliveryRules(): Promise<DeliveryRules | null> {

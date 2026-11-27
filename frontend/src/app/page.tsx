@@ -3,8 +3,10 @@ import Link from "next/link";
 import { MapTrifoldIcon } from "@/components/icons";
 import { OccasionCard } from "@/components/occasion-card";
 import { Photo } from "@/components/photo";
-import { getOccasions } from "@/lib/catalog";
+import { getDeliveryRules, getOccasions } from "@/lib/catalog";
 import { kroner } from "@/lib/format";
+import { openingHoursInWords } from "@/lib/opening-hours";
+import { MapEmbed } from "@/components/map-embed";
 import { SHOP } from "@/lib/shop";
 import { HERO_STAND_IN, VISIT_STAND_IN } from "@/lib/stand-ins";
 import styles from "./page.module.css";
@@ -21,7 +23,10 @@ export const metadata: Metadata = {
  * top four occasions (DD-13), "Se alle", and "Besøg Nikita".
  */
 export default async function Home() {
-  const occasions = await getOccasions();
+  const [occasions, rules] = await Promise.all([
+    getOccasions(),
+    getDeliveryRules(),
+  ]);
   // Until the owner can choose one (DD-23, back office) and until there are
   // orders to rank by, the owner's order stands in (DD-04, DD-13).
   const featured = occasions[0];
@@ -46,10 +51,6 @@ export default async function Home() {
             <h2 id="anbefaling" className={styles.featuredName}>
               {featured.name}
             </h2>
-            <p className="muted">
-              {featured.intro}
-              {featured.placeholder && <em> · Eksempel</em>}
-            </p>
             <Link
               href={`/anledning/${featured.slug}`}
               className={styles.primary}
@@ -100,6 +101,24 @@ export default async function Home() {
               {SHOP.postcode} {SHOP.town}
             </span>
           </a>
+        </div>
+        {/* More about the shop and a map (Felix, 27 Nov). Only facts the
+            shop has given: the address, pickup at a chosen time (DD-18),
+            the phone, and the opening hours from the back office. */}
+        <div className={styles.visitMore}>
+          <p className="muted">
+            Butikken og værkstedet ligger i Tuse, lidt uden for Holbæk. Her kan
+            du hente din bestilling på det tidspunkt, du har valgt, eller ringe
+            på <a href={SHOP.phoneHref}>{SHOP.phone}</a> og høre om en buket til
+            en særlig lejlighed.
+          </p>
+          {rules && Object.keys(rules.openingHours).length > 0 && (
+            <p>
+              <strong>Åbent</strong> {openingHoursInWords(rules.openingHours)}
+              {rules.placeholder && <em className="muted"> · Eksempel</em>}
+            </p>
+          )}
+          <MapEmbed address={address} />
         </div>
       </section>
     </>

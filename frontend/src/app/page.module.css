@@ -74,13 +74,10 @@
 }
 
 .visit {
-  display: flex;
-  gap: var(--grid-gutter);
+  display: grid;
+  grid-template-columns: 45% 1fr;
+  gap: var(--space-3) var(--grid-gutter);
   padding: var(--space-3) var(--page-inline) var(--space-4);
-}
-
-.visitPhoto {
-  flex: 0 0 45%;
 }
 
 .visitText {
@@ -89,6 +86,20 @@
   gap: var(--space-1);
   min-width: 0;
   font-size: var(--text-sm);
+}
+
+/* On the phone the extra text and the map run under photo and text. */
+.visitMore {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.visitMore a {
+  color: var(--color-link);
+  white-space: nowrap;
 }
 
 .address {
@@ -101,22 +112,31 @@
   text-decoration: none;
 }
 
-/* "Besøg Nikita" from tablet up (Felix: "too empty"): the portrait stops at
-   4 columns, the text sits centred beside it with the address right under
-   it, one step larger on the brand's type scale. The phone is unchanged. */
+/* From tablet up (DD-32): portrait at most 4 columns on the left; text,
+   then the extra text and the map, beside it in one column. */
 @media (min-width: 600px) {
   .visit {
-    align-items: center;
+    grid-template-columns: min(45%, 360px) 1fr;
+    grid-template-rows: auto 1fr;
+    align-items: start;
   }
 
   .visitPhoto {
-    flex: 0 0 min(45%, 360px);
+    grid-row: 1 / span 2;
+  }
+
+  .visitText,
+  .visitMore {
+    max-width: var(--measure);
   }
 
   .visitText {
     gap: var(--space-2);
-    max-width: var(--measure);
     font-size: var(--text-base);
+  }
+
+  .visitMore {
+    grid-column: 2;
   }
 
   .visit h2 {
@@ -125,5 +145,13 @@
 
   .address {
     margin-top: 0;
+  }
+
+  /* The buttons fit their text from tablet up (Felix, 27 Nov); on the
+     phone they stay full width for the thumb. */
+  .primary,
+  .secondary {
+    align-self: flex-start;
+    padding: 0 var(--space-4);
   }
 }

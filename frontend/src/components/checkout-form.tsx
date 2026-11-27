@@ -469,8 +469,8 @@ function Checkout({ cancelled }: { cancelled: boolean }) {
           Betal med
         </h2>
         <p>
-          MobilePay eller kort (Dankort, Visa, Mastercard). Du vælger på næste
-          side.
+          MobilePay eller kort (Visa/Dankort, Visa, Mastercard). Du vælger på
+          næste side.
         </p>
       </section>
 
