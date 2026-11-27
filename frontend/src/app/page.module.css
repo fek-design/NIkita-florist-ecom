@@ -6,7 +6,7 @@
   .hero > * {
     /* Measured from the space under the sticky 72 px navbar, which is
        always on screen (Felix, 27 Nov), not from the whole screen. */
-    height: min((100svh - 72px) * 0.36, 360px);
+    height: min((100svh - 72px) * 0.5, 480px);
   }
 }
 
